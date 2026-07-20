@@ -1,0 +1,27 @@
+generated: '2026-07-17'
+method: searched
+source: https://github.com/akkio-inc/akkio-python
+docs: https://app.akk.io/team-settings
+summary:
+  types: [apiKey]
+  api_key_in: [query, body]
+  oauth2_flows: []
+  notes: >-
+    Akkio authenticates every request with a single API key. On GET requests the
+    key is sent as the `api_key` query parameter; on POST/DELETE requests it is
+    sent as the `api_key` field inside the JSON request body. Keys are issued
+    and rotated from the account Team Settings page. There is no OAuth surface,
+    so no scopes/ artifact is produced.
+schemes:
+  - name: apiKeyQuery
+    type: apiKey
+    in: query
+    parameter: api_key
+    sources: [openapi/akkio-api-openapi.yml]
+  - name: apiKeyBody
+    type: apiKey
+    in: body
+    parameter: api_key
+    sources: [github.com/akkio-inc/akkio-python]
+key_management:
+  issue_url: https://app.akk.io/team-settings

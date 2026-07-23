@@ -1,9 +1,29 @@
 aid: akkio
 name: Akkio
-description: 'Akkio is a company surfaced as a portfolio company of bain-capital-ventures and added to
-  the API Evangelist network as a stub for enrichment. Sector: ai-apps. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Akkio is a no-code predictive AI and AI-workflow-automation platform built for
+  media agencies and data providers. Teams use it to activate data across the
+  campaign lifecycle: audience segmentation, propensity modeling, RFM analysis,
+  media-mix modeling, performance measurement, and campaign-strategy development,
+  all from unified intelligence. Beyond the app, Akkio exposes a developer REST
+  API at https://api.akk.io/v1 (API-key auth) for managing datasets, training
+  predictive models, and generating predictions with optional feature
+  explanations, backed by official Python and JavaScript SDKs. The company is
+  SOC 2 Type 2 and HIPAA compliant (verified via Drata).
 url: https://raw.githubusercontent.com/api-evangelist/akkio/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/5c97e8c9de94e8a3480419a5/6959836988084dcbb9ac3605_Screenshot%202026-01-03%20at%2012.58.19%E2%80%AFPM.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -16,12 +36,103 @@ modified: '2026-07-17'
 tags:
 - Company
 - Ai Apps
-apis: []
+- Machine Learning
+- Predictive Analytics
+- No Code
+- Data Science
+- Marketing
+- Media
+- Audience Modeling
+- Predictions
+apis:
+- aid: akkio:akkio-datasets-api
+  name: Akkio Datasets API
+  description: Create and populate datasets that models train on.
+  humanURL: https://docs.akkio.com/akkio-help-center
+  baseURL: https://api.akk.io/v1
+  tags:
+  - Datasets
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-datasets-api-openapi.yml
+  - type: Authentication
+    url: authentication/akkio-authentication.yml
+- aid: akkio:akkio-models-api
+  name: Akkio Models API
+  description: Train predictive models and generate predictions.
+  humanURL: https://docs.akkio.com/akkio-help-center
+  baseURL: https://api.akk.io/v1
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-models-api-openapi.yml
+  - type: Authentication
+    url: authentication/akkio-authentication.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/akkio-domain-security.yml
 - type: Website
   url: https://www.akkio.com/
+- type: DeveloperPortal
+  url: https://docs.akkio.com/akkio-help-center
+- type: Documentation
+  url: https://docs.akkio.com/akkio-help-center
+- type: APIReference
+  url: https://github.com/akkio-inc/akkio-python
+- type: GettingStarted
+  url: https://docs.akkio.com/akkio-help-center/getting-started/account-set-up
+- type: Support
+  url: https://docs.akkio.com/akkio-help-center
+- type: Blog
+  url: https://www.akkio.com/blog
+- type: GitHubOrganization
+  url: https://github.com/akkio-inc
+- type: Pricing
+  url: https://www.akkio.com/pricing
+- type: SignUp
+  url: https://app.akkio.com/
+- type: TermsOfService
+  url: https://www.akkio.com/terms
+- type: PrivacyPolicy
+  url: https://www.akkio.com/privacy
+- type: Security
+  url: https://www.akkio.com/security
+- type: Compliance
+  url: https://www.akkio.com/security
+- type: TrustCenter
+  url: security/akkio-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/akkio-vulnerability-disclosure.yml
+- type: Authentication
+  url: authentication/akkio-authentication.yml
+- type: Conventions
+  url: conventions/akkio-conventions.yml
+- type: Conformance
+  url: conformance/akkio-conformance.yml
+- type: DataModel
+  url: data-model/akkio-data-model.yml
+- type: Lifecycle
+  url: lifecycle/akkio-lifecycle.yml
+- type: Packages
+  url: packages/akkio-packages.yml
+- type: SDKs
+  url: packages/akkio-packages.yml
+- type: MCPServer
+  url: mcp/akkio-mcp.yml
+- type: LLMsTxt
+  url: llms/akkio-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: OpenAPI
+  url: openapi/akkio-api-openapi.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

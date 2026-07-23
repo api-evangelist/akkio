@@ -1,0 +1,12 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/akkio-api-openapi.yml
+skills:
+  - file: akkio-train-model.md
+    name: Train an Akkio predictive model
+    api: openapi/akkio-api-openapi.yml
+    operations: [postDataset, getDatasets, postModel]
+  - file: akkio-make-prediction.md
+    name: Make predictions with an Akkio model
+    api: openapi/akkio-api-openapi.yml
+    operations: [getModels, postModel]

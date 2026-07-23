@@ -1,0 +1,19 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/akkio-api-openapi.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  base_url: https://api.akk.io/v1
+deprecation:
+  policy_url: null
+  sunset_header: false
+  detail: No published deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+sla:
+  url: null
+status_page: null
+deprecated_operations: []
+notes: >-
+  No dedicated status page, SLA page, or changelog/release-notes surface was
+  found for the Akkio API as of this pass. The API is versioned in the URI path
+  (v1).

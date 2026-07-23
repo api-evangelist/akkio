@@ -1,0 +1,30 @@
+generated: '2026-07-17'
+method: derived
+status: candidate
+source: openapi/akkio-api-openapi.yml
+note: >-
+  No official hosted/remote MCP server was found for Akkio (checked docs, npm
+  @modelcontextprotocol, and MCP registries). The tool list below is a candidate
+  derived one-to-one from the documented Akkio API operations.
+server:
+  name: akkio
+  transport: http
+tools:
+  - name: list_datasets
+    description: List all datasets in the account.
+    source_operation: openapi/akkio-api-openapi.yml#getDatasets
+  - name: create_dataset
+    description: Create a dataset, add rows, set fields, or parse fields.
+    source_operation: openapi/akkio-api-openapi.yml#postDataset
+  - name: delete_dataset
+    description: Delete a dataset by id.
+    source_operation: openapi/akkio-api-openapi.yml#deleteDataset
+  - name: list_models
+    description: List all trained models in the account.
+    source_operation: openapi/akkio-api-openapi.yml#getModels
+  - name: train_or_predict
+    description: Train a model on a dataset, or make a prediction with an existing model.
+    source_operation: openapi/akkio-api-openapi.yml#postModel
+  - name: delete_model
+    description: Delete a model by id.
+    source_operation: openapi/akkio-api-openapi.yml#deleteModel

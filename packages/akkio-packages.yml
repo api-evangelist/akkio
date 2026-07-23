@@ -1,0 +1,22 @@
+generated: '2026-07-17'
+method: searched
+source: https://github.com/akkio-inc
+packages:
+  - language: python
+    registry: pypi
+    name: akkio
+    url: https://pypi.org/project/akkio/
+    repository: https://github.com/akkio-inc/akkio-python
+    install: pip install akkio
+    version: 1.0.5
+    official: true
+    description: Convenient access to the Akkio API from Python.
+  - language: javascript
+    registry: npm
+    name: akkio
+    url: https://www.npmjs.com/package/akkio
+    repository: https://github.com/akkio-inc/akkio-node
+    install: npm install akkio
+    version: 1.0.5
+    official: true
+    description: Convenient access to the Akkio API from server-side JavaScript.

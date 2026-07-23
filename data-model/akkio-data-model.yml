@@ -1,0 +1,25 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/akkio-api-openapi.yml
+entities:
+  - name: Dataset
+    id_field: dataset_id
+    description: A table of rows/columns uploaded or appended via the API; the training source for models.
+  - name: Model
+    id_field: model_id
+    description: A predictive model trained from a dataset's predict_fields.
+  - name: Prediction
+    description: The scored output produced by running data through a model (optionally with feature explanations).
+relationships:
+  - from: Model
+    to: Dataset
+    type: belongs_to
+    via: dataset_id
+  - from: Dataset
+    to: Model
+    type: has_many
+    via: dataset_id
+  - from: Prediction
+    to: Model
+    type: belongs_to
+    via: id

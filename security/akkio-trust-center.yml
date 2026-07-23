@@ -1,0 +1,20 @@
+generated: '2026-07-17'
+method: searched
+source: https://www.akkio.com/security
+url: https://www.akkio.com/security
+certifications:
+  - SOC 2 Type 2
+  - HIPAA
+compliance_tooling:
+  - vendor: Drata
+    detail: >-
+      Continuous monitoring of 100+ internal security controls; Drata verifies
+      Akkio's security, privacy, and HIPAA compliance controls and provides a
+      live monitoring report.
+security_practices:
+  - Annual third-party penetration testing
+  - TLS encryption in transit and encryption at rest
+  - Employee security training and access controls
+evidence:
+  - source: https://www.akkio.com/security
+    keywords: [soc 2 type 2, hipaa, drata, penetration testing]

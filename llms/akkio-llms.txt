@@ -1,0 +1,48 @@
+# Akkio Help Center
+
+## Akkio Knowledge Base
+
+- [Welcome to Akkio's Knowledge Base](https://docs.akkio.com/akkio-help-center/welcome-to-akkios-knowledge-base.md)
+- [What is Akkio?](https://docs.akkio.com/akkio-help-center/akkio-overview/what-is-akkio.md)
+- [Key Areas of Akkio](https://docs.akkio.com/akkio-help-center/key-areas-of-akkio.md)
+- [Integrations](https://docs.akkio.com/akkio-help-center/integrations.md)
+- [Databricks](https://docs.akkio.com/akkio-help-center/integrations/databricks.md)
+- [FAQ](https://docs.akkio.com/akkio-help-center/faq.md)
+- [Account Set-Up](https://docs.akkio.com/akkio-help-center/getting-started/account-set-up.md)
+- [Assigning User Roles & Access](https://docs.akkio.com/akkio-help-center/getting-started/assigning-user-roles-and-access.md)
+- [Configuring Data Permissions](https://docs.akkio.com/akkio-help-center/getting-started/configuring-data-permissions.md)
+- [Home](https://docs.akkio.com/akkio-help-center/navigating-the-platform/home.md)
+- [Projects (Workflows & Tools)](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools.md)
+- [Campaign Strategy Development](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools/campaign-strategy-development.md)
+- [Audiences Building, Analysis & Modeling](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools/audiences-building-analysis-and-modeling.md)
+- [Propensity Modeling](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools/propensity-modeling.md)
+- [RFM Analysis](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools/rfm-analysis.md)
+- [Media Mix Modeling](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools/media-mix-modeling.md)
+- [Dashboards](https://docs.akkio.com/akkio-help-center/navigating-the-platform/dashboards.md)
+- [Dashboard Builder](https://docs.akkio.com/akkio-help-center/navigating-the-platform/dashboards/dashboard-builder.md)
+- [Performance Measurement](https://docs.akkio.com/akkio-help-center/navigating-the-platform/dashboards/performance-measurement.md)
+- [Viewership Dashboard](https://docs.akkio.com/akkio-help-center/navigating-the-platform/dashboards/viewership-dashboard.md)
+- [CPG Dashboard](https://docs.akkio.com/akkio-help-center/navigating-the-platform/dashboards/cpg-dashboard.md)
+- [Audiences](https://docs.akkio.com/akkio-help-center/audiences.md): Manage, search, and organize your full library of created audiences.
+- [Deployments](https://docs.akkio.com/akkio-help-center/deployments.md)
+- [Data](https://docs.akkio.com/akkio-help-center/data.md): Store and access internal documents powering strategic insights.
+- [Settings](https://docs.akkio.com/akkio-help-center/settings.md)
+- [Account Settings](https://docs.akkio.com/akkio-help-center/settings/account-settings.md): Manage your personal account details, appearance, and security preferences.
+- [Organization Settings](https://docs.akkio.com/akkio-help-center/settings/organization-settings.md): Set up and manage your agency’s workspace, team roles, and access.
+- [Client Team Settings](https://docs.akkio.com/akkio-help-center/settings/client-team-settings.md): Structure and secure workspaces for client-specific collaboration.
+
+
+---
+
+# Agent Instructions
+This documentation is published with GitBook. GitBook is the documentation platform designed so that both humans and AI agents can read, navigate, and reason over technical content effectively. Learn more at gitbook.com.
+
+## Querying This Documentation
+If you need additional information, you can query the documentation dynamically by asking a question.
+Perform an HTTP GET request on a page URL with the `ask` query parameter:
+```
+GET https://docs.akkio.com/akkio-help-center/welcome-to-akkios-knowledge-base.md?ask=<question>
+```
+The question should be specific, self-contained, and written in natural language.
+The response will contain a direct answer to the question and relevant excerpts and sources from the documentation.
+Use this mechanism when the answer is not explicitly present in the current page, you need clarification or additional context, or you want to retrieve related documentation sections.

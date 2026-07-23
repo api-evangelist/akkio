@@ -1,0 +1,39 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/akkio-api-openapi.yml
+summary: >-
+  Cross-cutting request/response semantics for the Akkio API, derived from the
+  first-party SDKs and the documented endpoint surface.
+authentication:
+  style: api-key
+  detail: >-
+    Single API key sent as the `api_key` query parameter (GET) or as the
+    `api_key` JSON body field (POST/DELETE). See authentication/akkio-authentication.yml.
+versioning:
+  style: uri-path
+  current: v1
+  base_url: https://api.akk.io/v1
+transport:
+  protocol: https
+  content_type: application/json
+  port: 443
+request_response:
+  request_body: JSON object; the same path is overloaded by which fields are present.
+  response_body: JSON object; list endpoints return a named array (datasets, models).
+  overloaded_endpoints:
+    - 'POST /datasets -> create dataset | add rows | set fields | parse fields'
+    - 'POST /models   -> train model | make prediction'
+idempotency:
+  supported: false
+  detail: No documented idempotency-key header or mechanism.
+pagination:
+  supported: false
+  detail: List endpoints (GET /datasets, GET /models) return the full collection; no cursor/offset documented.
+rate_limiting:
+  documented: false
+error_envelope:
+  detail: Errors are returned as a JSON object; no RFC 9457 problem+json contract is documented.
+cross_links:
+  authentication: authentication/akkio-authentication.yml
+  lifecycle: lifecycle/akkio-lifecycle.yml
+  data_model: data-model/akkio-data-model.yml

@@ -1,0 +1,16 @@
+{
+  "provider": "akkio",
+  "sources": [
+    "akkio-datasets-api-openapi.yml",
+    "akkio-models-api-openapi.yml"
+  ],
+  "outputs": [
+    "akkio-datasets-api-openapi.yml",
+    "akkio-models-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

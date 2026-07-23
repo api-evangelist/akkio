@@ -1,0 +1,248 @@
+openapi: 3.0.3
+info:
+  title: Akkio API
+  version: v1
+  description: >-
+    The Akkio API provides programmatic access to Akkio's no-code predictive AI
+    platform: manage datasets, train models, and generate predictions. This
+    specification was derived faithfully from Akkio's first-party client SDKs
+    (github.com/akkio-inc/akkio-python and akkio-node), which document the real
+    paths, methods, request bodies, and authentication. It is a reconstruction,
+    not a provider-published OpenAPI.
+  contact:
+    name: Akkio Support
+    email: support@akkio.com
+    url: https://docs.akkio.com/akkio-help-center
+  x-source: https://github.com/akkio-inc/akkio-python
+  x-derived: true
+servers:
+  - url: https://api.akk.io/v1
+    description: Akkio API v1 production
+security:
+  - apiKeyQuery: []
+tags:
+  - name: Datasets
+    description: Create and populate datasets that models train on.
+  - name: Models
+    description: Train predictive models and generate predictions.
+paths:
+  /datasets:
+    get:
+      operationId: getDatasets
+      tags: [Datasets]
+      summary: List datasets
+      description: Return all datasets available to the authenticated account.
+      parameters:
+        - name: api_key
+          in: query
+          required: true
+          schema: { type: string }
+          description: Akkio API key (obtain at https://app.akk.io/team-settings).
+      responses:
+        '200':
+          description: A list of datasets.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  datasets:
+                    type: array
+                    items: { $ref: '#/components/schemas/Dataset' }
+    post:
+      operationId: postDataset
+      tags: [Datasets]
+      summary: Create a dataset, add rows, set fields, or parse fields
+      description: >-
+        Overloaded endpoint keyed by request body. With only `name`, creates a
+        new dataset. With `id` + `rows`, appends rows. With `id` + `fields`,
+        sets field types. With `id` + `parse_fields: true`, parses fields.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/CreateDatasetRequest'
+                - $ref: '#/components/schemas/AddRowsRequest'
+                - $ref: '#/components/schemas/SetFieldsRequest'
+                - $ref: '#/components/schemas/ParseDatasetRequest'
+      responses:
+        '200':
+          description: The created or updated dataset.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Dataset' }
+    delete:
+      operationId: deleteDataset
+      tags: [Datasets]
+      summary: Delete a dataset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [api_key, id]
+              properties:
+                api_key: { type: string }
+                id: { type: string, description: Dataset id to delete. }
+      responses:
+        '200':
+          description: Deletion result.
+          content:
+            application/json:
+              schema: { type: object }
+  /models:
+    get:
+      operationId: getModels
+      tags: [Models]
+      summary: List models
+      description: Return all trained models available to the authenticated account.
+      parameters:
+        - name: api_key
+          in: query
+          required: true
+          schema: { type: string }
+          description: Akkio API key.
+      responses:
+        '200':
+          description: A list of models.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  models:
+                    type: array
+                    items: { $ref: '#/components/schemas/Model' }
+    post:
+      operationId: postModel
+      tags: [Models]
+      summary: Train a model or make a prediction
+      description: >-
+        Overloaded endpoint keyed by request body. With `dataset_id` +
+        `predict_fields`, trains a new model. With `id` + `data`, runs a
+        prediction against an existing model (set `explain: true` for
+        feature-attribution output).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/CreateModelRequest'
+                - $ref: '#/components/schemas/PredictionRequest'
+      responses:
+        '200':
+          description: The trained model or the prediction result.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Model'
+                  - $ref: '#/components/schemas/PredictionResult'
+    delete:
+      operationId: deleteModel
+      tags: [Models]
+      summary: Delete a model
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [api_key, id]
+              properties:
+                api_key: { type: string }
+                id: { type: string, description: Model id to delete. }
+      responses:
+        '200':
+          description: Deletion result.
+          content:
+            application/json:
+              schema: { type: object }
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+      description: >-
+        Akkio API key. Sent as the `api_key` query parameter on GET requests
+        and inside the JSON request body on POST/DELETE requests. Obtain a key
+        at https://app.akk.io/team-settings.
+  schemas:
+    Dataset:
+      type: object
+      properties:
+        dataset_id: { type: string }
+        name: { type: string }
+    Model:
+      type: object
+      properties:
+        model_id: { type: string }
+        dataset_id: { type: string }
+    CreateDatasetRequest:
+      type: object
+      required: [api_key, name]
+      properties:
+        api_key: { type: string }
+        name: { type: string, description: Name for the new dataset. }
+    AddRowsRequest:
+      type: object
+      required: [api_key, id, rows]
+      properties:
+        api_key: { type: string }
+        id: { type: string, description: Dataset id. }
+        rows:
+          type: array
+          items: { type: object, additionalProperties: true }
+    SetFieldsRequest:
+      type: object
+      required: [api_key, id, fields]
+      properties:
+        api_key: { type: string }
+        id: { type: string }
+        fields: { type: object, additionalProperties: true }
+    ParseDatasetRequest:
+      type: object
+      required: [api_key, id, parse_fields]
+      properties:
+        api_key: { type: string }
+        id: { type: string }
+        parse_fields: { type: boolean, enum: [true] }
+    CreateModelRequest:
+      type: object
+      required: [api_key, dataset_id, predict_fields]
+      properties:
+        api_key: { type: string }
+        dataset_id: { type: string }
+        predict_fields:
+          type: array
+          items: { type: string }
+          description: Column(s) the model should learn to predict.
+        ignore_fields:
+          type: array
+          items: { type: string }
+        extra_attention: { type: boolean, default: false }
+        duration:
+          type: integer
+          default: 10
+          description: Training budget in minutes.
+    PredictionRequest:
+      type: object
+      required: [api_key, id, data]
+      properties:
+        api_key: { type: string }
+        id: { type: string, description: Model id to predict with. }
+        data:
+          type: array
+          items: { type: object, additionalProperties: true }
+        explain:
+          type: boolean
+          default: false
+          description: Return per-feature attribution for each prediction.
+    PredictionResult:
+      type: object
+      additionalProperties: true

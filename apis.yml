@@ -130,7 +130,7 @@ common:
 - type: AgentSkill
   url: skills/_index.yml
 - type: OpenAPI
-  url: openapi/akkio-api-openapi.yml
+  url: openapi/_original/akkio-api-openapi.yml
 x-enrichment:
   date: '2026-07-19'
   status: backfilled

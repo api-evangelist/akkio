@@ -5,11 +5,15 @@ description: >-
   media agencies and data providers. Teams use it to activate data across the
   campaign lifecycle: audience segmentation, propensity modeling, RFM analysis,
   media-mix modeling, performance measurement, and campaign-strategy development,
-  all from unified intelligence. Beyond the app, Akkio exposes a developer REST
-  API at https://api.akk.io/v1 (API-key auth) for managing datasets, training
-  predictive models, and generating predictions with optional feature
-  explanations, backed by official Python and JavaScript SDKs. The company is
-  SOC 2 Type 2 and HIPAA compliant (verified via Drata).
+  all from unified intelligence. Beyond the app, Akkio ships a developer REST API
+  on https://api.akkio.com in two generations: the legacy /v1 datasets and models
+  routes (api_key in query or body), and the current "Akkio Public API (Beta)" at
+  /api/v1, which covers projects, asynchronous model training and Chat Explore
+  natural-language querying behind an X-API-Key header. Akkio publishes its own
+  OpenAPI 3.1.0 document at /api/v1/api.yaml with a Swagger UI at /api/v1/docs
+  and documents generating clients from it; the two first-party SDKs (PyPI and
+  npm `akkio`) cover only the legacy surface and have not been released since
+  2021. The company is SOC 2 Type 2 and HIPAA compliant (verified via Drata).
 url: https://raw.githubusercontent.com/api-evangelist/akkio/refs/heads/main/apis.yml
 accessModel:
   pricing: unknown
@@ -32,7 +36,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-08-13'
 tags:
 - Company
 - Ai Apps
@@ -45,30 +49,78 @@ tags:
 - Audience Modeling
 - Predictions
 apis:
+- aid: akkio:akkio-public-api
+  name: Akkio Public API (Beta)
+  description: >-
+    Akkio's current public API, served and documented as "Akkio Public API
+    (Beta)". Covers projects (including the Chat Explore custom-instruction
+    fields), asynchronous model training, and Chat Explore natural-language
+    querying of a project or dataset. Every route except the two API
+    Specification routes requires an X-API-Key header. Long-running operations
+    use a submit/poll/fetch task pattern. Akkio serves the OpenAPI 3.1.0
+    document itself at /api/v1/api.yaml with a Swagger UI at /api/v1/docs, and
+    documents generating clients from it.
+  humanURL: https://docs.akkio.com/akkio-docs/rest-api/api-introduction
+  baseURL: https://api.akkio.com/api/v1
+  tags:
+  - Chat Explore
+  - Training
+  - Projects
+  - Machine Learning
+  properties:
+  - type: OpenAPI
+    url: openapi/_original/akkio-public-api-openapi.yaml
+  - type: Overlay
+    url: overlays/akkio-public-api-overlay.yaml
+  - type: Authentication
+    url: authentication/akkio-authentication.yml
+  - type: Documentation
+    url: https://docs.akkio.com/akkio-docs/rest-api/api-introduction
+  - type: APIReference
+    url: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints
+  - type: SwaggerUI
+    url: https://api.akkio.com/api/v1/docs
 - aid: akkio:akkio-datasets-api
   name: Akkio Datasets API
-  description: Create and populate datasets that models train on.
-  humanURL: https://docs.akkio.com/akkio-help-center
-  baseURL: https://api.akk.io/v1
+  description: >-
+    Legacy v1 datasets surface. Create a dataset, append rows, set field types,
+    parse fields, list and delete. Authenticated with an api_key query parameter
+    on GET and an api_key JSON body field on POST/DELETE. Still the only
+    programmatic way to create a dataset.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
   tags:
   - Datasets
   properties:
   - type: OpenAPI
     url: openapi/akkio-datasets-api-openapi.yml
+  - type: Overlay
+    url: overlays/akkio-legacy-v1-overlay.yaml
   - type: Authentication
     url: authentication/akkio-authentication.yml
+  - type: Documentation
+    url: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
 - aid: akkio:akkio-models-api
   name: Akkio Models API
-  description: Train predictive models and generate predictions.
-  humanURL: https://docs.akkio.com/akkio-help-center
-  baseURL: https://api.akk.io/v1
+  description: >-
+    Legacy v1 models surface. List trained models and POST rows to a model to
+    receive predictions with per-class probabilities. Akkio's own docs describe
+    the newer /api/v1 Training routes as a better-designed v2 of this route's
+    training half.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/models
+  baseURL: https://api.akkio.com/v1
   tags:
   - Models
+  - Predictions
   properties:
   - type: OpenAPI
     url: openapi/akkio-models-api-openapi.yml
+  - type: Overlay
+    url: overlays/akkio-legacy-v1-overlay.yaml
   - type: Authentication
     url: authentication/akkio-authentication.yml
+  - type: Documentation
+    url: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/models
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -80,13 +132,13 @@ common:
 - type: Website
   url: https://www.akkio.com/
 - type: DeveloperPortal
-  url: https://docs.akkio.com/akkio-help-center
+  url: https://docs.akkio.com/akkio-docs
 - type: Documentation
-  url: https://docs.akkio.com/akkio-help-center
+  url: https://docs.akkio.com/akkio-docs
 - type: APIReference
-  url: https://github.com/akkio-inc/akkio-python
+  url: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints
 - type: GettingStarted
-  url: https://docs.akkio.com/akkio-help-center/getting-started/account-set-up
+  url: https://docs.akkio.com/akkio-docs/rest-api/api-introduction/quickstart
 - type: Support
   url: https://docs.akkio.com/akkio-help-center
 - type: Blog
@@ -123,16 +175,24 @@ common:
   url: packages/akkio-packages.yml
 - type: SDKs
   url: packages/akkio-packages.yml
-- type: MCPServer
-  url: mcp/akkio-mcp.yml
 - type: LLMsTxt
   url: llms/akkio-llms.txt
 - type: AgentSkill
   url: skills/_index.yml
 - type: OpenAPI
   url: openapi/_original/akkio-api-openapi.yml
+- type: RateLimits
+  url: rate-limits/akkio-rate-limits.yml
+- type: Plans
+  url: plans/akkio-plans-pricing.yml
+- type: ErrorCatalog
+  url: errors/akkio-problem-types.yml
+- type: Overlay
+  url: overlays/akkio-public-api-overlay.yaml
+- type: OpenAPI
+  url: openapi/_original/akkio-public-api-openapi.yaml
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 10
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence

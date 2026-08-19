@@ -1,0 +1,809 @@
+components:
+  schemas:
+    APIChatMessage:
+      additionalProperties: true
+      properties:
+        content:
+          description: The text content of this message.
+          title: Content
+          type: string
+        images:
+          default: []
+          description: List of images for this message (potentially of length zero).
+            May be exposed either as a base64 string or as stringified Plotly JSON,
+            typically if the user requested it as such.
+          items:
+            anyOf:
+            - type: string
+            - type: object
+          title: Images
+          type: array
+        role:
+          $ref: '#/components/schemas/RolesEnum'
+          description: The role of this message. User indicates the user sent the
+            message, assistant indicates the assistant sent the message.
+        table:
+          anyOf:
+          - items:
+              type: object
+            type: array
+          - type: 'null'
+          description: If there exists a table for this message, this will be set
+            to a list of objects/records, where each record has a key of the column
+            name and a value for that row's corresponding value for the column.
+          title: Table
+      required:
+      - role
+      - content
+      title: APIChatMessage
+      type: object
+    APIStatusMetadataFailed:
+      additionalProperties: true
+      properties:
+        error:
+          default: Unable to complete request. Please verify your inputs, try again
+            later, or get in touch at support@akkio.com.
+          description: If provided, a text representation of what went wrong with
+            the task, including if any action on your part may rectify the issue.
+          title: Error
+          type: string
+        type:
+          const: FAILED
+          default: FAILED
+          enum:
+          - FAILED
+          title: Type
+          type: string
+      title: APIStatusMetadataFailed
+      type: object
+    APIStatusMetadataInProgress:
+      additionalProperties: true
+      properties:
+        estimate_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          description: If provided, an estimate of how many seconds we expect this
+            task to take. This value should be treated as a rough estimate on a best-effort
+            basis, not a guarantee.
+          title: Estimate Seconds
+        type:
+          const: IN_PROGRESS
+          default: IN_PROGRESS
+          enum:
+          - IN_PROGRESS
+          title: Type
+          type: string
+      title: APIStatusMetadataInProgress
+      type: object
+    APIStatusMetadataPending:
+      additionalProperties: true
+      properties:
+        type:
+          const: PENDING
+          default: PENDING
+          enum:
+          - PENDING
+          title: Type
+          type: string
+      title: APIStatusMetadataPending
+      type: object
+    APIStatusMetadataSucceeded:
+      additionalProperties: true
+      properties:
+        location:
+          description: The path at which you can submit a GET request to retrieve
+            the result of the successful job. May require proper authentication or
+            authorization to access.
+          title: Location
+          type: string
+        type:
+          const: SUCCEEDED
+          default: SUCCEEDED
+          enum:
+          - SUCCEEDED
+          title: Type
+          type: string
+      required:
+      - location
+      title: APIStatusMetadataSucceeded
+      type: object
+    APIStatusResponse:
+      additionalProperties: true
+      properties:
+        metadata:
+          description: Metadata, contextually dependent on the status of the task
+            being queried.
+          discriminator:
+            mapping:
+              FAILED: '#/components/schemas/APIStatusMetadataFailed'
+              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
+              PENDING: '#/components/schemas/APIStatusMetadataPending'
+              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
+            propertyName: type
+          oneOf:
+          - $ref: '#/components/schemas/APIStatusMetadataPending'
+          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
+          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
+          - $ref: '#/components/schemas/APIStatusMetadataFailed'
+          title: Metadata
+        status:
+          $ref: '#/components/schemas/TaskStatusEnum'
+          description: The current status of the task being queried.
+      required:
+      - status
+      - metadata
+      title: APIStatusResponse
+      type: object
+    APITaskStartedResponse:
+      additionalProperties: true
+      properties:
+        task_id:
+          description: The ID of the task that was started. This is generally queryable
+            at a nearby `/status` endpoint to get the current status of the task.
+          title: Task Id
+          type: string
+      required:
+      - task_id
+      title: APITaskStartedResponse
+      type: object
+    ChatExploreImageFormat:
+      enum:
+      - base64_png
+      - plotly_json
+      title: ChatExploreImageFormat
+      type: string
+    ChatExploreRequestPayload:
+      additionalProperties: true
+      properties:
+        chatContext:
+          default: ''
+          description: 'Anything you''d like Chat Explore to know about this application
+            to provide better responses. For example: (1) This dataset is customer
+            engagement data, (2) The units of the sales column are in millions, (3)
+            The data is messy and contains typos'
+          title: Chatcontext
+          type: string
+        chatInstructions:
+          default: ''
+          title: Chatinstructions
+          type: string
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The dataset ID which you want to run a Chat Explore query against.
+            Either this or project_id must be specified.
+          title: Dataset Id
+        messages:
+          description: A list of messages to query Chat Explore with.
+          items:
+            $ref: '#/components/schemas/APIChatMessage'
+          title: Messages
+          type: array
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The project ID which you want to run a Chat Explore query against.
+            Either this or dataset_id must be specified; if this is specified, custom
+            instructions attached to the project will be provided as context to the
+            query.
+          title: Project Id
+      required:
+      - messages
+      title: ChatExploreRequestPayload
+      type: object
+    CreateProjectPayload:
+      additionalProperties: true
+      properties:
+        _org:
+          description: Foreign key to the organization this object belongs to.
+          title: ' Org'
+          type: string
+        _owner:
+          description: Foreign key to the user this object belongs to.
+          title: ' Owner'
+          type: string
+        chatContext:
+          default: ''
+          description: '
+
+            What would you like Chat Explore to know about this application to provide
+            better responses? For example:
+
+            - This dataset is customer engagement data
+
+            - The units of the sales column are in millions
+
+            - The data is messy and contains typos
+
+            '
+          title: Chatcontext
+          type: string
+        chatInstructions:
+          default: ''
+          description: '
+
+            How would you like Chat Explore to respond? For example:
+
+            - Respond only in spanish
+
+            - Provide short and concise answers only
+
+            - Make sure to always include a chart'
+          title: Chatinstructions
+          type: string
+        chatSuggestions:
+          default: ''
+          description: '
+
+            Customize the default chat suggestions by writing a list of suggestions
+            separated by newlines. For example:
+
+            - What is the average net media cost by campaign ID?
+
+            - Make sure to always include a chart
+
+            '
+          title: Chatsuggestions
+          type: string
+        name:
+          description: The name of the flow.
+          title: Name
+          type: string
+      required:
+      - _owner
+      - _org
+      - name
+      title: CreateProjectPayload
+      type: object
+    GetProjectResponse:
+      additionalProperties: true
+      properties:
+        chatContext:
+          default: ''
+          description: '
+
+            What would you like Chat Explore to know about this application to provide
+            better responses? For example:
+
+            - This dataset is customer engagement data
+
+            - The units of the sales column are in millions
+
+            - The data is messy and contains typos
+
+            '
+          title: Chatcontext
+          type: string
+        chatInstructions:
+          default: ''
+          description: '
+
+            How would you like Chat Explore to respond? For example:
+
+            - Respond only in spanish
+
+            - Provide short and concise answers only
+
+            - Make sure to always include a chart'
+          title: Chatinstructions
+          type: string
+        chatSuggestions:
+          default: ''
+          description: '
+
+            Customize the default chat suggestions by writing a list of suggestions
+            separated by newlines. For example:
+
+            - What is the average net media cost by campaign ID?
+
+            - Make sure to always include a chart
+
+            '
+          title: Chatsuggestions
+          type: string
+        id:
+          description: The ID of this object.
+          title: Id
+          type: string
+        name:
+          default: ''
+          description: The name of the flow.
+          title: Name
+          type: string
+      required:
+      - id
+      title: GetProjectResponse
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    RolesEnum:
+      enum:
+      - user
+      - assistant
+      title: RolesEnum
+      type: string
+    TaskStatusEnum:
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts
+        if you update this enum.
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      type: string
+    TrainRequestPayload:
+      additionalProperties: true
+      properties:
+        dataset_id:
+          description: The ID of the dataset to train the model on.
+          title: Dataset Id
+          type: string
+        duration:
+          description: 'Integer corresponding to how much time we should spend on
+            training. Higher values will take longer but generally be more accurate.
+            Allowed values: 10 (Fastest), 60 (High Quality), 300 (Higher Quality),
+            1800 (Production)'
+          title: Duration
+          type: integer
+        extra_attention:
+          default: false
+          description: Helps with predicting rare cases.
+          title: Extra Attention
+          type: boolean
+        force:
+          default: false
+          description: Forces the creation of a new model even if another currently
+            exists.
+          title: Force
+          type: boolean
+        ignore_fields:
+          default: []
+          description: An array of field names to ignore (case sensitive).
+          items:
+            type: string
+          title: Ignore Fields
+          type: array
+        predict_fields:
+          description: An array of field names to predict (case sensitive).
+          items:
+            type: string
+          title: Predict Fields
+          type: array
+      required:
+      - dataset_id
+      - predict_fields
+      - duration
+      title: TrainRequestPayload
+      type: object
+    UpdateProjectPayload:
+      additionalProperties: true
+      properties:
+        chatContext:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            What would you like Chat Explore to know about this application to provide
+            better responses? For example:
+
+            - This dataset is customer engagement data
+
+            - The units of the sales column are in millions
+
+            - The data is messy and contains typos
+
+            '
+          title: Chatcontext
+        chatInstructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            How would you like Chat Explore to respond? For example:
+
+            - Respond only in spanish
+
+            - Provide short and concise answers only
+
+            - Make sure to always include a chart'
+          title: Chatinstructions
+        chatSuggestions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            Customize the default chat suggestions by writing a list of suggestions
+            separated by newlines. For example:
+
+            - What is the average net media cost by campaign ID?
+
+            - Make sure to always include a chart
+
+            '
+          title: Chatsuggestions
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The name of the flow.
+          title: Name
+      title: UpdateProjectPayload
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    _ApiBaseChatRecord:
+      additionalProperties: true
+      properties:
+        _org:
+          description: Foreign key to the organization this object belongs to.
+          title: ' Org'
+          type: string
+        _owner:
+          description: Foreign key to the user this object belongs to.
+          title: ' Owner'
+          type: string
+        messages:
+          description: List of messages in the chat.
+          items:
+            $ref: '#/components/schemas/APIChatMessage'
+          title: Messages
+          type: array
+      required:
+      - _owner
+      - _org
+      - messages
+      title: _ApiBaseChatRecord
+      type: object
+info:
+  description: Akkio's public API, offering a programmatic interface to the platform.
+    All routes are relative to `/api/v1`. To get a copy of this to do code generation
+    off of, hit /api/v1/api.yaml. All routes but those marked "API Specification"
+    require the X-API-Key header to be set to a valid API key.
+  title: Akkio Public API (Beta)
+  version: 0.1.0
+openapi: 3.1.0
+paths:
+  /api/v1/api.yaml:
+    get:
+      description: YAML OpenAPI specification for this API's public endpoints.
+      operationId: _get_openapi_yaml_representation_api_v1_api_yaml_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: ' Get Openapi Yaml Representation'
+      tags:
+      - API Specification
+  /api/v1/chat-explore/chats/{id}:
+    get:
+      description: Retrieves a chat by id.
+      operationId: _get_chat_api_v1_chat_explore_chats__id__get
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          title: Id
+          type: string
+      - in: query
+        name: image_format
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/ChatExploreImageFormat'
+          - type: 'null'
+          title: Image Format
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_ApiBaseChatRecord'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Get Chat'
+      tags:
+      - Chat Explore
+  /api/v1/chat-explore/new:
+    post:
+      description: Query Chat Explore through API. Takes in a list of messages and
+        gives you the message Chat Explore sent back.
+      operationId: _submit_chat_explore_query_api_v1_chat_explore_new_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatExploreRequestPayload'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APITaskStartedResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Submit Chat Explore Query'
+      tags:
+      - Chat Explore
+  /api/v1/chat-explore/status/{task_id}:
+    get:
+      description: Retrieves the status of the provided Chat Explore task id.
+      operationId: _get_chat_explore_status_api_v1_chat_explore_status__task_id__get
+      parameters:
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          title: Task Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIStatusResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Get Chat Explore Status'
+      tags:
+      - Chat Explore
+  /api/v1/docs:
+    get:
+      description: Swagger UI for Akkio's API. See `/api.yaml` or `/api.json` for
+        the raw file that you can do code generation on.
+      operationId: _openapi_ui_api_v1_docs_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: ' Openapi Ui'
+      tags:
+      - API Specification
+  /api/v1/models/train/new:
+    post:
+      description: Model creation via API.
+      operationId: _submit_controller_api_v1_models_train_new_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainRequestPayload'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APITaskStartedResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Submit Controller'
+      tags:
+      - Training
+  /api/v1/models/train/{task_id}/result:
+    get:
+      description: Retrieves the result of a model creation call.
+      operationId: _get_result_controller_api_v1_models_train__task_id__result_get
+      parameters:
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          title: Task Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response  Get Result Controller Api V1 Models Train  Task Id  Result
+                  Get
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Get Result Controller'
+      tags:
+      - Training
+  /api/v1/models/train/{task_id}/status:
+    get:
+      description: Retrieves the status of the provided model creation call.
+      operationId: _get_status_controller_api_v1_models_train__task_id__status_get
+      parameters:
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          title: Task Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIStatusResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Get Status Controller'
+      tags:
+      - Training
+  /api/v1/projects:
+    post:
+      description: Creates a new project.
+      operationId: _create_new_project_api_v1_projects_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectPayload'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Create New Project'
+      tags:
+      - Projects
+  /api/v1/projects/{project_id}:
+    delete:
+      description: Deletes the project at the given ID.
+      operationId: _delete_project_api_v1_projects__project_id__delete
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        schema:
+          title: Project Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Delete Project'
+      tags:
+      - Projects
+    get:
+      description: Retrieve the data for a given project.
+      operationId: _get_project_api_v1_projects__project_id__get
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        schema:
+          title: Project Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Get Project'
+      tags:
+      - Projects
+    put:
+      description: Update the custom instructions attached to a given project. Updates
+        the project with any provided non-null fields and returns the resulting Flow
+        object.
+      operationId: _update_project_api_v1_projects__project_id__put
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        schema:
+          title: Project Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectPayload'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Update Project'
+      tags:
+      - Projects

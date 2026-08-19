@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Akkio Datasets API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List datasets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.akk.io/v1/datasets",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Akkio API key (obtain at https://app.akk.io/team-settings)."
+              }
+            ]
+          },
+          "docs": "Return all datasets available to the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Create a dataset, add rows, set fields, or parse fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.akk.io/v1/datasets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Overloaded endpoint keyed by request body. With only `name`, creates a new dataset. With `id` + `rows`, appends rows. With `id` + `fields`, sets field types. With `id` + `parse_fields: true`, parses fields."
+        },
+        {
+          "info": {
+            "name": "Delete a dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.akk.io/v1/datasets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a dataset"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

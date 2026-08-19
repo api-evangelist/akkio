@@ -1,30 +1,108 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: derived
 status: candidate
-source: openapi/akkio-api-openapi.yml
+source: openapi/_original/akkio-public-api-openapi.yaml
 note: >-
-  No official hosted/remote MCP server was found for Akkio (checked docs, npm
-  @modelcontextprotocol, and MCP registries). The tool list below is a candidate
-  derived one-to-one from the documented Akkio API operations.
+  No official hosted or local MCP server exists for Akkio. Probed 2026-08-13:
+  POST tools/list against https://api.akkio.com/mcp returned 403 "Unauthorized."
+  (the API gateway's generic deny for unknown routes, not an OAuth challenge),
+  https://akkio.com/mcp returned 405, mcp.akkio.com and mcp.akk.io do not
+  resolve, and https://app.akkio.com/mcp returned the SPA catch-all HTML shell.
+  No MCP package is published by akkio-inc on npm or PyPI and Akkio does not
+  appear in the public MCP registries. The tool list below is a CANDIDATE derived
+  one-to-one from operations that genuinely exist in the two OpenAPI documents
+  Akkio serves live; it is a proposal, not a surface Akkio ships. No endpoint is
+  invented.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+  note: >-
+    mode is none because nobody ships a server. If Akkio were to build one, the
+    auth model is already fixed by the API: a single team-scoped X-API-Key with
+    no scopes, which means an MCP server fronting it would hand an agent the
+    full organization's data access with no way to narrow it.
+  checked: '2026-08-13'
 server:
   name: akkio
   transport: http
 tools:
-  - name: list_datasets
-    description: List all datasets in the account.
-    source_operation: openapi/akkio-api-openapi.yml#getDatasets
-  - name: create_dataset
-    description: Create a dataset, add rows, set fields, or parse fields.
-    source_operation: openapi/akkio-api-openapi.yml#postDataset
-  - name: delete_dataset
-    description: Delete a dataset by id.
-    source_operation: openapi/akkio-api-openapi.yml#deleteDataset
-  - name: list_models
-    description: List all trained models in the account.
-    source_operation: openapi/akkio-api-openapi.yml#getModels
-  - name: train_or_predict
-    description: Train a model on a dataset, or make a prediction with an existing model.
-    source_operation: openapi/akkio-api-openapi.yml#postModel
-  - name: delete_model
-    description: Delete a model by id.
-    source_operation: openapi/akkio-api-openapi.yml#deleteModel
+- name: list_datasets
+  description: List all datasets in the organization, or fetch one by id.
+  source_operation: openapi/_original/akkio-api-openapi.yml#getDatasets
+  api: legacy /v1
+- name: create_dataset
+  description: Create a dataset, append rows, set field types, or parse fields.
+  source_operation: openapi/_original/akkio-api-openapi.yml#postDataset
+  api: legacy /v1
+- name: delete_dataset
+  description: Delete a dataset by id.
+  source_operation: openapi/_original/akkio-api-openapi.yml#deleteDataset
+  api: legacy /v1
+- name: list_models
+  description: List all trained models in the organization.
+  source_operation: openapi/_original/akkio-api-openapi.yml#getModels
+  api: legacy /v1
+- name: predict
+  description: Score rows against a trained model and return predictions with class probabilities.
+  source_operation: openapi/_original/akkio-api-openapi.yml#postModel
+  api: legacy /v1
+- name: delete_model
+  description: Delete a model by id.
+  source_operation: openapi/_original/akkio-api-openapi.yml#deleteModel
+  api: legacy /v1
+- name: train_model
+  description: >-
+    Submit a training job for a dataset. Asynchronous — returns a task_id that must
+    be polled.
+  source_operation: openapi/_original/akkio-public-api-openapi.yaml#_submit_controller_api_v1_models_train_new_post
+  api: /api/v1
+  async: true
+- name: get_training_status
+  description: Poll the status of a training job (PENDING/IN_PROGRESS/SUCCEEDED/FAILED/UNKNOWN_TIMEOUT).
+  source_operation: openapi/_original/akkio-public-api-openapi.yaml#_get_status_controller_api_v1_models_train__task_id__status_get
+  api: /api/v1
+- name: get_training_result
+  description: Retrieve the finished model from a succeeded training job.
+  source_operation: openapi/_original/akkio-public-api-openapi.yaml#_get_result_controller_api_v1_models_train__task_id__result_get
+  api: /api/v1
+- name: ask_chat_explore
+  description: >-
+    Ask a natural-language question about a project or dataset. Asynchronous —
+    returns a task_id. This is the tool an agent would actually want.
+  source_operation: openapi/_original/akkio-public-api-openapi.yaml#_submit_chat_explore_query_api_v1_chat_explore_new_post
+  api: /api/v1
+  async: true
+- name: get_chat_explore_status
+  description: Poll the status of a Chat Explore query.
+  source_operation: openapi/_original/akkio-public-api-openapi.yaml#_get_chat_explore_status_api_v1_chat_explore_status__task_id__get
+  api: /api/v1
+- name: get_chat
+  description: Retrieve a Chat Explore conversation and its messages, charts and tables.
+  source_operation: openapi/_original/akkio-public-api-openapi.yaml#_get_chat_api_v1_chat_explore_chats__id__get
+  api: /api/v1
+- name: create_project
+  description: Create a project, optionally with Chat Explore custom instructions.
+  source_operation: openapi/_original/akkio-public-api-openapi.yaml#_create_new_project_api_v1_projects_post
+  api: /api/v1
+- name: get_project
+  description: Retrieve a project and its Chat Explore steering configuration.
+  source_operation: openapi/_original/akkio-public-api-openapi.yaml#_get_project_api_v1_projects__project_id__get
+  api: /api/v1
+- name: update_project
+  description: Update a project's name, chatContext, chatInstructions or chatSuggestions.
+  source_operation: openapi/_original/akkio-public-api-openapi.yaml#_update_project_api_v1_projects__project_id__put
+  api: /api/v1
+- name: delete_project
+  description: Delete a project by id.
+  source_operation: openapi/_original/akkio-public-api-openapi.yaml#_delete_project_api_v1_projects__project_id__delete
+  api: /api/v1
+tool_count: 16
+agent_note: >-
+  Every /api/v1 tool above is asynchronous submit-poll-fetch, and a FAILED job
+  returns HTTP 200 with status FAILED in the body. Any MCP server built over this
+  API must surface the task lifecycle rather than pretending the call is
+  synchronous. See conventions/akkio-conventions.yml.

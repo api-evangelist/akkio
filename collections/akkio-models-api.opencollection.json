@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Akkio Datasets Models API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.akk.io/v1/models",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Akkio API key."
+              }
+            ]
+          },
+          "docs": "Return all trained models available to the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Train a model or make a prediction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.akk.io/v1/models",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Overloaded endpoint keyed by request body. With `dataset_id` + `predict_fields`, trains a new model. With `id` + `data`, runs a prediction against an existing model (set `explain: true` for feature-attribution output)."
+        },
+        {
+          "info": {
+            "name": "Delete a model",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.akk.io/v1/models",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a model"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

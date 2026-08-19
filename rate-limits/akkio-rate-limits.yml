@@ -1,0 +1,53 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.akkio.com/akkio-docs/master/akkio-faq.md
+docs: https://docs.akkio.com/akkio-docs/master/akkio-faq
+limit_count: 1
+note: >-
+  Akkio publishes exactly one throughput figure, and it lives in the FAQ rather
+  than in the API reference. Verbatim: "What is the API response time/volumes it
+  can handle? Five requests per second. However, these requests can be bulk
+  calls, making the API handling more case-by-case. Please feel free to contact
+  support for your specific use case." Nothing in the docs, the published
+  OpenAPI (https://api.akkio.com/api/v1/api.yaml) or the platform spec
+  (https://api.akkio.com/openapi.json) documents rate-limit RESPONSE HEADERS,
+  a 429 status, or Retry-After — the specs declare only 200/201 and 422. An
+  agent integrating Akkio therefore has a number but no runtime signal: it
+  cannot read remaining quota or a reset time off a response.
+limits:
+- id: api-requests-per-second
+  scope: per-account
+  window: 1s
+  limit: 5
+  burst: null
+  unit: requests
+  applies_to: All Akkio API endpoints (legacy /v1 and the /api/v1 public beta)
+  qualifier: >-
+    Documented as case-by-case because a single request may be a bulk call
+    (e.g. a multi-row prediction payload); Akkio directs high-volume users to
+    contact support.
+  source: https://docs.akkio.com/akkio-docs/master/akkio-faq
+response_headers:
+  documented: false
+  headers: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header is documented anywhere in
+    Akkio's docs or published specs.
+exhaustion:
+  status_code: null
+  documented: false
+  note: >-
+    No 429 Too Many Requests response is documented or declared in either
+    published OpenAPI document. The only error responses the public spec
+    declares are 422 (HTTPValidationError); the docs additionally describe 401
+    (bad/missing X-API-Key) and 403 (key's organization lacks access).
+entitlement_limits:
+  note: >-
+    Access to API capabilities is gated by plan rather than by a numeric quota.
+    See plans/akkio-plans-pricing.yml for the published API entitlement matrix
+    (API for Data / API for Predictions by user plan; Predict / Train / Insights /
+    Chat via API by organization plan).
+cross_links:
+  plans: plans/akkio-plans-pricing.yml
+  conventions: conventions/akkio-conventions.yml
+  errors: errors/akkio-problem-types.yml

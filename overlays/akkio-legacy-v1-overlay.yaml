@@ -1,0 +1,44 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the legacy Akkio /v1 API
+  version: 1.0.0
+extends: openapi/_original/akkio-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Enhancements from live probes of api.akkio.com and from Akkio's endpoint docs,
+  2026-08-13. The extended document is itself a reconstruction from Akkio's
+  first-party SDKs; this overlay records what the live platform confirmed about it.
+actions:
+- target: $.info
+  description: >-
+    The reconstruction is now corroborated by the live platform. Akkio's own
+    FastAPI schema at https://api.akkio.com/openapi.json declares a route
+    /v1/{route} whose `route` path parameter is an enum of exactly ["datasets",
+    "models"] on GET, POST and DELETE — independently confirming that the legacy
+    surface is those two resources and those three methods, and nothing more.
+  update:
+    x-apievangelist-corroborated: '2026-08-13'
+    x-apievangelist-corroboration: >-
+      https://api.akkio.com/openapi.json declares /v1/{route} with route enum
+      ["datasets","models"] for GET, POST and DELETE.
+    x-apievangelist-lifecycle: legacy
+    x-apievangelist-superseded-by: >-
+      /api/v1 — Akkio's Training docs call the newer routes "a better-designed v2
+      of our legacy /v1/models route". No deprecation date is published.
+- target: $
+  description: >-
+    Add the documented host. Akkio's endpoint docs publish
+    https://api.akkio.com/v1/datasets and https://api.akkio.com/v1/models; the
+    reconstruction shipped with the api.akk.io alias, which is live and identical.
+  update:
+    servers:
+    - url: https://api.akkio.com/v1
+      description: Akkio legacy v1 API (documented host)
+    - url: https://api.akk.io/v1
+      description: Live alias serving the identical build
+- target: $.info
+  update:
+    x-apievangelist-sdk-currency: >-
+      The only clients for this surface are PyPI `akkio` and npm `akkio`, both
+      1.0.5 published 2021-03-05 and unchanged since.

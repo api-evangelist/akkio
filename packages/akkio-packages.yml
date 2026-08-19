@@ -1,22 +1,59 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: searched
 source: https://github.com/akkio-inc
+registries_checked: [pypi, npm, rubygems, packagist, crates.io, nuget, maven-central, pkg.go.dev]
+note: >-
+  Akkio ships exactly two first-party client libraries, both published 2021-03-05
+  and untouched since — over five years stale as of this pass. Both wrap only the
+  legacy /v1 datasets+models surface; neither covers the current /api/v1
+  projects, training or chat-explore routes that Akkio's own docs call "a
+  better-designed v2". Akkio's documented answer is code generation rather than
+  SDK maintenance: the Code Generation page tells developers to generate a client
+  from https://api.akkio.com/api/v1/api.yaml with openapi-typescript-codegen.
+  Versions and dates below were read from the registry metadata endpoints
+  (pypi.org/pypi/akkio/json and registry.npmjs.org/akkio) on 2026-08-13. No
+  first-party package was found on RubyGems, Packagist, crates.io, NuGet, Maven
+  Central or pkg.go.dev.
 packages:
-  - language: python
-    registry: pypi
-    name: akkio
-    url: https://pypi.org/project/akkio/
-    repository: https://github.com/akkio-inc/akkio-python
-    install: pip install akkio
-    version: 1.0.5
-    official: true
-    description: Convenient access to the Akkio API from Python.
-  - language: javascript
-    registry: npm
-    name: akkio
-    url: https://www.npmjs.com/package/akkio
-    repository: https://github.com/akkio-inc/akkio-node
-    install: npm install akkio
-    version: 1.0.5
-    official: true
-    description: Convenient access to the Akkio API from server-side JavaScript.
+- language: python
+  registry: pypi
+  name: akkio
+  url: https://pypi.org/project/akkio/
+  repository: https://github.com/akkio-inc/akkio-python
+  install: pip install akkio
+  version: 1.0.5
+  published: '2021-03-05'
+  official: true
+  covers: legacy /v1 datasets + models
+  description: Convenient access to the Akkio API from Python.
+  docs: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/additional-libraries/python
+- language: javascript
+  registry: npm
+  name: akkio
+  url: https://www.npmjs.com/package/akkio
+  repository: https://github.com/akkio-inc/akkio-node
+  install: npm install akkio
+  version: 1.0.5
+  published: '2021-03-05'
+  official: true
+  covers: legacy /v1 datasets + models
+  description: Convenient access to the Akkio API from server-side JavaScript.
+  docs: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/additional-libraries/node.js
+generated_clients:
+  supported: true
+  note: >-
+    Akkio treats generated clients as the supported path for the current API and
+    publishes the recipe. This is not a package Akkio ships, so it is recorded
+    here rather than as an entry above.
+  spec: https://api.akkio.com/api/v1/api.yaml
+  documented_tool: openapi-typescript-codegen
+  docs: https://docs.akkio.com/akkio-docs/concepts/code-generation
+currency_finding:
+  official_sdk_count: 2
+  latest_release: '2021-03-05'
+  years_stale: 5
+  covers_current_api: false
+  detail: >-
+    A first-party SDK whose last release (2021-03-05) predates the API generation
+    it is meant to serve is the strongest provider-published abandonment signal
+    available. Both Akkio SDKs are in that state.

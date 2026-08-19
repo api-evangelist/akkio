@@ -1,25 +1,114 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: derived
-source: openapi/akkio-api-openapi.yml
+source: >-
+  openapi/_original/akkio-public-api-openapi.yaml,
+  openapi/_original/akkio-api-openapi.yml,
+  https://docs.akkio.com/akkio-docs/endpoints-and-schemas/schemas
+note: >-
+  Entity graph derived from the schemas Akkio publishes in its live OpenAPI
+  documents plus the documented request/response shapes of the legacy /v1
+  surface. Ids are opaque 20-character strings (e.g. 7pmPB4MXU390Bs0Axxnd) with
+  no type prefix, so an id alone does not tell an agent what kind of object it
+  points at — the caller must track which endpoint returned it.
 entities:
-  - name: Dataset
-    id_field: dataset_id
-    description: A table of rows/columns uploaded or appended via the API; the training source for models.
-  - name: Model
-    id_field: model_id
-    description: A predictive model trained from a dataset's predict_fields.
-  - name: Prediction
-    description: The scored output produced by running data through a model (optionally with feature explanations).
+- name: Dataset
+  id_field: dataset_id
+  id_format: opaque 20-char string, no prefix
+  description: >-
+    A table of rows and typed columns, uploaded, imported from an integration, or
+    appended via the API. The training source for models and one of the two things
+    Chat Explore can be pointed at.
+  fields:
+  - {name: id, type: string}
+  - {name: name, type: string}
+  - {name: rows, type: integer}
+  - {name: fields, type: 'array of {name, type}'}
+  field_types: [category, string, number]
+  source: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+- name: Project
+  id_field: project_id
+  id_format: opaque string
+  schema: GetProjectResponse
+  description: >-
+    Akkio's workflow container (called a "flow" in the schema's own field
+    descriptions). Carries the Chat Explore steering configuration and is the
+    unit Chat Explore custom instructions attach to.
+  fields:
+  - {name: id, type: string, required: true, description: The ID of this object.}
+  - {name: name, type: string, description: The name of the flow.}
+  - {name: chatContext, type: string, description: What Chat Explore should know about the application.}
+  - {name: chatInstructions, type: string, description: How Chat Explore should respond.}
+  - {name: chatSuggestions, type: string, description: Newline-separated starter questions.}
+  source: openapi/_original/akkio-public-api-openapi.yaml#GetProjectResponse
+- name: Model
+  id_field: model_id
+  id_format: opaque 20-char string, no prefix
+  description: >-
+    A predictive model trained from a dataset's predict_fields. Exposes
+    field_importance and stats after training; used to score new rows.
+  source: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/models
+- name: TrainRequest
+  schema: TrainRequestPayload
+  description: The training job specification submitted to POST /api/v1/models/train/new.
+  fields:
+  - {name: dataset_id, type: string, required: true}
+  - {name: predict_fields, type: array of string, required: true, note: case sensitive}
+  - {name: duration, type: integer, required: true, allowed: '10 (Fastest), 60 (High Quality), 300 (Higher Quality), 1800 (Production)'}
+  - {name: ignore_fields, type: array of string, default: '[]', note: case sensitive}
+  - {name: extra_attention, type: boolean, default: false, note: helps with predicting rare cases}
+  - {name: force, type: boolean, default: false, note: forces a new model even if one exists}
+  source: openapi/_original/akkio-public-api-openapi.yaml#TrainRequestPayload
+- name: Task
+  id_field: task_id
+  schema: APITaskStartedResponse / APIStatusResponse
+  description: >-
+    The handle returned by every asynchronous submit. Polled for status and then
+    exchanged for a result. Statuses are PENDING, IN_PROGRESS, SUCCEEDED, FAILED,
+    UNKNOWN_TIMEOUT; the metadata payload is a discriminated union on `type`.
+  metadata_variants:
+  - {type: PENDING, schema: APIStatusMetadataPending}
+  - {type: IN_PROGRESS, schema: APIStatusMetadataInProgress, fields: [estimate_seconds]}
+  - {type: SUCCEEDED, schema: APIStatusMetadataSucceeded, fields: [location]}
+  - {type: FAILED, schema: APIStatusMetadataFailed, fields: [error]}
+  source: openapi/_original/akkio-public-api-openapi.yaml#APIStatusResponse
+- name: Chat
+  id_field: id
+  description: >-
+    A Chat Explore conversation, submitted against a project_id or a dataset_id
+    and retrieved as an ordered list of messages once its task completes.
+  source: openapi/_original/akkio-public-api-openapi.yaml
+- name: ChatMessage
+  schema: APIChatMessage
+  description: One turn in a Chat Explore conversation.
+  fields:
+  - {name: role, type: RolesEnum, required: true, allowed: [user, assistant]}
+  - {name: content, type: string, required: true}
+  - {name: images, type: array, default: '[]', note: 'base64 string (currently PNG, documented as subject to change) or stringified Plotly JSON'}
+  - {name: table, type: 'array of row objects | null', note: each row is a map of column name to JSON-serializable value}
+  source: openapi/_original/akkio-public-api-openapi.yaml#APIChatMessage
+- name: Prediction
+  description: >-
+    The scored output of running rows through a model. Returned inline by the
+    legacy POST /v1/models call as a predictions[] array, one object per input
+    row, carrying the predicted field plus per-class probability fields.
+  source: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/models
 relationships:
-  - from: Model
-    to: Dataset
-    type: belongs_to
-    via: dataset_id
-  - from: Dataset
-    to: Model
-    type: has_many
-    via: dataset_id
-  - from: Prediction
-    to: Model
-    type: belongs_to
-    via: id
+- {from: Model, to: Dataset, type: belongs_to, via: dataset_id}
+- {from: Dataset, to: Model, type: has_many, via: dataset_id}
+- {from: TrainRequest, to: Dataset, type: belongs_to, via: dataset_id}
+- {from: TrainRequest, to: Task, type: has_one, via: task_id}
+- {from: Task, to: Model, type: has_one, via: 'metadata.location (on SUCCEEDED)'}
+- {from: Prediction, to: Model, type: belongs_to, via: id}
+- {from: Chat, to: Project, type: belongs_to, via: project_id}
+- {from: Chat, to: Dataset, type: belongs_to, via: dataset_id, note: alternative to project_id; custom instructions only apply via project_id}
+- {from: Chat, to: ChatMessage, type: has_many}
+- {from: Chat, to: Task, type: has_one, via: task_id}
+- {from: Project, to: Dataset, type: has_many, note: 'a project is the workflow container around data; the docs call it a "flow"'}
+enums:
+- {name: TaskStatusEnum, values: [PENDING, IN_PROGRESS, SUCCEEDED, FAILED, UNKNOWN_TIMEOUT]}
+- {name: RolesEnum, values: [user, assistant]}
+- {name: dataset field type, values: [category, string, number]}
+- {name: training duration, values: [10, 60, 300, 1800]}
+cross_links:
+  conventions: conventions/akkio-conventions.yml
+  errors: errors/akkio-problem-types.yml

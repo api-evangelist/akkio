@@ -1,0 +1,74 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTPS probes of every Akkio host named in apis.yml + OpenAPI servers[]
+note: >-
+  Every /.well-known/ path was probed on all four Akkio hosts and NONE returned a
+  real document. api.akk.io / api.akkio.com answer a JSON 404 ({"detail":"Not
+  Found"}) from FastAPI; www.akkio.com answers the Webflow "Invalid .well-known
+  request" 404 page; docs.akkio.com answers the GitBook 404 shell. app.akkio.com
+  is a single-page-app catch-all that returns HTTP 200 with the same 3,942-byte
+  index.html for EVERY path probed (including /openapi.json and /llms.txt) — that
+  is an SPA shell, not a document, and is recorded here as a miss so it is never
+  mistaken for a hit. No WellKnown or SecurityTxt pointer is emitted from this
+  probe; a recorded absence is valid data, not a served surface.
+hosts:
+- host: api.akkio.com
+  behavior: FastAPI JSON 404 for unknown paths
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: api.akk.io
+  behavior: FastAPI JSON 404 for unknown paths (live alias of api.akkio.com; identical build)
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: www.akkio.com
+  behavior: Webflow 404 ("Invalid .well-known request")
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: docs.akkio.com
+  behavior: GitBook 404 HTML shell
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: app.akkio.com
+  behavior: >-
+    SPA catch-all — HTTP 200 with the identical 3,942-byte index.html for every
+    path probed. Treated as a MISS on all paths; a 200 that returns an HTML shell
+    is not a document.
+  documents:
+  - {path: /.well-known/security.txt, status: 200, result: html-spa-shell, hit: false}
+  - {path: /.well-known/openid-configuration, status: 200, result: html-spa-shell, hit: false}
+  - {path: /.well-known/oauth-authorization-server, status: 200, result: html-spa-shell, hit: false}
+  - {path: /.well-known/api-catalog, status: 200, result: html-spa-shell, hit: false}
+  - {path: /.well-known/ai-plugin.json, status: 200, result: html-spa-shell, hit: false}
+  - {path: /.well-known/agent-card.json, status: 200, result: html-spa-shell, hit: false}
+  - {path: /.well-known/agent.json, status: 200, result: html-spa-shell, hit: false}
+summary:
+  hosts_probed: 5
+  paths_probed: 35
+  real_documents_found: 0
+  security_txt: false
+  agent_card: false
+  oauth_metadata: false

@@ -1,0 +1,86 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.akkio.com/pricing
+docs: https://www.akkio.com/pricing
+plan_count: 0
+currency: null
+billing_period: null
+note: >-
+  Akkio publishes NO priced plans. The pricing page (probed 2026-08-13, HTTP 200)
+  advertises a single unpriced tier — "Enterprise AI Analytics Platform ...
+  Custom pricing based on your unique needs" — behind a "Contact Sales" call to
+  action, so plan_count is recorded as 0 per the enterprise-contact-only rule.
+  Akkio repositioned in 2025 from the self-serve no-code ML tool it launched as
+  to an enterprise platform sold to media agencies; the older self-serve tiers
+  the FAQ still references (View / Basic / Professional, and organization-wide
+  Build-On / Dedicated Infrastructure) no longer appear on the pricing page with
+  prices attached. Those tier NAMES are still load-bearing for the API, because
+  the FAQ documents which API capabilities each one unlocks — captured below as
+  the entitlement matrix rather than as priced plans.
+advertised_tiers:
+- name: Enterprise AI Analytics Platform
+  price: null
+  currency: null
+  billing_period: null
+  pricing_model: contact-sales
+  quota: null
+  overage: null
+  cta: Contact Sales
+  included:
+  - Full platform access to all of Akkio's domain-specific agents for every area of agency work
+  - Advanced unlimited customization and integration capabilities
+  - Premium 24/7 priority support
+  - Enhanced security and compliance features
+  - 'Deployment flexibility: SaaS or embedded into your infrastructure'
+  - Custom pricing based on your unique needs
+  source: https://www.akkio.com/pricing
+api_entitlements:
+  note: >-
+    Published in the FAQ under "What license do I need for the API?". These are
+    capability entitlements per plan, not prices. Reproduced as published.
+  source: https://docs.akkio.com/akkio-docs/master/akkio-faq
+  user_level_plans:
+    tiers: [View, Basic, Professional]
+    matrix:
+    - capability: API for Data
+      available_on: [View, Basic, Professional]
+    - capability: API for Predictions
+      available_on: [Professional]
+      qualifier: >-
+        Project must be owned by a Pro (or trial) user to do API deployment /
+        run predictions via API.
+  organization_wide_plans:
+    tiers: [All, Build-On Plan, Dedicated Infrastructure]
+    matrix:
+    - capability: Predict via API
+      available_on: [All]
+    - capability: Train via API
+      available_on: [Build-On Plan]
+    - capability: Insights and driving factors via API
+      available_on: [Build-On Plan]
+    - capability: Chat via API
+      available_on: [Build-On Plan]
+usage_units:
+  note: >-
+    The FAQ defines the metering unit for prediction usage even though no price
+    is attached to it.
+  definitions:
+  - unit: prediction
+    definition: >-
+      1 prediction = 1 row of data fed through a prediction model. Only deployed
+      prediction models count; creating a model does not count toward predictions.
+  - unit: dataset size
+    definition: >-
+      1 million rows of connected data without data add-on packages; no file-size
+      limit, but a technical limit of roughly 5 GB.
+trial:
+  available: true
+  note: >-
+    The FAQ references a free Akkio trial that converts to a free account and
+    documents trial-user API entitlements, but no trial signup tier is priced or
+    listed on the pricing page.
+evidence:
+- {url: 'https://www.akkio.com/pricing', status: 200, finding: single unpriced enterprise tier, contact-sales}
+- {url: 'https://docs.akkio.com/akkio-docs/master/akkio-faq', status: 200, finding: API entitlement matrix by plan}
+cross_links:
+  rate_limits: rate-limits/akkio-rate-limits.yml

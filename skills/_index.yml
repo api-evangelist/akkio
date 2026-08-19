@@ -1,12 +1,40 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: generated
-source: openapi/akkio-api-openapi.yml
+source: >-
+  openapi/_original/akkio-public-api-openapi.yaml,
+  openapi/_original/akkio-api-openapi.yml, https://docs.akkio.com/akkio-docs
+note: >-
+  Every operationId referenced by these skills was grepped out of the specs Akkio
+  serves live at api.akkio.com; none is invented. The two legacy skills cover the
+  /v1 datasets+models surface the 2021 SDKs wrap; the two async skills cover the
+  current /api/v1 Public API (Beta), which the SDKs do not reach.
 skills:
-  - file: akkio-train-model.md
-    name: Train an Akkio predictive model
-    api: openapi/akkio-api-openapi.yml
-    operations: [postDataset, getDatasets, postModel]
-  - file: akkio-make-prediction.md
-    name: Make predictions with an Akkio model
-    api: openapi/akkio-api-openapi.yml
-    operations: [getModels, postModel]
+- file: akkio-train-model.md
+  name: Train an Akkio predictive model
+  api: openapi/_original/akkio-api-openapi.yml
+  surface: legacy /v1
+  operations: [postDataset, getDatasets, postModel]
+- file: akkio-make-prediction.md
+  name: Make predictions with an Akkio model
+  api: openapi/_original/akkio-api-openapi.yml
+  surface: legacy /v1
+  operations: [getModels, postModel]
+- file: akkio-train-model-async.md
+  name: Train an Akkio model with the async Training API
+  api: openapi/_original/akkio-public-api-openapi.yaml
+  surface: /api/v1 (current)
+  operations:
+  - _submit_controller_api_v1_models_train_new_post
+  - _get_status_controller_api_v1_models_train__task_id__status_get
+  - _get_result_controller_api_v1_models_train__task_id__result_get
+- file: akkio-chat-explore.md
+  name: Ask questions of Akkio data with Chat Explore
+  api: openapi/_original/akkio-public-api-openapi.yaml
+  surface: /api/v1 (current)
+  operations:
+  - _create_new_project_api_v1_projects_post
+  - _update_project_api_v1_projects__project_id__put
+  - _get_project_api_v1_projects__project_id__get
+  - _submit_chat_explore_query_api_v1_chat_explore_new_post
+  - _get_chat_explore_status_api_v1_chat_explore_status__task_id__get
+  - _get_chat_api_v1_chat_explore_chats__id__get

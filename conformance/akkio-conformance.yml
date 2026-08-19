@@ -1,21 +1,93 @@
-generated: '2026-07-17'
-method: derived
-source: openapi/akkio-api-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://api.akkio.com/api/v1/api.yaml, https://api.akkio.com/openapi.json,
+  https://www.akkio.com/security
 standards:
-  - id: oauth2
-    conforms: false
-    evidence: API uses a single API key, not OAuth 2.0.
-  - id: oidc
-    conforms: false
-  - id: rfc9457-problem-details
-    conforms: false
-    evidence: No application/problem+json error contract documented.
-  - id: json-over-https
-    conforms: true
-    evidence: All operations exchange application/json over HTTPS on api.akk.io/v1.
-  - id: soc2-type2
-    conforms: true
-    evidence: 'Akkio is SOC 2 Type 2 compliant (https://www.akkio.com/security).'
-  - id: hipaa
-    conforms: true
-    evidence: 'HIPAA compliance controls verified via Drata (https://www.akkio.com/security).'
+- id: openapi-3.1
+  conforms: true
+  evidence: >-
+    Akkio serves two live OpenAPI 3.1.0 documents from its API host:
+    https://api.akkio.com/api/v1/api.yaml ("Akkio Public API (Beta)", 12
+    operations) and https://api.akkio.com/openapi.json (the full FastAPI
+    application schema, 282 operations). Both verified 200 and parsed on
+    2026-08-13.
+- id: oauth2
+  conforms: false
+  evidence: API-key authentication only; no OAuth 2.0 surface for API consumers.
+- id: oidc
+  conforms: false
+  evidence: No /.well-known/openid-configuration on any Akkio host (all 404).
+- id: rfc8414-oauth-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returned 404 on every host.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404 on every Akkio host.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    No application/problem+json. Errors use FastAPI HTTPValidationError on
+    /api/v1 and a flat {"status": ...} envelope on legacy /v1.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset/Deprecation header support and no deprecation policy.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header or equivalent in docs or either published spec.
+- id: json-over-https
+  conforms: true
+  evidence: >-
+    All operations exchange application/json over TLS 1.3 on api.akkio.com /
+    api.akk.io.
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json probed on all five
+    hosts; 404 everywhere except the app.akkio.com SPA catch-all, which returns
+    an HTML shell and is not a card.
+- id: mcp
+  conforms: false
+  evidence: >-
+    No hosted MCP server found. /mcp probed on api.akkio.com (403), akkio.com
+    (405), mcp.akkio.com and mcp.akk.io (no DNS/connection); no MCP registry or
+    npm package published by akkio-inc.
+- id: llmstxt
+  conforms: true
+  evidence: >-
+    https://docs.akkio.com/llms.txt serves a real llms.txt (redirects to
+    /akkio-docs/llms.txt, 200, 96 entries) plus markdown twins of every docs
+    page and a GitBook ?ask= retrieval endpoint.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    Not applicable — Akkio publishes no event, streaming or customer-facing
+    webhook surface. The only /webhook/* paths in the platform spec are the three
+    Shopify-mandated GDPR compliance callbacks Akkio RECEIVES from Shopify
+    (customer-data-request, customer-deletion-request, shop-deletion-request),
+    not events Akkio emits to customers. No AsyncAPI or Webhooks pointer is
+    emitted; a provider with no event surface is not penalized.
+- id: soc2-type2
+  conforms: true
+  evidence: 'Akkio is SOC 2 Type 2 compliant (https://www.akkio.com/security).'
+- id: hipaa
+  conforms: true
+  evidence: 'HIPAA compliance controls verified via Drata (https://www.akkio.com/security).'
+- id: gdpr
+  conforms: true
+  evidence: >-
+    Shopify GDPR-mandated data-request/deletion webhook handlers are implemented
+    in the platform API, and a privacy policy is published at
+    https://www.akkio.com/privacy.
+compliance_program:
+  published: true
+  url: https://www.akkio.com/security
+  certifications: [SOC 2 Type 2, HIPAA]
+  monitoring: Drata continuous control monitoring
+  see: security/akkio-trust-center.yml
+cross_links:
+  authentication: authentication/akkio-authentication.yml
+  errors: errors/akkio-problem-types.yml
+  well_known: well-known/akkio-well-known.yml
+  lifecycle: lifecycle/akkio-lifecycle.yml

@@ -1,0 +1,104 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/_original/akkio-public-api-openapi.yaml,
+  openapi/_original/akkio-platform-api-openapi.json,
+  https://docs.akkio.com/akkio-docs/concepts/authentication
+format: vendor-json
+rfc9457: false
+note: >-
+  Akkio does not implement RFC 9457 problem+json. Two distinct error envelopes
+  coexist and an agent has to handle both. (1) The /api/v1 public beta API is
+  FastAPI/Pydantic: the only error response either published spec DECLARES is
+  422, carrying HTTPValidationError -> {"detail": [ValidationError]} where each
+  ValidationError is {loc, msg, type}. (2) The legacy /v1 datasets/models API
+  returns a flat vendor envelope with a "status" field ("success" on the happy
+  path) and is documented with a 404 case. 401 and 403 are documented in prose
+  on the authentication page but are declared in NEITHER spec, so a generated
+  client will not model them. No error CODE registry, no type URIs, no
+  remediation catalog is published.
+envelopes:
+- id: fastapi-validation
+  applies_to: /api/v1 (Akkio Public API, beta)
+  media_type: application/json
+  shape: '{"detail": [{"loc": [...], "msg": "...", "type": "..."}]}'
+  schema: HTTPValidationError
+  source: openapi/_original/akkio-public-api-openapi.yaml
+- id: legacy-status-envelope
+  applies_to: /v1 (legacy datasets + models API)
+  media_type: application/json
+  shape: '{"status": "success" | <error>, ...}'
+  source: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+- id: async-task-failure
+  applies_to: all asynchronous /new -> /status -> /result flows
+  media_type: application/json
+  shape: '{"status": "FAILED", "metadata": {"type": "FAILED", "error": "<text>"}}'
+  schema: APIStatusResponse + APIStatusMetadataFailed
+  note: >-
+    A failed long-running job does NOT surface as an HTTP error status. The
+    status poll returns HTTP 200 with status FAILED and a human-readable error
+    string, defaulting to "Unable to complete request. Please verify your inputs,
+    try again later, or get in touch at support@akkio.com." Agents that branch on
+    HTTP status alone will read a failed training run as a success.
+  source: openapi/_original/akkio-public-api-openapi.yaml
+problems:
+- status: 401
+  title: Unauthenticated
+  detail: >-
+    Akkio could not authenticate the caller to the platform. Documented causes:
+    no X-API-Key header supplied, an incorrect key, or a key sent with leading or
+    trailing whitespace.
+  remediation: >-
+    Send a valid X-API-Key header, trimmed. Keys are issued at
+    https://app.akkio.com/team-settings.
+  declared_in_spec: false
+  source: https://docs.akkio.com/akkio-docs/concepts/authentication
+- status: 403
+  title: Forbidden
+  detail: >-
+    The organization linked to the API key does not have access to the requested
+    resource.
+  remediation: Use the API key of an organization that has access to the resource.
+  declared_in_spec: false
+  source: https://docs.akkio.com/akkio-docs/concepts/authentication
+- status: 404
+  title: Not found
+  detail: The requested dataset or model id does not exist in the organization.
+  declared_in_spec: false
+  source: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+- status: 422
+  title: Validation Error
+  detail: >-
+    Request body or path/query parameters failed Pydantic validation. Response
+    body is HTTPValidationError; each entry names the failing field path (loc),
+    a message (msg) and a machine-readable error type.
+  declared_in_spec: true
+  schema: HTTPValidationError
+  source_operations:
+  - openapi/_original/akkio-public-api-openapi.yaml#_get_chat_api_v1_chat_explore_chats__id__get
+  - openapi/_original/akkio-public-api-openapi.yaml#_submit_chat_explore_query_api_v1_chat_explore_new_post
+  - openapi/_original/akkio-public-api-openapi.yaml#_get_chat_explore_status_api_v1_chat_explore_status__task_id__get
+  - openapi/_original/akkio-public-api-openapi.yaml#_submit_controller_api_v1_models_train_new_post
+  - openapi/_original/akkio-public-api-openapi.yaml#_get_status_controller_api_v1_models_train__task_id__status_get
+  - openapi/_original/akkio-public-api-openapi.yaml#_get_result_controller_api_v1_models_train__task_id__result_get
+  - openapi/_original/akkio-public-api-openapi.yaml#_create_new_project_api_v1_projects_post
+  - openapi/_original/akkio-public-api-openapi.yaml#_get_project_api_v1_projects__project_id__get
+  - openapi/_original/akkio-public-api-openapi.yaml#_update_project_api_v1_projects__project_id__put
+  - openapi/_original/akkio-public-api-openapi.yaml#_delete_project_api_v1_projects__project_id__delete
+task_status_enum:
+  source: openapi/_original/akkio-public-api-openapi.yaml#TaskStatusEnum
+  values: [PENDING, IN_PROGRESS, SUCCEEDED, FAILED, UNKNOWN_TIMEOUT]
+  note: >-
+    Note the drift between the spec and the docs: the published TaskStatusEnum
+    is PENDING/IN_PROGRESS/SUCCEEDED/FAILED/UNKNOWN_TIMEOUT, while the
+    Asynchronous Endpoints doc page names the first state SUBMITTED and omits
+    UNKNOWN_TIMEOUT. Trust the spec enum.
+gaps:
+- No RFC 9457 application/problem+json contract.
+- No stable error codes or type URIs; errors are matched on HTTP status and prose.
+- 401/403/404 are documented in prose but absent from both published OpenAPI documents.
+- No 429 declared despite a published five-requests-per-second limit.
+cross_links:
+  conventions: conventions/akkio-conventions.yml
+  authentication: authentication/akkio-authentication.yml
+  rate_limits: rate-limits/akkio-rate-limits.yml

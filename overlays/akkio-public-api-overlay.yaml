@@ -1,0 +1,96 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Akkio Public API (Beta)
+  version: 1.0.0
+extends: openapi/_original/akkio-public-api-openapi.yaml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Enhancements derived from Akkio's own documentation (docs.akkio.com/akkio-docs)
+  and from live probes of api.akkio.com on 2026-08-13. The harvested spec is
+  never mutated; every correction lives here.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-harvested: '2026-08-13'
+    x-apievangelist-source: https://api.akkio.com/api/v1/api.yaml
+    x-apievangelist-lifecycle: beta
+    contact:
+      name: Akkio Support
+      email: support@akkio.com
+      url: https://docs.akkio.com/akkio-docs/rest-api/api-introduction
+    termsOfService: https://www.akkio.com/terms
+- target: $
+  description: >-
+    The harvested document declares no servers[]. Akkio's docs consistently
+    publish api.akkio.com as the API host; api.akk.io is a live alias serving the
+    identical build (same /version sha, byte-identical specs, probed 2026-08-13).
+  update:
+    servers:
+    - url: https://api.akkio.com
+      description: Akkio production API (documented host)
+    - url: https://api.akk.io
+      description: Live alias of the production API; the host the 2021 first-party SDKs shipped with
+- target: $
+  description: >-
+    The harvested document declares no securitySchemes even though its own
+    info.description states that every route except the two "API Specification"
+    routes requires an X-API-Key header. Declared here so generated clients wire
+    auth.
+  update:
+    components:
+      securitySchemes:
+        ApiKeyAuth:
+          type: apiKey
+          in: header
+          name: X-API-Key
+          description: >-
+            Team-scoped Akkio API key, issued at https://app.akkio.com/team-settings.
+            Not scoped — one key grants the organization's full access.
+    security:
+    - ApiKeyAuth: []
+- target: $
+  description: Tag descriptions, absent from the harvested document.
+  update:
+    tags:
+    - name: Chat Explore
+      description: >-
+        Ask natural-language questions of a project or dataset and receive answers
+        with charts and tables. Asynchronous.
+    - name: Training
+      description: >-
+        Train predictive models from an uploaded dataset. Asynchronous; described
+        in Akkio's docs as the better-designed v2 of the legacy /v1/models route.
+    - name: Projects
+      description: >-
+        Read, create, update and delete projects, including the Chat Explore
+        custom-instruction fields.
+    - name: API Specification
+      description: >-
+        The published OpenAPI document and Swagger UI. The only routes that do not
+        require an API key.
+- target: $.paths['/api/v1/models/train/new'].post
+  description: Record the asynchronous contract and the absence of idempotency.
+  update:
+    x-async-pattern: submit-poll-fetch
+    x-async-next: /api/v1/models/train/{task_id}/status
+    x-idempotent: false
+    x-apievangelist-note: >-
+      Not idempotent and there is no idempotency key. A retry after a timeout
+      starts a second training job. TrainRequestPayload.force does the opposite of
+      deduplication — it explicitly forces a new model even when one exists.
+- target: $.paths['/api/v1/chat-explore/new'].post
+  update:
+    x-async-pattern: submit-poll-fetch
+    x-async-next: /api/v1/chat-explore/status/{task_id}
+    x-idempotent: false
+- target: $.paths['/api/v1/models/train/{task_id}/status'].get
+  update:
+    x-apievangelist-note: >-
+      Returns HTTP 200 for FAILED tasks. Branch on the body's `status` field, not
+      on the HTTP status.
+- target: $.paths['/api/v1/chat-explore/status/{task_id}'].get
+  update:
+    x-apievangelist-note: >-
+      Returns HTTP 200 for FAILED tasks. Branch on the body's `status` field, not
+      on the HTTP status.

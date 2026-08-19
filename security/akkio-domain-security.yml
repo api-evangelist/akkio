@@ -1,4 +1,4 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
@@ -11,7 +11,7 @@ hosts:
 - host: docs.akkio.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Sep  1 04:17:26 2026 GMT
+  cert_expires: Oct 30 05:48:40 2026 GMT
   hsts: true
   hsts_max_age: 31536000
 - host: api.akk.io
@@ -23,12 +23,12 @@ domains:
 - domain: akkio.com
   dnssec: false
   caa:
-  - 0 issuewild "amazon.com"
-  - 0 issuewild "amazonaws.com"
-  - 0 issuewild "amazontrust.com"
   - 0 issuewild "awstrust.com"
   - 0 issuewild "godaddy.com"
   - 0 issuewild "pki.goog"
+  - 0 issuewild "amazon.com"
+  - 0 issuewild "amazonaws.com"
+  - 0 issuewild "amazontrust.com"
   spf: true
   dmarc: true
   dmarc_policy: quarantine

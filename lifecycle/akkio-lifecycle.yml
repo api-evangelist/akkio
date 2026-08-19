@@ -1,19 +1,82 @@
-generated: '2026-07-17'
-method: derived
-source: openapi/akkio-api-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://docs.akkio.com/akkio-docs/rest-api/api-introduction
+docs: https://docs.akkio.com/akkio-docs/rest-api/api-introduction
 versioning:
   scheme: uri-path
-  current: v1
-  base_url: https://api.akk.io/v1
+  current: /api/v1
+  legacy: /v1
+  spec_version: 0.1.0
+  base_url: https://api.akkio.com
+  detail: >-
+    Two generations run concurrently. The legacy /v1 datasets+models surface is
+    the one the 2021-era first-party SDKs wrap; Akkio's own Training docs call
+    the newer /api/v1 routes "a better-designed v2 of our legacy /v1/models
+    route". The newer surface carries info.version 0.1.0 and is explicitly
+    labelled beta.
+maturity:
+  status: beta
+  evidence: >-
+    'The Akkio API is currently in beta.' — https://docs.akkio.com/akkio-docs/rest-api/api-introduction
+    Spec title is "Akkio Public API (Beta)". Several platform capabilities are
+    separately marked beta in the docs (HubSpot (Beta), PostgreSQL (Beta)).
+  feedback_channel: support@akkio.com, or the chat bubble on https://app.akkio.com/
 deprecation:
   policy_url: null
   sunset_header: false
-  detail: No published deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+  detail: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation header support, and no
+    stated timeline for the legacy /v1 surface even though Akkio's own docs
+    describe it as superseded. Queried the docs directly (GitBook ?ask=) on
+    2026-08-13; the docs' own answer was that no changelog, release notes or
+    formal deprecation policy exists and directs users to support@akkio.com for
+    upcoming-change confirmation.
+deprecated_operations: []
+changelog:
+  published: false
+  detail: >-
+    No dated changelog or release-notes surface exists. www.akkio.com/changelog
+    returned 404 on 2026-08-13. The former api-docs.akkio.com host, which older
+    search results still index as carrying /changelog, no longer resolves to a
+    docs site — every path on it now returns the same 220KB marketing/redirect
+    HTML shell, and the live docs have moved to docs.akkio.com/akkio-docs. No
+    changelog/ artifact is emitted and no ChangeLog pointer is wired, because
+    there is nothing dated to capture.
 sla:
   url: null
-status_page: null
-deprecated_operations: []
+  uptime_target: null
+  detail: No published SLA or uptime commitment.
+status_page:
+  url: null
+  detail: >-
+    No status page. status.akkio.com does not resolve; www.akkio.com/status
+    returned 404 on 2026-08-13. No StatusPage pointer is wired.
+health_endpoints:
+  note: >-
+    The API host does serve unauthenticated liveness endpoints, which are the
+    only operational telemetry Akkio exposes. These are not a status page.
+  endpoints:
+  - {path: /health, status: 200, body: 'null', verified: '2026-08-13'}
+  - {path: /health-check, declared_in: openapi/_original/akkio-platform-api-openapi.json}
+  - {path: /version, status: 200, body: build sha (3b3a1f4 on 2026-08-13), verified: '2026-08-13'}
+sdk_currency:
+  detail: >-
+    Both first-party SDKs (PyPI `akkio`, npm `akkio`) last published 1.0.5 on
+    2021-03-05 — over five years stale as of this pass — and they wrap only the
+    legacy /v1 datasets+models surface. Neither covers the current /api/v1
+    projects, training or chat-explore routes. Akkio's answer to this is code
+    generation off the published spec rather than SDK maintenance; the docs'
+    Code Generation page recommends generating a client from
+    https://api.akkio.com/api/v1/api.yaml. See packages/akkio-packages.yml.
+evidence:
+- {url: 'https://docs.akkio.com/akkio-docs/rest-api/api-introduction', status: 200}
+- {url: 'https://www.akkio.com/changelog', status: 404}
+- {url: 'https://www.akkio.com/status', status: 404}
+- {url: 'https://www.akkio.com/roadmap', status: 404}
+- {url: 'https://api.akkio.com/version', status: 200}
+- {url: 'https://api.akkio.com/health', status: 200}
 notes: >-
-  No dedicated status page, SLA page, or changelog/release-notes surface was
-  found for the Akkio API as of this pass. The API is versioned in the URI path
-  (v1).
+  Operational transparency is the weakest part of Akkio's API posture: no status
+  page, no SLA, no changelog, no deprecation policy, and no roadmap, against an
+  API the vendor itself labels beta and a legacy generation it has already called
+  superseded in writing.

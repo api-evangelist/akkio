@@ -1,35 +1,83 @@
-# Akkio Help Center
+# Akkio Docs
 
-## Akkio Knowledge Base
+## Akkio Docs
 
-- [Welcome to Akkio's Knowledge Base](https://docs.akkio.com/akkio-help-center/welcome-to-akkios-knowledge-base.md)
-- [What is Akkio?](https://docs.akkio.com/akkio-help-center/akkio-overview/what-is-akkio.md)
-- [Key Areas of Akkio](https://docs.akkio.com/akkio-help-center/key-areas-of-akkio.md)
-- [Integrations](https://docs.akkio.com/akkio-help-center/integrations.md)
-- [Databricks](https://docs.akkio.com/akkio-help-center/integrations/databricks.md)
-- [FAQ](https://docs.akkio.com/akkio-help-center/faq.md)
-- [Account Set-Up](https://docs.akkio.com/akkio-help-center/getting-started/account-set-up.md)
-- [Assigning User Roles & Access](https://docs.akkio.com/akkio-help-center/getting-started/assigning-user-roles-and-access.md)
-- [Configuring Data Permissions](https://docs.akkio.com/akkio-help-center/getting-started/configuring-data-permissions.md)
-- [Home](https://docs.akkio.com/akkio-help-center/navigating-the-platform/home.md)
-- [Projects (Workflows & Tools)](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools.md)
-- [Campaign Strategy Development](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools/campaign-strategy-development.md)
-- [Audiences Building, Analysis & Modeling](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools/audiences-building-analysis-and-modeling.md)
-- [Propensity Modeling](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools/propensity-modeling.md)
-- [RFM Analysis](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools/rfm-analysis.md)
-- [Media Mix Modeling](https://docs.akkio.com/akkio-help-center/navigating-the-platform/projects-workflows-and-tools/media-mix-modeling.md)
-- [Dashboards](https://docs.akkio.com/akkio-help-center/navigating-the-platform/dashboards.md)
-- [Dashboard Builder](https://docs.akkio.com/akkio-help-center/navigating-the-platform/dashboards/dashboard-builder.md)
-- [Performance Measurement](https://docs.akkio.com/akkio-help-center/navigating-the-platform/dashboards/performance-measurement.md)
-- [Viewership Dashboard](https://docs.akkio.com/akkio-help-center/navigating-the-platform/dashboards/viewership-dashboard.md)
-- [CPG Dashboard](https://docs.akkio.com/akkio-help-center/navigating-the-platform/dashboards/cpg-dashboard.md)
-- [Audiences](https://docs.akkio.com/akkio-help-center/audiences.md): Manage, search, and organize your full library of created audiences.
-- [Deployments](https://docs.akkio.com/akkio-help-center/deployments.md)
-- [Data](https://docs.akkio.com/akkio-help-center/data.md): Store and access internal documents powering strategic insights.
-- [Settings](https://docs.akkio.com/akkio-help-center/settings.md)
-- [Account Settings](https://docs.akkio.com/akkio-help-center/settings/account-settings.md): Manage your personal account details, appearance, and security preferences.
-- [Organization Settings](https://docs.akkio.com/akkio-help-center/settings/organization-settings.md): Set up and manage your agency’s workspace, team roles, and access.
-- [Client Team Settings](https://docs.akkio.com/akkio-help-center/settings/client-team-settings.md): Structure and secure workspaces for client-specific collaboration.
+- [Akkio Documentation](https://docs.akkio.com/akkio-docs/master.md): Explore our guides and application walkthrough.
+- [Akkio FAQ](https://docs.akkio.com/akkio-docs/master/akkio-faq.md): Frequently Asked Questions about the platform
+- [Prompt Library](https://docs.akkio.com/akkio-docs/master/prompt-library.md): Library of prompt types and examples. Select from Data Preparation or Analysis prompting categories.
+- [Column Adjustment](https://docs.akkio.com/akkio-docs/master/prompt-library/column-adjustment.md): Adjust column type and location. Add or remove new columns.
+- [Data Adjustment](https://docs.akkio.com/akkio-docs/master/prompt-library/data-adjustment.md): Exclude specific rows of data. Populate or change the data of existing columns. Change data formats.
+- [Data Parsing](https://docs.akkio.com/akkio-docs/master/prompt-library/data-parsing.md): Fix data parsing errors with Chat Data Prep.
+- [Post Campaign Analysis](https://docs.akkio.com/akkio-docs/master/prompt-library/post-campaign-analysis.md): Examples of how to prompt for Post Campaign Analysis, segmented by analysis goals.
+- [Benchmarking](https://docs.akkio.com/akkio-docs/master/prompt-library/benchmarking.md): Examples of how to prompt for Benchmark tracking and analysis, segmented by metric tracking and analysis.
+- [Campaign Pacing](https://docs.akkio.com/akkio-docs/master/prompt-library/campaign-pacing.md): Examples of how to prompt for Campaign Pacing.
+- [Team Settings](https://docs.akkio.com/akkio-docs/settings/team-settings.md)
+- [Organization Settings](https://docs.akkio.com/akkio-docs/settings/organization-settings.md)
+- [Account Settings](https://docs.akkio.com/akkio-docs/settings/account-settings.md)
+- [Role Based Access Control](https://docs.akkio.com/akkio-docs/settings/role-based-access-control.md)
+- [Demo Models](https://docs.akkio.com/akkio-docs/demo-models/demo-models.md): Various demo models in the platform are described here.
+- [Lead Scoring](https://docs.akkio.com/akkio-docs/demo-models/demo-models/lead-scoring.md): A demo of lead scoring for a tech startup.
+- [Retail Sales Forecasting](https://docs.akkio.com/akkio-docs/demo-models/demo-models/retail-sales-forecasting.md): A sales forecasting model with numeric output
+- [Predict Credit Card Fraud](https://docs.akkio.com/akkio-docs/demo-models/demo-models/predict-credit-card-fraud.md): A demo on constructing a model designed to detect credit card fraud.
+- [Identify Customer Churn](https://docs.akkio.com/akkio-docs/demo-models/demo-models/identify-customer-churn.md)
+- [Connecting Data](https://docs.akkio.com/akkio-docs/integrations/connecting-data.md): Connect data to begin training a model
+- [Airtable (Beta)](https://docs.akkio.com/akkio-docs/integrations/airtable-beta.md): How to set up Airtable Imports
+- [Google Ads (Beta)](https://docs.akkio.com/akkio-docs/integrations/google-ads-beta.md)
+- [Google Analytics 4 (Beta)](https://docs.akkio.com/akkio-docs/integrations/google-analytics-4-beta.md)
+- [Google BigQuery](https://docs.akkio.com/akkio-docs/integrations/google-bigquery.md)
+- [Google BigQuery (Service Account)](https://docs.akkio.com/akkio-docs/integrations/google-bigquery-service-account.md)
+- [Google Sheets](https://docs.akkio.com/akkio-docs/integrations/google-sheets.md)
+- [HubSpot (Beta)](https://docs.akkio.com/akkio-docs/integrations/hubspot-beta.md)
+- [MariaDB (Beta)](https://docs.akkio.com/akkio-docs/integrations/mariadb-beta.md): How to set up MariaDB Imports
+- [MongoDB (Beta)](https://docs.akkio.com/akkio-docs/integrations/mongodb-beta.md): How to set up MongoDB Imports
+- [MySQL (Beta)](https://docs.akkio.com/akkio-docs/integrations/mysql-beta.md): How to set up MySQL Imports
+- [PostgreSQL (Beta)](https://docs.akkio.com/akkio-docs/integrations/postgresql-beta.md): How to set up our PostgreSQL Imports + Deployments.
+- [Redshift (Beta)](https://docs.akkio.com/akkio-docs/integrations/redshift-beta.md): How to set up Redshift Imports.
+- [Salesforce](https://docs.akkio.com/akkio-docs/integrations/salesforce.md)
+- [Akkio Data Chat for Slack](https://docs.akkio.com/akkio-docs/integrations/akkio-data-chat-for-slack.md): Setting up Akkio's Integration between Chat Explore and Slack
+- [Zapier](https://docs.akkio.com/akkio-docs/integrations/zapier.md)
+- [Prepare](https://docs.akkio.com/akkio-docs/prepare-your-data/prepare.md)
+- [Chat Data Prep](https://docs.akkio.com/akkio-docs/prepare-your-data/prepare/chat-data-prep.md): Overview of the Prepare interface
+- [Clean](https://docs.akkio.com/akkio-docs/prepare-your-data/prepare/clean.md): Settings for auto-cleaning your data
+- [Merge & Fuzzy Merge](https://docs.akkio.com/akkio-docs/prepare-your-data/prepare/merge.md): Combining two datasets into one
+- [Table View](https://docs.akkio.com/akkio-docs/prepare-your-data/prepare/table-view.md): Features and options in the table view of your data
+- [Pivot View](https://docs.akkio.com/akkio-docs/prepare-your-data/prepare/pivot-view.md)
+- [Deploying Chat Data Prep](https://docs.akkio.com/akkio-docs/prepare-your-data/prepare/deploying-chat-data-prep.md): Deploy chat data prep to automate data cleaning tasks
+- [Chat Explore](https://docs.akkio.com/akkio-docs/explore/chat-explore.md): Overview of the Chat Explore feature
+- [Chart Types](https://docs.akkio.com/akkio-docs/explore/chart-types.md)
+- [Predict](https://docs.akkio.com/akkio-docs/building-a-model/predict.md)
+- [Insights Report - Classification](https://docs.akkio.com/akkio-docs/building-a-model/predict/insights-report-classification.md): Statistical Report of Model Training Performance (Standard Predictive)
+- [Insights Report - Regression](https://docs.akkio.com/akkio-docs/building-a-model/predict/insights-report-regression.md): Descriptions of report types that are not in the standard example pages
+- [Forecasting](https://docs.akkio.com/akkio-docs/building-a-model/forecasting.md)
+- [Insights Report - Forecasting](https://docs.akkio.com/akkio-docs/building-a-model/forecasting/insights-report-forecasting.md)
+- [Model Types](https://docs.akkio.com/akkio-docs/building-a-model/model-types.md)
+- [Deploy](https://docs.akkio.com/akkio-docs/deploying-a-model/deploy.md)
+- [Google BigQuery](https://docs.akkio.com/akkio-docs/deploying-a-model/deploy/google-bigquery.md)
+- [Google Sheets](https://docs.akkio.com/akkio-docs/deploying-a-model/deploy/google-sheets.md): Deploying to Google Sheets
+- [HubSpot (Beta)](https://docs.akkio.com/akkio-docs/deploying-a-model/deploy/hubspot-beta.md)
+- [PostgreSQL (Beta)](https://docs.akkio.com/akkio-docs/deploying-a-model/deploy/postgresql-beta.md): Coming Soon
+- [Salesforce](https://docs.akkio.com/akkio-docs/deploying-a-model/deploy/salesforce.md)
+- [Web App](https://docs.akkio.com/akkio-docs/deploying-a-model/deploy/web-app.md): Standalone Web App and iFrame options
+- [Zapier](https://docs.akkio.com/akkio-docs/deploying-a-model/deploy/zapier.md): (Updates coming soon)
+- [Reports](https://docs.akkio.com/akkio-docs/reporting-and-sharing/reports.md)
+- [Dashboards](https://docs.akkio.com/akkio-docs/reporting-and-sharing/dashboards.md): Accessed from the home screen, Dashboards are used to combine charts from multiple projects into a single Dashboard.
+- [API Introduction](https://docs.akkio.com/akkio-docs/rest-api/api-introduction.md): What is the API and how do I get started?
+- [Quickstart](https://docs.akkio.com/akkio-docs/rest-api/api-introduction/quickstart.md): Get up and running with the Akkio API using one of our convenient libraries.
+- [Asynchronous Endpoints](https://docs.akkio.com/akkio-docs/concepts/asynchronous-endpoints.md)
+- [Authentication](https://docs.akkio.com/akkio-docs/concepts/authentication.md)
+- [Code Generation](https://docs.akkio.com/akkio-docs/concepts/code-generation.md)
+- [Terminology](https://docs.akkio.com/akkio-docs/concepts/terminology.md): This page defines common domain-specific terms you may see throughout the documentation.
+- [API Specifications](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/api-specifications.md)
+- [Endpoints](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints.md)
+- [Chat Explore](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/chat-explore.md)
+- [Projects](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/projects.md): These endpoints allow you to read, update, and delete projects.
+- [Training](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/training.md)
+- [Models](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/models.md)
+- [Datasets](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets.md)
+- [Schemas](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/schemas.md)
+- [Additional Libraries](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/additional-libraries.md)
+- [Python Library](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/additional-libraries/python.md): Python library for Akkio
+- [Node.js Library](https://docs.akkio.com/akkio-docs/endpoints-and-schemas/additional-libraries/node.js.md): Node.js library for Akkio
 
 
 ---
@@ -41,7 +89,7 @@ This documentation is published with GitBook. GitBook is the documentation platf
 If you need additional information, you can query the documentation dynamically by asking a question.
 Perform an HTTP GET request on a page URL with the `ask` query parameter:
 ```
-GET https://docs.akkio.com/akkio-help-center/welcome-to-akkios-knowledge-base.md?ask=<question>
+GET https://docs.akkio.com/akkio-docs/master.md?ask=<question>
 ```
 The question should be specific, self-contained, and written in natural language.
 The response will contain a direct answer to the question and relevant excerpts and sources from the documentation.

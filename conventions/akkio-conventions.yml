@@ -1,39 +1,149 @@
-generated: '2026-07-17'
-method: derived
-source: openapi/akkio-api-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://docs.akkio.com/akkio-docs/concepts/asynchronous-endpoints
+docs: https://docs.akkio.com/akkio-docs
 summary: >-
-  Cross-cutting request/response semantics for the Akkio API, derived from the
-  first-party SDKs and the documented endpoint surface.
+  Cross-cutting request/response semantics for the Akkio API, read from Akkio's
+  own GitBook concepts pages and from the two OpenAPI documents Akkio serves live
+  at api.akkio.com. Akkio runs two API generations side by side: the legacy /v1
+  datasets+models surface (query/body api_key, synchronous, flat status envelope)
+  and the current /api/v1 "Akkio Public API (Beta)" (X-API-Key header,
+  asynchronous task polling, FastAPI/Pydantic envelopes). The docs describe the
+  /api/v1 Training routes as "a better-designed v2 of our legacy /v1/models
+  route", so the two are generational, not complementary.
+hosts:
+  documented: https://api.akkio.com
+  alias: https://api.akk.io
+  note: >-
+    Both hosts are live and serve the identical build — /version returned the same
+    commit sha (3b3a1f4) on both, and both return byte-identical /openapi.json and
+    /api/v1/api.yaml documents (probed 2026-08-13). Akkio's docs consistently
+    publish api.akkio.com; api.akk.io is the short-domain alias the first-party
+    SDKs shipped with in 2021.
 authentication:
   style: api-key
   detail: >-
-    Single API key sent as the `api_key` query parameter (GET) or as the
-    `api_key` JSON body field (POST/DELETE). See authentication/akkio-authentication.yml.
+    X-API-Key header on /api/v1; `api_key` query parameter (GET) or JSON body
+    field (POST/DELETE) on legacy /v1. See authentication/akkio-authentication.yml.
 versioning:
   style: uri-path
-  current: v1
-  base_url: https://api.akk.io/v1
+  generations:
+  - path: /v1
+    label: legacy
+    status: supported but described in Akkio's own docs as legacy
+    surface: datasets, models (predictions)
+  - path: /api/v1
+    label: current
+    status: beta
+    surface: projects, training, chat-explore, API specification
+  spec_version: 0.1.0
+  detail: >-
+    No version header, no date-based version train, no deprecation policy. The
+    published spec's info.version is 0.1.0 and the API is labelled beta in both
+    the spec title ("Akkio Public API (Beta)") and the API Introduction page.
 transport:
   protocol: https
   content_type: application/json
-  port: 443
-request_response:
-  request_body: JSON object; the same path is overloaded by which fields are present.
-  response_body: JSON object; list endpoints return a named array (datasets, models).
-  overloaded_endpoints:
-    - 'POST /datasets -> create dataset | add rows | set fields | parse fields'
-    - 'POST /models   -> train model | make prediction'
+  spec_media_type: 'text/yaml (the published spec is served as text/yaml at /api/v1/api.yaml)'
+asynchronicity:
+  pattern: submit-poll-fetch
+  detail: >-
+    THE defining convention of the current API. Every long-running operation is
+    asynchronous and follows a three-call shape rather than blocking.
+  steps:
+  - 'POST <resource>/new -> 201 with {"task_id": "..."} (APITaskStartedResponse)'
+  - 'GET <resource>/{task_id}/status -> 200 with {"status": <TaskStatusEnum>, "metadata": {...}}'
+  - 'GET <resource>/{task_id}/result -> 200 with the finished payload'
+  status_values: [PENDING, IN_PROGRESS, SUCCEEDED, FAILED, UNKNOWN_TIMEOUT]
+  metadata_discriminator: >-
+    APIStatusResponse.metadata is a discriminated union keyed on `type`:
+    PENDING (empty), IN_PROGRESS (optional estimate_seconds, best-effort only),
+    SUCCEEDED (required `location` — the path to GET the result from), FAILED
+    (an `error` string).
+  agent_trap: >-
+    A FAILED job still returns HTTP 200. Branching on HTTP status alone reads a
+    failed training run as a success; agents must read the `status` field.
+  docs: https://docs.akkio.com/akkio-docs/concepts/asynchronous-endpoints
+  applies_to:
+  - /api/v1/models/train/new -> /{task_id}/status -> /{task_id}/result
+  - /api/v1/chat-explore/new -> /status/{task_id} -> /chats/{id}
 idempotency:
   supported: false
-  detail: No documented idempotency-key header or mechanism.
+  detail: >-
+    No Idempotency-Key header, no idempotency parameter, and no idempotency
+    language anywhere in Akkio's docs or in either published OpenAPI document.
+    Retrying POST /api/v1/models/train/new after a timeout starts a second
+    training job. The nearest thing Akkio ships is TrainRequestPayload.force,
+    which does the OPPOSITE — it explicitly forces creation of a new model even
+    when one already exists. No Idempotency pointer is emitted for this provider.
 pagination:
   supported: false
-  detail: List endpoints (GET /datasets, GET /models) return the full collection; no cursor/offset documented.
-rate_limiting:
+  detail: >-
+    List endpoints (GET /v1/datasets, GET /v1/models) return the entire collection
+    under a named array; no cursor, offset, limit or page parameter is documented
+    or declared in either spec.
+field_expansion:
+  supported: false
+  detail: >-
+    The legacy GET /v1/datasets takes an optional `id` query parameter that
+    switches the response from a summary list to a single detailed record. That
+    is the only shape variation; there are no sparse-fieldset or expand params.
+metadata:
+  custom_fields: false
+  detail: >-
+    Projects carry three free-text steering fields that behave as agent-facing
+    metadata rather than arbitrary key/value: chatContext (what Chat Explore
+    should know about the application), chatInstructions (how it should respond),
+    chatSuggestions (newline-separated starter questions). Custom instructions
+    only take effect when a Chat Explore call is made with project_id rather than
+    dataset_id.
+request_tracing:
+  request_id_header: null
   documented: false
+  detail: >-
+    No request-id or correlation header is documented or returned. The only
+    per-operation handle is the task_id from an asynchronous submit.
 error_envelope:
-  detail: Errors are returned as a JSON object; no RFC 9457 problem+json contract is documented.
+  rfc9457: false
+  detail: >-
+    Two envelopes — FastAPI HTTPValidationError {"detail":[{loc,msg,type}]} on
+    /api/v1, and a flat {"status": ...} envelope on legacy /v1 — plus the
+    in-band FAILED task metadata. See errors/akkio-problem-types.yml.
+rate_limit_signaling:
+  headers: none
+  detail: >-
+    Five requests per second is published in the FAQ only; no rate-limit response
+    headers, no 429 declared. See rate-limits/akkio-rate-limits.yml.
+content_conventions:
+  images: >-
+    Chat Explore returns charts on the message `images` array as base64 strings
+    (currently PNG, explicitly documented as subject to change) or as stringified
+    Plotly JSON.
+  tables: >-
+    Tables are a list of row objects keyed by column name; values are any
+    JSON-serializable type, not necessarily strings.
+  chat_statelessness: >-
+    Chat Explore is documented under a Statelessness heading — conversation
+    context is supplied per call rather than held server-side.
+code_generation:
+  supported: true
+  detail: >-
+    Akkio explicitly supports client generation off its published spec and
+    documents the openapi-typescript-codegen recipe pointing at
+    https://api.akkio.com/api/v1/api.yaml.
+  docs: https://docs.akkio.com/akkio-docs/concepts/code-generation
+agent_surface:
+  docs_ask_endpoint: >-
+    Akkio's GitBook docs expose a machine-queryable retrieval endpoint: any docs
+    page answers GET <page>.md?ask=<question>&goal=<goal> with a direct answer
+    plus cited source pages. Markdown twins of every page are served by appending
+    .md. This is a documentation-retrieval surface, not an API surface, but it is
+    the most agent-legible thing Akkio ships.
+  verified: probed 2026-08-13
 cross_links:
   authentication: authentication/akkio-authentication.yml
+  errors: errors/akkio-problem-types.yml
   lifecycle: lifecycle/akkio-lifecycle.yml
+  rate_limits: rate-limits/akkio-rate-limits.yml
   data_model: data-model/akkio-data-model.yml
+  plans: plans/akkio-plans-pricing.yml

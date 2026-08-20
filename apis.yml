@@ -40,6 +40,17 @@ modified: '2026-08-13'
 tags:
 - Company
 - Ai Apps
+- Machine-Learning
+- Predictive Analytics
+- No-Code
+- Data Science
+- Marketing
+- Media
+- Audience Modeling
+- Predictions
+tags_raw:
+- Company
+- Ai Apps
 - Machine Learning
 - Predictive Analytics
 - No Code
@@ -63,6 +74,11 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/rest-api/api-introduction
   baseURL: https://api.akkio.com/api/v1
   tags:
+  - Chat Explore
+  - Training
+  - Project
+  - Machine-Learning
+  tags_raw:
   - Chat Explore
   - Training
   - Projects

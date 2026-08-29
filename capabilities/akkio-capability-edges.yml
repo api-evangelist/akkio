@@ -1,0 +1,85 @@
+slug: akkio
+provider: Akkio
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Models
+  spec_file: akkio-models-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.9
+  evidence: POST /models  postModel  Train a model or make a prediction; schemas CreateModelRequest, PredictionRequest
+  reason: Explicit ML model lifecycle operations (list, train, predict, delete) — AI/ML model lifecycle
+    management.
+- tag: Training
+  spec_file: akkio-training-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.85
+  evidence: POST /api/v1/models/train/new 'Submit Controller'; GET /api/v1/models/train/{task_id}/result;
+    schema TrainRequestPayload
+  reason: Operations submit machine-learning model training jobs and poll task status/results — the model
+    lifecycle (MLOps) portion of AI management.
+- tag: modeling
+  spec_file: akkio-modeling-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /modeling/propensity/train_model Train Model Controller; POST /modeling/propensity/predict;
+    POST /modeling/propensity/get_shap_values; schemas PropensityModelMetadataRecord, TrainModelPayload
+  reason: Full predictive-model lifecycle — training, prediction, feature importance/SHAP explainability,
+    threshold comparison — which is AI/ML model lifecycle management. Some ambiguity as outputs feed audience
+    creation, but the operations themselves are model lifecycle.
+- tag: Rfm
+  spec_file: akkio-rfm-api-openapi.yml
+  capability_id: BC-420.20
+  capability_id_l1: BC-420
+  capability_name: Customer Segmentation Management
+  confidence: 0.78
+  evidence: POST /rfm/build_audience_for_rfm 'Controller Build Audience For Rfm'; 'Controller Build Growth
+    Framework'; schemas RFMConfiguration, GrowthFramework, RFMBuildAudienceForGrowthFrameworkPayload
+  reason: Operations build recency-frequency-monetary configurations and derive audiences/growth frameworks
+    from them — customer segmentation and treatment-segment construction.
+- tag: Generative Dashboard
+  spec_file: akkio-generative-dashboard-api-openapi.yml
+  capability_id: BC-610.50
+  capability_id_l1: BC-610
+  capability_name: Analytics & BI Management
+  confidence: 0.75
+  evidence: POST /generate-dashboard/{flow_id}  Generate Dashboard Route; POST /regenerate-gd-chart/{flow_id}/{chart_id}
+  reason: Operations create and regenerate dashboards and charts over the customer's data, which is analytics/BI
+    delivery. Generative-AI assisted, but the delivered artefact is reporting/BI, so Analytics & BI Management
+    fits; some ambiguity with AI management keeps confidence moderate.
+- tag: Datasets
+  spec_file: akkio-datasets-api-openapi.yml
+  capability_id: BC-610
+  capability_id_l1: BC-610
+  capability_name: Information & Data Management
+  confidence: 0.7
+  evidence: '''List datasets'', ''Create a dataset, add rows, set fields, or parse fields'', ''Delete
+    a dataset''; doc description: ''manage datasets, train models, and generate predictions'''
+  reason: Lifecycle management of the datasets that underpin model training and prediction — enterprise
+    data asset management. Sits under Information & Data Management; evidence does not pin a single L2
+    (between data quality/parsing, MDM, and AI/ML), so L1 only.
+- tag: Get Cleaning Ops
+  spec_file: akkio-get-cleaning-ops-api-openapi.yml
+  capability_id: BC-610.30
+  capability_id_l1: BC-610
+  capability_name: Data Quality Management
+  confidence: 0.7
+  evidence: 'GET /get-cleaning-ops  Controller Get Cleaning Ops; schemas: _DataCleaningOp'
+  reason: The schema _DataCleaningOp and endpoint expose available data-cleaning operations for datasets,
+    which is data quality remediation/profiling. Single read-only operation keeps confidence moderate.

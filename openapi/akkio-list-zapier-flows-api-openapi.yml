@@ -1,0 +1,20 @@
+openapi: 3.2.0
+info:
+  title: Fast List Zapier Flows API
+  version: 0.1.0
+tags:
+- name: List Zapier Flows
+paths:
+  /list-zapier-flows:
+    get:
+      summary: ' Controller List Zapier Flows'
+      operationId: _controller_list_zapier_flows_list_zapier_flows_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response  Controller List Zapier Flows List Zapier Flows Get
+      tags:
+      - List Zapier Flows

@@ -1,0 +1,255 @@
+openapi: 3.2.0
+info:
+  title: Fast Audiences API
+  version: 0.1.0
+tags:
+- name: Audiences
+paths:
+  /audience/from_parsed_json/{task_id}/status:
+    get:
+      tags:
+      - Audiences
+      summary: ' Get Status'
+      description: Retrieves the status of the provided Chat Explore task id.
+      operationId: _get_status_audience_from_parsed_json__task_id__status_get
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /audience/from_parsed_json/{task_id}/result:
+    get:
+      tags:
+      - Audiences
+      summary: ' Get Result'
+      description: Retrieves an audience creation result by ID.
+      operationId: _get_result_audience_from_parsed_json__task_id__result_get
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response  Get Result Audience From Parsed Json  Task Id  Result Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /audience/from_parsed_json/new:
+    post:
+      tags:
+      - Audiences
+      summary: ' Submit'
+      description: Initiate audience creation call. Takes in a SQL payload as structured JSON.
+      operationId: _submit_audience_from_parsed_json_new_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FromParsedJsonRequestPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APITaskStartedResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    APIStatusMetadataSucceeded:
+      properties:
+        type:
+          type: string
+          enum:
+          - SUCCEEDED
+          const: SUCCEEDED
+          title: Type
+          default: SUCCEEDED
+        location:
+          type: string
+          title: Location
+          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
+      additionalProperties: true
+      type: object
+      required:
+      - location
+      title: APIStatusMetadataSucceeded
+    APIStatusMetadataFailed:
+      properties:
+        type:
+          type: string
+          enum:
+          - FAILED
+          const: FAILED
+          title: Type
+          default: FAILED
+        error:
+          type: string
+          title: Error
+          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
+          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataFailed
+    APIStatusResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/TaskStatusEnum'
+          description: The current status of the task being queried.
+        metadata:
+          oneOf:
+          - $ref: '#/components/schemas/APIStatusMetadataPending'
+          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
+          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
+          - $ref: '#/components/schemas/APIStatusMetadataFailed'
+          title: Metadata
+          description: Metadata, contextually dependent on the status of the task being queried.
+          discriminator:
+            propertyName: type
+            mapping:
+              FAILED: '#/components/schemas/APIStatusMetadataFailed'
+              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
+              PENDING: '#/components/schemas/APIStatusMetadataPending'
+              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
+      additionalProperties: true
+      type: object
+      required:
+      - status
+      - metadata
+      title: APIStatusResponse
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    APITaskStartedResponse:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - task_id
+      title: APITaskStartedResponse
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
+    FromParsedJsonRequestPayload:
+      properties:
+        audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Name
+          description: If provided, used as the name of the audience. If missing, we infer an accurate name via LLM call.
+        audience_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Description
+          description: If provided, used as the description of the audience. If missing, we infer an accurate description via LLM call.
+        parsed_json:
+          type: object
+          title: Parsed Json
+          description: The parsed JSON object (corresponding to something created through the query builder) to create an `Audience` from.
+      additionalProperties: true
+      type: object
+      required:
+      - parsed_json
+      title: FromParsedJsonRequestPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    APIStatusMetadataInProgress:
+      properties:
+        type:
+          type: string
+          enum:
+          - IN_PROGRESS
+          const: IN_PROGRESS
+          title: Type
+          default: IN_PROGRESS
+        estimate_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimate Seconds
+          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataInProgress

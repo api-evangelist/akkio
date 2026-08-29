@@ -1,0 +1,21 @@
+openapi: 3.2.0
+info:
+  title: Fast Nonce API
+  version: 0.1.0
+tags:
+- name: Nonce
+paths:
+  /nonce:
+    get:
+      summary: ' Handle Nonce'
+      operationId: _handle_nonce_nonce_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Handle Nonce Nonce Get
+      tags:
+      - Nonce

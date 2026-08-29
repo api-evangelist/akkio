@@ -1,0 +1,86 @@
+openapi: 3.2.0
+info:
+  title: Fast Dashboard Name API
+  version: 0.1.0
+tags:
+- name: Dashboard Name
+paths:
+  /dashboard-name:
+    post:
+      summary: ' Controller Dashboard Name'
+      operationId: _controller_dashboard_name_dashboard_name_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardNameRequestPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardNameResponsePayload'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Dashboard Name
+components:
+  schemas:
+    DashboardNameResponsePayload:
+      properties:
+        name:
+          type: string
+          title: Name
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      title: DashboardNameResponsePayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DashboardNameRequestPayload:
+      properties:
+        chart_names:
+          items:
+            type: string
+          type: array
+          title: Chart Names
+      additionalProperties: true
+      type: object
+      required:
+      - chart_names
+      title: DashboardNameRequestPayload
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

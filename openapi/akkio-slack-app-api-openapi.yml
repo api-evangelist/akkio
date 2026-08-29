@@ -1,0 +1,274 @@
+openapi: 3.2.0
+info:
+  title: Fast Slack App API
+  version: 0.1.0
+tags:
+- name: Slack App
+paths:
+  /slack/oauth/callback:
+    get:
+      tags:
+      - Slack App
+      summary: Handle Callback
+      description: OAuth Callback / Redirect endpoint. Users are redirected here after granting us scopes. In this function, we take the temporary code we're provided and use Slack's OAuth API to exchange it for persistent credentials.
+      operationId: handle_callback_slack_oauth_callback_get
+      parameters:
+      - name: state
+        in: query
+        required: true
+        schema:
+          type: string
+          title: State
+      - name: error
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/_SlackErrorCodes'
+          - type: 'null'
+          title: Error
+      - name: code
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /slack/events:
+    post:
+      tags:
+      - Slack App
+      summary: ' Handle Slack Events'
+      description: Slack Webhook Handler. Used to do things like respond to users that mention the app or use our `/akkio` command.
+      operationId: _handle_slack_events_slack_events_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            text/plain:
+              schema:
+                type: string
+  /slack/channels/datasets:
+    post:
+      tags:
+      - Slack App
+      summary: ' Create Channel For Dataset'
+      description: Create new Slack channel corresponding to a given dataset_id and returns the mapping.
+      operationId: _create_channel_for_dataset_slack_channels_datasets_post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_CreateChannelPayload'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackChannelMapping'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Slack App
+      summary: ' Get By Dataset Id'
+      description: Returns a dataset mapping for the given dataset id.
+      operationId: _get_by_dataset_id_slack_channels_datasets_get
+      parameters:
+      - name: owner_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Owner Id
+      - name: dataset_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayloadResponseGetDatasetMapping'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /slack/credentials/exists:
+    get:
+      tags:
+      - Slack App
+      summary: ' Exists Credentials By Owner Id Controller'
+      description: Determine whether we have Slack credentials on record for a given owner_id.
+      operationId: _exists_credentials_by_owner_id_controller_slack_credentials_exists_get
+      parameters:
+      - name: owner_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Owner Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response  Exists Credentials By Owner Id Controller Slack Credentials Exists Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /slack/credentials/scopes-are-current/{owner_id}:
+    get:
+      tags:
+      - Slack App
+      summary: ' Scopes Are Current Controller'
+      description: Determine whether the scopes we have on file for the given owner are valid. The frontend takes our return for this and changes the button to an "reauthentication required" button or similar. If no credentials are found at all, we return 4xx. If credentials are found, we return true/false based on whether they're current.
+      operationId: _scopes_are_current_controller_slack_credentials_scopes_are_current__owner_id__get
+      parameters:
+      - name: owner_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response  Scopes Are Current Controller Slack Credentials Scopes Are Current  Owner Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    _SlackErrorCodes:
+      type: string
+      enum:
+      - access_denied
+      const: access_denied
+      title: _SlackErrorCodes
+    PayloadResponseGetDatasetMapping:
+      properties:
+        exists:
+          type: boolean
+          title: Exists
+        mapping:
+          anyOf:
+          - $ref: '#/components/schemas/SlackChannelMapping'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - exists
+      title: PayloadResponseGetDatasetMapping
+    _CreateChannelPayload:
+      properties:
+        flow_id:
+          type: string
+          title: Flow Id
+        dataset_id:
+          type: string
+          title: Dataset Id
+        owner_id:
+          type: string
+          title: Owner Id
+      additionalProperties: true
+      type: object
+      required:
+      - flow_id
+      - dataset_id
+      - owner_id
+      title: _CreateChannelPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SlackChannelMapping:
+      properties:
+        id:
+          type: string
+          title: Id
+        dataset_id:
+          type: string
+          title: Dataset Id
+        slack_channel_id:
+          type: string
+          title: Slack Channel Id
+        slack_channel_name:
+          type: string
+          title: Slack Channel Name
+        flow_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Flow Id
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - dataset_id
+      - slack_channel_id
+      - slack_channel_name
+      title: SlackChannelMapping

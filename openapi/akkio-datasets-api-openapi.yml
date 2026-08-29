@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Akkio Datasets API
   version: v1
@@ -139,6 +139,13 @@ components:
           type: boolean
           enum:
           - true
+    Dataset:
+      type: object
+      properties:
+        dataset_id:
+          type: string
+        name:
+          type: string
     SetFieldsRequest:
       type: object
       required:
@@ -153,13 +160,6 @@ components:
         fields:
           type: object
           additionalProperties: true
-    Dataset:
-      type: object
-      properties:
-        dataset_id:
-          type: string
-        name:
-          type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey

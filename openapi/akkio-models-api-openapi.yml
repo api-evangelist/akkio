@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Akkio Datasets Models API
+  title: Akkio Models API
   version: v1
   description: 'The Akkio API provides programmatic access to Akkio''s no-code predictive AI platform: manage datasets, train models, and generate predictions. This specification was derived faithfully from Akkio''s first-party client SDKs (github.com/akkio-inc/akkio-python and akkio-node), which document the real paths, methods, request bodies, and authentication. It is a reconstruction, not a provider-published OpenAPI.'
   contact:
@@ -96,6 +96,33 @@ paths:
                 type: object
 components:
   schemas:
+    CreateModelRequest:
+      type: object
+      required:
+      - api_key
+      - dataset_id
+      - predict_fields
+      properties:
+        api_key:
+          type: string
+        dataset_id:
+          type: string
+        predict_fields:
+          type: array
+          items:
+            type: string
+          description: Column(s) the model should learn to predict.
+        ignore_fields:
+          type: array
+          items:
+            type: string
+        extra_attention:
+          type: boolean
+          default: false
+        duration:
+          type: integer
+          default: 10
+          description: Training budget in minutes.
     Model:
       type: object
       properties:
@@ -127,33 +154,6 @@ components:
     PredictionResult:
       type: object
       additionalProperties: true
-    CreateModelRequest:
-      type: object
-      required:
-      - api_key
-      - dataset_id
-      - predict_fields
-      properties:
-        api_key:
-          type: string
-        dataset_id:
-          type: string
-        predict_fields:
-          type: array
-          items:
-            type: string
-          description: Column(s) the model should learn to predict.
-        ignore_fields:
-          type: array
-          items:
-            type: string
-        extra_attention:
-          type: boolean
-          default: false
-        duration:
-          type: integer
-          default: 10
-          description: Training budget in minutes.
   securitySchemes:
     apiKeyQuery:
       type: apiKey

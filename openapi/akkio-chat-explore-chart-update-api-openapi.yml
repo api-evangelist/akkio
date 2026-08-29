@@ -1,0 +1,76 @@
+openapi: 3.2.0
+info:
+  title: Fast Chat Explore Chart Update API
+  version: 0.1.0
+tags:
+- name: Chat Explore Chart Update
+paths:
+  /chat-explore-chart-update:
+    post:
+      summary: Chat Explore Chart Update Route
+      description: Refreshes data for a given chart_id by re-running the most recent code we find in the associated message chain.
+      operationId: chat_explore_chart_update_route_chat_explore_chart_update_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_ChartUpdateParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Chat Explore Chart Update Route Chat Explore Chart Update Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Chat Explore Chart Update
+components:
+  schemas:
+    _ChartUpdateParams:
+      properties:
+        chart_id:
+          type: string
+          title: Chart Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      title: _ChartUpdateParams
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

@@ -1,0 +1,178 @@
+openapi: 3.2.0
+info:
+  title: Fast Images API
+  version: 0.1.0
+tags:
+- name: Images
+paths:
+  /images/generic:
+    get:
+      summary: ' Get Image Url For Generic Prompt'
+      description: 'Generic passthrough for image generation via custom model.
+
+        Uses env-parameterized image model where relevant.'
+      operationId: _get_image_url_for_generic_prompt_images_generic_get
+      parameters:
+      - name: prompt
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Prompt
+      - name: width
+        in: query
+        required: true
+        schema:
+          type: integer
+          title: Width
+      - name: height
+        in: query
+        required: true
+        schema:
+          type: integer
+          title: Height
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Get Image Url For Generic Prompt Images Generic Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Images
+  /images/tv:
+    get:
+      summary: ' Get Image Url For Tv Show Controller'
+      description: 'Gets the URL of an image corresponding to the provided TV Show.
+
+        Internal implementation relies on TVMaze for a rule-based mechanism to retrieve images.'
+      operationId: _get_image_url_for_tv_show_controller_images_tv_get
+      parameters:
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Get Image Url For Tv Show Controller Images Tv Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Images
+  /images/company:
+    get:
+      summary: ' Get Image Url For Company Controller'
+      description: 'Gets the URL of an image corresponding to the provided network. Looking at the data available to us, should be sufficient for all of the following use cases:
+
+        - broadcast network / cable network (cbs, nfl, fox, espn, ...)
+
+        - device (xfinity, dish, directv, ...)
+
+        - service (youtube, youtube tv, tubi, ...)
+
+
+        Internal implementation relies on TVMaze for a rule-based mechanism to retrieve images.'
+      operationId: _get_image_url_for_company_controller_images_company_get
+      parameters:
+      - name: company_name
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Company Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Get Image Url For Company Controller Images Company Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Images
+  /images/genre:
+    get:
+      summary: ' Get Image Url For Genre Controller'
+      description: 'Gets the URL of an image corresponding to the provided Device.
+
+        This seems reasonably finitely bounded, so we simply use an LLM to coerce the input to one of our "known" genres, then have a predefined list of images corresponding to each.'
+      operationId: _get_image_url_for_genre_controller_images_genre_get
+      parameters:
+      - name: genre_name
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Genre Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Get Image Url For Genre Controller Images Genre Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Images
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

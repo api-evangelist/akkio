@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Fast Merge Status API
+  version: 0.1.0
+tags:
+- name: Merge Status
+paths:
+  /merge-status:
+    post:
+      summary: ' Controller Merge Status'
+      operationId: _controller_merge_status_merge_status_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Merge Status

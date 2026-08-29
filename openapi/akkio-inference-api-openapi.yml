@@ -1,0 +1,30 @@
+openapi: 3.2.0
+info:
+  title: Fast Inference API
+  version: 0.1.0
+tags:
+- name: Inference
+paths:
+  /inference:
+    get:
+      summary: ' Controller Inference Get'
+      operationId: _controller_inference_get_inference_get
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Inference
+    post:
+      summary: ' Controller Inference'
+      operationId: _controller_inference_inference_post
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Inference

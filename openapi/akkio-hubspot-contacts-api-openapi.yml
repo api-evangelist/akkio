@@ -1,0 +1,21 @@
+openapi: 3.2.0
+info:
+  title: Fast Hubspot Contacts API
+  version: 0.1.0
+tags:
+- name: Hubspot Contacts
+paths:
+  /hubspot-contacts:
+    get:
+      summary: ' Controller Hubspot Contacts'
+      operationId: _controller_hubspot_contacts_hubspot_contacts_get
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response  Controller Hubspot Contacts Hubspot Contacts Get
+      tags:
+      - Hubspot Contacts

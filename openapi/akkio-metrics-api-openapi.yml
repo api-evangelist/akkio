@@ -1,0 +1,22 @@
+openapi: 3.2.0
+info:
+  title: Fast Metrics API
+  version: 0.1.0
+tags:
+- name: metrics
+paths:
+  /metrics/online-worker-count:
+    get:
+      tags:
+      - metrics
+      summary: Get Online Worker Count
+      description: Get online celery worker count
+      operationId: get_online_worker_count_metrics_online_worker_count_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Get Online Worker Count Metrics Online Worker Count Get

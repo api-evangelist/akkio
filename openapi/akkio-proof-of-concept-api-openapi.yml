@@ -1,0 +1,1007 @@
+openapi: 3.2.0
+info:
+  title: Fast Proof of Concept API
+  version: 0.1.0
+tags:
+- name: Proof of Concept
+paths:
+  /proof-of-concept/example/health:
+    get:
+      tags:
+      - Proof of Concept
+      summary: ' Controller Health'
+      operationId: _controller_health_proof_of_concept_example_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /proof-of-concept/example/chat-explore:
+    post:
+      tags:
+      - Proof of Concept
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_proof_of_concept_example_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /proof-of-concept/example/chat-explore-suggestions:
+    get:
+      tags:
+      - Proof of Concept
+      summary: ' Controller Chat Explore Suggestions'
+      operationId: _controller_chat_explore_suggestions_proof_of_concept_example_chat_explore_suggestions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /proof-of-concept/forecasting/create:
+    post:
+      tags:
+      - Proof of Concept
+      summary: ' Create Forecast'
+      operationId: _create_forecast_proof_of_concept_forecasting_create_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForecastLineChartPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForecastLineChartResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/forecasting/suggestions:
+    post:
+      tags:
+      - Proof of Concept
+      summary: ' Create Suggestions'
+      operationId: _create_suggestions_proof_of_concept_forecasting_suggestions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForecastSuggestionsPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForecastSuggestionsResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/chat-explore-suggestions:
+    post:
+      tags:
+      - Proof of Concept
+      summary: Chat Explore Suggestions Route Async
+      description: Generate suggestions
+      operationId: chat_explore_suggestions_route_async_proof_of_concept_rco_chat_explore_suggestions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Payload
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Chat Explore Suggestions Route Async Proof Of Concept Rco Chat Explore Suggestions Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/chat-explore:
+    post:
+      tags:
+      - Proof of Concept
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_proof_of_concept_rco_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /proof-of-concept/rco/available_reach_curve_units:
+    post:
+      tags:
+      - Proof of Concept
+      summary: ' Get Available Reach Curve Units'
+      operationId: _get_available_reach_curve_units_proof_of_concept_rco_available_reach_curve_units_post
+      parameters:
+      - name: target_audience
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Target Audience
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseUnits'
+                title: Response  Get Available Reach Curve Units Proof Of Concept Rco Available Reach Curve Units Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/reach_curves:
+    post:
+      tags:
+      - Proof of Concept
+      summary: ' Get Reach Curve For Media Plan Scope'
+      operationId: _get_reach_curve_for_media_plan_scope_proof_of_concept_rco_reach_curves_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaPlanScope'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  $ref: '#/components/schemas/ReachCurve-Output'
+                type: object
+                title: Response  Get Reach Curve For Media Plan Scope Proof Of Concept Rco Reach Curves Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/optimize:
+    post:
+      tags:
+      - Proof of Concept
+      summary: ' Get Reach Curve Optimization'
+      operationId: _get_reach_curve_optimization_proof_of_concept_rco_optimize_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OptimizePayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - type: integer
+                - $ref: '#/components/schemas/OptimizeErrorPayload'
+                title: Response  Get Reach Curve Optimization Proof Of Concept Rco Optimize Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/optimized-over-budget:
+    post:
+      tags:
+      - Proof of Concept
+      summary: ' Get Reach Curve Optimization Over Budget'
+      operationId: _get_reach_curve_optimization_over_budget_proof_of_concept_rco_optimized_over_budget_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OptimizedOverBudgetPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: integer
+                type: array
+                title: Response  Get Reach Curve Optimization Over Budget Proof Of Concept Rco Optimized Over Budget Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/targets:
+    get:
+      tags:
+      - Proof of Concept
+      summary: ' Get Reach Curve Targets'
+      operationId: _get_reach_curve_targets_proof_of_concept_rco_targets_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  additionalProperties:
+                    anyOf:
+                    - type: string
+                    - type: integer
+                  type: object
+                type: array
+                title: Response  Get Reach Curve Targets Proof Of Concept Rco Targets Get
+  /proof-of-concept/rco/edit-reach-curve:
+    post:
+      tags:
+      - Proof of Concept
+      summary: ' Post Edit Reach Curve'
+      operationId: _post_edit_reach_curve_proof_of_concept_rco_edit_reach_curve_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditReachCurvePayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReachCurve-Output'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/upload-from-s3:
+    get:
+      tags:
+      - Proof of Concept
+      summary: ' Upload From S3'
+      operationId: _upload_from_s3_proof_of_concept_rco_upload_from_s3_get
+      parameters:
+      - name: s3_path
+        in: query
+        required: true
+        schema:
+          type: string
+          title: S3 Path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties:
+                    anyOf:
+                    - type: string
+                    - type: array
+                      items:
+                        type: string
+                title: Response  Upload From S3 Proof Of Concept Rco Upload From S3 Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/banner-image:
+    post:
+      tags:
+      - Proof of Concept
+      summary: ' Get Banner Image'
+      operationId: _get_banner_image_proof_of_concept_rco_banner_image_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaPlanScope'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Get Banner Image Proof Of Concept Rco Banner Image Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ForecastSuggestionsResult:
+      properties:
+        suggestions:
+          items:
+            type: string
+          type: array
+          title: Suggestions
+      additionalProperties: true
+      type: object
+      required:
+      - suggestions
+      title: ForecastSuggestionsResult
+    CurveUnits:
+      properties:
+        allocation:
+          $ref: '#/components/schemas/AllocationUnits'
+          description: Units of the allocation
+        response:
+          $ref: '#/components/schemas/ResponseUnits'
+          description: Units of the response
+      additionalProperties: true
+      type: object
+      required:
+      - allocation
+      - response
+      title: CurveUnits
+    MediaPlanScope:
+      properties:
+        optimization_type:
+          $ref: '#/components/schemas/OptimizationType'
+          description: Optimization type
+        curve_units:
+          $ref: '#/components/schemas/CurveUnits'
+          description: Curve units
+        region:
+          type: string
+          title: Region
+          description: Region to target for the media plan.
+        combination_method:
+          $ref: '#/components/schemas/CombinationMethod'
+          description: Combination method
+          default: sainsbury
+        target_size:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Target Size
+          description: Target size of the media plan.
+        target_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Audience
+          description: Target audience.
+        total_budget:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Total Budget
+          description: Total budget for the media plan
+        response_target:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Response Target
+          description: Response target for the media plan
+        media_plan_title:
+          type: string
+          title: Media Plan Title
+          description: A one line title for the media plan scope.
+        media_plan_description:
+          type: string
+          title: Media Plan Description
+          description: A short explanation of the media plan scope.
+      additionalProperties: true
+      type: object
+      required:
+      - optimization_type
+      - curve_units
+      - region
+      - media_plan_title
+      - media_plan_description
+      title: MediaPlanScope
+      description: Media Plan Scope
+    AllocationUnits:
+      type: string
+      enum:
+      - GRP
+      - COST
+      - IMPRESSIONS
+      title: AllocationUnits
+    OptimizeErrorPayload:
+      properties:
+        error:
+          type: string
+          title: Error
+      additionalProperties: true
+      type: object
+      required:
+      - error
+      title: OptimizeErrorPayload
+    OptimizedOverBudgetPayload:
+      properties:
+        reach_curves:
+          additionalProperties:
+            $ref: '#/components/schemas/ReachCurve-Input'
+          type: object
+          title: Reach Curves
+          description: Reach curves
+        media_scope:
+          $ref: '#/components/schemas/MediaPlanScope'
+        bounds:
+          anyOf:
+          - additionalProperties:
+              prefixItems:
+              - anyOf:
+                - type: number
+                - type: 'null'
+              - anyOf:
+                - type: number
+                - type: 'null'
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: object
+          - type: 'null'
+          title: Bounds
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+          description: User ID
+        org_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Id
+          description: Organization ID
+        budget_diff_pct:
+          type: integer
+          title: Budget Diff Pct
+          description: Percentage difference between budget values
+        num_iterations:
+          type: integer
+          title: Num Iterations
+          description: Number of iterations per direction
+      additionalProperties: true
+      type: object
+      required:
+      - reach_curves
+      - media_scope
+      - budget_diff_pct
+      - num_iterations
+      title: OptimizedOverBudgetPayload
+    CPMCurve:
+      properties:
+        a:
+          type: number
+          exclusiveMinimum: 0.0
+          title: A
+          description: The baseline cost level.
+        b:
+          type: number
+          minimum: 0.0
+          title: B
+          description: The slope of the cost curve.
+        c:
+          type: number
+          minimum: 0.0
+          title: C
+          description: The knee point of the cost curve.
+        d:
+          type: number
+          minimum: 0.0
+          title: D
+          description: The curvature of the cost curve.
+      additionalProperties: true
+      type: object
+      required:
+      - a
+      - b
+      - c
+      - d
+      title: CPMCurve
+      description: 'An Inverse exponential decay Reach Curve defined by a, b, and c parameters as follows:
+
+        f(x) = a + b * (x - c) ^ d'
+    ForecastLineChartPayload:
+      properties:
+        chatId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatid
+        chart:
+          anyOf:
+          - $ref: '#/components/schemas/Chart'
+          - type: 'null'
+        scenario:
+          type: string
+          title: Scenario
+        forecastDatapointsRatio:
+          type: number
+          title: Forecastdatapointsratio
+          default: 0.3
+        maxForecastDatapoints:
+          type: integer
+          title: Maxforecastdatapoints
+          default: 64
+        minForecastDatapoints:
+          type: integer
+          title: Minforecastdatapoints
+          default: 5
+        previewMode:
+          type: boolean
+          title: Previewmode
+          default: true
+        backtestDatapointsRatio:
+          type: number
+          title: Backtestdatapointsratio
+          default: 0.1
+        maxBacktestDatapoints:
+          type: integer
+          title: Maxbacktestdatapoints
+          default: 32
+        minBacktestDatapoints:
+          type: integer
+          title: Minbacktestdatapoints
+          default: 1
+      additionalProperties: true
+      type: object
+      required:
+      - scenario
+      title: ForecastLineChartPayload
+    OptimizePayload:
+      properties:
+        reach_curves:
+          additionalProperties:
+            $ref: '#/components/schemas/ReachCurve-Input'
+          type: object
+          title: Reach Curves
+          description: Reach curves
+        media_scope:
+          $ref: '#/components/schemas/MediaPlanScope'
+        bounds:
+          anyOf:
+          - additionalProperties:
+              prefixItems:
+              - anyOf:
+                - type: number
+                - type: 'null'
+              - anyOf:
+                - type: number
+                - type: 'null'
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: object
+          - type: 'null'
+          title: Bounds
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+          description: User ID
+        org_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Id
+          description: Organization ID
+      additionalProperties: true
+      type: object
+      required:
+      - reach_curves
+      - media_scope
+      title: OptimizePayload
+    ReachCurve-Input:
+      properties:
+        a:
+          type: number
+          exclusiveMinimum: 0.0
+          title: A
+          description: The a parameter of the reach curve
+        k:
+          type: number
+          exclusiveMinimum: 0.0
+          title: K
+          description: The k parameter of the reach curve
+        n:
+          type: number
+          exclusiveMinimum: 0.0
+          title: N
+          description: The n parameter of the reach curve
+        c:
+          type: number
+          minimum: 0.0
+          title: C
+          description: The c parameter of the reach curve
+        x_min:
+          type: number
+          minimum: 0.0
+          title: X Min
+          description: The minimum x value of the curve
+        x_max:
+          type: number
+          minimum: 0.0
+          title: X Max
+          description: The maximum x value of the curve
+        target_size:
+          type: integer
+          minimum: 0.0
+          title: Target Size
+          description: The target size of the curve
+          default: 0
+        min_cpm:
+          type: number
+          minimum: 0.0
+          title: Min Cpm
+          description: The minimum CPM of the curve
+          default: 0.0
+        cpm_curve:
+          anyOf:
+          - $ref: '#/components/schemas/CPMCurve'
+          - type: 'null'
+          description: The CPM Curve
+      additionalProperties: true
+      type: object
+      required:
+      - a
+      - k
+      - n
+      - c
+      - x_min
+      - x_max
+      title: ReachCurve
+      description: 'TODO: NOTE: THIS PURELY TO HANDLE FE, AS A SHIM. REMOVE AT THE EARLIEST
+
+        A Hill function Reach Curve defined by a, k, n, and c parameters as follows:
+
+        f(x) = a * (x**n / (k**n + x**n)) + c'
+    CombinationMethod:
+      type: string
+      enum:
+      - sainsbury
+      - prod
+      - sum
+      title: CombinationMethod
+    ResponseUnits:
+      type: string
+      enum:
+      - REACH
+      - REACH_PCT
+      - IMPRESSIONS
+      - IMPRESSIONS_PCT
+      - VISITS
+      title: ResponseUnits
+    ForecastLineChartResult:
+      properties:
+        chatId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatid
+        chart:
+          anyOf:
+          - $ref: '#/components/schemas/Chart'
+          - type: 'null'
+        chartJsonStr:
+          type: string
+          title: Chartjsonstr
+        summary:
+          $ref: '#/components/schemas/ForecastSummary'
+        cutoffs:
+          items:
+            type: string
+          type: array
+          title: Cutoffs
+        confidenceCones:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ConfidenceConeData'
+            type: array
+          - type: 'null'
+          title: Confidencecones
+      additionalProperties: true
+      type: object
+      required:
+      - chatId
+      - chart
+      - chartJsonStr
+      - summary
+      - cutoffs
+      title: ForecastLineChartResult
+    OptimizationType:
+      type: string
+      enum:
+      - response
+      - allocation
+      title: OptimizationType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Chart:
+      properties:
+        chartMetadataId:
+          type: integer
+          title: Chartmetadataid
+        chartDataId:
+          type: integer
+          title: Chartdataid
+      additionalProperties: true
+      type: object
+      required:
+      - chartMetadataId
+      - chartDataId
+      title: Chart
+    EditReachCurvePayload:
+      properties:
+        selectedCurve:
+          $ref: '#/components/schemas/ReachCurve-Input'
+          description: Selected reach curve
+        response_unit:
+          $ref: '#/components/schemas/ResponseUnits'
+          description: Response unit
+        allocation_unit:
+          $ref: '#/components/schemas/AllocationUnits'
+          description: Allocation unit
+        newCpm:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newcpm
+          description: New CPM
+        newReach:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newreach
+          description: New Reach
+        newGrps:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newgrps
+          description: New GRP
+      additionalProperties: true
+      type: object
+      required:
+      - selectedCurve
+      - response_unit
+      - allocation_unit
+      title: EditReachCurvePayload
+    ForecastSuggestionsPayload:
+      properties:
+        chatId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatid
+        chart:
+          anyOf:
+          - $ref: '#/components/schemas/Chart'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      title: ForecastSuggestionsPayload
+    ConfidenceConeData:
+      properties:
+        initialErrorStdv:
+          type: number
+          title: Initialerrorstdv
+        finalErrorStdv:
+          type: number
+          title: Finalerrorstdv
+        isStrictlyNonnegative:
+          type: boolean
+          title: Isstrictlynonnegative
+        upperBounds:
+          items:
+            anyOf:
+            - type: number
+            - type: 'null'
+          type: array
+          title: Upperbounds
+        lowerBounds:
+          items:
+            anyOf:
+            - type: number
+            - type: 'null'
+          type: array
+          title: Lowerbounds
+      additionalProperties: true
+      type: object
+      required:
+      - initialErrorStdv
+      - finalErrorStdv
+      - isStrictlyNonnegative
+      - upperBounds
+      - lowerBounds
+      title: ConfidenceConeData
+    ForecastSummary:
+      properties:
+        scenarioDescription:
+          type: string
+          title: Scenariodescription
+        analysis:
+          type: string
+          title: Analysis
+        backtestDescription:
+          type: string
+          title: Backtestdescription
+        backtestResults:
+          type: string
+          title: Backtestresults
+        backtestContext:
+          type: string
+          title: Backtestcontext
+      additionalProperties: true
+      type: object
+      required:
+      - scenarioDescription
+      - analysis
+      - backtestDescription
+      - backtestResults
+      - backtestContext
+      title: ForecastSummary
+    ReachCurve-Output:
+      properties:
+        a:
+          type: number
+          exclusiveMinimum: 0.0
+          title: A
+          description: The a parameter of the reach curve
+        k:
+          type: number
+          exclusiveMinimum: 0.0
+          title: K
+          description: The k parameter of the reach curve
+        n:
+          type: number
+          exclusiveMinimum: 0.0
+          title: N
+          description: The n parameter of the reach curve
+        c:
+          type: number
+          minimum: 0.0
+          title: C
+          description: The c parameter of the reach curve
+        x_min:
+          type: number
+          minimum: 0.0
+          title: X Min
+          description: The minimum x value of the curve
+        x_max:
+          type: number
+          minimum: 0.0
+          title: X Max
+          description: The maximum x value of the curve
+        target_size:
+          type: integer
+          minimum: 0.0
+          title: Target Size
+          description: The target size of the curve
+          default: 0
+        min_cpm:
+          type: number
+          minimum: 0.0
+          title: Min Cpm
+          description: The minimum CPM of the curve
+          default: 0.0
+        cpm_curve:
+          anyOf:
+          - $ref: '#/components/schemas/CPMCurve'
+          - type: 'null'
+          description: The CPM Curve
+        knee:
+          type: number
+          title: Knee
+          description: The knee is the 'Optimal' number of GRPs.
+          readOnly: true
+        max_reach:
+          type: number
+          title: Max Reach
+          description: The maximum reach of the curve.
+          readOnly: true
+        freq:
+          type: number
+          title: Freq
+          description: The frequency.
+          readOnly: true
+        unoptimizable:
+          type: boolean
+          title: Unoptimizable
+          description: Whether the curve is unoptimizable.
+          readOnly: true
+      additionalProperties: true
+      type: object
+      required:
+      - a
+      - k
+      - n
+      - c
+      - x_min
+      - x_max
+      - knee
+      - max_reach
+      - freq
+      - unoptimizable
+      title: ReachCurve
+      description: 'TODO: NOTE: THIS PURELY TO HANDLE FE, AS A SHIM. REMOVE AT THE EARLIEST
+
+        A Hill function Reach Curve defined by a, k, n, and c parameters as follows:
+
+        f(x) = a * (x**n / (k**n + x**n)) + c'

@@ -1,0 +1,349 @@
+openapi: 3.2.0
+info:
+  title: Fast Segment API
+  version: 0.1.0
+tags:
+- name: segment
+paths:
+  /segment/{segment_id}:
+    get:
+      tags:
+      - segment
+      summary: ' Get Segment'
+      description: Get segment
+      operationId: _get_segment_segment__segment_id__get
+      parameters:
+      - name: segment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Segment Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Segment'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /segment/questions:
+    post:
+      tags:
+      - segment
+      summary: ' Get Questions'
+      description: Get survey questions
+      operationId: _get_questions_segment_questions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentQuestionsPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SurveyQuestions'
+                type: array
+                title: Response  Get Questions Segment Questions Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /segment/chat-explore:
+    post:
+      tags:
+      - segment
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_segment_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    SegmentQuestionsPayload:
+      properties:
+        topic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic
+        question_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Question Name
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      additionalProperties: true
+      type: object
+      title: SegmentQuestionsPayload
+    SurveyQuestion:
+      properties:
+        topic:
+          type: string
+          title: Topic
+        name:
+          type: string
+          title: Name
+        question:
+          type: string
+          title: Question
+        base:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base
+        values:
+          additionalProperties:
+            type: string
+          type: object
+          title: Values
+        selection_type:
+          type: string
+          title: Selection Type
+        sub_questions:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SurveyQuestion'
+            type: array
+          - type: 'null'
+          title: Sub Questions
+      additionalProperties: true
+      type: object
+      required:
+      - topic
+      - name
+      - question
+      - values
+      - selection_type
+      title: SurveyQuestion
+    Segment:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of this object.
+        _markedForDeletion:
+          type: boolean
+          title: ' Markedfordeletion'
+          description: marked if record has been soft-deleted.
+          default: false
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - additionalProperties:
+              type: integer
+            type: object
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - additionalProperties:
+              type: integer
+            type: object
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        name:
+          type: string
+          title: Name
+          description: The name of the segment.
+        description:
+          type: string
+          title: Description
+          description: description of the segment.
+          default: ''
+        owner:
+          type: string
+          title: Owner
+          description: The owner of the segment.
+        teamId:
+          type: string
+          title: Teamid
+          description: The team ID associated with the segment.
+        projectId:
+          type: string
+          title: Projectid
+          description: The ID of the project associated with the segment.
+        chatRecordId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatrecordid
+          description: The ID of the chat record associated with the segment.
+        state:
+          $ref: '#/components/schemas/TaskStatusEnum'
+          description: The state of the segment generation.
+          default: PENDING
+        segmentSql:
+          type: string
+          title: Segmentsql
+          description: The SQL query defining the segment.
+        region:
+          type: string
+          title: Region
+          description: The region for which the segment was built.
+        wave:
+          type: string
+          title: Wave
+          description: The wave for which the segment was built.
+        defaultCompareSegmentId:
+          type: string
+          title: Defaultcomparesegmentid
+          description: The default compare segment ID.
+        saved_to_db:
+          type: boolean
+          title: Saved To Db
+          description: Whether the segment is saved to the database.
+        llm_generated:
+          type: boolean
+          title: Llm Generated
+          description: Whether the segment was generated by LLM.
+          default: true
+        isGlobalSegment:
+          type: boolean
+          title: Isglobalsegment
+          description: Whether the segment is global or pre-generated.
+          default: false
+        isSavedByUser:
+          type: boolean
+          title: Issavedbyuser
+          description: Whether the segment was saved by the user.
+          default: false
+        segmentInsights:
+          type: object
+          title: Segmentinsights
+          description: Insights related to the segment.
+        bannerImagePath:
+          type: string
+          title: Bannerimagepath
+          description: storage path for the segment banner.
+          default: ''
+        data:
+          items: {}
+          type: array
+          title: Data
+          description: The data for the segment.
+          default: []
+        sources:
+          items: {}
+          type: array
+          title: Sources
+          description: The source tables used for the segment.
+        comment:
+          anyOf:
+          - type: string
+          - type: object
+          - type: 'null'
+          title: Comment
+          description: details on failure.
+        imported:
+          type: boolean
+          title: Imported
+          description: Whether the segment was imported.
+          default: false
+        num_rows:
+          type: integer
+          title: Num Rows
+          description: The number of rows in the segment.
+          default: 0
+        last_refreshed:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Refreshed
+          description: datetime object representing when this segment was last refreshed.
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      - owner
+      - teamId
+      - projectId
+      - segmentSql
+      - region
+      - wave
+      - defaultCompareSegmentId
+      - saved_to_db
+      - sources
+      title: Segment
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SurveyQuestions:
+      properties:
+        topic:
+          type: string
+          title: Topic
+        questions:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SurveyQuestion'
+            type: array
+          - type: 'null'
+          title: Questions
+      additionalProperties: true
+      type: object
+      required:
+      - topic
+      title: SurveyQuestions

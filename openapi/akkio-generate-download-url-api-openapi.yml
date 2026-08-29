@@ -1,0 +1,66 @@
+openapi: 3.2.0
+info:
+  title: Fast Generate Download Url API
+  version: 0.1.0
+tags:
+- name: Generate Download Url
+paths:
+  /generate_download_url:
+    get:
+      summary: Get Signed Download Url
+      description: Generate a temporary signed download URL used by the frontend to download directly from s3.
+      operationId: get_signed_download_url_generate_download_url_get
+      parameters:
+      - name: file_path
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          title: File Path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Generate Download Url
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

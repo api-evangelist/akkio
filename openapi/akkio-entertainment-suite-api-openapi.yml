@@ -1,0 +1,279 @@
+openapi: 3.2.0
+info:
+  title: Fast Entertainment Suite API
+  version: 0.1.0
+tags:
+- name: Entertainment Suite
+paths:
+  /entertainment_suite/trends/build:
+    post:
+      summary: ' Controller Build Trends'
+      description: Builds trends for an audience and timeframe
+      operationId: _controller_build_trends_entertainment_suite_trends_build_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildTrendsPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response  Controller Build Trends Entertainment Suite Trends Build Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Entertainment Suite
+  /entertainment_suite/trends/build_reflections:
+    post:
+      summary: ' Controller Build Reflections'
+      description: Builds reflections for a trend
+      operationId: _controller_build_reflections_entertainment_suite_trends_build_reflections_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildTrendsReflectionPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response  Controller Build Reflections Entertainment Suite Trends Build Reflections Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Entertainment Suite
+  /entertainment_suite/analytics/build_plot:
+    post:
+      summary: ' Controller Build Plot'
+      description: Builds plot for a given set of keys
+      operationId: _controller_build_plot_entertainment_suite_analytics_build_plot_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildAnalyticsPlotPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Entertainment Suite
+  /entertainment_suite/analytics/build_analytics_summary:
+    post:
+      summary: ' Controller Build Plot Summaries'
+      description: Builds global summary for a given set of keys
+      operationId: _controller_build_plot_summaries_entertainment_suite_analytics_build_analytics_summary_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildAnalyticsSummaryPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Entertainment Suite
+  /entertainment_suite/chat-explore:
+    post:
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_entertainment_suite_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Entertainment Suite
+components:
+  schemas:
+    BuildAnalyticsPlotPayload:
+      properties:
+        timeframe:
+          $ref: '#/components/schemas/ESuiteTimeframe'
+        audience_id:
+          type: string
+          title: Audience Id
+        genres:
+          items:
+            type: string
+          type: array
+          title: Genres
+        networks:
+          items:
+            type: string
+          type: array
+          title: Networks
+        titles:
+          items:
+            type: string
+          type: array
+          title: Titles
+        dma_codes:
+          items:
+            type: integer
+          type: array
+          title: Dma Codes
+        plot_type:
+          $ref: '#/components/schemas/ESuiteAnalyticsPlotType'
+        opts:
+          type: object
+          title: Opts
+      additionalProperties: true
+      type: object
+      required:
+      - timeframe
+      - audience_id
+      - plot_type
+      title: BuildAnalyticsPlotPayload
+    BuildTrendsPayload:
+      properties:
+        timeframe:
+          $ref: '#/components/schemas/ESuiteTimeframe'
+        audience_id:
+          type: string
+          title: Audience Id
+        genres:
+          items:
+            type: string
+          type: array
+          title: Genres
+        networks:
+          items:
+            type: string
+          type: array
+          title: Networks
+        titles:
+          items:
+            type: string
+          type: array
+          title: Titles
+        dma_codes:
+          items:
+            type: integer
+          type: array
+          title: Dma Codes
+      additionalProperties: true
+      type: object
+      required:
+      - timeframe
+      - audience_id
+      title: BuildTrendsPayload
+    BuildAnalyticsSummaryPayload:
+      properties:
+        trend_id:
+          type: string
+          title: Trend Id
+        analytics_ids:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Analytics Ids
+      additionalProperties: true
+      type: object
+      required:
+      - trend_id
+      - analytics_ids
+      title: BuildAnalyticsSummaryPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BuildTrendsReflectionPayload:
+      properties:
+        trend_id:
+          type: string
+          title: Trend Id
+      additionalProperties: true
+      type: object
+      required:
+      - trend_id
+      title: BuildTrendsReflectionPayload
+    ESuiteTimeframe:
+      properties:
+        start_date:
+          type: string
+          format: date
+          title: Start Date
+        end_date:
+          type: string
+          format: date
+          title: End Date
+      additionalProperties: true
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: ESuiteTimeframe
+    ESuiteAnalyticsPlotType:
+      type: string
+      enum:
+      - SOURCE_TO_DESTINATION
+      - COMBINATION
+      - PURCHASE_BEHAVIOR_CATEGORY
+      - PURCHASE_BEHAVIOR_BRAND
+      - MINUTE_BY_MINUTE
+      title: ESuiteAnalyticsPlotType

@@ -1,0 +1,352 @@
+openapi: 3.2.0
+info:
+  title: Fast Refresh Live Flow Dataset API
+  version: 0.1.0
+tags:
+- name: Refresh Live Flow Dataset
+paths:
+  /refresh-live-flow-dataset/async_job:
+    post:
+      summary: ' Controller Refresh Live Flow Dataset'
+      description: Initiate an ad-hoc, asynchronous refresh of a given dataset. Implements the Async Job protocol.
+      operationId: _controller_refresh_live_flow_dataset_refresh_live_flow_dataset_async_job_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshLiveFlowDatasetParams'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__9'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Refresh Live Flow Dataset
+  /refresh-live-flow-dataset/new:
+    post:
+      summary: ' Controller Refresh Live Flow Dataset Async New'
+      description: Initiate an ad-hoc, asynchronous refresh of a given dataset. A Task ID will be returned for the client to poll with at the adjacent /status endpoint.
+      operationId: _controller_refresh_live_flow_dataset_async_new_refresh_live_flow_dataset_new_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshLiveFlowDatasetParams'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APITaskStartedResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Refresh Live Flow Dataset
+  /refresh-live-flow-dataset/status/{task_id}:
+    get:
+      summary: ' Controller Refresh Live Flow Dataset Async Status'
+      description: Query the status of a currently running ad-hoc, asynchronous refresh of a given dataset. If complete, the location of a result will be provided -- query that location with a GET to receive the result. If failed, the error will be provided.
+      operationId: _controller_refresh_live_flow_dataset_async_status_refresh_live_flow_dataset_status__task_id__get
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Refresh Live Flow Dataset
+  /refresh-live-flow-dataset/results/{task_id}:
+    get:
+      summary: ' Controller Refresh Live Flow Dataset Async Result'
+      description: Get the result of the transform performed under the given task_id.
+      operationId: _controller_refresh_live_flow_dataset_async_result_refresh_live_flow_dataset_results__task_id__get
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Refresh Live Flow Dataset
+components:
+  schemas:
+    APIStatusMetadataSucceeded:
+      properties:
+        type:
+          type: string
+          enum:
+          - SUCCEEDED
+          const: SUCCEEDED
+          title: Type
+          default: SUCCEEDED
+        location:
+          type: string
+          title: Location
+          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
+      additionalProperties: true
+      type: object
+      required:
+      - location
+      title: APIStatusMetadataSucceeded
+    APIStatusMetadataFailed:
+      properties:
+        type:
+          type: string
+          enum:
+          - FAILED
+          const: FAILED
+          title: Type
+          default: FAILED
+        error:
+          type: string
+          title: Error
+          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
+          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataFailed
+    APIStatusResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/TaskStatusEnum'
+          description: The current status of the task being queried.
+        metadata:
+          oneOf:
+          - $ref: '#/components/schemas/APIStatusMetadataPending'
+          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
+          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
+          - $ref: '#/components/schemas/APIStatusMetadataFailed'
+          title: Metadata
+          description: Metadata, contextually dependent on the status of the task being queried.
+          discriminator:
+            propertyName: type
+            mapping:
+              FAILED: '#/components/schemas/APIStatusMetadataFailed'
+              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
+              PENDING: '#/components/schemas/APIStatusMetadataPending'
+              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
+      additionalProperties: true
+      type: object
+      required:
+      - status
+      - metadata
+      title: APIStatusResponse
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    APITaskStartedResponse:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - task_id
+      title: APITaskStartedResponse
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__9:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Response
+      type: object
+      title: ConcreteAsyncJobRecord
+    RefreshLiveFlowDatasetParams:
+      properties:
+        uid:
+          type: string
+          title: Uid
+        org:
+          type: string
+          title: Org
+        flowId:
+          type: string
+          title: Flowid
+        integrationType:
+          type: string
+          title: Integrationtype
+      additionalProperties: true
+      type: object
+      required:
+      - uid
+      - org
+      - flowId
+      - integrationType
+      title: RefreshLiveFlowDatasetParams
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    APIStatusMetadataInProgress:
+      properties:
+        type:
+          type: string
+          enum:
+          - IN_PROGRESS
+          const: IN_PROGRESS
+          title: Type
+          default: IN_PROGRESS
+        estimate_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimate Seconds
+          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataInProgress

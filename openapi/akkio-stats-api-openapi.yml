@@ -1,0 +1,305 @@
+openapi: 3.2.0
+info:
+  title: Fast Stats API
+  version: 0.1.0
+tags:
+- name: Stats
+paths:
+  /stats/insights/adhoc:
+    post:
+      summary: ' Controller Adhoc Insights'
+      description: Generates an adhoc insight
+      operationId: _controller_adhoc_insights_stats_insights_adhoc_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsightsPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response  Controller Adhoc Insights Stats Insights Adhoc Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Stats
+  /stats/insights/generate/{audience_id}:
+    post:
+      summary: ' Controller Handle Audience Insights'
+      description: Generate insights for an audience
+      operationId: _controller_handle_audience_insights_stats_insights_generate__audience_id__post
+      parameters:
+      - name: audience_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Audience Id
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Stats
+  /stats/insights/timeframe/generate:
+    post:
+      summary: ' Controller Handle Audience Insights For Timeframe'
+      description: Generate Content, Media and Purchase insights for a specific audience for a specific timeframe
+      operationId: _controller_handle_audience_insights_for_timeframe_stats_insights_timeframe_generate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeframeInsightsPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Stats
+components:
+  schemas:
+    TimeframeInsightsPayload:
+      properties:
+        audience_id:
+          type: string
+          title: Audience Id
+          description: Audience ID to generate insights for
+        timeframe:
+          $ref: '#/components/schemas/src__stats__insights__model__Timeframe'
+          description: Timeframe to generate insights for
+        insight_group:
+          $ref: '#/components/schemas/InsightGroup'
+          description: Page the request was sent for
+      additionalProperties: true
+      type: object
+      required:
+      - audience_id
+      - timeframe
+      - insight_group
+      title: TimeframeInsightsPayload
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    src__stats__insights__model__Timeframe:
+      properties:
+        timeframe_start:
+          type: string
+          format: date-time
+          title: Timeframe Start
+        timeframe_end:
+          type: string
+          format: date-time
+          title: Timeframe End
+      additionalProperties: true
+      type: object
+      required:
+      - timeframe_start
+      - timeframe_end
+      title: Timeframe
+    InsightGroup:
+      type: array
+      enum:
+      - - MEDIA_TOP_GENRES
+        - COUNTS
+        - AGE
+        - GENDER
+      - - COUNTS
+        - AGE
+        - INCOME
+        - GENDER
+        - HOUSEHOLD_OWNS_HOME
+      - - EDUCATION
+        - LOCATION
+        - MARITAL_STATUS
+        - AGE_OF_CHILDREN_IN_HOUSEHOLD
+        - NUMBER_OF_CHILDREN_IN_HOUSEHOLD
+        - STATE
+        - ETHNICITY_PREDICTION
+        - PRESENCE_OF_CHILDREN_IN_HOUSEHOLD
+        - OCCUPATION
+      - - NUM_PEOPLE_IN_HOUSEHOLD
+        - HOUSEHOLD_MEDIAN_HOMEVALUE_BY_STATE
+      - - FINANCIAL_HEALTH
+        - NET_WORTH
+        - CREDIT_CARDS
+        - INVESTMENTS
+      - - PURCHASE_CATEGORY
+        - PURCHASE_AVERAGE_SPEND
+      - - GENERAL_INTERESTS
+        - SPORTS_INTERESTS
+        - READING_INTERESTS
+        - TRAVEL_INTERESTS
+      - - MEDIA_APPS
+        - MEDIA_NETWORKS
+        - MEDIA_TOP_TITLES
+        - MEDIA_TOP_GENRES
+        - MEDIA_INPUT_DEVICES
+      - - CAR_BRANDS
+        - CAR_TYPES
+        - CAR_MAKE_MODEL
+        - CAR_FUEL_TYPES
+        - CAR_SIZE
+      - - ONLINE_CONTENT_CONSUMPTION
+      - - POI_CATEGORIES
+      - - AGE
+        - GENDER
+        - ETHNICITY_PREDICTION
+        - EDUCATION
+        - MARITAL_STATUS
+        - LOCATION
+        - STATE
+        - OCCUPATION
+        - HOUSEHOLD_MEDIAN_HOMEVALUE_BY_STATE
+        - PRESENCE_OF_CHILDREN_IN_HOUSEHOLD
+        - NUM_PEOPLE_IN_HOUSEHOLD
+        - HOUSEHOLD_OWNS_HOME
+        - AGE_OF_CHILDREN_IN_HOUSEHOLD
+        - NUMBER_OF_CHILDREN_IN_HOUSEHOLD
+        - INCOME
+        - GENERAL_INTERESTS
+        - SPORTS_INTERESTS
+        - READING_INTERESTS
+        - TRAVEL_INTERESTS
+        - CAR_BRANDS
+        - CAR_TYPES
+        - CAR_MAKE_MODEL
+        - CAR_FUEL_TYPES
+        - CAR_SIZE
+        - FINANCIAL_HEALTH
+        - NET_WORTH
+        - CREDIT_CARDS
+        - INVESTMENTS
+        - POI_CHAINS
+        - COUNTS
+      - - INCOME
+        - HOUSEHOLD_OWNS_HOME
+        - NUM_PEOPLE_IN_HOUSEHOLD
+        - PRESENCE_OF_CHILDREN_IN_HOUSEHOLD
+        - NUMBER_OF_CHILDREN_IN_HOUSEHOLD
+        - AGE_OF_CHILDREN_IN_HOUSEHOLD
+        - HOUSEHOLD_MEDIAN_HOMEVALUE_BY_STATE
+      title: InsightGroup
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InsightContext:
+      type: string
+      enum:
+      - AGE
+      - GENDER
+      - ETHNICITY_PREDICTION
+      - EDUCATION
+      - MARITAL_STATUS
+      - LOCATION
+      - STATE
+      - OCCUPATION
+      - HOUSEHOLD_MEDIAN_HOMEVALUE_BY_STATE
+      - PRESENCE_OF_CHILDREN_IN_HOUSEHOLD
+      - NUM_PEOPLE_IN_HOUSEHOLD
+      - HOUSEHOLD_OWNS_HOME
+      - AGE_OF_CHILDREN_IN_HOUSEHOLD
+      - NUMBER_OF_CHILDREN_IN_HOUSEHOLD
+      - INCOME
+      - GENERAL_INTERESTS
+      - SPORTS_INTERESTS
+      - READING_INTERESTS
+      - TRAVEL_INTERESTS
+      - CAR_BRANDS
+      - CAR_TYPES
+      - CAR_MAKE_MODEL
+      - CAR_FUEL_TYPES
+      - CAR_SIZE
+      - FINANCIAL_HEALTH
+      - NET_WORTH
+      - CREDIT_CARDS
+      - INVESTMENTS
+      - MEDIA_APPS
+      - MEDIA_NETWORKS
+      - MEDIA_TOP_TITLES
+      - MEDIA_TOP_GENRES
+      - MEDIA_INPUT_DEVICES
+      - PURCHASE_CATEGORY
+      - PURCHASE_AVERAGE_SPEND
+      - ONLINE_CONTENT_CONSUMPTION
+      - POI_CATEGORIES
+      - POI_CHAINS
+      - COUNTS
+      title: InsightContext
+    InsightsPayload:
+      properties:
+        audience_id:
+          type: string
+          title: Audience Id
+          description: Audience ID to generate insights for
+        insight_context:
+          $ref: '#/components/schemas/InsightContext'
+          description: Insight context to generate
+        filters:
+          additionalProperties:
+            type: string
+          type: object
+          title: Filters
+          description: Filters to generate insights for
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/src__stats__insights__model__Timeframe'
+          - type: 'null'
+          description: Timeframe to generate insights for
+      additionalProperties: true
+      type: object
+      required:
+      - audience_id
+      - insight_context
+      - filters
+      title: InsightsPayload

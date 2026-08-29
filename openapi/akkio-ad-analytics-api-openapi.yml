@@ -1,0 +1,2886 @@
+openapi: 3.2.0
+info:
+  title: Fast Ad Analytics API
+  version: 0.1.0
+tags:
+- name: Ad Analytics
+paths:
+  /ad_analytics/cpg_suite/chat-explore:
+    post:
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_ad_analytics_cpg_suite_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/basket-analysis/get-existing:
+    post:
+      summary: ' Controller Get Existing Basket Analysis'
+      description: Get existing basket analysis results
+      operationId: _controller_get_existing_basket_analysis_ad_analytics_cpg_suite_basket_analysis_get_existing_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasketAnalysisRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/BasketAnalysisResponse'
+                - type: 'null'
+                title: Response  Controller Get Existing Basket Analysis Ad Analytics Cpg Suite Basket Analysis Get Existing Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/basket-analysis/:
+    post:
+      summary: ' Controller Basket Analysis'
+      description: Analyze products frequently purchased together with a given product
+      operationId: _controller_basket_analysis_ad_analytics_cpg_suite_basket_analysis__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasketAnalysisRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/cpg-analysis/get-existing:
+    post:
+      summary: ' Controller Get Existing Cpg Analysis'
+      description: Get existing CPG analysis results
+      operationId: _controller_get_existing_cpg_analysis_ad_analytics_cpg_suite_cpg_analysis_get_existing_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CPGAnalysisRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/BrandAnalysisResponse'
+                - $ref: '#/components/schemas/CategoryAnalysisResponse'
+                - $ref: '#/components/schemas/SubcategoryAnalysisResponse'
+                - $ref: '#/components/schemas/ProductAnalysisResponse'
+                - $ref: '#/components/schemas/UPCAnalysisResponse'
+                - type: 'null'
+                title: Response  Controller Get Existing Cpg Analysis Ad Analytics Cpg Suite Cpg Analysis Get Existing Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/cpg-analysis/:
+    post:
+      summary: ' Controller Cpg Analysis'
+      description: Analyze top brands, categories, products in purchase data
+      operationId: _controller_cpg_analysis_ad_analytics_cpg_suite_cpg_analysis__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CPGAnalysisRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/purchase-behaviour/get-existing:
+    post:
+      summary: ' Controller Get Existing Purchase Behaviour'
+      description: Get existing purchase behavior analysis results
+      operationId: _controller_get_existing_purchase_behaviour_ad_analytics_cpg_suite_purchase_behaviour_get_existing_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CPGBehaviourRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/CPGBehaviourResponse'
+                - type: 'null'
+                title: Response  Controller Get Existing Purchase Behaviour Ad Analytics Cpg Suite Purchase Behaviour Get Existing Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/purchase-behaviour/:
+    post:
+      summary: ' Controller Purchase Categories And Subcategories'
+      description: Analyze purchase behavior by category, subcategory, brand, or product
+      operationId: _controller_purchase_categories_and_subcategories_ad_analytics_cpg_suite_purchase_behaviour__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CPGBehaviourRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/trends-analysis/get-existing:
+    post:
+      summary: Get Existing Trends Analysis
+      description: Get existing trends analysis results if they exist.
+      operationId: get_existing_trends_analysis_ad_analytics_cpg_suite_trends_analysis_get_existing_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrendsAnalysisRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/TrendsAnalysisResponse'
+                - type: 'null'
+                title: Response Get Existing Trends Analysis Ad Analytics Cpg Suite Trends Analysis Get Existing Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/trends-analysis/:
+    post:
+      summary: Start Trends Analysis
+      description: Start CPG trends analysis comparing two selections over time.
+      operationId: start_trends_analysis_ad_analytics_cpg_suite_trends_analysis__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrendsAnalysisRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobRecord'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/turf-analysis/get-existing:
+    post:
+      summary: ' Controller Get Existing Turf Analysis'
+      description: Get existing turf analysis results
+      operationId: _controller_get_existing_turf_analysis_ad_analytics_cpg_suite_turf_analysis_get_existing_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TurfAnalysisRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/TurfAnalysisResponse'
+                - type: 'null'
+                title: Response  Controller Get Existing Turf Analysis Ad Analytics Cpg Suite Turf Analysis Get Existing Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/turf-analysis/:
+    post:
+      summary: ' Controller Turf Analysis'
+      description: Analyze optimal product combinations to maximize reach (TURF analysis)
+      operationId: _controller_turf_analysis_ad_analytics_cpg_suite_turf_analysis__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TurfAnalysisRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/brands:
+    post:
+      summary: ' Controller Get Brands'
+      description: Get brands in the purchase data
+      operationId: _controller_get_brands_ad_analytics_cpg_suite_brands_post
+      parameters:
+      - name: sort_by_frequency
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Sort By Frequency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CPGSuiteFilter'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response  Controller Get Brands Ad Analytics Cpg Suite Brands Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/categories:
+    post:
+      summary: ' Controller Get Categories'
+      description: Get the categories in the purchase data
+      operationId: _controller_get_categories_ad_analytics_cpg_suite_categories_post
+      parameters:
+      - name: sort_by_frequency
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Sort By Frequency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CPGSuiteFilter'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response  Controller Get Categories Ad Analytics Cpg Suite Categories Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/subcategories:
+    post:
+      summary: ' Controller Get Subcategories'
+      description: Get the subcategories in the purchase data
+      operationId: _controller_get_subcategories_ad_analytics_cpg_suite_subcategories_post
+      parameters:
+      - name: sort_by_frequency
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Sort By Frequency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CPGSuiteFilter'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response  Controller Get Subcategories Ad Analytics Cpg Suite Subcategories Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/products:
+    post:
+      summary: ' Controller Get Products'
+      description: Get the products in the purchase data
+      operationId: _controller_get_products_ad_analytics_cpg_suite_products_post
+      parameters:
+      - name: sort_by_frequency
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Sort By Frequency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CPGSuiteFilter'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response  Controller Get Products Ad Analytics Cpg Suite Products Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/min-max-dates:
+    post:
+      summary: ' Controller Get Min Max Dates'
+      description: Get minimum and maximum dates available in the CPG data based on filters
+      operationId: _controller_get_min_max_dates_ad_analytics_cpg_suite_min_max_dates_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CPGSuiteFilter'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - prefixItems:
+                  - type: string
+                    format: date
+                  - type: string
+                    format: date
+                  type: array
+                  maxItems: 2
+                  minItems: 2
+                - type: 'null'
+                title: Response  Controller Get Min Max Dates Ad Analytics Cpg Suite Min Max Dates Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/cpg_suite/categories-with-brands:
+    post:
+      summary: ' Controller Get Categories With Brands'
+      description: Get the categories with brands in the purchase data
+      operationId: _controller_get_categories_with_brands_ad_analytics_cpg_suite_categories_with_brands_post
+      parameters:
+      - name: search_string
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search String
+      - name: sort_by_frequency
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Sort By Frequency
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryWithSubcategories'
+                title: Response  Controller Get Categories With Brands Ad Analytics Cpg Suite Categories With Brands Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/rfm/build_lookup:
+    post:
+      summary: ' Controller Build Rfm Lookup'
+      description: Builds the lookup table for an RFM model
+      operationId: _controller_build_rfm_lookup_ad_analytics_rfm_build_lookup_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RFMBuildPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__4'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/rfm/build_configuration:
+    post:
+      summary: ' Controller Build Rfm Configuration'
+      description: Builds the configuration for an RFM model
+      operationId: _controller_build_rfm_configuration_ad_analytics_rfm_build_configuration_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RFMBuildConfigurationPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__5'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/rfm/build_growth_framework:
+    post:
+      summary: ' Controller Build Growth Framework'
+      description: Builds the growth framework for an RFM model
+      operationId: _controller_build_growth_framework_ad_analytics_rfm_build_growth_framework_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RFMBuildGrowthFrameworkPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__6'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/rfm/build_audience_for_growth_framework:
+    post:
+      summary: ' Controller Build Audience For Growth Framework'
+      description: Builds the audience for a growth framework
+      operationId: _controller_build_audience_for_growth_framework_ad_analytics_rfm_build_audience_for_growth_framework_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RFMBuildAudienceForGrowthFrameworkPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__7'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/rfm/build_audience_for_rfm:
+    post:
+      summary: ' Controller Build Audience For Rfm'
+      description: Builds the audience for an RFM model
+      operationId: _controller_build_audience_for_rfm_ad_analytics_rfm_build_audience_for_rfm_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RFMBuildAudienceForRfmPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__8'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/entertainment/networks:
+    post:
+      summary: ' Controller Get Networks'
+      description: Get networks in the entertainment data
+      operationId: _controller_get_networks_ad_analytics_entertainment_networks_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkFilterPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response  Controller Get Networks Ad Analytics Entertainment Networks Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/entertainment/genres:
+    post:
+      summary: ' Controller Get Genres'
+      description: Get genres in the entertainment data
+      operationId: _controller_get_genres_ad_analytics_entertainment_genres_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenreFilterPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response  Controller Get Genres Ad Analytics Entertainment Genres Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/entertainment/dma-codes:
+    post:
+      summary: ' Controller Get Dma Codes'
+      description: Get DMA codes with their descriptions from the entertainment data
+      operationId: _controller_get_dma_codes_ad_analytics_entertainment_dma_codes_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/DmaCodesFilterPayload'
+              - type: 'null'
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/DMA'
+                type: array
+                title: Response  Controller Get Dma Codes Ad Analytics Entertainment Dma Codes Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/entertainment/titles:
+    post:
+      summary: ' Controller Get Titles'
+      description: Get titles in the entertainment data
+      operationId: _controller_get_titles_ad_analytics_entertainment_titles_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleFilterPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response  Controller Get Titles Ad Analytics Entertainment Titles Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/entertainment/partition-dates:
+    post:
+      summary: ' Controller Get Partition Dates'
+      description: Get the minimum and maximum partition dates for the given filters
+      operationId: _controller_get_partition_dates_ad_analytics_entertainment_partition_dates_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MinMaxPartitionDatePayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - prefixItems:
+                  - type: string
+                    format: date
+                  - type: string
+                    format: date
+                  type: array
+                  maxItems: 2
+                  minItems: 2
+                - type: 'null'
+                title: Response  Controller Get Partition Dates Ad Analytics Entertainment Partition Dates Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/entertainment/dates-with-data:
+    post:
+      summary: ' Controller Get Dates With Data'
+      description: Get a list of dates within the given range where data is available for the specified filters
+      operationId: _controller_get_dates_with_data_ad_analytics_entertainment_dates_with_data_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DateRangeDataAvailabilityPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                  format: date
+                type: array
+                title: Response  Controller Get Dates With Data Ad Analytics Entertainment Dates With Data Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/poi/chains:
+    post:
+      summary: ' Controller Get Chains'
+      description: Get chains in the POI data
+      operationId: _controller_get_chains_ad_analytics_poi_chains_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items: {}
+                type: array
+                title: Response  Controller Get Chains Ad Analytics Poi Chains Post
+      tags:
+      - Ad Analytics
+  /ad_analytics/values:
+    post:
+      summary: Get Feature Values
+      description: Get unique values for a specific feature
+      operationId: get_feature_values_ad_analytics_values_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetFeatureValuesRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Feature Values Ad Analytics Values Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/hierarchy-search:
+    post:
+      summary: Hierarchy Search
+      description: Search across a hierarchy of columns
+      operationId: hierarchy_search_ad_analytics_hierarchy_search_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HierarchySearchRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/HierarchySearchResult'
+                type: array
+                title: Response Hierarchy Search Ad Analytics Hierarchy Search Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+  /ad_analytics/distinct-values:
+    post:
+      summary: Get Predicated Values
+      description: Get distinct values for a column with optional predicates
+      operationId: get_predicated_values_ad_analytics_distinct_values_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetDistinctValuesRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Predicated Values Ad Analytics Distinct Values Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Ad Analytics
+components:
+  schemas:
+    BrandAnalysisItem:
+      properties:
+        item:
+          type: string
+          title: Item
+          description: The item being analyzed (brand, category, product name, or UPC)
+        value:
+          type: number
+          title: Value
+          description: Value of the selected metric for this item
+        weighted_value:
+          type: number
+          title: Weighted Value
+          description: Weighted value of the selected metric for this item
+      additionalProperties: true
+      type: object
+      required:
+      - item
+      - value
+      - weighted_value
+      title: BrandAnalysisItem
+      description: Item for brand analysis results.
+    RFMBuildPayload:
+      properties:
+        product_selections:
+          $ref: '#/components/schemas/SelectionPayload'
+          description: The product selections for the RFM model
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+          description: The ID of the audience to generate RFM segments for
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/src__api__ad_analytics__model__Timeframe'
+          - type: 'null'
+          description: The timeframe for the RFM model
+        upc_batch_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Upc Batch Id
+          description: The ID of a UPC batch to use for product selections
+      additionalProperties: true
+      type: object
+      required:
+      - product_selections
+      title: RFMBuildPayload
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__5:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/RFMConfiguration'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord
+    DateRangeDataAvailabilityPayload:
+      properties:
+        start_date:
+          type: string
+          format: date
+          title: Start Date
+          description: Start date of the range to check data availability
+        end_date:
+          type: string
+          format: date
+          title: End Date
+          description: End date of the range to check data availability
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+          description: Filter by audience ID
+        genres:
+          items:
+            type: string
+          type: array
+          title: Genres
+          description: Filter by genres
+        networks:
+          items:
+            type: string
+          type: array
+          title: Networks
+          description: Filter by networks
+        titles:
+          items:
+            type: string
+          type: array
+          title: Titles
+          description: Filter by titles
+        dma_codes:
+          items:
+            type: integer
+          type: array
+          title: Dma Codes
+          description: Filter by DMA codes
+      additionalProperties: true
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: DateRangeDataAvailabilityPayload
+    TitleFilterPayload:
+      properties:
+        starts_with:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Starts With
+          description: Filter titles that start with this string
+        networks:
+          items:
+            type: string
+          type: array
+          title: Networks
+          description: Filter titles that belong to these networks
+        genres:
+          items:
+            type: string
+          type: array
+          title: Genres
+          description: Filter titles that belong to these genres
+      additionalProperties: true
+      type: object
+      title: TitleFilterPayload
+    TurfProduct:
+      properties:
+        product_name:
+          type: string
+          title: Product Name
+          description: Name of the product
+        brand:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Brand
+          description: Brand of the product
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+          description: Category of the product
+        new_reach:
+          type: integer
+          title: New Reach
+          description: Number of new baskets reached by adding this product
+        new_reach_percentage:
+          type: number
+          title: New Reach Percentage
+          description: Percentage of new baskets reached by adding this product
+        cumulative_reach:
+          type: integer
+          title: Cumulative Reach
+          description: Cumulative number of baskets reached up to this step
+        cumulative_reach_percentage:
+          type: number
+          title: Cumulative Reach Percentage
+          description: Cumulative percentage of baskets reached up to this step
+        step:
+          type: integer
+          title: Step
+          description: Step number in the analysis (1-based)
+      additionalProperties: true
+      type: object
+      required:
+      - product_name
+      - brand
+      - category
+      - new_reach
+      - new_reach_percentage
+      - cumulative_reach
+      - cumulative_reach_percentage
+      - step
+      title: TurfProduct
+      description: Details about a product in the turf analysis result.
+    NetworkFilterPayload:
+      properties:
+        starts_with:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Starts With
+          description: Filter titles that start with this string
+        titles:
+          items:
+            type: string
+          type: array
+          title: Titles
+          description: Filter titles that belong to these networks
+        genres:
+          items:
+            type: string
+          type: array
+          title: Genres
+          description: Filter titles that belong to these genres
+      additionalProperties: true
+      type: object
+      title: NetworkFilterPayload
+    BasketAnalysisResponse:
+      properties:
+        co_purchased_products_lift:
+          items:
+            $ref: '#/components/schemas/CoPurchasedProduct'
+          type: array
+          title: Co Purchased Products Lift
+          description: Products frequently purchased with the focal product, sorted by lift
+        co_purchased_products_confidence:
+          items:
+            $ref: '#/components/schemas/CoPurchasedProduct'
+          type: array
+          title: Co Purchased Products Confidence
+          description: Products frequently purchased with the focal product, sorted by confidence
+        co_purchased_products_support:
+          items:
+            $ref: '#/components/schemas/CoPurchasedProduct'
+          type: array
+          title: Co Purchased Products Support
+          description: Products frequently purchased with the focal product, sorted by support
+      additionalProperties: true
+      type: object
+      required:
+      - co_purchased_products_lift
+      - co_purchased_products_confidence
+      - co_purchased_products_support
+      title: BasketAnalysisResponse
+      description: Response for basket analysis request.
+    SubcategoryAnalysisResponse:
+      properties:
+        grouping:
+          $ref: '#/components/schemas/CPGAnalysisGrouping'
+          description: How the results were grouped
+        metric:
+          $ref: '#/components/schemas/CPGAnalysisMetric'
+          description: The primary metric displayed
+        overall_value:
+          type: number
+          title: Overall Value
+          description: Overall total for the selected metric
+        weighted_overall_value:
+          type: number
+          title: Weighted Overall Value
+          description: Weighted overall total for the selected metric
+        subcategories:
+          items:
+            $ref: '#/components/schemas/SubcategoryAnalysisItem'
+          type: array
+          title: Subcategories
+          description: List of top subcategories
+      additionalProperties: true
+      type: object
+      required:
+      - grouping
+      - metric
+      - overall_value
+      - weighted_overall_value
+      - subcategories
+      title: SubcategoryAnalysisResponse
+      description: Response for subcategory analysis.
+    UPCAnalysisResponse:
+      properties:
+        grouping:
+          $ref: '#/components/schemas/CPGAnalysisGrouping'
+          description: How the results were grouped
+        metric:
+          $ref: '#/components/schemas/CPGAnalysisMetric'
+          description: The primary metric displayed
+        overall_value:
+          type: number
+          title: Overall Value
+          description: Overall total for the selected metric
+        weighted_overall_value:
+          type: number
+          title: Weighted Overall Value
+          description: Weighted overall total for the selected metric
+        upcs:
+          items:
+            $ref: '#/components/schemas/UPCAnalysisItem'
+          type: array
+          title: Upcs
+          description: List of top UPCs
+      additionalProperties: true
+      type: object
+      required:
+      - grouping
+      - metric
+      - overall_value
+      - weighted_overall_value
+      - upcs
+      title: UPCAnalysisResponse
+      description: Response for UPC analysis.
+    TargetSelection:
+      properties:
+        field:
+          $ref: '#/components/schemas/PurchaseFields'
+          description: The field to select from
+        value:
+          type: string
+          title: Value
+          description: The value to select
+      additionalProperties: true
+      type: object
+      required:
+      - field
+      - value
+      title: TargetSelection
+      description: Selection for the target field.
+    TrendsAnalysisTimePeriod:
+      type: string
+      enum:
+      - monthly
+      - weekly
+      - daily
+      - day_of_week
+      title: TrendsAnalysisTimePeriod
+      description: Time period aggregation for trends analysis.
+    CPGBehaviourResponse:
+      properties:
+        BALANCED:
+          items:
+            $ref: '#/components/schemas/POIGroupBreakdown'
+          type: array
+          title: Balanced
+        UNBALANCED:
+          items:
+            $ref: '#/components/schemas/POIGroupBreakdown'
+          type: array
+          title: Unbalanced
+        grouping:
+          $ref: '#/components/schemas/CPGBehaviourGrouping'
+      additionalProperties: true
+      type: object
+      required:
+      - BALANCED
+      - UNBALANCED
+      - grouping
+      title: CPGBehaviourResponse
+      description: Response with balanced and unbalanced metrics for treemap visualization.
+    PurchaseFields:
+      type: string
+      enum:
+      - BRAND
+      - CATEGORY
+      - SUBCATEGORY
+      - PRODUCT_NAME
+      - BASKET_TOTAL
+      - BASKET_ID
+      title: PurchaseFields
+    RFMConfiguration:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        async_job_id:
+          type: integer
+          title: Async Job Id
+          description: ID of the async job used for this RFM configuration.
+        r_segments:
+          type: integer
+          title: R Segments
+          description: Number of segments for Recency dimension.
+        f_segments:
+          type: integer
+          title: F Segments
+          description: Number of segments for Frequency dimension.
+        m_segments:
+          type: integer
+          title: M Segments
+          description: Number of segments for Monetary dimension.
+        boundary_method:
+          $ref: '#/components/schemas/BoundaryMethod'
+          description: Method for calculating segment boundaries.
+          default: equal_width
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Optional name for this configuration.
+        insights:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Insights
+          description: List of insights for this configuration.
+        rfm_id:
+          type: integer
+          title: Rfm Id
+          description: The ID of the RFM analysis this configuration belongs to.
+      type: object
+      required:
+      - async_job_id
+      - r_segments
+      - f_segments
+      - m_segments
+      - rfm_id
+      title: RFMConfiguration
+      description: 'Configuration settings for RFM analysis, using equal-width boundaries
+
+        for segmentation. Supports configurable number of segments (3, 5, or 7).'
+    HierarchySearchResult:
+      properties:
+        values:
+          additionalProperties:
+            anyOf:
+            - type: string
+            - items:
+                type: string
+              type: array
+          type: object
+          title: Values
+          description: Column-value mapping for this result
+      additionalProperties: true
+      type: object
+      required:
+      - values
+      title: HierarchySearchResult
+    RFMBuildAudienceForRfmPayload:
+      properties:
+        segment_ids:
+          items:
+            type: integer
+          type: array
+          title: Segment Ids
+          description: The IDs of the segments to build audience for
+        project_id:
+          type: string
+          title: Project Id
+          description: The ID of the project to build audience for
+        new_audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: New Audience Name
+          description: The name of the new audience to create
+        org_id:
+          type: string
+          title: Org Id
+          description: The ID of the organization to build audience for
+      additionalProperties: true
+      type: object
+      required:
+      - segment_ids
+      - project_id
+      - org_id
+      title: RFMBuildAudienceForRfmPayload
+    SelectionPayload:
+      properties:
+        selections:
+          items:
+            items:
+              $ref: '#/components/schemas/Selection'
+            type: array
+          type: array
+          title: Selections
+      additionalProperties: true
+      type: object
+      required:
+      - selections
+      title: SelectionPayload
+    BrandAnalysisResponse:
+      properties:
+        grouping:
+          $ref: '#/components/schemas/CPGAnalysisGrouping'
+          description: How the results were grouped
+        metric:
+          $ref: '#/components/schemas/CPGAnalysisMetric'
+          description: The primary metric displayed
+        overall_value:
+          type: number
+          title: Overall Value
+          description: Overall total for the selected metric
+        weighted_overall_value:
+          type: number
+          title: Weighted Overall Value
+          description: Weighted overall total for the selected metric
+        brands:
+          items:
+            $ref: '#/components/schemas/BrandAnalysisItem'
+          type: array
+          title: Brands
+          description: List of top brands
+      additionalProperties: true
+      type: object
+      required:
+      - grouping
+      - metric
+      - overall_value
+      - weighted_overall_value
+      - brands
+      title: BrandAnalysisResponse
+      description: Response for brand analysis.
+    GenreFilterPayload:
+      properties:
+        starts_with:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Starts With
+          description: Filter titles that start with this string
+        titles:
+          items:
+            type: string
+          type: array
+          title: Titles
+          description: Filter titles that belong to these genres
+        networks:
+          items:
+            type: string
+          type: array
+          title: Networks
+          description: Filter titles that belong to these networks
+      additionalProperties: true
+      type: object
+      title: GenreFilterPayload
+    TrendsDataPoint:
+      properties:
+        time_period:
+          type: string
+          title: Time Period
+          description: Time period (e.g., '2024-01', 'Week 1', etc.)
+        selection_name:
+          type: string
+          title: Selection Name
+          description: Name of the selection this data point represents
+        value:
+          type: number
+          title: Value
+          description: Value of the selected metric for this period
+        weighted_value:
+          type: number
+          title: Weighted Value
+          description: Weighted value of the selected metric for this period
+      additionalProperties: true
+      type: object
+      required:
+      - time_period
+      - selection_name
+      - value
+      - weighted_value
+      title: TrendsDataPoint
+      description: A single data point in the trends analysis.
+    BasketAnalysisRequest:
+      properties:
+        target:
+          $ref: '#/components/schemas/TargetSelection'
+          description: The target field and value to analyze co-purchases for
+        filters:
+          $ref: '#/components/schemas/CPGSuiteFilter'
+          description: Filters to apply to the data
+      additionalProperties: true
+      type: object
+      required:
+      - target
+      - filters
+      title: BasketAnalysisRequest
+      description: Request for basket analysis - finding products frequently purchased together.
+    TurfAnalysisResponse:
+      properties:
+        products:
+          items:
+            $ref: '#/components/schemas/TurfProduct'
+          type: array
+          title: Products
+          description: Ordered list of products that maximize reach
+        total_baskets:
+          type: integer
+          title: Total Baskets
+          description: Total number of baskets in the dataset
+      additionalProperties: true
+      type: object
+      required:
+      - products
+      - total_baskets
+      title: TurfAnalysisResponse
+      description: Response for turf analysis request.
+    CountPct:
+      properties:
+        count:
+          type: number
+          title: Count
+        pct:
+          type: number
+          title: Pct
+      additionalProperties: true
+      type: object
+      required:
+      - count
+      - pct
+      title: CountPct
+      description: Count and percentage values.
+    RFMBuildAudienceForGrowthFrameworkPayload:
+      properties:
+        cell_ids:
+          items:
+            type: integer
+          type: array
+          title: Cell Ids
+          description: The IDs of the cells to build audience for
+        project_id:
+          type: string
+          title: Project Id
+          description: The ID of the project to build audience for
+        new_audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: New Audience Name
+          description: The name of the new audience to create
+        org_id:
+          type: string
+          title: Org Id
+          description: The ID of the organization to build audience for
+      additionalProperties: true
+      type: object
+      required:
+      - cell_ids
+      - project_id
+      - org_id
+      title: RFMBuildAudienceForGrowthFrameworkPayload
+    CPGBehaviourGrouping:
+      type: string
+      enum:
+      - CATEGORY
+      - SUBCATEGORY
+      - BRAND
+      - PRODUCT_NAME
+      title: CPGBehaviourGrouping
+      description: Enum for different grouping options in CPG behavior analysis.
+    RFMBuildGrowthFrameworkPayload:
+      properties:
+        rfm_id:
+          type: integer
+          title: Rfm Id
+          description: The ID of the RFM model to build growth framework for
+        brand_selections:
+          $ref: '#/components/schemas/SelectionPayload'
+          description: The brand selections for the growth framework
+        category_selections:
+          $ref: '#/components/schemas/SelectionPayload'
+          description: The category selections for the growth framework
+      additionalProperties: true
+      type: object
+      required:
+      - rfm_id
+      - brand_selections
+      - category_selections
+      title: RFMBuildGrowthFrameworkPayload
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__8:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/RFM'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord
+    CPGAnalysisMetric:
+      type: string
+      enum:
+      - total_sales
+      - transaction_count
+      - customer_count
+      title: CPGAnalysisMetric
+      description: Primary metrics for CPG analysis.
+    src__api__ad_analytics__model__Timeframe:
+      properties:
+        start_date:
+          type: string
+          format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+      additionalProperties: true
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: Timeframe
+    SubcategoryWithBrands:
+      properties:
+        subcategory:
+          type: string
+          title: Subcategory
+          description: The subcategory name
+        brands:
+          items:
+            type: string
+          type: array
+          title: Brands
+          description: The brands in the subcategory
+      additionalProperties: true
+      type: object
+      required:
+      - subcategory
+      - brands
+      title: SubcategoryWithBrands
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__6:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/GrowthFramework'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord
+    TurfAnalysisRequest:
+      properties:
+        steps:
+          type: integer
+          maximum: 10.0
+          minimum: 1.0
+          title: Steps
+          description: Number of steps/products to include in the analysis
+        filters:
+          $ref: '#/components/schemas/CPGSuiteFilter'
+          description: Filters to apply to the data
+      additionalProperties: true
+      type: object
+      required:
+      - steps
+      - filters
+      title: TurfAnalysisRequest
+      description: Request for turf analysis - finding optimal product combinations for maximum reach.
+    AsyncJobRecord:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          title: Response
+          description: async response
+      type: object
+      title: AsyncJobRecord
+      description: Do NOT access this table directly.
+    DmaCodesFilterPayload:
+      properties:
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+          description: Optional audience ID to filter DMA codes
+      additionalProperties: true
+      type: object
+      title: DmaCodesFilterPayload
+    CategoryWithSubcategories:
+      properties:
+        category:
+          type: string
+          title: Category
+          description: The category name
+        subcategories:
+          items:
+            $ref: '#/components/schemas/SubcategoryWithBrands'
+          type: array
+          title: Subcategories
+          description: The brands in the category
+      additionalProperties: true
+      type: object
+      required:
+      - category
+      - subcategories
+      title: CategoryWithSubcategories
+    Pagination:
+      properties:
+        start:
+          type: integer
+          title: Start
+          description: The start index
+        limit:
+          type: integer
+          title: Limit
+          description: The limit
+      additionalProperties: true
+      type: object
+      required:
+      - start
+      - limit
+      title: Pagination
+    ProductAnalysisItem:
+      properties:
+        item:
+          type: string
+          title: Item
+          description: The item being analyzed (brand, category, product name, or UPC)
+        value:
+          type: number
+          title: Value
+          description: Value of the selected metric for this item
+        weighted_value:
+          type: number
+          title: Weighted Value
+          description: Weighted value of the selected metric for this item
+        brand:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Brand
+          description: Brand of the product
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+          description: Category of the product
+      additionalProperties: true
+      type: object
+      required:
+      - item
+      - value
+      - weighted_value
+      - brand
+      - category
+      title: ProductAnalysisItem
+      description: Item for product analysis results.
+    GetFeatureValuesRequest:
+      properties:
+        feature:
+          type: string
+          title: Feature
+        context:
+          type: string
+          title: Context
+          default: measurement
+        pagination:
+          anyOf:
+          - $ref: '#/components/schemas/Pagination'
+          - type: 'null'
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      additionalProperties: true
+      type: object
+      required:
+      - feature
+      title: GetFeatureValuesRequest
+    UPCAnalysisItem:
+      properties:
+        item:
+          type: string
+          title: Item
+          description: The item being analyzed (brand, category, product name, or UPC)
+        value:
+          type: number
+          title: Value
+          description: Value of the selected metric for this item
+        weighted_value:
+          type: number
+          title: Weighted Value
+          description: Weighted value of the selected metric for this item
+        product_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Product Name
+          description: Name of the product
+        brand:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Brand
+          description: Brand of the product
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+          description: Category of the product
+      additionalProperties: true
+      type: object
+      required:
+      - item
+      - value
+      - weighted_value
+      - product_name
+      - brand
+      - category
+      title: UPCAnalysisItem
+      description: Item for UPC analysis results.
+    RFM:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        async_job_id:
+          type: integer
+          title: Async Job Id
+          description: ID of the async job used for this RFM analysis.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Optional name for this RFM analysis.
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+          description: ID of the audience used for this RFM analysis.
+        start_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Date
+          description: Start date for the RFM analysis.
+        end_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+          description: End date for the RFM analysis.
+        upc_batch_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Upc Batch Id
+          description: ID of the UPC batch used for this analysis.
+        product_selections:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Product Selections
+          description: Structured selection of brands, sub-brands, products, and categories for analysis.
+      type: object
+      required:
+      - async_job_id
+      title: RFM
+      description: 'Main RFM model for RFM analysis with equal-width segmentation and UPC upload support.
+
+        Supports 1:N relationship with brands, sub-brands, products, and product categories.'
+    RFMBuildConfigurationPayload:
+      properties:
+        rfm_id:
+          type: integer
+          title: Rfm Id
+          description: The ID of the RFM model to build configuration for
+        num_segments:
+          type: integer
+          title: Num Segments
+          description: The number of segments to build for the RFM model
+      additionalProperties: true
+      type: object
+      required:
+      - rfm_id
+      - num_segments
+      title: RFMBuildConfigurationPayload
+    BoundaryMethod:
+      type: string
+      enum:
+      - equal_width
+      const: equal_width
+      title: BoundaryMethod
+    DMA:
+      properties:
+        value:
+          type: string
+          title: Value
+          description: DMA code value
+        label:
+          type: string
+          title: Label
+          description: DMA code label (code + name)
+      additionalProperties: true
+      type: object
+      required:
+      - value
+      - label
+      title: DMA
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CoPurchasedProduct:
+      properties:
+        product_name:
+          type: string
+          title: Product Name
+          description: Name of the co-purchased product
+        brand:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Brand
+          description: Brand of the co-purchased product
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+          description: Category of the co-purchased product
+        subcategory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subcategory
+          description: Subcategory of the co-purchased product
+        support:
+          type: number
+          title: Support
+          description: Percentage of all baskets containing both products
+        confidence:
+          type: number
+          title: Confidence
+          description: Percentage of focal product baskets that also contain this product
+        lift:
+          type: number
+          title: Lift
+          description: Ratio of observed co-occurrence to expected co-occurrence
+      additionalProperties: true
+      type: object
+      required:
+      - product_name
+      - brand
+      - category
+      - subcategory
+      - support
+      - confidence
+      - lift
+      title: CoPurchasedProduct
+      description: Details about a co-purchased product.
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__4:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/RFM'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord
+    CPGSuiteFilter:
+      properties:
+        selections:
+          $ref: '#/components/schemas/SelectionPayload'
+          description: Selections to apply to the data
+        search_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search String
+          description: Search string for fuzzy match
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/src__api__ad_analytics__model__Timeframe'
+          - type: 'null'
+          description: Datetime range for analysis
+        audience_filter:
+          anyOf:
+          - $ref: '#/components/schemas/CPGAudienceFilter'
+          - type: 'null'
+          description: Audience and category selection filter
+      additionalProperties: true
+      type: object
+      required:
+      - selections
+      title: CPGSuiteFilter
+      description: Filter for CPG Suite.
+    HierarchySearchRequest:
+      properties:
+        table:
+          type: string
+          title: Table
+          description: Table name to search in
+        hierarchy:
+          items:
+            type: string
+          type: array
+          title: Hierarchy
+          description: Column hierarchy for search
+        search:
+          type: string
+          title: Search
+          description: Search string to match
+        pagination:
+          anyOf:
+          - $ref: '#/components/schemas/Pagination'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - table
+      - hierarchy
+      - search
+      title: HierarchySearchRequest
+    TrendsAnalysisResponse:
+      properties:
+        selection_1_name:
+          type: string
+          title: Selection 1 Name
+          description: Display name for first selection
+        selection_2_name:
+          type: string
+          title: Selection 2 Name
+          description: Display name for second selection
+        metric:
+          $ref: '#/components/schemas/TrendsAnalysisMetric'
+          description: The primary metric displayed
+        time_period:
+          $ref: '#/components/schemas/TrendsAnalysisTimePeriod'
+          description: Time period used for aggregation
+        data_points:
+          items:
+            $ref: '#/components/schemas/TrendsDataPoint'
+          type: array
+          title: Data Points
+          description: Time series data points
+      additionalProperties: true
+      type: object
+      required:
+      - selection_1_name
+      - selection_2_name
+      - metric
+      - time_period
+      - data_points
+      title: TrendsAnalysisResponse
+      description: Response for trends analysis request.
+    GetDistinctValuesRequest:
+      properties:
+        table:
+          type: string
+          title: Table
+          description: Table name to query
+        column:
+          type: string
+          title: Column
+          description: Column to get distinct values from
+        predicates:
+          additionalProperties:
+            type: string
+          type: object
+          title: Predicates
+          description: 'WHERE clause predicates (column: value)'
+        pagination:
+          anyOf:
+          - $ref: '#/components/schemas/Pagination'
+          - type: 'null'
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      additionalProperties: true
+      type: object
+      required:
+      - table
+      - column
+      title: GetDistinctValuesRequest
+      description: Request model for getting distinct values with predicates
+    CategoryAnalysisItem:
+      properties:
+        item:
+          type: string
+          title: Item
+          description: The item being analyzed (brand, category, product name, or UPC)
+        value:
+          type: number
+          title: Value
+          description: Value of the selected metric for this item
+        weighted_value:
+          type: number
+          title: Weighted Value
+          description: Weighted value of the selected metric for this item
+      additionalProperties: true
+      type: object
+      required:
+      - item
+      - value
+      - weighted_value
+      title: CategoryAnalysisItem
+      description: Item for category analysis results.
+    CPGAudienceFilter:
+      properties:
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+          description: Base audience ID to filter by
+        category_selections:
+          anyOf:
+          - $ref: '#/components/schemas/SelectionPayload'
+          - type: 'null'
+          description: Additional category-based filters to apply
+      additionalProperties: true
+      type: object
+      title: CPGAudienceFilter
+      description: Audience filter for CPG Suite with category selection support.
+    Selection:
+      properties:
+        field:
+          type: string
+          title: Field
+        values:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Values
+      additionalProperties: true
+      type: object
+      required:
+      - field
+      - values
+      title: Selection
+    CategoryAnalysisResponse:
+      properties:
+        grouping:
+          $ref: '#/components/schemas/CPGAnalysisGrouping'
+          description: How the results were grouped
+        metric:
+          $ref: '#/components/schemas/CPGAnalysisMetric'
+          description: The primary metric displayed
+        overall_value:
+          type: number
+          title: Overall Value
+          description: Overall total for the selected metric
+        weighted_overall_value:
+          type: number
+          title: Weighted Overall Value
+          description: Weighted overall total for the selected metric
+        categories:
+          items:
+            $ref: '#/components/schemas/CategoryAnalysisItem'
+          type: array
+          title: Categories
+          description: List of top categories
+      additionalProperties: true
+      type: object
+      required:
+      - grouping
+      - metric
+      - overall_value
+      - weighted_overall_value
+      - categories
+      title: CategoryAnalysisResponse
+      description: Response for category analysis.
+    CPGAnalysisGrouping:
+      type: string
+      enum:
+      - CATEGORY
+      - SUBCATEGORY
+      - BRAND
+      - PRODUCT_NAME
+      title: CPGAnalysisGrouping
+      description: Enum for different grouping options in CPG analysis.
+    ProductAnalysisResponse:
+      properties:
+        grouping:
+          $ref: '#/components/schemas/CPGAnalysisGrouping'
+          description: How the results were grouped
+        metric:
+          $ref: '#/components/schemas/CPGAnalysisMetric'
+          description: The primary metric displayed
+        overall_value:
+          type: number
+          title: Overall Value
+          description: Overall total for the selected metric
+        weighted_overall_value:
+          type: number
+          title: Weighted Overall Value
+          description: Weighted overall total for the selected metric
+        products:
+          items:
+            $ref: '#/components/schemas/ProductAnalysisItem'
+          type: array
+          title: Products
+          description: List of top products
+      additionalProperties: true
+      type: object
+      required:
+      - grouping
+      - metric
+      - overall_value
+      - weighted_overall_value
+      - products
+      title: ProductAnalysisResponse
+      description: Response for product analysis.
+    MinMaxPartitionDatePayload:
+      properties:
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+          description: Filter by audience ID
+        genres:
+          items:
+            type: string
+          type: array
+          title: Genres
+          description: Filter by genres
+        networks:
+          items:
+            type: string
+          type: array
+          title: Networks
+          description: Filter by networks
+        titles:
+          items:
+            type: string
+          type: array
+          title: Titles
+          description: Filter by titles
+        dma_codes:
+          items:
+            type: integer
+          type: array
+          title: Dma Codes
+          description: Filter by DMA codes
+      additionalProperties: true
+      type: object
+      title: MinMaxPartitionDatePayload
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__7:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/RFM'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord
+    GrowthFramework:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        async_job_id:
+          type: integer
+          title: Async Job Id
+          description: ID of the async job used for this growth framework.
+        rfm_id:
+          type: integer
+          title: Rfm Id
+          description: The ID of the RFM analysis this framework belongs to.
+        category_selections:
+          type: object
+          title: Category Selections
+          description: Bounds for the category dimension.
+        brand_selections:
+          type: object
+          title: Brand Selections
+          description: Bounds for the brand dimension.
+        brand_thresholds:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Brand Thresholds
+          description: Thresholds for the brand terciles. If None, equal width terciles are used.
+        category_thresholds:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Category Thresholds
+          description: Thresholds for the category terciles. If None, equal width terciles are used.
+      type: object
+      required:
+      - async_job_id
+      - rfm_id
+      - category_selections
+      - brand_selections
+      title: GrowthFramework
+      description: Brand vs. category usage framework for analyzing customer behavior patterns.
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    POIGroupBreakdown:
+      properties:
+        group:
+          type: string
+          title: Group
+        events:
+          $ref: '#/components/schemas/CountPct'
+        ids:
+          $ref: '#/components/schemas/CountPct'
+      additionalProperties: true
+      type: object
+      required:
+      - group
+      - events
+      - ids
+      title: POIGroupBreakdown
+      description: Group item for treemap visualization with event and id metrics.
+    TrendsAnalysisRequest:
+      properties:
+        selection_1:
+          $ref: '#/components/schemas/SelectionPayload'
+          description: First selection to compare
+        selection_2:
+          $ref: '#/components/schemas/SelectionPayload'
+          description: Second selection to compare
+        metric:
+          $ref: '#/components/schemas/TrendsAnalysisMetric'
+          description: The primary metric to display
+        filters:
+          $ref: '#/components/schemas/CPGSuiteFilter'
+          description: Filters to apply to the data
+        aggregate_by_day_of_week:
+          type: boolean
+          title: Aggregate By Day Of Week
+          description: Aggregate by day of week instead of time periods
+          default: false
+      additionalProperties: true
+      type: object
+      required:
+      - selection_1
+      - selection_2
+      - metric
+      - filters
+      title: TrendsAnalysisRequest
+      description: Request for trends analysis comparing two selections over time.
+    CPGBehaviourRequest:
+      properties:
+        filters:
+          $ref: '#/components/schemas/CPGSuiteFilter'
+          description: Filters to apply to the data
+        grouping:
+          $ref: '#/components/schemas/CPGBehaviourGrouping'
+          description: Grouping to apply to the data
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+          description: Optional category for drill-down
+        subcategory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subcategory
+          description: Optional subcategory for drill-down
+        brand:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Brand
+          description: Optional brand for drill-down
+      additionalProperties: true
+      type: object
+      required:
+      - filters
+      - grouping
+      title: CPGBehaviourRequest
+      description: Request for CPG behavior analysis.
+    SubcategoryAnalysisItem:
+      properties:
+        item:
+          type: string
+          title: Item
+          description: The item being analyzed (brand, category, product name, or UPC)
+        value:
+          type: number
+          title: Value
+          description: Value of the selected metric for this item
+        weighted_value:
+          type: number
+          title: Weighted Value
+          description: Weighted value of the selected metric for this item
+      additionalProperties: true
+      type: object
+      required:
+      - item
+      - value
+      - weighted_value
+      title: SubcategoryAnalysisItem
+      description: Item for subcategory analysis results.
+    TrendsAnalysisMetric:
+      type: string
+      enum:
+      - total_sales
+      - transaction_count
+      - customer_count
+      - percent_of_total_sales
+      title: TrendsAnalysisMetric
+      description: Primary metrics for trends analysis.
+    CPGAnalysisRequest:
+      properties:
+        grouping:
+          $ref: '#/components/schemas/CPGAnalysisGrouping'
+          description: How to group the products
+        metric:
+          $ref: '#/components/schemas/CPGAnalysisMetric'
+          description: The primary metric to display
+        filters:
+          $ref: '#/components/schemas/CPGSuiteFilter'
+          description: Filters to apply to the data
+      additionalProperties: true
+      type: object
+      required:
+      - grouping
+      - metric
+      - filters
+      title: CPGAnalysisRequest
+      description: Request for CPG analysis - finding top brands, categories, products, etc.

@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: Fast Create Integration Output API
+  version: 0.1.0
+tags:
+- name: Create Integration Output
+paths:
+  /create-integration-output:
+    post:
+      summary: ' Controller Create Integration Output'
+      operationId: _controller_create_integration_output_create_integration_output_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Request Dict
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response  Controller Create Integration Output Create Integration Output Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Create Integration Output
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

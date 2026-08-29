@@ -1,0 +1,148 @@
+openapi: 3.2.0
+info:
+  title: Fast Knowledge API
+  version: 0.1.0
+tags:
+- name: knowledge
+paths:
+  /knowledge/parse/{document_id}:
+    post:
+      tags:
+      - knowledge
+      summary: Parse
+      description: Parse uploaded documents
+      operationId: parse_knowledge_parse__document_id__post
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Document Id
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Parse Knowledge Parse  Document Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /knowledge/chat-explore-suggestions:
+    post:
+      tags:
+      - knowledge
+      summary: Chat Explore Suggestions Route Async
+      description: Generate suggestions
+      operationId: chat_explore_suggestions_route_async_knowledge_chat_explore_suggestions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnowledgeChatExploreSuggestionsRequestPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeChatExploreSuggestionsResponsePayload'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /knowledge/chat-explore:
+    post:
+      tags:
+      - knowledge
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_knowledge_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    KnowledgeChatExploreSuggestionsRequestPayload:
+      properties:
+        knowledgeDocumentIds:
+          items:
+            type: string
+          type: array
+          title: Knowledgedocumentids
+          description: List of document ids
+        forceRefresh:
+          type: boolean
+          title: Forcerefresh
+          description: ignore cache and re-generate suggestions
+          default: false
+      additionalProperties: true
+      type: object
+      required:
+      - knowledgeDocumentIds
+      title: KnowledgeChatExploreSuggestionsRequestPayload
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    KnowledgeChatExploreSuggestionsResponsePayload:
+      properties:
+        suggestions:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Suggestions
+          description: List of suggestions
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - status
+      title: KnowledgeChatExploreSuggestionsResponsePayload

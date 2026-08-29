@@ -1,0 +1,718 @@
+openapi: 3.2.0
+info:
+  title: Fast Measurement API
+  version: 0.1.0
+tags:
+- name: measurement
+paths:
+  /measurement/build-chart:
+    post:
+      tags:
+      - measurement
+      summary: Build Chart
+      operationId: build_chart_measurement_build_chart_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildChartPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__2'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /measurement/chart_summary:
+    post:
+      tags:
+      - measurement
+      summary: Chart Summary
+      operationId: chart_summary_measurement_chart_summary_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementChartSummaryPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementChartSummaryResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /measurement/dashboard_summary:
+    post:
+      tags:
+      - measurement
+      summary: Dashboard Summary
+      operationId: dashboard_summary_measurement_dashboard_summary_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementDashboardSummaryPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementDashboardSummaryResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /measurement/dashboard_banner_image:
+    post:
+      tags:
+      - measurement
+      summary: ' Get Banner Image'
+      operationId: _get_banner_image_measurement_dashboard_banner_image_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementDashboardBannerPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementDashboardBannerResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /measurement/chat-explore:
+    post:
+      tags:
+      - measurement
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_measurement_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /measurement/chart/refresh:
+    post:
+      tags:
+      - measurement
+      summary: ' Controller Chart Refresh'
+      operationId: _controller_chart_refresh_measurement_chart_refresh_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementChartRefreshPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartRefreshResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ad_analytics/measurement/build-chart:
+    post:
+      tags:
+      - measurement
+      summary: Build Chart
+      operationId: build_chart_ad_analytics_measurement_build_chart_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildChartPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__2'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ad_analytics/measurement/chart_summary:
+    post:
+      tags:
+      - measurement
+      summary: Chart Summary
+      operationId: chart_summary_ad_analytics_measurement_chart_summary_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementChartSummaryPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementChartSummaryResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ad_analytics/measurement/dashboard_summary:
+    post:
+      tags:
+      - measurement
+      summary: Dashboard Summary
+      operationId: dashboard_summary_ad_analytics_measurement_dashboard_summary_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementDashboardSummaryPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementDashboardSummaryResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ad_analytics/measurement/dashboard_banner_image:
+    post:
+      tags:
+      - measurement
+      summary: ' Get Banner Image'
+      operationId: _get_banner_image_ad_analytics_measurement_dashboard_banner_image_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementDashboardBannerPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementDashboardBannerResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    MeasurementFilters:
+      properties:
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/MeasurementTimeframe'
+          - type: 'null'
+          description: Timeframe of the filter
+        comparison_timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/MeasurementTimeframe'
+          - type: 'null'
+          description: Timeframe for comparison data
+        drilldown:
+          anyOf:
+          - $ref: '#/components/schemas/DrilldownConfig'
+          - type: 'null'
+          description: Drill-down configuration
+        raw_measurement_filter:
+          type: object
+          title: Raw Measurement Filter
+      additionalProperties: true
+      type: object
+      title: MeasurementFilters
+      description: Measurement filter with dynamic field support for hierarchy-based filtering
+    MeasurementChartSummaryPayload:
+      properties:
+        filters:
+          $ref: '#/components/schemas/MeasurementFilters'
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - filters
+      - chart_metadata_id
+      - chart_data_id
+      title: MeasurementChartSummaryPayload
+    MeasurementDashboardSummaryPayload:
+      properties:
+        filters:
+          $ref: '#/components/schemas/MeasurementFilters'
+        charts:
+          items:
+            $ref: '#/components/schemas/MeasurementDashboardChartPayload'
+          type: array
+          title: Charts
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      additionalProperties: true
+      type: object
+      required:
+      - filters
+      - charts
+      title: MeasurementDashboardSummaryPayload
+    MeasurementDashboardBannerResult:
+      properties:
+        presigned_url:
+          type: string
+          title: Presigned Url
+        storage_path:
+          type: string
+          title: Storage Path
+      additionalProperties: true
+      type: object
+      required:
+      - presigned_url
+      - storage_path
+      title: MeasurementDashboardBannerResult
+    DrilldownTableRow:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier for the row
+        columns:
+          additionalProperties:
+            anyOf:
+            - type: string
+            - type: number
+            - type: 'null'
+          type: object
+          title: Columns
+          description: Dynamic column values
+        drill_options:
+          items:
+            type: string
+          type: array
+          title: Drill Options
+          description: Available drill-down options (empty list if no options available)
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - columns
+      - drill_options
+      title: DrilldownTableRow
+    MeasurementChartResult:
+      properties:
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+        chart_id:
+          type: integer
+          title: Chart Id
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Render'
+          - $ref: '#/components/schemas/DrilldownTableData'
+          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      required:
+      - chart_metadata_id
+      - chart_data_id
+      - chart_id
+      - data
+      title: MeasurementChartResult
+    Render:
+      properties:
+        type:
+          type: string
+          title: Type
+        chart_filter:
+          type: object
+          title: Chart Filter
+        sql_metadata:
+          type: object
+          title: Sql Metadata
+        title:
+          type: string
+          title: Title
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        download_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Download Path
+        transformed_data:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Transformed Data
+        sources:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Sources
+        view:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: View
+        column_metadata:
+          anyOf:
+          - additionalProperties:
+              additionalProperties:
+                type: string
+              type: object
+            type: object
+          - type: 'null'
+          title: Column Metadata
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      title: Render
+    MeasurementDashboardChartPayload:
+      properties:
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_metadata_id
+      - chart_data_id
+      title: MeasurementDashboardChartPayload
+    MeasurementChartSummaryResult:
+      properties:
+        summary:
+          type: string
+          title: Summary
+      additionalProperties: true
+      type: object
+      required:
+      - summary
+      title: MeasurementChartSummaryResult
+    MeasurementChartEnum:
+      type: string
+      enum:
+      - creative_performance
+      - pacing_campaign
+      - pacing_channel
+      - pacing_partner
+      - kpi_timeline
+      - kpi_scorecard
+      - pacing_topline
+      - campaign_drilldown
+      - impressions_vs_spend
+      - clicks_vs_spend
+      - total_contribution_to_impressions
+      - clicks_per_impression
+      - total_cost_per_thousand_impressions
+      - campaign_impressions_comparison
+      - campaign_spend_comparison
+      - channel_impression_metrics
+      - partner_performance_comparison
+      - weekly_performance_by_partner
+      - weekly_performance_rankings_by_partner
+      title: MeasurementChartEnum
+    MeasurementChartRefreshPayload:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+        measurementFilter:
+          $ref: '#/components/schemas/MeasurementFilters'
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      - measurementFilter
+      title: MeasurementChartRefreshPayload
+    MeasurementDashboardBannerPayload:
+      properties:
+        dashboard_id:
+          type: string
+          title: Dashboard Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      additionalProperties: true
+      type: object
+      required:
+      - dashboard_id
+      title: MeasurementDashboardBannerPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ChartRefreshResult:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      - chart_metadata_id
+      - chart_data_id
+      title: ChartRefreshResult
+    DrilldownTableData:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/DrilldownTableRow'
+          type: array
+          title: Rows
+          description: Table rows with hierarchical structure
+        title:
+          type: string
+          title: Title
+          description: Table title (e.g., 'Campaign conversions, compared to...')
+        type:
+          type: string
+          title: Type
+          description: Type of chart data
+      additionalProperties: true
+      type: object
+      required:
+      - rows
+      - title
+      - type
+      title: DrilldownTableData
+    MeasurementDashboardSummaryResult:
+      properties:
+        summary:
+          type: string
+          title: Summary
+      additionalProperties: true
+      type: object
+      required:
+      - summary
+      title: MeasurementDashboardSummaryResult
+    BuildChartPayload:
+      properties:
+        filters:
+          $ref: '#/components/schemas/MeasurementFilters'
+        chart_type:
+          $ref: '#/components/schemas/MeasurementChartEnum'
+      additionalProperties: true
+      type: object
+      required:
+      - filters
+      - chart_type
+      title: BuildChartPayload
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    DrilldownConfig:
+      properties:
+        current_level:
+          type: string
+          title: Current Level
+          description: Current drill-down level
+          default: CAMPAIGN
+        next_level:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Level
+          description: Next drill-down level to navigate to
+        drill_context:
+          additionalProperties:
+            type: string
+          type: object
+          title: Drill Context
+          description: Context for drill-down (parent selections)
+      additionalProperties: true
+      type: object
+      title: DrilldownConfig
+      description: Configuration for drill-down navigation in charts
+    MeasurementTimeframe:
+      properties:
+        start_date:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Start Date
+          description: start date of the query in unix epoch milliseconds
+        end_date:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: End Date
+          description: end date of the query in unix epoch milliseconds
+      additionalProperties: true
+      type: object
+      title: MeasurementTimeframe
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__2:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/MeasurementChartResult'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord

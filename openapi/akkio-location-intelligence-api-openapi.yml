@@ -1,0 +1,330 @@
+openapi: 3.2.0
+info:
+  title: Fast Location Intelligence API
+  version: 0.1.0
+tags:
+- name: Location Intelligence
+paths:
+  /location-intelligence/chat-params:
+    post:
+      summary: ' Controller Model Param Chat'
+      description: chat define location intelligence parameters
+      operationId: _controller_model_param_chat_location_intelligence_chat_params_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Location Intelligence
+  /location-intelligence/generate:
+    post:
+      summary: ' Controller Generate'
+      description: Generate location intelligence data
+      operationId: _controller_generate_location_intelligence_generate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationIntelligenceGeneratePayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__1'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Location Intelligence
+  /location-intelligence/categories-with-places:
+    post:
+      summary: ' Controller Get Categories With Places'
+      description: Get the categories and places
+      operationId: _controller_get_categories_with_places_location_intelligence_categories_with_places_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationIntelligenceSearchPlacesPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CategoryWithPlaces'
+                type: array
+                title: Response  Controller Get Categories With Places Location Intelligence Categories With Places Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Location Intelligence
+  /location-intelligence/categories-all-places:
+    post:
+      summary: ' Controller Get Categories All Places'
+      description: Get all places under provided categories
+      operationId: _controller_get_categories_all_places_location_intelligence_categories_all_places_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationIntelligenceCategoriesPlacesPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CategoryWithPlaces'
+                type: array
+                title: Response  Controller Get Categories All Places Location Intelligence Categories All Places Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Location Intelligence
+  /location-intelligence/chat-explore:
+    post:
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_location_intelligence_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Location Intelligence
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    LocationIntelligenceGeneratePayload:
+      properties:
+        location_natural_language:
+          type: string
+          title: Location Natural Language
+        zip_codes:
+          items:
+            type: string
+          type: array
+          title: Zip Codes
+        places:
+          items:
+            type: string
+          type: array
+          title: Places
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/src__ad_analytics__location_intelligence__model__Timeframe'
+          - type: 'null'
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+      type: object
+      required:
+      - location_natural_language
+      - zip_codes
+      - places
+      - timeframe
+      - audience_id
+      title: LocationIntelligenceGeneratePayload
+    src__ad_analytics__location_intelligence__model__Timeframe:
+      properties:
+        start_date:
+          type: string
+          format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+      additionalProperties: true
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: Timeframe
+    CategoryWithPlaces:
+      properties:
+        category:
+          type: string
+          title: Category
+          description: The category name
+        places:
+          items:
+            type: string
+          type: array
+          title: Places
+          description: The places in the category
+      additionalProperties: true
+      type: object
+      required:
+      - category
+      - places
+      title: CategoryWithPlaces
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__1:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Response
+      type: object
+      title: ConcreteAsyncJobRecord
+    LocationIntelligenceSearchPlacesPayload:
+      properties:
+        search_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search String
+          description: search across categories and place names.
+        zip_codes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Zip Codes
+          description: limit search to zip_codes.
+      additionalProperties: true
+      type: object
+      title: LocationIntelligenceSearchPlacesPayload
+    LocationIntelligenceCategoriesPlacesPayload:
+      properties:
+        categories:
+          items:
+            type: string
+          type: array
+          title: Categories
+          description: categories to search places for.
+        zip_codes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Zip Codes
+          description: limit search to zip_codes.
+      additionalProperties: true
+      type: object
+      required:
+      - categories
+      title: LocationIntelligenceCategoriesPlacesPayload

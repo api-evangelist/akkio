@@ -1,0 +1,1836 @@
+openapi: 3.2.0
+info:
+  title: Akkio Chat Explore API
+  version: 0.1.0
+  description: 'Operations tagged Chat Explore across 2 of this provider''s published API definitions: akkio-platform-api-openapi.json, akkio-public-api-openapi.yaml. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Chat Explore
+paths:
+  /api/v1/chat-explore/status/{task_id}:
+    get:
+      tags:
+      - Chat Explore
+      summary: ' Get Chat Explore Status'
+      description: Retrieves the status of the provided Chat Explore task id.
+      operationId: _get_chat_explore_status_api_v1_chat_explore_status__task_id__get
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/chat-explore/chats/{id}:
+    get:
+      tags:
+      - Chat Explore
+      summary: ' Get Chat'
+      description: Retrieves a chat by id.
+      operationId: _get_chat_api_v1_chat_explore_chats__id__get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Id
+      - name: image_format
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/ChatExploreImageFormat'
+          - type: 'null'
+          title: Image Format
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_ApiBaseChatRecord'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/chat-explore/new:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Submit Chat Explore Query'
+      description: Query Chat Explore through API. Takes in a list of messages and gives you the message Chat Explore sent back.
+      operationId: _submit_chat_explore_query_api_v1_chat_explore_new_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatExploreRequestPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APITaskStartedResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /chat-explore:
+    post:
+      summary: Chat Explore Route
+      operationId: chat_explore_route_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Chat Explore
+  /multi_table/chat-explore:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_multi_table_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /multi_table/chat-explore-suggestions:
+    post:
+      tags:
+      - Chat Explore
+      summary: Chat Explore Suggestions Route Async
+      description: Generate suggestions
+      operationId: chat_explore_suggestions_route_async_multi_table_chat_explore_suggestions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiTableChatExploreSuggestionsRequestPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiTableChatExploreSuggestionsResponsePayload'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /multi_table_chat_explore/chat-explore:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_multi_table_chat_explore_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /multi_table_chat_explore/chat-explore-suggestions:
+    post:
+      tags:
+      - Chat Explore
+      summary: Chat Explore Suggestions Route Async
+      operationId: chat_explore_suggestions_route_async_multi_table_chat_explore_chat_explore_suggestions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiTableChatExploreSuggestionsRequestPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiTableChatExploreSuggestionsResponsePayload'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /measurement/build-chart:
+    post:
+      tags:
+      - Chat Explore
+      summary: Build Chart
+      operationId: build_chart_measurement_build_chart_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildChartPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__2'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /measurement/chart_summary:
+    post:
+      tags:
+      - Chat Explore
+      summary: Chart Summary
+      operationId: chart_summary_measurement_chart_summary_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementChartSummaryPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementChartSummaryResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /measurement/dashboard_summary:
+    post:
+      tags:
+      - Chat Explore
+      summary: Dashboard Summary
+      operationId: dashboard_summary_measurement_dashboard_summary_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementDashboardSummaryPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementDashboardSummaryResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /measurement/dashboard_banner_image:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Get Banner Image'
+      operationId: _get_banner_image_measurement_dashboard_banner_image_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementDashboardBannerPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementDashboardBannerResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /measurement/chat-explore:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_measurement_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /measurement/chart/refresh:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Controller Chart Refresh'
+      operationId: _controller_chart_refresh_measurement_chart_refresh_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementChartRefreshPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartRefreshResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ad_analytics/measurement/build-chart:
+    post:
+      tags:
+      - Chat Explore
+      summary: Build Chart
+      operationId: build_chart_ad_analytics_measurement_build_chart_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuildChartPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__2'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ad_analytics/measurement/chart_summary:
+    post:
+      tags:
+      - Chat Explore
+      summary: Chart Summary
+      operationId: chart_summary_ad_analytics_measurement_chart_summary_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementChartSummaryPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementChartSummaryResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ad_analytics/measurement/dashboard_summary:
+    post:
+      tags:
+      - Chat Explore
+      summary: Dashboard Summary
+      operationId: dashboard_summary_ad_analytics_measurement_dashboard_summary_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementDashboardSummaryPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementDashboardSummaryResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ad_analytics/measurement/dashboard_banner_image:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Get Banner Image'
+      operationId: _get_banner_image_ad_analytics_measurement_dashboard_banner_image_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementDashboardBannerPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementDashboardBannerResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/chat-explore-suggestions:
+    post:
+      tags:
+      - Chat Explore
+      summary: Chat Explore Suggestions Route Async
+      description: Generate suggestions
+      operationId: chat_explore_suggestions_route_async_proof_of_concept_rco_chat_explore_suggestions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Payload
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Chat Explore Suggestions Route Async Proof Of Concept Rco Chat Explore Suggestions Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/chat-explore:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_proof_of_concept_rco_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /proof-of-concept/rco/available_reach_curve_units:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Get Available Reach Curve Units'
+      operationId: _get_available_reach_curve_units_proof_of_concept_rco_available_reach_curve_units_post
+      parameters:
+      - name: target_audience
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Target Audience
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseUnits'
+                title: Response  Get Available Reach Curve Units Proof Of Concept Rco Available Reach Curve Units Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/reach_curves:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Get Reach Curve For Media Plan Scope'
+      operationId: _get_reach_curve_for_media_plan_scope_proof_of_concept_rco_reach_curves_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaPlanScope'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  $ref: '#/components/schemas/ReachCurve-Output'
+                type: object
+                title: Response  Get Reach Curve For Media Plan Scope Proof Of Concept Rco Reach Curves Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/optimize:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Get Reach Curve Optimization'
+      operationId: _get_reach_curve_optimization_proof_of_concept_rco_optimize_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OptimizePayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - type: integer
+                - $ref: '#/components/schemas/OptimizeErrorPayload'
+                title: Response  Get Reach Curve Optimization Proof Of Concept Rco Optimize Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/optimized-over-budget:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Get Reach Curve Optimization Over Budget'
+      operationId: _get_reach_curve_optimization_over_budget_proof_of_concept_rco_optimized_over_budget_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OptimizedOverBudgetPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: integer
+                type: array
+                title: Response  Get Reach Curve Optimization Over Budget Proof Of Concept Rco Optimized Over Budget Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/targets:
+    get:
+      tags:
+      - Chat Explore
+      summary: ' Get Reach Curve Targets'
+      operationId: _get_reach_curve_targets_proof_of_concept_rco_targets_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  additionalProperties:
+                    anyOf:
+                    - type: string
+                    - type: integer
+                  type: object
+                type: array
+                title: Response  Get Reach Curve Targets Proof Of Concept Rco Targets Get
+  /proof-of-concept/rco/edit-reach-curve:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Post Edit Reach Curve'
+      operationId: _post_edit_reach_curve_proof_of_concept_rco_edit_reach_curve_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditReachCurvePayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReachCurve-Output'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/upload-from-s3:
+    get:
+      tags:
+      - Chat Explore
+      summary: ' Upload From S3'
+      operationId: _upload_from_s3_proof_of_concept_rco_upload_from_s3_get
+      parameters:
+      - name: s3_path
+        in: query
+        required: true
+        schema:
+          type: string
+          title: S3 Path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties:
+                    anyOf:
+                    - type: string
+                    - type: array
+                      items:
+                        type: string
+                title: Response  Upload From S3 Proof Of Concept Rco Upload From S3 Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /proof-of-concept/rco/banner-image:
+    post:
+      tags:
+      - Chat Explore
+      summary: ' Get Banner Image'
+      operationId: _get_banner_image_proof_of_concept_rco_banner_image_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaPlanScope'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Get Banner Image Proof Of Concept Rco Banner Image Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    APIStatusMetadataSucceeded:
+      properties:
+        type:
+          type: string
+          enum:
+          - SUCCEEDED
+          const: SUCCEEDED
+          title: Type
+          default: SUCCEEDED
+        location:
+          type: string
+          title: Location
+          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
+      additionalProperties: true
+      type: object
+      required:
+      - location
+      title: APIStatusMetadataSucceeded
+    APIStatusMetadataFailed:
+      properties:
+        type:
+          type: string
+          enum:
+          - FAILED
+          const: FAILED
+          title: Type
+          default: FAILED
+        error:
+          type: string
+          title: Error
+          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
+          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataFailed
+    APIStatusResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/TaskStatusEnum'
+          description: The current status of the task being queried.
+        metadata:
+          oneOf:
+          - $ref: '#/components/schemas/APIStatusMetadataPending'
+          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
+          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
+          - $ref: '#/components/schemas/APIStatusMetadataFailed'
+          title: Metadata
+          description: Metadata, contextually dependent on the status of the task being queried.
+          discriminator:
+            propertyName: type
+            mapping:
+              FAILED: '#/components/schemas/APIStatusMetadataFailed'
+              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
+              PENDING: '#/components/schemas/APIStatusMetadataPending'
+              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
+      additionalProperties: true
+      type: object
+      required:
+      - status
+      - metadata
+      title: APIStatusResponse
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    APITaskStartedResponse:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - task_id
+      title: APITaskStartedResponse
+    ChatExploreRequestPayload:
+      properties:
+        project_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: The project ID which you want to run a Chat Explore query against. Either this or dataset_id must be specified; if this is specified, custom instructions attached to the project will be provided as context to the query.
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+          description: The dataset ID which you want to run a Chat Explore query against. Either this or project_id must be specified.
+        messages:
+          items:
+            $ref: '#/components/schemas/APIChatMessage'
+          type: array
+          title: Messages
+          description: A list of messages to query Chat Explore with.
+        chatContext:
+          type: string
+          title: Chatcontext
+          description: 'Anything you''d like Chat Explore to know about this application to provide better responses. For example: (1) This dataset is customer engagement data, (2) The units of the sales column are in millions, (3) The data is messy and contains typos'
+          default: ''
+        chatInstructions:
+          type: string
+          title: Chatinstructions
+          default: ''
+      additionalProperties: true
+      type: object
+      required:
+      - messages
+      title: ChatExploreRequestPayload
+    _ApiBaseChatRecord:
+      properties:
+        _owner:
+          type: string
+          title: ' Owner'
+          description: Foreign key to the user this object belongs to.
+        _org:
+          type: string
+          title: ' Org'
+          description: Foreign key to the organization this object belongs to.
+        messages:
+          items:
+            $ref: '#/components/schemas/APIChatMessage'
+          type: array
+          title: Messages
+          description: List of messages in the chat.
+      additionalProperties: true
+      type: object
+      required:
+      - _owner
+      - _org
+      - messages
+      title: _ApiBaseChatRecord
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
+    APIChatMessage:
+      properties:
+        role:
+          $ref: '#/components/schemas/RolesEnum'
+          description: The role of this message. User indicates the user sent the message, assistant indicates the assistant sent the message.
+        content:
+          type: string
+          title: Content
+          description: The text content of this message.
+        images:
+          items:
+            anyOf:
+            - type: string
+            - type: object
+          type: array
+          title: Images
+          description: List of images for this message (potentially of length zero). May be exposed either as a base64 string or as stringified Plotly JSON, typically if the user requested it as such.
+          default: []
+        table:
+          anyOf:
+          - items:
+              type: object
+            type: array
+          - type: 'null'
+          title: Table
+          description: If there exists a table for this message, this will be set to a list of objects/records, where each record has a key of the column name and a value for that row's corresponding value for the column.
+      additionalProperties: true
+      type: object
+      required:
+      - role
+      - content
+      title: APIChatMessage
+    RolesEnum:
+      type: string
+      enum:
+      - user
+      - assistant
+      title: RolesEnum
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    APIStatusMetadataInProgress:
+      properties:
+        type:
+          type: string
+          enum:
+          - IN_PROGRESS
+          const: IN_PROGRESS
+          title: Type
+          default: IN_PROGRESS
+        estimate_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimate Seconds
+          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataInProgress
+    ChatExploreImageFormat:
+      type: string
+      enum:
+      - base64_png
+      - plotly_json
+      title: ChatExploreImageFormat
+    MeasurementFilters:
+      properties:
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/MeasurementTimeframe'
+          - type: 'null'
+          description: Timeframe of the filter
+        comparison_timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/MeasurementTimeframe'
+          - type: 'null'
+          description: Timeframe for comparison data
+        drilldown:
+          anyOf:
+          - $ref: '#/components/schemas/DrilldownConfig'
+          - type: 'null'
+          description: Drill-down configuration
+        raw_measurement_filter:
+          type: object
+          title: Raw Measurement Filter
+      additionalProperties: true
+      type: object
+      title: MeasurementFilters
+      description: Measurement filter with dynamic field support for hierarchy-based filtering
+    MeasurementChartSummaryPayload:
+      properties:
+        filters:
+          $ref: '#/components/schemas/MeasurementFilters'
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - filters
+      - chart_metadata_id
+      - chart_data_id
+      title: MeasurementChartSummaryPayload
+    MeasurementDashboardSummaryPayload:
+      properties:
+        filters:
+          $ref: '#/components/schemas/MeasurementFilters'
+        charts:
+          items:
+            $ref: '#/components/schemas/MeasurementDashboardChartPayload'
+          type: array
+          title: Charts
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      additionalProperties: true
+      type: object
+      required:
+      - filters
+      - charts
+      title: MeasurementDashboardSummaryPayload
+    CurveUnits:
+      properties:
+        allocation:
+          $ref: '#/components/schemas/AllocationUnits'
+          description: Units of the allocation
+        response:
+          $ref: '#/components/schemas/ResponseUnits'
+          description: Units of the response
+      additionalProperties: true
+      type: object
+      required:
+      - allocation
+      - response
+      title: CurveUnits
+    MeasurementDashboardBannerResult:
+      properties:
+        presigned_url:
+          type: string
+          title: Presigned Url
+        storage_path:
+          type: string
+          title: Storage Path
+      additionalProperties: true
+      type: object
+      required:
+      - presigned_url
+      - storage_path
+      title: MeasurementDashboardBannerResult
+    DrilldownTableRow:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier for the row
+        columns:
+          additionalProperties:
+            anyOf:
+            - type: string
+            - type: number
+            - type: 'null'
+          type: object
+          title: Columns
+          description: Dynamic column values
+        drill_options:
+          items:
+            type: string
+          type: array
+          title: Drill Options
+          description: Available drill-down options (empty list if no options available)
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - columns
+      - drill_options
+      title: DrilldownTableRow
+    MediaPlanScope:
+      properties:
+        optimization_type:
+          $ref: '#/components/schemas/OptimizationType'
+          description: Optimization type
+        curve_units:
+          $ref: '#/components/schemas/CurveUnits'
+          description: Curve units
+        region:
+          type: string
+          title: Region
+          description: Region to target for the media plan.
+        combination_method:
+          $ref: '#/components/schemas/CombinationMethod'
+          description: Combination method
+          default: sainsbury
+        target_size:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Target Size
+          description: Target size of the media plan.
+        target_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Audience
+          description: Target audience.
+        total_budget:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Total Budget
+          description: Total budget for the media plan
+        response_target:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Response Target
+          description: Response target for the media plan
+        media_plan_title:
+          type: string
+          title: Media Plan Title
+          description: A one line title for the media plan scope.
+        media_plan_description:
+          type: string
+          title: Media Plan Description
+          description: A short explanation of the media plan scope.
+      additionalProperties: true
+      type: object
+      required:
+      - optimization_type
+      - curve_units
+      - region
+      - media_plan_title
+      - media_plan_description
+      title: MediaPlanScope
+      description: Media Plan Scope
+    MultiTableChatExploreSuggestionsResponsePayload:
+      properties:
+        suggestions:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Suggestions
+          description: List of suggestions
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - status
+      title: MultiTableChatExploreSuggestionsResponsePayload
+    MeasurementChartResult:
+      properties:
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+        chart_id:
+          type: integer
+          title: Chart Id
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Render'
+          - $ref: '#/components/schemas/DrilldownTableData'
+          - type: 'null'
+          title: Data
+      additionalProperties: true
+      type: object
+      required:
+      - chart_metadata_id
+      - chart_data_id
+      - chart_id
+      - data
+      title: MeasurementChartResult
+    AllocationUnits:
+      type: string
+      enum:
+      - GRP
+      - COST
+      - IMPRESSIONS
+      title: AllocationUnits
+    OptimizeErrorPayload:
+      properties:
+        error:
+          type: string
+          title: Error
+      additionalProperties: true
+      type: object
+      required:
+      - error
+      title: OptimizeErrorPayload
+    OptimizedOverBudgetPayload:
+      properties:
+        reach_curves:
+          additionalProperties:
+            $ref: '#/components/schemas/ReachCurve-Input'
+          type: object
+          title: Reach Curves
+          description: Reach curves
+        media_scope:
+          $ref: '#/components/schemas/MediaPlanScope'
+        bounds:
+          anyOf:
+          - additionalProperties:
+              prefixItems:
+              - anyOf:
+                - type: number
+                - type: 'null'
+              - anyOf:
+                - type: number
+                - type: 'null'
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: object
+          - type: 'null'
+          title: Bounds
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+          description: User ID
+        org_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Id
+          description: Organization ID
+        budget_diff_pct:
+          type: integer
+          title: Budget Diff Pct
+          description: Percentage difference between budget values
+        num_iterations:
+          type: integer
+          title: Num Iterations
+          description: Number of iterations per direction
+      additionalProperties: true
+      type: object
+      required:
+      - reach_curves
+      - media_scope
+      - budget_diff_pct
+      - num_iterations
+      title: OptimizedOverBudgetPayload
+    CPMCurve:
+      properties:
+        a:
+          type: number
+          exclusiveMinimum: 0.0
+          title: A
+          description: The baseline cost level.
+        b:
+          type: number
+          minimum: 0.0
+          title: B
+          description: The slope of the cost curve.
+        c:
+          type: number
+          minimum: 0.0
+          title: C
+          description: The knee point of the cost curve.
+        d:
+          type: number
+          minimum: 0.0
+          title: D
+          description: The curvature of the cost curve.
+      additionalProperties: true
+      type: object
+      required:
+      - a
+      - b
+      - c
+      - d
+      title: CPMCurve
+      description: 'An Inverse exponential decay Reach Curve defined by a, b, and c parameters as follows:
+
+        f(x) = a + b * (x - c) ^ d'
+    OptimizePayload:
+      properties:
+        reach_curves:
+          additionalProperties:
+            $ref: '#/components/schemas/ReachCurve-Input'
+          type: object
+          title: Reach Curves
+          description: Reach curves
+        media_scope:
+          $ref: '#/components/schemas/MediaPlanScope'
+        bounds:
+          anyOf:
+          - additionalProperties:
+              prefixItems:
+              - anyOf:
+                - type: number
+                - type: 'null'
+              - anyOf:
+                - type: number
+                - type: 'null'
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: object
+          - type: 'null'
+          title: Bounds
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+          description: User ID
+        org_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Id
+          description: Organization ID
+      additionalProperties: true
+      type: object
+      required:
+      - reach_curves
+      - media_scope
+      title: OptimizePayload
+    ReachCurve-Input:
+      properties:
+        a:
+          type: number
+          exclusiveMinimum: 0.0
+          title: A
+          description: The a parameter of the reach curve
+        k:
+          type: number
+          exclusiveMinimum: 0.0
+          title: K
+          description: The k parameter of the reach curve
+        n:
+          type: number
+          exclusiveMinimum: 0.0
+          title: N
+          description: The n parameter of the reach curve
+        c:
+          type: number
+          minimum: 0.0
+          title: C
+          description: The c parameter of the reach curve
+        x_min:
+          type: number
+          minimum: 0.0
+          title: X Min
+          description: The minimum x value of the curve
+        x_max:
+          type: number
+          minimum: 0.0
+          title: X Max
+          description: The maximum x value of the curve
+        target_size:
+          type: integer
+          minimum: 0.0
+          title: Target Size
+          description: The target size of the curve
+          default: 0
+        min_cpm:
+          type: number
+          minimum: 0.0
+          title: Min Cpm
+          description: The minimum CPM of the curve
+          default: 0.0
+        cpm_curve:
+          anyOf:
+          - $ref: '#/components/schemas/CPMCurve'
+          - type: 'null'
+          description: The CPM Curve
+      additionalProperties: true
+      type: object
+      required:
+      - a
+      - k
+      - n
+      - c
+      - x_min
+      - x_max
+      title: ReachCurve
+      description: 'TODO: NOTE: THIS PURELY TO HANDLE FE, AS A SHIM. REMOVE AT THE EARLIEST
+
+        A Hill function Reach Curve defined by a, k, n, and c parameters as follows:
+
+        f(x) = a * (x**n / (k**n + x**n)) + c'
+    Render:
+      properties:
+        type:
+          type: string
+          title: Type
+        chart_filter:
+          type: object
+          title: Chart Filter
+        sql_metadata:
+          type: object
+          title: Sql Metadata
+        title:
+          type: string
+          title: Title
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        download_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Download Path
+        transformed_data:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Transformed Data
+        sources:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Sources
+        view:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: View
+        column_metadata:
+          anyOf:
+          - additionalProperties:
+              additionalProperties:
+                type: string
+              type: object
+            type: object
+          - type: 'null'
+          title: Column Metadata
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      title: Render
+    CombinationMethod:
+      type: string
+      enum:
+      - sainsbury
+      - prod
+      - sum
+      title: CombinationMethod
+    MeasurementDashboardChartPayload:
+      properties:
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_metadata_id
+      - chart_data_id
+      title: MeasurementDashboardChartPayload
+    MultiTableChatExploreSuggestionsRequestPayload:
+      properties:
+        useCache:
+          type: boolean
+          title: Usecache
+          description: ignore cache and re-generate suggestions
+          default: false
+      additionalProperties: true
+      type: object
+      title: MultiTableChatExploreSuggestionsRequestPayload
+    MeasurementChartSummaryResult:
+      properties:
+        summary:
+          type: string
+          title: Summary
+      additionalProperties: true
+      type: object
+      required:
+      - summary
+      title: MeasurementChartSummaryResult
+    MeasurementChartEnum:
+      type: string
+      enum:
+      - creative_performance
+      - pacing_campaign
+      - pacing_channel
+      - pacing_partner
+      - kpi_timeline
+      - kpi_scorecard
+      - pacing_topline
+      - campaign_drilldown
+      - impressions_vs_spend
+      - clicks_vs_spend
+      - total_contribution_to_impressions
+      - clicks_per_impression
+      - total_cost_per_thousand_impressions
+      - campaign_impressions_comparison
+      - campaign_spend_comparison
+      - channel_impression_metrics
+      - partner_performance_comparison
+      - weekly_performance_by_partner
+      - weekly_performance_rankings_by_partner
+      title: MeasurementChartEnum
+    ResponseUnits:
+      type: string
+      enum:
+      - REACH
+      - REACH_PCT
+      - IMPRESSIONS
+      - IMPRESSIONS_PCT
+      - VISITS
+      title: ResponseUnits
+    MeasurementChartRefreshPayload:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+        measurementFilter:
+          $ref: '#/components/schemas/MeasurementFilters'
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      - measurementFilter
+      title: MeasurementChartRefreshPayload
+    MeasurementDashboardBannerPayload:
+      properties:
+        dashboard_id:
+          type: string
+          title: Dashboard Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      additionalProperties: true
+      type: object
+      required:
+      - dashboard_id
+      title: MeasurementDashboardBannerPayload
+    OptimizationType:
+      type: string
+      enum:
+      - response
+      - allocation
+      title: OptimizationType
+    ChartRefreshResult:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      - chart_metadata_id
+      - chart_data_id
+      title: ChartRefreshResult
+    DrilldownTableData:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/DrilldownTableRow'
+          type: array
+          title: Rows
+          description: Table rows with hierarchical structure
+        title:
+          type: string
+          title: Title
+          description: Table title (e.g., 'Campaign conversions, compared to...')
+        type:
+          type: string
+          title: Type
+          description: Type of chart data
+      additionalProperties: true
+      type: object
+      required:
+      - rows
+      - title
+      - type
+      title: DrilldownTableData
+    MeasurementDashboardSummaryResult:
+      properties:
+        summary:
+          type: string
+          title: Summary
+      additionalProperties: true
+      type: object
+      required:
+      - summary
+      title: MeasurementDashboardSummaryResult
+    EditReachCurvePayload:
+      properties:
+        selectedCurve:
+          $ref: '#/components/schemas/ReachCurve-Input'
+          description: Selected reach curve
+        response_unit:
+          $ref: '#/components/schemas/ResponseUnits'
+          description: Response unit
+        allocation_unit:
+          $ref: '#/components/schemas/AllocationUnits'
+          description: Allocation unit
+        newCpm:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newcpm
+          description: New CPM
+        newReach:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newreach
+          description: New Reach
+        newGrps:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newgrps
+          description: New GRP
+      additionalProperties: true
+      type: object
+      required:
+      - selectedCurve
+      - response_unit
+      - allocation_unit
+      title: EditReachCurvePayload
+    BuildChartPayload:
+      properties:
+        filters:
+          $ref: '#/components/schemas/MeasurementFilters'
+        chart_type:
+          $ref: '#/components/schemas/MeasurementChartEnum'
+      additionalProperties: true
+      type: object
+      required:
+      - filters
+      - chart_type
+      title: BuildChartPayload
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    DrilldownConfig:
+      properties:
+        current_level:
+          type: string
+          title: Current Level
+          description: Current drill-down level
+          default: CAMPAIGN
+        next_level:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Level
+          description: Next drill-down level to navigate to
+        drill_context:
+          additionalProperties:
+            type: string
+          type: object
+          title: Drill Context
+          description: Context for drill-down (parent selections)
+      additionalProperties: true
+      type: object
+      title: DrilldownConfig
+      description: Configuration for drill-down navigation in charts
+    MeasurementTimeframe:
+      properties:
+        start_date:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Start Date
+          description: start date of the query in unix epoch milliseconds
+        end_date:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: End Date
+          description: end date of the query in unix epoch milliseconds
+      additionalProperties: true
+      type: object
+      title: MeasurementTimeframe
+    ReachCurve-Output:
+      properties:
+        a:
+          type: number
+          exclusiveMinimum: 0.0
+          title: A
+          description: The a parameter of the reach curve
+        k:
+          type: number
+          exclusiveMinimum: 0.0
+          title: K
+          description: The k parameter of the reach curve
+        n:
+          type: number
+          exclusiveMinimum: 0.0
+          title: N
+          description: The n parameter of the reach curve
+        c:
+          type: number
+          minimum: 0.0
+          title: C
+          description: The c parameter of the reach curve
+        x_min:
+          type: number
+          minimum: 0.0
+          title: X Min
+          description: The minimum x value of the curve
+        x_max:
+          type: number
+          minimum: 0.0
+          title: X Max
+          description: The maximum x value of the curve
+        target_size:
+          type: integer
+          minimum: 0.0
+          title: Target Size
+          description: The target size of the curve
+          default: 0
+        min_cpm:
+          type: number
+          minimum: 0.0
+          title: Min Cpm
+          description: The minimum CPM of the curve
+          default: 0.0
+        cpm_curve:
+          anyOf:
+          - $ref: '#/components/schemas/CPMCurve'
+          - type: 'null'
+          description: The CPM Curve
+        knee:
+          type: number
+          title: Knee
+          description: The knee is the 'Optimal' number of GRPs.
+          readOnly: true
+        max_reach:
+          type: number
+          title: Max Reach
+          description: The maximum reach of the curve.
+          readOnly: true
+        freq:
+          type: number
+          title: Freq
+          description: The frequency.
+          readOnly: true
+        unoptimizable:
+          type: boolean
+          title: Unoptimizable
+          description: Whether the curve is unoptimizable.
+          readOnly: true
+      additionalProperties: true
+      type: object
+      required:
+      - a
+      - k
+      - n
+      - c
+      - x_min
+      - x_max
+      - knee
+      - max_reach
+      - freq
+      - unoptimizable
+      title: ReachCurve
+      description: 'TODO: NOTE: THIS PURELY TO HANDLE FE, AS A SHIM. REMOVE AT THE EARLIEST
+
+        A Hill function Reach Curve defined by a, k, n, and c parameters as follows:
+
+        f(x) = a * (x**n / (k**n + x**n)) + c'
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__2:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/MeasurementChartResult'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord
+x-refined-from:
+- akkio-platform-api-openapi.json
+- akkio-public-api-openapi.yaml

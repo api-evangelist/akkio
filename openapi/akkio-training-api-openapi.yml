@@ -1,0 +1,276 @@
+openapi: 3.2.0
+info:
+  title: Akkio Training API
+  version: 0.1.0
+  description: 'Operations tagged Training across 2 of this provider''s published API definitions: akkio-platform-api-openapi.json, akkio-public-api-openapi.yaml. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Training
+paths:
+  /api/v1/models/train/{task_id}/status:
+    get:
+      tags:
+      - Training
+      summary: ' Get Status Controller'
+      description: Retrieves the status of the provided model creation call.
+      operationId: _get_status_controller_api_v1_models_train__task_id__status_get
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/models/train/{task_id}/result:
+    get:
+      tags:
+      - Training
+      summary: ' Get Result Controller'
+      description: Retrieves the result of a model creation call.
+      operationId: _get_result_controller_api_v1_models_train__task_id__result_get
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response  Get Result Controller Api V1 Models Train  Task Id  Result Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/models/train/new:
+    post:
+      tags:
+      - Training
+      summary: ' Submit Controller'
+      description: Model creation via API.
+      operationId: _submit_controller_api_v1_models_train_new_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainRequestPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APITaskStartedResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    APIStatusMetadataSucceeded:
+      properties:
+        type:
+          type: string
+          enum:
+          - SUCCEEDED
+          const: SUCCEEDED
+          title: Type
+          default: SUCCEEDED
+        location:
+          type: string
+          title: Location
+          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
+      additionalProperties: true
+      type: object
+      required:
+      - location
+      title: APIStatusMetadataSucceeded
+    APIStatusMetadataFailed:
+      properties:
+        type:
+          type: string
+          enum:
+          - FAILED
+          const: FAILED
+          title: Type
+          default: FAILED
+        error:
+          type: string
+          title: Error
+          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
+          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataFailed
+    APIStatusResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/TaskStatusEnum'
+          description: The current status of the task being queried.
+        metadata:
+          oneOf:
+          - $ref: '#/components/schemas/APIStatusMetadataPending'
+          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
+          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
+          - $ref: '#/components/schemas/APIStatusMetadataFailed'
+          title: Metadata
+          description: Metadata, contextually dependent on the status of the task being queried.
+          discriminator:
+            propertyName: type
+            mapping:
+              FAILED: '#/components/schemas/APIStatusMetadataFailed'
+              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
+              PENDING: '#/components/schemas/APIStatusMetadataPending'
+              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
+      additionalProperties: true
+      type: object
+      required:
+      - status
+      - metadata
+      title: APIStatusResponse
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    APITaskStartedResponse:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - task_id
+      title: APITaskStartedResponse
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
+    TrainRequestPayload:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+          description: The ID of the dataset to train the model on.
+        predict_fields:
+          items:
+            type: string
+          type: array
+          title: Predict Fields
+          description: An array of field names to predict (case sensitive).
+        ignore_fields:
+          items:
+            type: string
+          type: array
+          title: Ignore Fields
+          description: An array of field names to ignore (case sensitive).
+          default: []
+        extra_attention:
+          type: boolean
+          title: Extra Attention
+          description: Helps with predicting rare cases.
+          default: false
+        force:
+          type: boolean
+          title: Force
+          description: Forces the creation of a new model even if another currently exists.
+          default: false
+        duration:
+          type: integer
+          title: Duration
+          description: 'Integer corresponding to how much time we should spend on training. Higher values will take longer but generally be more accurate. Allowed values: 10 (Fastest), 60 (High Quality), 300 (Higher Quality), 1800 (Production)'
+      additionalProperties: true
+      type: object
+      required:
+      - dataset_id
+      - predict_fields
+      - duration
+      title: TrainRequestPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    APIStatusMetadataInProgress:
+      properties:
+        type:
+          type: string
+          enum:
+          - IN_PROGRESS
+          const: IN_PROGRESS
+          title: Type
+          default: IN_PROGRESS
+        estimate_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimate Seconds
+          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataInProgress
+x-refined-from:
+- akkio-platform-api-openapi.json
+- akkio-public-api-openapi.yaml

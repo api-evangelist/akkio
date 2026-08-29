@@ -1,0 +1,21 @@
+openapi: 3.2.0
+info:
+  title: Fast Clone Lifecycle API
+  version: 0.1.0
+tags:
+- name: Clone Lifecycle
+paths:
+  /clone-lifecycle:
+    post:
+      summary: ' Controller Clone Lifecycle'
+      operationId: _controller_clone_lifecycle_clone_lifecycle_post
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response  Controller Clone Lifecycle Clone Lifecycle Post
+      tags:
+      - Clone Lifecycle

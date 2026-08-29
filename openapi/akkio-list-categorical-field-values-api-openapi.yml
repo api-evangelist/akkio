@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Fast List Categorical Field Values API
+  version: 0.1.0
+tags:
+- name: List Categorical Field Values
+paths:
+  /list-categorical-field-values:
+    get:
+      summary: ' Controller List Categorical Field Values'
+      operationId: _controller_list_categorical_field_values_list_categorical_field_values_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - List Categorical Field Values

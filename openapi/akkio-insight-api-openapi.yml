@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Fast Insight API
+  version: 0.1.0
+tags:
+- name: insight
+paths:
+  /insight/chat-explore:
+    post:
+      tags:
+      - insight
+      summary: ' Controller Chat Explore'
+      operationId: _controller_chat_explore_insight_chat_explore_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}

@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Fast Inference Status API
+  version: 0.1.0
+tags:
+- name: Inference Status
+paths:
+  /inference-status:
+    get:
+      summary: ' Controller Inference Status'
+      operationId: _controller_inference_status_inference_status_get
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Inference Status

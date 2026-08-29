@@ -1,0 +1,97 @@
+openapi: 3.2.0
+info:
+  title: Fast Llm Summarizer API
+  version: 0.1.0
+tags:
+- name: Llm Summarizer
+paths:
+  /llm_summarizer/generate:
+    post:
+      summary: ' Controller Generate Summary'
+      description: Generates a title for a given snippet
+      operationId: _controller_generate_summary_llm_summarizer_generate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SummaryGenerationPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response  Controller Generate Summary Llm Summarizer Generate Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Llm Summarizer
+components:
+  schemas:
+    SummaryGenerationPayload:
+      properties:
+        snippet:
+          type: string
+          title: Snippet
+        generate_title:
+          type: boolean
+          title: Generate Title
+          default: true
+        generate_summary:
+          type: boolean
+          title: Generate Summary
+          default: true
+        title_max_length:
+          type: integer
+          title: Title Max Length
+          default: 5
+        summary_max_length:
+          type: integer
+          title: Summary Max Length
+          default: 100
+        additional_context:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Additional Context
+      additionalProperties: true
+      type: object
+      required:
+      - snippet
+      title: SummaryGenerationPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

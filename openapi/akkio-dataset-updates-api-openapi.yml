@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  title: Fast Dataset Updates API
+  version: 0.1.0
+tags:
+- name: Dataset Updates
+paths:
+  /update-dataset/{dataset_id}:
+    post:
+      tags:
+      - Dataset Updates
+      summary: Update Dataset
+      operationId: update_dataset_update_dataset__dataset_id__post
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    DatasetUpdate:
+      properties:
+        updated_at:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Updated At
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        fields:
+          items: {}
+          type: array
+          title: Fields
+        view:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: View
+      additionalProperties: true
+      type: object
+      required:
+      - fields
+      title: DatasetUpdate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

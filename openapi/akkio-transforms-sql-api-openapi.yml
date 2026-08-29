@@ -1,0 +1,205 @@
+openapi: 3.2.0
+info:
+  title: Fast Transforms (SQL) API
+  version: 0.1.0
+tags:
+- name: Transforms (SQL)
+paths:
+  /sql-transforms/preview:
+    post:
+      tags:
+      - Transforms (SQL)
+      summary: ' Handle Sql Transform Preview'
+      description: Preview the result of a transform.
+      operationId: _handle_sql_transform_preview_sql_transforms_preview_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SQLTransformPreviewRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobRecord'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /sql-transforms/commit:
+    post:
+      tags:
+      - Transforms (SQL)
+      summary: ' Handle Sql Transform Commit'
+      description: Fully commit a transform.
+      operationId: _handle_sql_transform_commit_sql_transforms_commit_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SQLTransformCommitRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobRecord'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    SQLTransformCommitRequest:
+      properties:
+        flow_id:
+          type: string
+          title: Flow Id
+          description: The ID of the flow for this transform.
+        transform_plan_ids:
+          items:
+            type: integer
+          type: array
+          title: Transform Plan Ids
+          description: A list of transform plans ids to formally commit. This performs these transform plans in sequence and hard-bakes the result, pointing the flow to the result instead.
+          default: []
+      additionalProperties: true
+      type: object
+      required:
+      - flow_id
+      title: SQLTransformCommitRequest
+    AsyncJobRecord:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          title: Response
+          description: async response
+      type: object
+      title: AsyncJobRecord
+      description: Do NOT access this table directly.
+    SQLTransformPreviewRequest:
+      properties:
+        flow_id:
+          type: string
+          title: Flow Id
+          description: The ID of the flow for this transform.
+        transform_plan_ids:
+          items:
+            type: integer
+          type: array
+          title: Transform Plan Ids
+          description: A list of prior transform plans to be applied before this one. This is the primary mechanism by which we support "chaining" transforms in a way that does not require you to actually commit in order to do the next one.
+          default: []
+        description:
+          type: string
+          title: Description
+          description: The user's plaintext request of what transform they want to see.
+      additionalProperties: true
+      type: object
+      required:
+      - flow_id
+      - description
+      title: SQLTransformPreviewRequest
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

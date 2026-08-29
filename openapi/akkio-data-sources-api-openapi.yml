@@ -1,0 +1,342 @@
+openapi: 3.2.0
+info:
+  title: Fast Data Sources API
+  version: 0.1.0
+tags:
+- name: Data Sources
+paths:
+  /datasources:
+    get:
+      tags:
+      - Data Sources
+      summary: ' Get Datasource By Org'
+      description: Retrieve all datasource records for the user's organization.
+      operationId: _get_datasource_by_org_datasources_get
+      parameters:
+      - name: org_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataSource'
+                title: Response  Get Datasource By Org Datasources Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Data Sources
+      summary: ' Create New Datasource'
+      description: Creates a new datasource.
+      operationId: _create_new_datasource_datasources_post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataSource'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /datasources/{datasource_id}:
+    get:
+      tags:
+      - Data Sources
+      summary: ' Get Datasource'
+      description: Retrieve the given datasource record.
+      operationId: _get_datasource_datasources__datasource_id__get
+      parameters:
+      - name: datasource_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Datasource Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - Data Sources
+      summary: ' Update Datasource'
+      description: Update an existing datasource. Updates a datasource with any provided non-null fields and returns the resulting datasource object.
+      operationId: _update_datasource_datasources__datasource_id__put
+      parameters:
+      - name: datasource_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Datasource Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataSource'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Data Sources
+      summary: ' Delete Datasource'
+      description: Deletes a datasource at the given ID.
+      operationId: _delete_datasource_datasources__datasource_id__delete
+      parameters:
+      - name: datasource_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Datasource Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /datasources/gen_supplemental_info/{datasource_id}:
+    get:
+      tags:
+      - Data Sources
+      summary: ' Refresh Datasource'
+      description: Generate supplemental info for a datasource at the given ID.
+      operationId: _refresh_datasource_datasources_gen_supplemental_info__datasource_id__get
+      parameters:
+      - name: datasource_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Datasource Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response  Refresh Datasource Datasources Gen Supplemental Info  Datasource Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /datasources/refresh_datasource_for_team/{team_id}:
+    post:
+      tags:
+      - Data Sources
+      summary: ' Refresh Datasource For Team'
+      description: Refresh a datasource's supplemental info and run watches
+      operationId: _refresh_datasource_for_team_datasources_refresh_datasource_for_team__team_id__post
+      parameters:
+      - name: team_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Team Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response  Refresh Datasource For Team Datasources Refresh Datasource For Team  Team Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /datasources/recency/{datasource_id}:
+    get:
+      tags:
+      - Data Sources
+      summary: ' Get Datasource Partition Date'
+      description: Retrieve the latest partition date for the datasource.
+      operationId: _get_datasource_partition_date_datasources_recency__datasource_id__get
+      parameters:
+      - name: datasource_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Datasource Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Get Datasource Partition Date Datasources Recency  Datasource Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    DataSourceType:
+      type: string
+      enum:
+      - bigquery
+      - s3
+      - duckdb
+      - snowflake
+      - databricks
+      - databricks_warehouse
+      - databricks_volume
+      title: DataSourceType
+    DataSourceCreds:
+      properties: {}
+      additionalProperties: true
+      type: object
+      title: DataSourceCreds
+    DataSource:
+      properties:
+        _owner:
+          type: string
+          title: ' Owner'
+          description: ID of user that created this entry.
+        _org:
+          type: string
+          title: ' Org'
+          description: ID of user's active organization when creating this entry.
+        id:
+          type: string
+          title: Id
+          description: ID of this entry.
+        name:
+          type: string
+          title: Name
+        type:
+          $ref: '#/components/schemas/DataSourceType'
+        transient_view_sql:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Transient View Sql
+        creds:
+          $ref: '#/components/schemas/DataSourceCreds'
+        config:
+          $ref: '#/components/schemas/DataSourceConfig'
+      additionalProperties: true
+      type: object
+      required:
+      - _owner
+      - _org
+      - name
+      - type
+      - creds
+      - config
+      title: DataSource
+    DataSourceConfig:
+      properties:
+        tables:
+          items:
+            type: string
+          type: array
+          title: Tables
+        skipSupplementalInfoRefresh:
+          type: boolean
+          title: Skipsupplementalinforefresh
+          default: false
+        chatOnlyTables:
+          items:
+            type: string
+          type: array
+          title: Chatonlytables
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+          title: Tags
+      additionalProperties: true
+      type: object
+      title: DataSourceConfig
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

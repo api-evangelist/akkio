@@ -1,0 +1,30 @@
+openapi: 3.2.0
+info:
+  title: Fast Status API
+  version: 0.1.0
+tags:
+- name: Status
+paths:
+  /status:
+    get:
+      summary: Status Route Get
+      operationId: status_route_get_status_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Status
+    post:
+      summary: Status Route Post
+      operationId: status_route_post_status_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Status

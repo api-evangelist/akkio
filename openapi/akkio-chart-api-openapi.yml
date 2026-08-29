@@ -1,0 +1,261 @@
+openapi: 3.2.0
+info:
+  title: Fast Chart API
+  version: 0.1.0
+tags:
+- name: chart
+paths:
+  /edit_chart/chat/{chat_history_id}:
+    post:
+      tags:
+      - chart
+      summary: ' Controller Handle Edit Chart'
+      description: Edit a chart inline in a chat history
+      operationId: _controller_handle_edit_chart_edit_chart_chat__chat_history_id__post
+      parameters:
+      - name: chat_history_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Chat History Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChartEditingPayload'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /edit_chart/saved/{chart_id}:
+    post:
+      tags:
+      - chart
+      summary: ' Controller Handle Edit Chart2'
+      description: Edit a chart that has been copied outside of a chat history
+      operationId: _controller_handle_edit_chart2_edit_chart_saved__chart_id__post
+      parameters:
+      - name: chart_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Chart Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChartEditingPayloadStandalone'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /chart/refresh:
+    post:
+      tags:
+      - chart
+      summary: ' Controller Chart Refresh'
+      operationId: _controller_chart_refresh_chart_refresh_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChartRefreshPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChartRefreshResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /chart/jobs/enrich:
+    post:
+      tags:
+      - chart
+      summary: ' Controller Enrich Chart'
+      operationId: _controller_enrich_chart_chart_jobs_enrich_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChartPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ChartEditingPayloadStandalone:
+      properties:
+        updates:
+          $ref: '#/components/schemas/ChartEditingUpdates'
+          description: The updates to apply to the chart.
+      additionalProperties: true
+      type: object
+      required:
+      - updates
+      title: ChartEditingPayloadStandalone
+      description: Payload for editing a chart that has been copied outside of a chat history.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ChartRefreshPayload:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      title: ChartRefreshPayload
+    ChartPayload:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      title: ChartPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ChartRefreshResult:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      - chart_metadata_id
+      - chart_data_id
+      title: ChartRefreshResult
+    ChartEditingPayload:
+      properties:
+        idx:
+          type: integer
+          title: Idx
+          description: The index of the chart to edit in the chat history.
+        updates:
+          $ref: '#/components/schemas/ChartEditingUpdates'
+          description: The updates to apply to the chart.
+      additionalProperties: true
+      type: object
+      required:
+      - idx
+      - updates
+      title: ChartEditingPayload
+      description: Payload for editing a chart inline in a Chat History.
+    ChartEditingUpdates:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: The title of the chart.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: The subtitle of the chart.
+        llm_instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Llm Instructions
+          description: Instructions for the LLM to follow when editing the chart.
+        datasetId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Datasetid
+          description: The dataset ID of the chart.
+        datasourceId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Datasourceid
+          description: The datasource ID of the chart.
+        source_type:
+          anyOf:
+          - type: string
+            enum:
+            - dataset
+            - datasource
+          - type: 'null'
+          title: Source Type
+          description: Type of source to use (dataset or datasource).
+      additionalProperties: true
+      type: object
+      title: ChartEditingUpdates

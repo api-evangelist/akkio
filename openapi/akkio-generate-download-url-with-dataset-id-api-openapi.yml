@@ -1,0 +1,73 @@
+openapi: 3.2.0
+info:
+  title: Fast Generate Download Url With Dataset Id API
+  version: 0.1.0
+tags:
+- name: Generate Download Url With Dataset Id
+paths:
+  /generate_download_url_with_dataset_id:
+    get:
+      summary: Get Signed Download Url With Dataset Id
+      description: Generate a temporary signed download URL based on the dataset's file location to beused by the frontend to download directly from s3.
+      operationId: get_signed_download_url_with_dataset_id_generate_download_url_with_dataset_id_get
+      parameters:
+      - name: file_name
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          title: File Name
+      - name: dataset_id
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          title: Dataset Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Generate Download Url With Dataset Id
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

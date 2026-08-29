@@ -1,0 +1,140 @@
+openapi: 3.2.0
+info:
+  title: Fast Shopify API
+  version: 0.1.0
+tags:
+- name: Shopify
+paths:
+  /shopify/oauth/redirect/external:
+    get:
+      summary: ' Handle Initiate From App Store'
+      description: When our app is installed through the Shopify App Store or an installation link, they will first get redirected to here. We're responsible for verifying the request came from Shopify and redirecting them to the Shopify OAuth grants page.
+      operationId: _handle_initiate_from_app_store_shopify_oauth_redirect_external_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Shopify
+  /shopify/oauth/redirect:
+    get:
+      summary: ' Handle Redirect From Akkio'
+      description: Handles a Shopify connection request initiated from our website.
+      operationId: _handle_redirect_from_akkio_shopify_oauth_redirect_get
+      parameters:
+      - name: shop
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Shop
+      - name: state
+        in: query
+        required: true
+        schema:
+          type: string
+          title: State
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Shopify
+  /shopify/oauth/callback:
+    get:
+      summary: ' Handle Callback'
+      description: After the user either accepts or declines our scopes, they will be redirected here. If they accepted, our job here is to make another call to Shopify to turn the provided temporary token into a permanent token.
+      operationId: _handle_callback_shopify_oauth_callback_get
+      parameters:
+      - name: code
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Code
+      - name: hmac
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Hmac
+      - name: host
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Host
+      - name: shop
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Shop
+      - name: timestamp
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Timestamp
+      - name: state
+        in: query
+        required: true
+        schema:
+          type: string
+          title: State
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Shopify
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

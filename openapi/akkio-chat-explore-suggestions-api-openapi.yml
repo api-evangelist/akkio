@@ -1,0 +1,98 @@
+openapi: 3.2.0
+info:
+  title: Fast Chat Explore Suggestions API
+  version: 0.1.0
+tags:
+- name: Chat Explore Suggestions
+paths:
+  /chat-explore-suggestions:
+    post:
+      summary: Chat Explore Suggestions Route
+      operationId: chat_explore_suggestions_route_chat_explore_suggestions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatExploreSuggestionsRequestPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - items:
+                    type: string
+                  type: array
+                - type: 'null'
+                title: Response Chat Explore Suggestions Route Chat Explore Suggestions Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Chat Explore Suggestions
+components:
+  schemas:
+    SourceType:
+      type: string
+      enum:
+      - dataset
+      - datasource
+      title: SourceType
+      description: Keep in sync with the DatasourceDatasetInfo.type in the frontend project-v2/shared/chat-explore/shared-chat-explore.ts
+    ChatExploreSuggestionsRequestPayload:
+      properties:
+        source_type:
+          $ref: '#/components/schemas/SourceType'
+          default: dataset
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        datasource_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Datasource Id
+        use_cache:
+          type: boolean
+          title: Use Cache
+          default: true
+      additionalProperties: true
+      type: object
+      title: ChatExploreSuggestionsRequestPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

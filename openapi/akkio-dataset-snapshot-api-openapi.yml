@@ -1,0 +1,114 @@
+openapi: 3.2.0
+info:
+  title: Fast Dataset Snapshot API
+  version: 0.1.0
+tags:
+- name: Dataset Snapshot
+paths:
+  /dataset-snapshot:
+    post:
+      summary: ' Controller Dataset Snapshot'
+      description: Dataset snapshot, used to get a preview of the data. Often used by the frontend as a proxy for whether a parse is through or not as well.
+      operationId: _controller_dataset_snapshot_dataset_snapshot_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetSnapshotRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Dataset Snapshot
+components:
+  schemas:
+    SortOrder:
+      properties:
+        sortField:
+          type: string
+          title: Sortfield
+        sortDirection:
+          type: string
+          title: Sortdirection
+      type: object
+      required:
+      - sortField
+      - sortDirection
+      title: SortOrder
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DatasetSnapshotRequest:
+      properties:
+        datasetId:
+          type: string
+          title: Datasetid
+          description: The ID of the dataset you'd like to retrieve the snapshot of.
+          default: ''
+        filter:
+          type: object
+          title: Filter
+          default: {}
+        sort:
+          $ref: '#/components/schemas/SortOrder'
+          default:
+            sortField: ''
+            sortDirection: ''
+        make_download:
+          type: boolean
+          title: Make Download
+          default: false
+        regenerate:
+          type: boolean
+          title: Regenerate
+          default: false
+        projectId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Projectid
+        templateId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Templateid
+      additionalProperties: true
+      type: object
+      title: DatasetSnapshotRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

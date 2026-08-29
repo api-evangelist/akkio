@@ -1,0 +1,93 @@
+openapi: 3.2.0
+info:
+  title: Fast Refresh API
+  version: 0.1.0
+tags:
+- name: Refresh
+paths:
+  /refresh:
+    post:
+      summary: ' Refresh Route'
+      operationId: _refresh_route_refresh_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_ParseDatasetRequestPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Refresh
+components:
+  schemas:
+    _ParseDatasetRequestPayload:
+      properties:
+        datasetId:
+          type: string
+          title: Datasetid
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        fileSize:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Filesize
+        flowId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Flowid
+      additionalProperties: true
+      type: object
+      required:
+      - datasetId
+      title: _ParseDatasetRequestPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

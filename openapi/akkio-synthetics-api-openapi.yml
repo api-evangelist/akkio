@@ -1,0 +1,261 @@
+openapi: 3.2.0
+info:
+  title: Fast Synthetics API
+  version: 0.1.0
+tags:
+- name: Synthetics
+paths:
+  /synthetics/sanity:
+    get:
+      tags:
+      - Synthetics
+      summary: ' Synthetics Sanity'
+      description: Authenticated endpoint for Datadog Synthetics to verify connectivity.
+      operationId: _synthetics_sanity_synthetics_sanity_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response  Synthetics Sanity Synthetics Sanity Get
+  /synthetics/datasources/summary:
+    get:
+      tags:
+      - Synthetics
+      summary: ' Synthetics Datasources Summary'
+      description: Lightweight count of datasources for the resolved org.
+      operationId: _synthetics_datasources_summary_synthetics_datasources_summary_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticsDatasourcesSummaryResponse'
+  /synthetics/instance/datasources:
+    get:
+      tags:
+      - Synthetics
+      summary: ' Synthetics Instance Datasources'
+      description: Total count of datasources for the instance.
+      operationId: _synthetics_instance_datasources_synthetics_instance_datasources_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticsInstanceDatasourcesResponse'
+  /synthetics/instance/organizations:
+    get:
+      tags:
+      - Synthetics
+      summary: ' Synthetics Instance Organizations'
+      description: Total count of organizations for the instance.
+      operationId: _synthetics_instance_organizations_synthetics_instance_organizations_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticsInstanceOrganizationsResponse'
+  /synthetics/instance/datasources/supplemental-info/stale:
+    get:
+      tags:
+      - Synthetics
+      summary: ' Synthetics Instance Stale Datasource Tables'
+      description: Return all datasource tables that are considered stale
+      operationId: _synthetics_instance_stale_datasource_tables_synthetics_instance_datasources_supplemental_info_stale_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SyntheticsInstanceStaleDatasourceTablesResponse'
+                type: array
+                title: Response  Synthetics Instance Stale Datasource Tables Synthetics Instance Datasources Supplemental Info Stale Get
+  /synthetics/instance/datasources/supplemental-info/status:
+    get:
+      tags:
+      - Synthetics
+      summary: ' Synthetics Instance Datasources Supplemental Info Status'
+      description: Get supplemental info status for all datasources in the instance.
+      operationId: _synthetics_instance_datasources_supplemental_info_status_synthetics_instance_datasources_supplemental_info_status_get
+      parameters:
+      - name: time_delta_hours
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 24
+          title: Time Delta Hours
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - type: array
+                items:
+                  $ref: '#/components/schemas/DataSourceType'
+              - type: 'null'
+              title: Exclude Types
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    DataSourceType:
+      type: string
+      enum:
+      - bigquery
+      - s3
+      - duckdb
+      - snowflake
+      - databricks
+      - databricks_warehouse
+      - databricks_volume
+      title: DataSourceType
+    SyntheticsDatasourcesSummaryResponse:
+      properties:
+        org_id:
+          type: string
+          title: Org Id
+        total_datasources:
+          type: integer
+          title: Total Datasources
+      additionalProperties: true
+      type: object
+      required:
+      - org_id
+      - total_datasources
+      title: SyntheticsDatasourcesSummaryResponse
+    SyntheticsInstanceDataSourceSuppInfoStatusResponse:
+      properties:
+        updated_within_range:
+          items:
+            $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoTimeResponse'
+          type: array
+          title: Updated Within Range
+        not_updated_within_range:
+          items:
+            $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoTimeResponse'
+          type: array
+          title: Not Updated Within Range
+      additionalProperties: true
+      type: object
+      required:
+      - updated_within_range
+      - not_updated_within_range
+      title: SyntheticsInstanceDataSourceSuppInfoStatusResponse
+    SyntheticsInstanceDatasourcesResponse:
+      properties:
+        total_datasources:
+          type: integer
+          title: Total Datasources
+      additionalProperties: true
+      type: object
+      required:
+      - total_datasources
+      title: SyntheticsInstanceDatasourcesResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SyntheticsInstanceOrganizationsResponse:
+      properties:
+        total_organizations:
+          type: integer
+          title: Total Organizations
+      additionalProperties: true
+      type: object
+      required:
+      - total_organizations
+      title: SyntheticsInstanceOrganizationsResponse
+    SyntheticsInstanceStaleDatasourceTablesResponse:
+      properties:
+        datasource_id:
+          type: string
+          title: Datasource Id
+        table_name:
+          type: string
+          title: Table Name
+        latest_partition_date:
+          type: string
+          format: date
+          title: Latest Partition Date
+        max_drift:
+          type: string
+          format: duration
+          title: Max Drift
+      additionalProperties: true
+      type: object
+      required:
+      - datasource_id
+      - table_name
+      - latest_partition_date
+      - max_drift
+      title: SyntheticsInstanceStaleDatasourceTablesResponse
+    SyntheticsInstanceDataSourceSuppInfoTimeResponse:
+      properties:
+        datasource_id:
+          type: string
+          title: Datasource Id
+        name:
+          type: string
+          title: Name
+        last_updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Updated At
+      additionalProperties: true
+      type: object
+      required:
+      - datasource_id
+      - name
+      - last_updated_at
+      title: SyntheticsInstanceDataSourceSuppInfoTimeResponse

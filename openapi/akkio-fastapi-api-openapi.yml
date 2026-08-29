@@ -1,0 +1,235 @@
+openapi: 3.2.0
+info:
+  title: Fast API
+  version: 0.1.0
+tags:
+- name: FastAPI
+paths:
+  /:
+    get:
+      summary: ' Request Route Get'
+      operationId: _request_route_get__get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response  Request Route Get  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - FastAPI
+    post:
+      summary: ' Request Route Post'
+      operationId: _request_route_post__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response  Request Route Post  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - FastAPI
+  /v1/{route}:
+    get:
+      summary: External Api Route Get
+      operationId: external_api_route_get_v1__route__get
+      parameters:
+      - name: route
+        in: path
+        required: true
+        schema:
+          enum:
+          - datasets
+          - models
+          type: string
+          title: Route
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - FastAPI
+    post:
+      summary: External Api Route Post
+      operationId: external_api_route_post_v1__route__post
+      parameters:
+      - name: route
+        in: path
+        required: true
+        schema:
+          enum:
+          - datasets
+          - models
+          type: string
+          title: Route
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - FastAPI
+    delete:
+      summary: External Api Route Delete
+      operationId: external_api_route_delete_v1__route__delete
+      parameters:
+      - name: route
+        in: path
+        required: true
+        schema:
+          enum:
+          - datasets
+          - models
+          type: string
+          title: Route
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - FastAPI
+  /api:
+    get:
+      summary: Api Route Get
+      operationId: api_route_get_api_get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - FastAPI
+    post:
+      summary: Api Route Post
+      operationId: api_route_post_api_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - FastAPI
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

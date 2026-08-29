@@ -1,0 +1,1666 @@
+openapi: 3.2.0
+info:
+  title: Fast Integrations API
+  version: 0.1.0
+tags:
+- name: Integrations
+paths:
+  /integrations/introspect/google-analytics-4/{connection_id}/accounts:
+    get:
+      tags:
+      - Integrations
+      summary: Get Google Analytics Accounts Route
+      description: Get Google Analytics accounts.
+      operationId: get_google_analytics_accounts_route_integrations_introspect_google_analytics_4__connection_id__accounts_get
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                title: Response Get Google Analytics Accounts Route Integrations Introspect Google Analytics 4  Connection Id  Accounts Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/google-analytics-4/{connection_id}/{account_id}/properties:
+    get:
+      tags:
+      - Integrations
+      summary: Get Google Analytics Properties Route
+      description: Get Google Analytics properties.
+      operationId: get_google_analytics_properties_route_integrations_introspect_google_analytics_4__connection_id___account_id__properties_get
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                title: Response Get Google Analytics Properties Route Integrations Introspect Google Analytics 4  Connection Id   Account Id  Properties Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/google-analytics-4/{connection_id}/{account_id}/{property_id}/dimensions:
+    get:
+      tags:
+      - Integrations
+      summary: Get Google Analytics Dimensions Route
+      description: Get Google Analytics dimensions.
+      operationId: get_google_analytics_dimensions_route_integrations_introspect_google_analytics_4__connection_id___account_id___property_id__dimensions_get
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      - name: property_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Property Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                title: Response Get Google Analytics Dimensions Route Integrations Introspect Google Analytics 4  Connection Id   Account Id   Property Id  Dimensions Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/google-analytics-4/{connection_id}/{account_id}/{property_id}/metrics:
+    get:
+      tags:
+      - Integrations
+      summary: Get Google Analytics Metrics Route
+      description: Get Google Analytics dimensions.
+      operationId: get_google_analytics_metrics_route_integrations_introspect_google_analytics_4__connection_id___account_id___property_id__metrics_get
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      - name: property_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Property Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                title: Response Get Google Analytics Metrics Route Integrations Introspect Google Analytics 4  Connection Id   Account Id   Property Id  Metrics Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/google-analytics-4/{connection_id}/{account_id}/{property_id}/validate-report:
+    post:
+      tags:
+      - Integrations
+      summary: Post Google Analytics Validate Report Route
+      description: Get Google Analytics report.
+      operationId: post_google_analytics_validate_report_route_integrations_introspect_google_analytics_4__connection_id___account_id___property_id__validate_report_post
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      - name: property_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Property Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportConfig'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: boolean
+                title: Response Post Google Analytics Validate Report Route Integrations Introspect Google Analytics 4  Connection Id   Account Id   Property Id  Validate Report Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/google-ads/{connection_id}/accounts/{login_customer_id}/{customer_id}/children:
+    get:
+      tags:
+      - Integrations
+      summary: Get Google Analytics Account Children Route
+      description: Get Google Ads accounts.
+      operationId: get_google_analytics_account_children_route_integrations_introspect_google_ads__connection_id__accounts__login_customer_id___customer_id__children_get
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      - name: login_customer_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Login Customer Id
+      - name: customer_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Customer Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GoogleAdsIntrospectionAccount'
+                title: Response Get Google Analytics Account Children Route Integrations Introspect Google Ads  Connection Id  Accounts  Login Customer Id   Customer Id  Children Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/google-ads/{connection_id}/accounts/top:
+    get:
+      tags:
+      - Integrations
+      summary: Get Google Analytics Top Level Account Route
+      description: Get only top-level Google Ads accounts.
+      operationId: get_google_analytics_top_level_account_route_integrations_introspect_google_ads__connection_id__accounts_top_get
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GoogleAdsIntrospectionAccount'
+                title: Response Get Google Analytics Top Level Account Route Integrations Introspect Google Ads  Connection Id  Accounts Top Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/google-ads/{connection_id}/accounts:
+    get:
+      tags:
+      - Integrations
+      summary: Get Google Analytics Accounts Route
+      description: Get Google Ads accounts.
+      operationId: get_google_analytics_accounts_route_integrations_introspect_google_ads__connection_id__accounts_get
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GoogleAdsIntrospectionAccount'
+                title: Response Get Google Analytics Accounts Route Integrations Introspect Google Ads  Connection Id  Accounts Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/google-ads/ad-field-attributes:
+    get:
+      tags:
+      - Integrations
+      summary: Get Google Ads Field Attribute Names
+      description: 'Returns a list of Field attribute names for our "Custom" Google Ads stream.
+
+
+        We derive this from the Google Ads Fields Service itself, but do so statically via a script in the tap and then copy over the results, getting us out of a *lot* of runtime while still ensuring our schema is accurate.'
+      operationId: get_google_ads_field_attribute_names_integrations_google_ads_ad_field_attributes_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Google Ads Field Attribute Names Integrations Google Ads Ad Field Attributes Get
+  /integrations/google-ads/ad-segment-attributes:
+    get:
+      tags:
+      - Integrations
+      summary: Get Google Ads Segment Attribute Names
+      description: 'Returns a list of Segment attribute names for our "Custom" Google Ads stream.
+
+
+        This is hardcoded because the list of things you can segment by for the ad_group_ads item in the Google Ads API is fairly small (~30) and rarely, if ever, changes.'
+      operationId: get_google_ads_segment_attribute_names_integrations_google_ads_ad_segment_attributes_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Google Ads Segment Attribute Names Integrations Google Ads Ad Segment Attributes Get
+  /integrations/google-ads/disallowed-segment-pairs:
+    get:
+      tags:
+      - Integrations
+      summary: Get Google Ads Disallowed Segment Pairs
+      description: Returns a list of disallowed segment pairs for our "Custom" Google Ads stream.
+      operationId: get_google_ads_disallowed_segment_pairs_integrations_google_ads_disallowed_segment_pairs_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  prefixItems:
+                  - type: string
+                  - type: string
+                  type: array
+                  maxItems: 2
+                  minItems: 2
+                type: array
+                title: Response Get Google Ads Disallowed Segment Pairs Integrations Google Ads Disallowed Segment Pairs Get
+  /integrations/introspect/mysql/databases:
+    post:
+      tags:
+      - Integrations
+      summary: ' Databases'
+      description: List all databases available to a given user
+      operationId: _databases_integrations_introspect_mysql_databases_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/src__integrations__mysql__models__IntrospectDatabasesPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response  Databases Integrations Introspect Mysql Databases Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/mysql/tables:
+    post:
+      tags:
+      - Integrations
+      summary: ' Tables'
+      description: List all tables available to a given user/database/schema
+      operationId: _tables_integrations_introspect_mysql_tables_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/src__integrations__mysql__models__IntrospectTablesPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response  Tables Integrations Introspect Mysql Tables Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/postgres/schemas:
+    post:
+      tags:
+      - Integrations
+      summary: ' Schemas'
+      description: List all schemas available to a given user/databse
+      operationId: _schemas_integrations_introspect_postgres_schemas_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/src__integrations__postgres__models__IntrospectSchemasPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response  Schemas Integrations Introspect Postgres Schemas Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/postgres/tables:
+    post:
+      tags:
+      - Integrations
+      summary: ' Tables'
+      description: List all tables available to a given user/databae/schema
+      operationId: _tables_integrations_introspect_postgres_tables_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/src__integrations__postgres__models__IntrospectTablesPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response  Tables Integrations Introspect Postgres Tables Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/snowflake/databases:
+    post:
+      tags:
+      - Integrations
+      summary: ' Databases'
+      description: List all databases available to a given user
+      operationId: _databases_integrations_introspect_snowflake_databases_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/src__integrations__snowflake__models__IntrospectDatabasesPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response  Databases Integrations Introspect Snowflake Databases Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/snowflake/schemas:
+    post:
+      tags:
+      - Integrations
+      summary: ' Schemas'
+      description: List all schemas available to a given user/databse
+      operationId: _schemas_integrations_introspect_snowflake_schemas_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/src__integrations__snowflake__models__IntrospectSchemasPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response  Schemas Integrations Introspect Snowflake Schemas Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/snowflake/tables:
+    post:
+      tags:
+      - Integrations
+      summary: ' Tables'
+      description: List all tables available to a given user/databae/schema
+      operationId: _tables_integrations_introspect_snowflake_tables_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/src__integrations__snowflake__models__IntrospectTablesPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response  Tables Integrations Introspect Snowflake Tables Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/meta/{connection_id}/accounts:
+    get:
+      tags:
+      - Integrations
+      summary: Get Meta Accounts Route
+      description: Get Meta Ads accounts for a given connection.
+      operationId: get_meta_accounts_route_integrations_introspect_meta__connection_id__accounts_get
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MetaIntrospectionAccount'
+                title: Response Get Meta Accounts Route Integrations Introspect Meta  Connection Id  Accounts Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/meta/form/metrics:
+    get:
+      tags:
+      - Integrations
+      summary: Get Meta Metrics Names
+      operationId: get_meta_metrics_names_integrations_meta_form_metrics_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Meta Metrics Names Integrations Meta Form Metrics Get
+  /integrations/meta/ad-field-attributes:
+    get:
+      tags:
+      - Integrations
+      summary: Get Meta Field Attribute Names
+      operationId: get_meta_field_attribute_names_integrations_meta_ad_field_attributes_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Meta Field Attribute Names Integrations Meta Ad Field Attributes Get
+  /integrations/meta/form/dimensions:
+    get:
+      tags:
+      - Integrations
+      summary: Get Meta Dimensions Names
+      operationId: get_meta_dimensions_names_integrations_meta_form_dimensions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Meta Dimensions Names Integrations Meta Form Dimensions Get
+  /integrations/meta/ad-segment-attributes:
+    get:
+      tags:
+      - Integrations
+      summary: Get Meta Segment Attribute Names
+      operationId: get_meta_segment_attribute_names_integrations_meta_ad_segment_attributes_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Meta Segment Attribute Names Integrations Meta Ad Segment Attributes Get
+  /integrations/meta/disallowed-dimension-pairs:
+    get:
+      tags:
+      - Integrations
+      summary: Get Meta Disallowed Dimension Pairs
+      operationId: get_meta_disallowed_dimension_pairs_integrations_meta_disallowed_dimension_pairs_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  prefixItems:
+                  - type: string
+                  - type: string
+                  type: array
+                  maxItems: 2
+                  minItems: 2
+                type: array
+                title: Response Get Meta Disallowed Dimension Pairs Integrations Meta Disallowed Dimension Pairs Get
+  /integrations/meta/disallowed-segment-pairs:
+    get:
+      tags:
+      - Integrations
+      summary: Get Meta Disallowed Segment Pairs
+      operationId: get_meta_disallowed_segment_pairs_integrations_meta_disallowed_segment_pairs_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  prefixItems:
+                  - type: string
+                  - type: string
+                  type: array
+                  maxItems: 2
+                  minItems: 2
+                type: array
+                title: Response Get Meta Disallowed Segment Pairs Integrations Meta Disallowed Segment Pairs Get
+  /integrations/introspect/linkedin-ads/{connection_id}/accounts:
+    get:
+      tags:
+      - Integrations
+      summary: Get Linkedin Accounts Route
+      description: Get LinkedIn Ads accounts for a given connection.
+      operationId: get_linkedin_accounts_route_integrations_introspect_linkedin_ads__connection_id__accounts_get
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LinkedInIntrospectionAccount'
+                title: Response Get Linkedin Accounts Route Integrations Introspect Linkedin Ads  Connection Id  Accounts Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/linkedin-ads/ad-field-attributes:
+    get:
+      tags:
+      - Integrations
+      summary: Get Linkedin Ads Field Attribute Names
+      description: 'Returns a list of Field attribute names for our "Custom" Linkedin stream.
+
+
+        We derive this from the Linked In Fields Service itself, but do so statically via a script in the tap and then copy over the results, getting us out of a *lot* of runtime while still ensuring our schema is accurate.'
+      operationId: get_linkedin_ads_field_attribute_names_integrations_linkedin_ads_ad_field_attributes_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response Get Linkedin Ads Field Attribute Names Integrations Linkedin Ads Ad Field Attributes Get
+  /integrations/introspect/hubspot/{object_type}/properties:
+    post:
+      tags:
+      - Integrations
+      summary: ' Controller Introspect Properties'
+      operationId: _controller_introspect_properties_integrations_introspect_hubspot__object_type__properties_post
+      parameters:
+      - name: object_type
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Object Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntrospectPropertiesPayload'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HubSpotPropertyInfo'
+                title: Response  Controller Introspect Properties Integrations Introspect Hubspot  Object Type  Properties Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/connections/create:
+    post:
+      tags:
+      - Integrations
+      summary: ' Controller Handle Create Connection'
+      description: Create a new connection, with properly encrypted creds
+      operationId: _controller_handle_create_connection_integrations_connections_create_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Controller Handle Create Connection Integrations Connections Create Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/connection:
+    post:
+      tags:
+      - Integrations
+      summary: ' Controller Handle Introspect Connection'
+      description: Introspects a connection, returning a list of all tables present in that connection.
+      operationId: _controller_handle_introspect_connection_integrations_introspect_connection_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntrospectConnectionPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Table'
+                type: array
+                title: Response  Controller Handle Introspect Connection Integrations Introspect Connection Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/connection_id/{connection_id}:
+    post:
+      tags:
+      - Integrations
+      summary: ' Controller Handle Introspect Connection Id'
+      description: Introspects a preexisting connection (specified by id), returning a list of all tables present in that connection. This is useful for reusing connection information, which otherwise would need to retrieve full connection information in the frontend (not a pattern we want to encourage).
+      operationId: _controller_handle_introspect_connection_id_integrations_introspect_connection_id__connection_id__post
+      parameters:
+      - name: connection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Connection Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Table'
+                title: Response  Controller Handle Introspect Connection Id Integrations Introspect Connection Id  Connection Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/introspect/table:
+    post:
+      tags:
+      - Integrations
+      summary: ' Controller Handle Introspect Table'
+      description: Introspects a table, provided the flow we're working in for necessary credentials context.
+      operationId: _controller_handle_introspect_table_integrations_introspect_table_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntrospectTablePayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/commit/import:
+    post:
+      tags:
+      - Integrations
+      summary: ' Controller Handle Commit Import'
+      description: Performs an ad-hoc import and persists anything needed for dataset refreshes to trigger. We return the dataset_id, which the frontend uses to direct the user to the proper place.
+      operationId: _controller_handle_commit_import_integrations_commit_import_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommitImportPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Controller Handle Commit Import Integrations Commit Import Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/preview/predict:
+    post:
+      tags:
+      - Integrations
+      summary: ' Controller Handle Preview Predict'
+      description: Represents a user providing connection details and a table of interest, and us giving them a preview of what the data transform looks like. The user is expected to follow this up with a "Predict Commit" request representing a user asking for an ad-hoc import and persistent prediction schedule.
+      operationId: _controller_handle_preview_predict_integrations_preview_predict_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewPredictPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreviewPredictResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /integrations/commit/predict:
+    post:
+      tags:
+      - Integrations
+      summary: ' Controller Handle Commit Predict'
+      description: Represents a user formally submitting an ad-hoc import and persistent prediction schedule.
+      operationId: _controller_handle_commit_predict_integrations_commit_predict_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommitPredictPayload'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    src__integrations__mysql__models__Credentials:
+      properties:
+        host:
+          type: string
+          title: Host
+          description: Host URL
+        username:
+          type: string
+          title: Username
+          description: Username
+        password:
+          type: string
+          title: Password
+          description: Password
+        port:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Port
+          description: Port
+          default: 3306
+        is_ssl:
+          type: boolean
+          title: Is Ssl
+          description: Whether to use SSL
+      additionalProperties: true
+      type: object
+      required:
+      - host
+      - username
+      - password
+      - is_ssl
+      title: Credentials
+    MetaIntrospectionAccount:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of the account.
+        name:
+          type: string
+          title: Name
+          description: The name of the account.
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - name
+      title: MetaIntrospectionAccount
+    src__integrations__snowflake__models__Credentials:
+      properties:
+        account:
+          type: string
+          title: Account
+          description: Snowflake account identifier
+        username:
+          type: string
+          title: Username
+          description: Username
+        password:
+          type: string
+          title: Password
+          description: Password
+        role:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role
+          description: Role
+        warehouse:
+          type: string
+          title: Warehouse
+          description: Snowflake warehouse
+      additionalProperties: true
+      type: object
+      required:
+      - account
+      - username
+      - password
+      - warehouse
+      title: Credentials
+    src__integrations__postgres__models__Credentials:
+      properties:
+        database:
+          type: string
+          title: Database
+          description: Database name
+        host:
+          type: string
+          title: Host
+          description: Host
+        username:
+          type: string
+          title: Username
+          description: Username
+        password:
+          type: string
+          title: Password
+          description: Password
+        port:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Port
+          description: Port
+      additionalProperties: true
+      type: object
+      required:
+      - database
+      - host
+      - username
+      - password
+      title: Credentials
+    src__integrations__postgres__models__IntrospectSchemasPayload:
+      properties:
+        credentials:
+          anyOf:
+          - $ref: '#/components/schemas/src__integrations__postgres__models__Credentials'
+          - type: 'null'
+          description: Credentials to introspect/validate
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to introspect/validate
+      additionalProperties: true
+      type: object
+      title: IntrospectSchemasPayload
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    src__integrations__postgres__models__IntrospectTablesPayload:
+      properties:
+        credentials:
+          anyOf:
+          - $ref: '#/components/schemas/src__integrations__postgres__models__Credentials'
+          - type: 'null'
+          description: Credentials to introspect/validate
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to introspect/validate
+        schema:
+          type: string
+          title: Schema
+          description: Schema to introspect
+      additionalProperties: true
+      type: object
+      required:
+      - schema
+      title: IntrospectTablesPayload
+    src__integrations__mysql__models__IntrospectTablesPayload:
+      properties:
+        credentials:
+          anyOf:
+          - $ref: '#/components/schemas/src__integrations__mysql__models__Credentials'
+          - type: 'null'
+          description: Credentials to introspect/validate
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to introspect/validate
+        database:
+          type: string
+          title: Database
+          description: Database to introspect
+      additionalProperties: true
+      type: object
+      required:
+      - database
+      title: IntrospectTablesPayload
+    LinkedInIntrospectionAccount:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of the account.
+        name:
+          type: string
+          title: Name
+          description: The name of the account.
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - name
+      title: LinkedInIntrospectionAccount
+    GoogleAdsIntrospectionAccount:
+      properties:
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          description: The ID of the account.
+        customer_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Customer Id
+          description: The Customer ID of the account.
+        login_customer_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Login Customer Id
+          description: The Login Customer ID of the account (the manager account id when using linked accounts).
+        name:
+          type: string
+          title: Name
+          description: The name of the account.
+        is_manager:
+          type: boolean
+          title: Is Manager
+          description: Whether this account is a manager account.
+        linked_accounts:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/GoogleAdsIntrospectionAccount'
+            type: array
+          - type: 'null'
+          title: Linked Accounts
+          description: Any linked accounts, i.e. if this is a manager account
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      - is_manager
+      title: GoogleAdsIntrospectionAccount
+    src__integrations__snowflake__models__IntrospectTablesPayload:
+      properties:
+        credentials:
+          anyOf:
+          - $ref: '#/components/schemas/src__integrations__snowflake__models__Credentials'
+          - type: 'null'
+          description: Credentials to introspect / validate
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to introspect/validate
+        database:
+          type: string
+          title: Database
+          description: Database to introspect
+        schema:
+          type: string
+          title: Schema
+          description: Schema to introspect
+      additionalProperties: true
+      type: object
+      required:
+      - database
+      - schema
+      title: IntrospectTablesPayload
+    ReportConfig:
+      properties:
+        metrics:
+          items:
+            type: string
+          type: array
+          title: Metrics
+          description: List of metrics to include in the report
+        dimensions:
+          items:
+            type: string
+          type: array
+          title: Dimensions
+          description: List of dimentions to include in the report
+      additionalProperties: true
+      type: object
+      required:
+      - metrics
+      - dimensions
+      title: ReportConfig
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    src__integrations__snowflake__models__IntrospectSchemasPayload:
+      properties:
+        credentials:
+          anyOf:
+          - $ref: '#/components/schemas/src__integrations__snowflake__models__Credentials'
+          - type: 'null'
+          description: Credentials to introspect / validate
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to introspect/validate
+        database:
+          type: string
+          title: Database
+          description: Database to introspect
+      additionalProperties: true
+      type: object
+      required:
+      - database
+      title: IntrospectSchemasPayload
+    src__integrations__mysql__models__IntrospectDatabasesPayload:
+      properties:
+        credentials:
+          anyOf:
+          - $ref: '#/components/schemas/src__integrations__mysql__models__Credentials'
+          - type: 'null'
+          description: Credentials to introspect/validate
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to introspect/validate
+      additionalProperties: true
+      type: object
+      title: IntrospectDatabasesPayload
+    src__integrations__snowflake__models__IntrospectDatabasesPayload:
+      properties:
+        credentials:
+          anyOf:
+          - $ref: '#/components/schemas/src__integrations__snowflake__models__Credentials'
+          - type: 'null'
+          description: Credentials to introspect / validate
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to introspect/validate
+      additionalProperties: true
+      type: object
+      title: IntrospectDatabasesPayload
+    HubSpotPropertyInfo:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name of the property
+        label:
+          type: string
+          title: Label
+          description: Label of the property
+        hubspot_defined:
+          type: boolean
+          title: Hubspot Defined
+          description: Whether the property is defined by HubSpot
+        hidden:
+          type: boolean
+          title: Hidden
+          description: Whether the property is marked as 'hidden' in HubSpot
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      - label
+      - hubspot_defined
+      - hidden
+      title: HubSpotPropertyInfo
+    PreviewPredictResponse:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+          description: Dataset created during the preview process.
+        input_table_specifier_id:
+          type: string
+          title: Input Table Specifier Id
+          description: The table specifier of where the source data for predictions is.
+        target_table_specifier_id:
+          type: string
+          title: Target Table Specifier Id
+          description: The table specifier of where we'll be placing predictions.
+      additionalProperties: true
+      type: object
+      required:
+      - dataset_id
+      - input_table_specifier_id
+      - target_table_specifier_id
+      title: PreviewPredictResponse
+    Table:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name of the table.
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Schema
+          description: Schema of the table. Only provided for sources that have some concept of a 'wrapper' schema.
+        columns:
+          items:
+            $ref: '#/components/schemas/Column'
+          type: array
+          title: Columns
+          description: List of columns in the table.
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      - columns
+      title: Table
+    CommitPredictPayload:
+      properties:
+        flow_id:
+          type: string
+          title: Flow Id
+          description: Flow ID these predictions will be run off of. Important to specify because this is how we track down the exact model we'll use for predictions.
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to use for credentials. If not provided, we use the connection attached to the flow (older meltano deployments)] = None.
+        specifier:
+          additionalProperties:
+            type: string
+          type: object
+          title: Specifier
+          description: The specifier specifying the table where we'll be importing data from. For now, we derive the output table name from this table rather than allowing user-specified output table names.
+        mappings:
+          additionalProperties:
+            type: string
+          type: object
+          title: Mappings
+          description: Field mappings, useful incase you are trying to run on a table with the same information but different column names. Keys of the object are keys on the table we'll be running predictions on, Values of the object are keys on our training table.
+          default: {}
+        blocking:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Blocking
+          description: Whether or not to block until full job is done. For backwards compatbility with old UI
+          default: false
+        step_title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Title
+          description: Which deployment user-friendly name (Snowflake, Postgres, etc) is running
+        step_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Key
+          description: Which deployment key (postgre-sql-output, etc) is running
+      additionalProperties: true
+      type: object
+      required:
+      - flow_id
+      - specifier
+      title: CommitPredictPayload
+    ConnectionPayload:
+      properties:
+        _owner:
+          type: string
+          title: ' Owner'
+          description: ID of user that created this entry.
+        _org:
+          type: string
+          title: ' Org'
+          description: ID of user's active organization when creating this entry.
+        validated:
+          type: boolean
+          title: Validated
+          description: Whether we've tested and validated these credentials actually work. Relevant due to us persisting credentials *before* we attempt imports (rather than how we used to do it, after) to help with bug triage, particularly when errors occur during the initial `/commit/import` call and not during the followup task doing the actual import.
+          default: true
+        config:
+          type: object
+          title: Config
+          description: JSON object specifying config on the connection. This is a value whose format WE specify; it needs to have enough information that we can map it to either a Meltano extractor or loader, but is fully distinct from either of those concepts. Avoiding coupling both this and table specifiers to whether they are pulling data in or sending data out is very useful and gives us very powerful generalization capabilities.
+      additionalProperties: true
+      type: object
+      required:
+      - _owner
+      - _org
+      - config
+      title: ConnectionPayload
+    PreviewPredictPayload:
+      properties:
+        flow_id:
+          type: string
+          title: Flow Id
+          description: Flow ID these predictions will be run off of. Important to specify because this is how we track down the exact model we'll use for predictions.
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to use for credentials. If not provided, we use the connection attached to the flow (older meltano deployments)] = None.
+        specifier:
+          additionalProperties:
+            type: string
+          type: object
+          title: Specifier
+          description: The table specifier specifying the table we'd like a preview of. We pull it down and run N predictions on it, then return the results.
+        mappings:
+          additionalProperties:
+            type: string
+          type: object
+          title: Mappings
+          description: Field mappings, useful incase you are trying to run on a table with the same information but different column names. Keys of the object are keys on the table we'll be running predictions on, Values of the object are keys on our training table.
+          default: {}
+        step_title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Title
+          description: Which deployment user-friendly name (Snowflake, Postgres, etc) is running
+        step_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Key
+          description: Which deployment key (postgre-sql-output, etc) is running
+      additionalProperties: true
+      type: object
+      required:
+      - flow_id
+      - specifier
+      title: PreviewPredictPayload
+    CommitImportPayload:
+      properties:
+        flow_id:
+          type: string
+          title: Flow Id
+          description: Flow ID that the import schedule should be tied to. Necessary in order to create a Flow -> Connection ID mapping so we can look up the set of credentials attached to a flow, which is useful for deployments.
+        connection:
+          anyOf:
+          - type: string
+          - $ref: '#/components/schemas/OAuthConnectionPayload'
+          - $ref: '#/components/schemas/ConnectionPayload'
+          title: Connection
+          description: An existing connection ID or the payload of the connection to create.
+        specifier:
+          additionalProperties:
+            type: string
+          type: object
+          title: Specifier
+          description: The specifier used to track down the table. We expect a specifier rather than a full table specifier because we use this in a context where we are not working with an existing connection.
+        table_config:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Table Config
+          description: Any additional config used for the import, not on the general connection
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+          description: Name of the dataset to create. If not provided, we'll create a dataset with a name derived from the table specifer.
+      additionalProperties: true
+      type: object
+      required:
+      - flow_id
+      - connection
+      - specifier
+      title: CommitImportPayload
+    IntrospectConnectionPayload:
+      properties:
+        connection:
+          $ref: '#/components/schemas/ConnectionPayload'
+          description: Payload of the Connection object we'd like to introspect.
+      additionalProperties: true
+      type: object
+      required:
+      - connection
+      title: IntrospectConnectionPayload
+    IntrospectPropertiesPayload:
+      properties:
+        connection_id:
+          type: string
+          title: Connection Id
+          description: ID of the connection to introspect
+      additionalProperties: true
+      type: object
+      required:
+      - connection_id
+      title: IntrospectPropertiesPayload
+    IntrospectTablePayload:
+      properties:
+        flow_id:
+          type: string
+          title: Flow Id
+          description: Flow ID that this is in context of. Necessary to track down the connection we should use for credentials.
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection to use for introspection. If not provided, use the connection attached to the flow (older meltano deployments)] = None.
+        table_config:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Table Config
+          description: Any additional config used for the introspection, not on the general connection
+        specifier:
+          additionalProperties:
+            type: string
+          type: object
+          title: Specifier
+          description: The specifier used to track down the table. We expect a specifier rather than a full table specifier because we use this in a context where we are not working with an existing connection
+      additionalProperties: true
+      type: object
+      required:
+      - flow_id
+      - specifier
+      title: IntrospectTablePayload
+    OAuthConnectionPayload:
+      properties:
+        _owner:
+          type: string
+          title: ' Owner'
+          description: ID of user that created this entry.
+        _org:
+          type: string
+          title: ' Org'
+          description: ID of user's active organization when creating this entry.
+        validated:
+          type: boolean
+          title: Validated
+          description: Whether we've tested and validated these credentials actually work. Relevant due to us persisting credentials *before* we attempt imports (rather than how we used to do it, after) to help with bug triage, particularly when errors occur during the initial `/commit/import` call and not during the followup task doing the actual import.
+          default: true
+        config:
+          type: object
+          title: Config
+          description: JSON object specifying config on the connection. This is a value whose format WE specify; it needs to have enough information that we can map it to either a Meltano extractor or loader, but is fully distinct from either of those concepts. Avoiding coupling both this and table specifiers to whether they are pulling data in or sending data out is very useful and gives us very powerful generalization capabilities.
+        oauth_connection_id:
+          type: string
+          title: Oauth Connection Id
+          description: The pre-existing oauth connection to use
+      additionalProperties: true
+      type: object
+      required:
+      - _owner
+      - _org
+      - config
+      - oauth_connection_id
+      title: OAuthConnectionPayload
+    Column:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name of the column.
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      title: Column

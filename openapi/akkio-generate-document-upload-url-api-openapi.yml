@@ -1,0 +1,74 @@
+openapi: 3.2.0
+info:
+  title: Fast Generate Document Upload Url API
+  version: 0.1.0
+tags:
+- name: Generate Document Upload Url
+paths:
+  /generate_document_upload_url:
+    get:
+      summary: Get Document Signed Upload Url
+      description: Generate a temporary signed upload URL used by the frontend to upload document directly to s3.
+      operationId: get_document_signed_upload_url_generate_document_upload_url_get
+      parameters:
+      - name: file_path
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          title: File Path
+      - name: content_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content Type
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Generate Document Upload Url
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

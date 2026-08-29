@@ -1,0 +1,133 @@
+openapi: 3.2.0
+info:
+  title: Fast Generative Dashboard API
+  version: 0.1.0
+tags:
+- name: Generative Dashboard
+paths:
+  /gendash-status/{flow_id}:
+    get:
+      tags:
+      - Generative Dashboard
+      summary: Gendash Status Route
+      operationId: gendash_status_route_gendash_status__flow_id__get
+      parameters:
+      - name: flow_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Flow Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Gendash Status Route Gendash Status  Flow Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /generate-dashboard/{flow_id}:
+    post:
+      tags:
+      - Generative Dashboard
+      summary: Generate Dashboard Route
+      operationId: generate_dashboard_route_generate_dashboard__flow_id__post
+      parameters:
+      - name: flow_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Flow Id
+      - name: replace
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Replace
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Generate Dashboard Route Generate Dashboard  Flow Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /regenerate-gd-chart/{flow_id}/{chart_id}:
+    post:
+      tags:
+      - Generative Dashboard
+      summary: Regenerate Dashboard Route
+      operationId: regenerate_dashboard_route_regenerate_gd_chart__flow_id___chart_id__post
+      parameters:
+      - name: flow_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Flow Id
+      - name: chart_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Chart Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Regenerate Dashboard Route Regenerate Gd Chart  Flow Id   Chart Id  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

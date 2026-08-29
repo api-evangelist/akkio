@@ -1,0 +1,77 @@
+openapi: 3.2.0
+info:
+  title: Fast Llm Meltano Helper API
+  version: 0.1.0
+tags:
+- name: llm_meltano_helper
+paths:
+  /llm_meltano_helper/parse_error:
+    post:
+      tags:
+      - llm_meltano_helper
+      summary: ' Controller Parse Error'
+      description: Parse a meltano error message via the LLM and see what we can tell the user
+      operationId: _controller_parse_error_llm_meltano_helper_parse_error_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParseErrorPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response  Controller Parse Error Llm Meltano Helper Parse Error Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ParseErrorPayload:
+      properties:
+        error_msg:
+          type: string
+          title: Error Msg
+          description: Meltano raw error message
+      additionalProperties: true
+      type: object
+      required:
+      - error_msg
+      title: ParseErrorPayload
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

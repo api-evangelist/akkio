@@ -1,0 +1,30 @@
+openapi: 3.2.0
+info:
+  title: Fast Health Check API
+  version: 0.1.0
+tags:
+- name: Health Check
+paths:
+  /health-check:
+    get:
+      summary: ' Health Check Get'
+      operationId: _health_check_get_health_check_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Health Check
+    head:
+      summary: ' Health Check Head'
+      operationId: _health_check_head_health_check_head
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Health Check

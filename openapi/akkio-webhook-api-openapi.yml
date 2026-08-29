@@ -1,0 +1,108 @@
+openapi: 3.2.0
+info:
+  title: Fast Webhook API
+  version: 0.1.0
+tags:
+- name: Webhook
+paths:
+  /webhook/shopify/customer-data-request:
+    post:
+      summary: ' Handle Customer Data'
+      operationId: _handle_customer_data_webhook_shopify_customer_data_request_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Webhook
+  /webhook/shopify/customer-deletion-request:
+    post:
+      summary: ' Handle Customer Deletion'
+      operationId: _handle_customer_deletion_webhook_shopify_customer_deletion_request_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Webhook
+  /webhook/shopify/shop-deletion-request:
+    post:
+      summary: ' Handle Shop Deletion'
+      operationId: _handle_shop_deletion_webhook_shopify_shop_deletion_request_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Webhook
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

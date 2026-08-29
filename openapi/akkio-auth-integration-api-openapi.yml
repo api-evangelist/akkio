@@ -1,0 +1,20 @@
+openapi: 3.2.0
+info:
+  title: Fast Auth Integration API
+  version: 0.1.0
+tags:
+- name: Auth Integration
+paths:
+  /auth-integration:
+    post:
+      summary: ' Controller Auth Integration'
+      operationId: _controller_auth_integration_auth_integration_post
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response  Controller Auth Integration Auth Integration Post
+      tags:
+      - Auth Integration

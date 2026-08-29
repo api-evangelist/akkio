@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Fast Merge API
+  version: 0.1.0
+tags:
+- name: Merge
+paths:
+  /merge:
+    post:
+      summary: ' Controller Merge'
+      operationId: _controller_merge_merge_post
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Merge

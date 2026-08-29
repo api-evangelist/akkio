@@ -1,0 +1,30 @@
+openapi: 3.2.0
+info:
+  title: Fast Snapshot API
+  version: 0.1.0
+tags:
+- name: Snapshot
+paths:
+  /snapshot:
+    get:
+      summary: Snapshot Route Get
+      operationId: snapshot_route_get_snapshot_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Snapshot
+    post:
+      summary: Snapshot Route Post
+      operationId: snapshot_route_post_snapshot_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Snapshot

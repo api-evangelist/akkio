@@ -1,0 +1,289 @@
+openapi: 3.2.0
+info:
+  title: Fast RFM UPC Processing API
+  version: 0.1.0
+tags:
+- name: RFM UPC Processing
+paths:
+  /rfm/upc/upload:
+    post:
+      tags:
+      - RFM UPC Processing
+      summary: Generate Upload Url
+      description: Generate a signed URL for uploading a UPC file directly to S3
+      operationId: generate_upload_url_rfm_upc_upload_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateUploadUrlRequest'
+        required: true
+      responses:
+        '200':
+          description: Signed URL generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateUploadUrlResponse'
+        '400':
+          description: Invalid request parameters
+        '403':
+          description: Authentication required
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /rfm/upc:
+    post:
+      tags:
+      - RFM UPC Processing
+      summary: Process Upc File
+      description: Process a UPC file from S3 and match UPCs against the product catalog
+      operationId: process_upc_file_rfm_upc_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessUPCFileRequest'
+        required: true
+      responses:
+        '202':
+          description: UPC processing started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__3'
+        '400':
+          description: Invalid request parameters
+        '403':
+          description: Authentication required
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ad_analytics/rfm/upc/upload:
+    post:
+      tags:
+      - RFM UPC Processing
+      summary: Generate Upload Url
+      description: Generate a signed URL for uploading a UPC file directly to S3
+      operationId: generate_upload_url_ad_analytics_rfm_upc_upload_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateUploadUrlRequest'
+        required: true
+      responses:
+        '200':
+          description: Signed URL generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateUploadUrlResponse'
+        '400':
+          description: Invalid request parameters
+        '403':
+          description: Authentication required
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ad_analytics/rfm/upc:
+    post:
+      tags:
+      - RFM UPC Processing
+      summary: Process Upc File
+      description: Process a UPC file from S3 and match UPCs against the product catalog
+      operationId: process_upc_file_ad_analytics_rfm_upc_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessUPCFileRequest'
+        required: true
+      responses:
+        '202':
+          description: UPC processing started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__3'
+        '400':
+          description: Invalid request parameters
+        '403':
+          description: Authentication required
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    GenerateUploadUrlRequest:
+      properties:
+        file_name:
+          type: string
+          title: File Name
+          description: The name of the file to upload (including extension)
+        content_type:
+          type: string
+          title: Content Type
+          description: The MIME type of the file (e.g., text/csv for CSV files)
+      additionalProperties: true
+      type: object
+      required:
+      - file_name
+      - content_type
+      title: GenerateUploadUrlRequest
+      description: Request model for generating a signed URL for direct uploads to S3.
+    ProcessUPCFileRequest:
+      properties:
+        s3_key:
+          type: string
+          title: S3 Key
+          description: The S3 key where the file was uploaded (provided by generate-upload-url)
+        file_name:
+          type: string
+          title: File Name
+          description: The original name of the uploaded file
+      additionalProperties: true
+      type: object
+      required:
+      - s3_key
+      - file_name
+      title: ProcessUPCFileRequest
+      description: Request model for processing a UPC file from S3.
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__3:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Response
+      type: object
+      title: ConcreteAsyncJobRecord
+    GenerateUploadUrlResponse:
+      properties:
+        signed_url:
+          type: string
+          title: Signed Url
+          description: The signed URL to use for direct upload to S3
+        s3_key:
+          type: string
+          title: S3 Key
+          description: The S3 key where the file will be uploaded
+        expires_in_seconds:
+          type: integer
+          title: Expires In Seconds
+          description: The number of seconds until the signed URL expires
+      additionalProperties: true
+      type: object
+      required:
+      - signed_url
+      - s3_key
+      - expires_in_seconds
+      title: GenerateUploadUrlResponse
+      description: Response model for the generate_upload_url endpoint.
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

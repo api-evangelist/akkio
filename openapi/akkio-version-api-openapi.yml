@@ -1,0 +1,20 @@
+openapi: 3.2.0
+info:
+  title: Fast Version API
+  version: 0.1.0
+tags:
+- name: Version
+paths:
+  /version:
+    get:
+      summary: ' Controller Version'
+      operationId: _controller_version_version_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Version

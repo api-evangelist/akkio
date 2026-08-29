@@ -1,0 +1,228 @@
+openapi: 3.2.0
+info:
+  title: Fast Async Job API
+  version: 0.1.0
+tags:
+- name: Async Job
+paths:
+  /async-job/{async_job_id}/status:
+    get:
+      summary: ' Get Status For Job Id'
+      description: 'Returns the current record (containing a status field) for the given Job ID.
+
+        This is the main means by which the frontend polls for a status.'
+      operationId: _get_status_for_job_id_async_job__async_job_id__status_get
+      parameters:
+      - name: async_job_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Async Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobRecord'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Async Job
+  /async-job/{async_job_id}/stream:
+    get:
+      summary: ' Get Stream For Job Id'
+      description: Returns the current stream for the given Job ID.
+      operationId: _get_stream_for_job_id_async_job__async_job_id__stream_get
+      parameters:
+      - name: async_job_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Async Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AsyncJobStreamRecord'
+                title: Response  Get Stream For Job Id Async Job  Async Job Id  Stream Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Async Job
+components:
+  schemas:
+    AsyncJobRecord:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          title: Response
+          description: async response
+      type: object
+      title: AsyncJobRecord
+      description: Do NOT access this table directly.
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    AsyncJobStreamRecord:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        async_jobs_id:
+          type: integer
+          title: Async Jobs Id
+          description: Async Job ID
+        message:
+          type: string
+          title: Message
+          description: stream message
+        payload:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Payload
+          description: stream payload
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+      type: object
+      required:
+      - async_jobs_id
+      - message
+      title: AsyncJobStreamRecord
+      description: Do NOT access this table directly.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

@@ -1,0 +1,327 @@
+openapi: 3.2.0
+info:
+  title: Akkio Projects API
+  version: 0.1.0
+  description: 'Operations tagged Projects across 2 of this provider''s published API definitions: akkio-platform-api-openapi.json, akkio-public-api-openapi.yaml. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Projects
+paths:
+  /api/v1/projects/{project_id}:
+    get:
+      tags:
+      - Projects
+      summary: ' Get Project'
+      description: Retrieve the data for a given project.
+      operationId: _get_project_api_v1_projects__project_id__get
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Project Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - Projects
+      summary: ' Update Project'
+      description: Update the custom instructions attached to a given project. Updates the project with any provided non-null fields and returns the resulting Flow object.
+      operationId: _update_project_api_v1_projects__project_id__put
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Project Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectPayload'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Projects
+      summary: ' Delete Project'
+      description: Deletes the project at the given ID.
+      operationId: _delete_project_api_v1_projects__project_id__delete
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Project Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/projects:
+    post:
+      tags:
+      - Projects
+      summary: ' Create New Project'
+      description: Creates a new project.
+      operationId: _create_new_project_api_v1_projects_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectPayload'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    GetProjectResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of this object.
+        name:
+          type: string
+          title: Name
+          description: The name of the flow.
+          default: ''
+        chatInstructions:
+          type: string
+          title: Chatinstructions
+          description: '
+
+            How would you like Chat Explore to respond? For example:
+
+            - Respond only in spanish
+
+            - Provide short and concise answers only
+
+            - Make sure to always include a chart'
+          default: ''
+        chatContext:
+          type: string
+          title: Chatcontext
+          description: '
+
+            What would you like Chat Explore to know about this application to provide better responses? For example:
+
+            - This dataset is customer engagement data
+
+            - The units of the sales column are in millions
+
+            - The data is messy and contains typos
+
+            '
+          default: ''
+        chatSuggestions:
+          type: string
+          title: Chatsuggestions
+          description: '
+
+            Customize the default chat suggestions by writing a list of suggestions separated by newlines. For example:
+
+            - What is the average net media cost by campaign ID?
+
+            - Make sure to always include a chart
+
+            '
+          default: ''
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      title: GetProjectResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateProjectPayload:
+      properties:
+        _owner:
+          type: string
+          title: ' Owner'
+          description: Foreign key to the user this object belongs to.
+        _org:
+          type: string
+          title: ' Org'
+          description: Foreign key to the organization this object belongs to.
+        name:
+          type: string
+          title: Name
+          description: The name of the flow.
+        chatInstructions:
+          type: string
+          title: Chatinstructions
+          description: '
+
+            How would you like Chat Explore to respond? For example:
+
+            - Respond only in spanish
+
+            - Provide short and concise answers only
+
+            - Make sure to always include a chart'
+          default: ''
+        chatContext:
+          type: string
+          title: Chatcontext
+          description: '
+
+            What would you like Chat Explore to know about this application to provide better responses? For example:
+
+            - This dataset is customer engagement data
+
+            - The units of the sales column are in millions
+
+            - The data is messy and contains typos
+
+            '
+          default: ''
+        chatSuggestions:
+          type: string
+          title: Chatsuggestions
+          description: '
+
+            Customize the default chat suggestions by writing a list of suggestions separated by newlines. For example:
+
+            - What is the average net media cost by campaign ID?
+
+            - Make sure to always include a chart
+
+            '
+          default: ''
+      additionalProperties: true
+      type: object
+      required:
+      - _owner
+      - _org
+      - name
+      title: CreateProjectPayload
+    UpdateProjectPayload:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the flow.
+        chatInstructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatinstructions
+          description: '
+
+            How would you like Chat Explore to respond? For example:
+
+            - Respond only in spanish
+
+            - Provide short and concise answers only
+
+            - Make sure to always include a chart'
+        chatContext:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatcontext
+          description: '
+
+            What would you like Chat Explore to know about this application to provide better responses? For example:
+
+            - This dataset is customer engagement data
+
+            - The units of the sales column are in millions
+
+            - The data is messy and contains typos
+
+            '
+        chatSuggestions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatsuggestions
+          description: '
+
+            Customize the default chat suggestions by writing a list of suggestions separated by newlines. For example:
+
+            - What is the average net media cost by campaign ID?
+
+            - Make sure to always include a chart
+
+            '
+      additionalProperties: true
+      type: object
+      title: UpdateProjectPayload
+x-refined-from:
+- akkio-platform-api-openapi.json
+- akkio-public-api-openapi.yaml

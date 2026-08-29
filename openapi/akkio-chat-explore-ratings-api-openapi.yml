@@ -1,0 +1,276 @@
+openapi: 3.2.0
+info:
+  title: Fast Chat Explore Ratings API
+  version: 0.1.0
+tags:
+- name: Chat Explore Ratings
+paths:
+  /chat-explore-ratings:
+    post:
+      summary: Chat Explore Ratings Route
+      operationId: chat_explore_ratings_route_chat_explore_ratings_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Chat Explore Ratings Route Chat Explore Ratings Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Chat Explore Ratings
+components:
+  schemas:
+    Render:
+      properties:
+        type:
+          type: string
+          title: Type
+        chart_filter:
+          type: object
+          title: Chart Filter
+        sql_metadata:
+          type: object
+          title: Sql Metadata
+        title:
+          type: string
+          title: Title
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        download_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Download Path
+        transformed_data:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Transformed Data
+        sources:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Sources
+        view:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: View
+        column_metadata:
+          anyOf:
+          - additionalProperties:
+              additionalProperties:
+                type: string
+              type: object
+            type: object
+          - type: 'null'
+          title: Column Metadata
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      title: Render
+    ChatMessage:
+      properties:
+        role:
+          type: string
+          title: Role
+        content:
+          type: string
+          title: Content
+        timestamp:
+          type: integer
+          title: Timestamp
+        render:
+          anyOf:
+          - $ref: '#/components/schemas/Render'
+          - items:
+              $ref: '#/components/schemas/Render'
+            type: array
+          - type: 'null'
+          title: Render
+        render_storage_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Render Storage Key
+        userPython:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Userpython
+        extra:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Extra
+        chart:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Chart
+        sources:
+          type: object
+          title: Sources
+        data_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Url
+        data_url_description:
+          type: string
+          title: Data Url Description
+          default: ''
+        diagnostic:
+          type: object
+          title: Diagnostic
+        message_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message Id
+        chart_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chart Id
+        chart_metadata_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chart Metadata Id
+        chart_data_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chart Data Id
+        reduce_render_size:
+          type: boolean
+          title: Reduce Render Size
+          default: false
+      additionalProperties: true
+      type: object
+      required:
+      - role
+      - content
+      title: ChatMessage
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Rating:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of this object.
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        dataset_id:
+          type: string
+          title: Dataset Id
+        messages:
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+          type: array
+          title: Messages
+        message_index:
+          type: integer
+          title: Message Index
+        rating:
+          type: string
+          enum:
+          - good
+          - bad
+          title: Rating
+        rating_source:
+          type: string
+          title: Rating Source
+          default: ''
+        chart_data:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chart Data
+        feedback:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+        datasource_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Datasource Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        chat_error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chat Error
+      additionalProperties: true
+      type: object
+      required:
+      - dataset_id
+      - messages
+      - message_index
+      - rating
+      title: Rating

@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Fast Zapier API
+  version: 0.1.0
+tags:
+- name: Zapier Api
+paths:
+  /zapier-api:
+    post:
+      summary: ' Controller Zapier Api'
+      operationId: _controller_zapier_api_zapier_api_post
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Zapier Api

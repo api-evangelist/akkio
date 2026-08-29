@@ -1,0 +1,46 @@
+openapi: 3.2.0
+info:
+  title: Fast Get Cleaning Ops API
+  version: 0.1.0
+tags:
+- name: Get Cleaning Ops
+paths:
+  /get-cleaning-ops:
+    get:
+      summary: ' Controller Get Cleaning Ops'
+      operationId: _controller_get_cleaning_ops_get_cleaning_ops_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/_DataCleaningOp'
+                type: array
+                title: Response  Controller Get Cleaning Ops Get Cleaning Ops Get
+      tags:
+      - Get Cleaning Ops
+components:
+  schemas:
+    _DataCleaningOp:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          type: string
+          title: Description
+        enabled:
+          type: boolean
+          title: Enabled
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - title
+      - description
+      - enabled
+      - key
+      title: _DataCleaningOp

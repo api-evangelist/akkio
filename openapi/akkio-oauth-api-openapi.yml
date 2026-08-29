@@ -1,0 +1,147 @@
+openapi: 3.2.0
+info:
+  title: Fast O Auth API
+  version: 0.1.0
+tags:
+- name: OAuth
+paths:
+  /oauth/login:
+    get:
+      tags:
+      - OAuth
+      summary: Login Oauth
+      description: Initiates the OAuth2.0 flow for multiple services.
+      operationId: login_oauth_oauth_login_get
+      parameters:
+      - name: user_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: integration_type
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Integration Type
+      responses:
+        '302':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /oauth/auth:
+    get:
+      tags:
+      - OAuth
+      summary: Auth
+      description: "OAuth2.0 callback endpoint. Service providers redirect users here after they authorize or deny the application.\nArgs:\n    request: FastAPI request instance.\n    error: Error message from the service provider if the user denied.\nReturns:\n    Redirects user to a designated part of the application or handles error scenarios."
+      operationId: auth_oauth_auth_get
+      parameters:
+      - name: error
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /slack/oauth/callback:
+    get:
+      tags:
+      - OAuth
+      summary: Handle Callback
+      description: OAuth Callback / Redirect endpoint. Users are redirected here after granting us scopes. In this function, we take the temporary code we're provided and use Slack's OAuth API to exchange it for persistent credentials.
+      operationId: handle_callback_slack_oauth_callback_get
+      parameters:
+      - name: state
+        in: query
+        required: true
+        schema:
+          type: string
+          title: State
+      - name: error
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/_SlackErrorCodes'
+          - type: 'null'
+          title: Error
+      - name: code
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    _SlackErrorCodes:
+      type: string
+      enum:
+      - access_denied
+      const: access_denied
+      title: _SlackErrorCodes

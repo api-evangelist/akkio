@@ -1,0 +1,30 @@
+openapi: 3.2.0
+info:
+  title: Fast Train API
+  version: 0.1.0
+tags:
+- name: Train
+paths:
+  /train:
+    get:
+      summary: Train Route Get
+      operationId: train_route_get_train_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Train
+    post:
+      summary: Train Route Post
+      operationId: train_route_post_train_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Train

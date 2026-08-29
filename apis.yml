@@ -111,6 +111,775 @@ apis:
     url: authentication/akkio-authentication.yml
   - type: Documentation
     url: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/models
+- aid: akkio:akkio-ad-analytics-api
+  name: Akkio Ad Analytics API
+  description: The Ad Analytics API from Akkio — 32 operation(s) for ad analytics.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Ad Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-ad-analytics-api-openapi.yml
+- aid: akkio:akkio-admin-api
+  name: Akkio Admin API
+  description: The admin API from Akkio — 2 operation(s) for admin.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - admin
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-admin-api-openapi.yml
+- aid: akkio:akkio-api-specification-api
+  name: Akkio API Specification API
+  description: The API Specification API from Akkio — 2 operation(s) for api specification.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - API Specification
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-api-specification-api-openapi.yml
+- aid: akkio:akkio-async-job-api
+  name: Akkio Async Job API
+  description: The Async Job API from Akkio — 2 operation(s) for async job.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Async Job
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-async-job-api-openapi.yml
+- aid: akkio:akkio-audience-api
+  name: Akkio Audience API
+  description: The audience API from Akkio — 27 operation(s) for audience.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - audience
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-audience-api-openapi.yml
+- aid: akkio:akkio-audiences-api
+  name: Akkio Audiences API
+  description: The Audiences API from Akkio — 3 operation(s) for audiences.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Audiences
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-audiences-api-openapi.yml
+- aid: akkio:akkio-auth-integration-api
+  name: Akkio Auth Integration API
+  description: The Auth Integration API from Akkio — 1 operation(s) for auth integration.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Auth Integration
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-auth-integration-api-openapi.yml
+- aid: akkio:akkio-chart-api
+  name: Akkio Chart API
+  description: The chart API from Akkio — 4 operation(s) for chart.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - chart
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-chart-api-openapi.yml
+- aid: akkio:akkio-chat-explore-api
+  name: Akkio Chat Explore API
+  description: The Chat Explore API from Akkio — 28 operation(s) for chat explore.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Chat Explore
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-chat-explore-api-openapi.yml
+- aid: akkio:akkio-chat-explore-chart-update-api
+  name: Akkio Chat Explore Chart Update API
+  description: >-
+    The Chat Explore Chart Update API from Akkio — 1 operation(s) for chat explore chart update.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Chat Explore Chart Update
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-chat-explore-chart-update-api-openapi.yml
+- aid: akkio:akkio-chat-explore-ratings-api
+  name: Akkio Chat Explore Ratings API
+  description: The Chat Explore Ratings API from Akkio — 1 operation(s) for chat explore ratings.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Chat Explore Ratings
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-chat-explore-ratings-api-openapi.yml
+- aid: akkio:akkio-chat-explore-suggestions-api
+  name: Akkio Chat Explore Suggestions API
+  description: >-
+    The Chat Explore Suggestions API from Akkio — 1 operation(s) for chat explore suggestions.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Chat Explore Suggestions
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-chat-explore-suggestions-api-openapi.yml
+- aid: akkio:akkio-clone-lifecycle-api
+  name: Akkio Clone Lifecycle API
+  description: The Clone Lifecycle API from Akkio — 1 operation(s) for clone lifecycle.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Clone Lifecycle
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-clone-lifecycle-api-openapi.yml
+- aid: akkio:akkio-cluster-suggestions-api
+  name: Akkio Cluster Suggestions API
+  description: The Cluster Suggestions API from Akkio — 1 operation(s) for cluster suggestions.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Cluster Suggestions
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-cluster-suggestions-api-openapi.yml
+- aid: akkio:akkio-create-integration-output-api
+  name: Akkio Create Integration Output API
+  description: >-
+    The Create Integration Output API from Akkio — 1 operation(s) for create integration output.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Create Integration Output
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-create-integration-output-api-openapi.yml
+- aid: akkio:akkio-dashboard-name-api
+  name: Akkio Dashboard Name API
+  description: The Dashboard Name API from Akkio — 1 operation(s) for dashboard name.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Dashboard Name
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-dashboard-name-api-openapi.yml
+- aid: akkio:akkio-data-sources-api
+  name: Akkio Data Sources API
+  description: The Data Sources API from Akkio — 5 operation(s) for data sources.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Data Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-data-sources-api-openapi.yml
+- aid: akkio:akkio-dataset-snapshot-api
+  name: Akkio Dataset Snapshot API
+  description: The Dataset Snapshot API from Akkio — 1 operation(s) for dataset snapshot.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Dataset Snapshot
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-dataset-snapshot-api-openapi.yml
+- aid: akkio:akkio-dataset-updates-api
+  name: Akkio Dataset Updates API
+  description: The Dataset Updates API from Akkio — 1 operation(s) for dataset updates.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Dataset Updates
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-dataset-updates-api-openapi.yml
+- aid: akkio:akkio-distribution-api
+  name: Akkio Distribution API
+  description: The distribution API from Akkio — 3 operation(s) for distribution.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - distribution
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-distribution-api-openapi.yml
+- aid: akkio:akkio-entertainment-suite-api
+  name: Akkio Entertainment Suite API
+  description: The Entertainment Suite API from Akkio — 5 operation(s) for entertainment suite.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Entertainment Suite
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-entertainment-suite-api-openapi.yml
+- aid: akkio:akkio-event-handler-api
+  name: Akkio Event Handler API
+  description: The Event Handler API from Akkio — 1 operation(s) for event handler.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Event Handler
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-event-handler-api-openapi.yml
+- aid: akkio:akkio-fastapi-api
+  name: Akkio Fast API
+  description: The FastAPI API from Akkio — 3 operation(s) for fastapi.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - FastAPI
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-fastapi-api-openapi.yml
+- aid: akkio:akkio-forecast-preview-api
+  name: Akkio Forecast Preview API
+  description: The Forecast Preview API from Akkio — 1 operation(s) for forecast preview.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Forecast Preview
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-forecast-preview-api-openapi.yml
+- aid: akkio:akkio-generate-document-upload-url-api
+  name: Akkio Generate Document Upload Url API
+  description: >-
+    The Generate Document Upload Url API from Akkio — 1 operation(s) for generate document upload url.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Generate Document Upload Url
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-generate-document-upload-url-api-openapi.yml
+- aid: akkio:akkio-generate-download-url-api
+  name: Akkio Generate Download Url API
+  description: The Generate Download Url API from Akkio — 1 operation(s) for generate download url.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Generate Download Url
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-generate-download-url-api-openapi.yml
+- aid: akkio:akkio-generate-download-url-with-dataset-id-api
+  name: Akkio Generate Download Url With Dataset Id API
+  description: >-
+    The Generate Download Url With Dataset Id API from Akkio — 1 operation(s) for generate download url
+    with dataset id.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Generate Download Url With Dataset Id
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-generate-download-url-with-dataset-id-api-openapi.yml
+- aid: akkio:akkio-generate-upload-dataset-url-api
+  name: Akkio Generate Upload Dataset Url API
+  description: >-
+    The Generate Upload Dataset Url API from Akkio — 1 operation(s) for generate upload dataset url.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Generate Upload Dataset Url
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-generate-upload-dataset-url-api-openapi.yml
+- aid: akkio:akkio-generate-upload-url-api
+  name: Akkio Generate Upload Url API
+  description: The Generate Upload Url API from Akkio — 1 operation(s) for generate upload url.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Generate Upload Url
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-generate-upload-url-api-openapi.yml
+- aid: akkio:akkio-generative-dashboard-api
+  name: Akkio Generative Dashboard API
+  description: The Generative Dashboard API from Akkio — 3 operation(s) for generative dashboard.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Generative Dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-generative-dashboard-api-openapi.yml
+- aid: akkio:akkio-get-cleaning-ops-api
+  name: Akkio Get Cleaning Ops API
+  description: The Get Cleaning Ops API from Akkio — 1 operation(s) for get cleaning ops.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Get Cleaning Ops
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-get-cleaning-ops-api-openapi.yml
+- aid: akkio:akkio-group-forecast-api
+  name: Akkio Group Forecast API
+  description: The Group Forecast API from Akkio — 1 operation(s) for group forecast.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Group Forecast
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-group-forecast-api-openapi.yml
+- aid: akkio:akkio-health-api
+  name: Akkio Health API
+  description: The Health API from Akkio — 1 operation(s) for health.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-health-api-openapi.yml
+- aid: akkio:akkio-health-check-api
+  name: Akkio Health Check API
+  description: The Health Check API from Akkio — 1 operation(s) for health check.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-health-check-api-openapi.yml
+- aid: akkio:akkio-hubspot-contacts-api
+  name: Akkio Hubspot Contacts API
+  description: The Hubspot Contacts API from Akkio — 1 operation(s) for hubspot contacts.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Hubspot Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-hubspot-contacts-api-openapi.yml
+- aid: akkio:akkio-images-api
+  name: Akkio Images API
+  description: The Images API from Akkio — 4 operation(s) for images.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-images-api-openapi.yml
+- aid: akkio:akkio-inference-api
+  name: Akkio Inference API
+  description: The Inference API from Akkio — 1 operation(s) for inference.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Inference
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-inference-api-openapi.yml
+- aid: akkio:akkio-inference-status-api
+  name: Akkio Inference Status API
+  description: The Inference Status API from Akkio — 1 operation(s) for inference status.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Inference Status
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-inference-status-api-openapi.yml
+- aid: akkio:akkio-insight-api
+  name: Akkio Insight API
+  description: The insight API from Akkio — 1 operation(s) for insight.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - insight
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-insight-api-openapi.yml
+- aid: akkio:akkio-integrations-api
+  name: Akkio Integrations API
+  description: The Integrations API from Akkio — 35 operation(s) for integrations.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-integrations-api-openapi.yml
+- aid: akkio:akkio-knowledge-api
+  name: Akkio Knowledge API
+  description: The knowledge API from Akkio — 3 operation(s) for knowledge.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - knowledge
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-knowledge-api-openapi.yml
+- aid: akkio:akkio-list-categorical-field-values-api
+  name: Akkio List Categorical Field Values API
+  description: >-
+    The List Categorical Field Values API from Akkio — 1 operation(s) for list categorical field values.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - List Categorical Field Values
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-list-categorical-field-values-api-openapi.yml
+- aid: akkio:akkio-list-flow-fields-api
+  name: Akkio List Flow Fields API
+  description: The List Flow Fields API from Akkio — 1 operation(s) for list flow fields.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - List Flow Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-list-flow-fields-api-openapi.yml
+- aid: akkio:akkio-list-zapier-flows-api
+  name: Akkio List Zapier Flows API
+  description: The List Zapier Flows API from Akkio — 1 operation(s) for list zapier flows.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - List Zapier Flows
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-list-zapier-flows-api-openapi.yml
+- aid: akkio:akkio-llm-meltano-helper-api
+  name: Akkio Llm Meltano Helper API
+  description: The llm_meltano_helper API from Akkio — 1 operation(s) for llm_meltano_helper.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - llm_meltano_helper
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-llm-meltano-helper-api-openapi.yml
+- aid: akkio:akkio-llm-summarizer-api
+  name: Akkio Llm Summarizer API
+  description: The Llm Summarizer API from Akkio — 1 operation(s) for llm summarizer.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Llm Summarizer
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-llm-summarizer-api-openapi.yml
+- aid: akkio:akkio-location-intelligence-api
+  name: Akkio Location Intelligence API
+  description: The Location Intelligence API from Akkio — 5 operation(s) for location intelligence.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Location Intelligence
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-location-intelligence-api-openapi.yml
+- aid: akkio:akkio-measurement-api
+  name: Akkio Measurement API
+  description: The measurement API from Akkio — 10 operation(s) for measurement.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - measurement
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-measurement-api-openapi.yml
+- aid: akkio:akkio-merge-api
+  name: Akkio Merge API
+  description: The Merge API from Akkio — 1 operation(s) for merge.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Merge
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-merge-api-openapi.yml
+- aid: akkio:akkio-merge-status-api
+  name: Akkio Merge Status API
+  description: The Merge Status API from Akkio — 1 operation(s) for merge status.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Merge Status
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-merge-status-api-openapi.yml
+- aid: akkio:akkio-metrics-api
+  name: Akkio Metrics API
+  description: The metrics API from Akkio — 1 operation(s) for metrics.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-metrics-api-openapi.yml
+- aid: akkio:akkio-modeling-api
+  name: Akkio Modeling API
+  description: The modeling API from Akkio — 12 operation(s) for modeling.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - modeling
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-modeling-api-openapi.yml
+- aid: akkio:akkio-nonce-api
+  name: Akkio Nonce API
+  description: The Nonce API from Akkio — 1 operation(s) for nonce.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Nonce
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-nonce-api-openapi.yml
+- aid: akkio:akkio-oauth-api
+  name: Akkio O Auth API
+  description: The OAuth API from Akkio — 3 operation(s) for oauth.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-oauth-api-openapi.yml
+- aid: akkio:akkio-parse-api
+  name: Akkio Parse API
+  description: The Parse API from Akkio — 1 operation(s) for parse.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Parse
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-parse-api-openapi.yml
+- aid: akkio:akkio-platform-one-api
+  name: Akkio Platform One API
+  description: The platform-one API from Akkio — 2 operation(s) for platform-one.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - platform-one
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-platform-one-api-openapi.yml
+- aid: akkio:akkio-projects-api
+  name: Akkio Projects API
+  description: The Projects API from Akkio — 2 operation(s) for projects.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-projects-api-openapi.yml
+- aid: akkio:akkio-proof-of-concept-api
+  name: Akkio Proof of Concept API
+  description: The Proof of Concept API from Akkio — 15 operation(s) for proof of concept.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Proof of Concept
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-proof-of-concept-api-openapi.yml
+- aid: akkio:akkio-refresh-api
+  name: Akkio Refresh API
+  description: The Refresh API from Akkio — 1 operation(s) for refresh.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Refresh
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-refresh-api-openapi.yml
+- aid: akkio:akkio-refresh-live-flow-dataset-api
+  name: Akkio Refresh Live Flow Dataset API
+  description: >-
+    The Refresh Live Flow Dataset API from Akkio — 4 operation(s) for refresh live flow dataset.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Refresh Live Flow Dataset
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-refresh-live-flow-dataset-api-openapi.yml
+- aid: akkio:akkio-rfm-api
+  name: Akkio Rfm API
+  description: The Rfm API from Akkio — 6 operation(s) for rfm.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Rfm
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-rfm-api-openapi.yml
+- aid: akkio:akkio-rfm-upc-processing-api
+  name: Akkio RFM UPC Processing API
+  description: The RFM UPC Processing API from Akkio — 4 operation(s) for rfm upc processing.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - RFM UPC Processing
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-rfm-upc-processing-api-openapi.yml
+- aid: akkio:akkio-segment-api
+  name: Akkio Segment API
+  description: The segment API from Akkio — 3 operation(s) for segment.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - segment
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-segment-api-openapi.yml
+- aid: akkio:akkio-shopify-api
+  name: Akkio Shopify API
+  description: The Shopify API from Akkio — 3 operation(s) for shopify.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Shopify
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-shopify-api-openapi.yml
+- aid: akkio:akkio-slack-app-api
+  name: Akkio Slack App API
+  description: The Slack App API from Akkio — 5 operation(s) for slack app.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Slack App
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-slack-app-api-openapi.yml
+- aid: akkio:akkio-snapshot-api
+  name: Akkio Snapshot API
+  description: The Snapshot API from Akkio — 1 operation(s) for snapshot.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Snapshot
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-snapshot-api-openapi.yml
+- aid: akkio:akkio-stats-api
+  name: Akkio Stats API
+  description: The Stats API from Akkio — 3 operation(s) for stats.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Stats
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-stats-api-openapi.yml
+- aid: akkio:akkio-status-api
+  name: Akkio Status API
+  description: The Status API from Akkio — 1 operation(s) for status.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-status-api-openapi.yml
+- aid: akkio:akkio-synthetics-api
+  name: Akkio Synthetics API
+  description: The Synthetics API from Akkio — 6 operation(s) for synthetics.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Synthetics
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-synthetics-api-openapi.yml
+- aid: akkio:akkio-train-api
+  name: Akkio Train API
+  description: The Train API from Akkio — 1 operation(s) for train.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Train
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-train-api-openapi.yml
+- aid: akkio:akkio-training-api
+  name: Akkio Training API
+  description: The Training API from Akkio — 3 operation(s) for training.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Training
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-training-api-openapi.yml
+- aid: akkio:akkio-transforms-api
+  name: Akkio Transforms API
+  description: The Transforms API from Akkio — 4 operation(s) for transforms.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Transforms
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-transforms-api-openapi.yml
+- aid: akkio:akkio-transforms-sql-api
+  name: Akkio Transforms (SQL) API
+  description: The Transforms (SQL) API from Akkio — 2 operation(s) for transforms (sql).
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Transforms (SQL)
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-transforms-sql-api-openapi.yml
+- aid: akkio:akkio-version-api
+  name: Akkio Version API
+  description: The Version API from Akkio — 1 operation(s) for version.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Version
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-version-api-openapi.yml
+- aid: akkio:akkio-webhook-api
+  name: Akkio Webhook API
+  description: The Webhook API from Akkio — 3 operation(s) for webhook.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Webhook
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-webhook-api-openapi.yml
+- aid: akkio:akkio-zapier-api-api
+  name: Akkio Zapier API
+  description: The Zapier Api API from Akkio — 1 operation(s) for zapier api.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - Zapier Api
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-zapier-api-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

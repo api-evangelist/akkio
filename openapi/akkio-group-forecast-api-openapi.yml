@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Fast Group Forecast API
+  version: 0.1.0
+tags:
+- name: Group Forecast
+paths:
+  /group-forecast:
+    post:
+      summary: ' Controller Group Forecast'
+      operationId: _controller_group_forecast_group_forecast_post
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Group Forecast

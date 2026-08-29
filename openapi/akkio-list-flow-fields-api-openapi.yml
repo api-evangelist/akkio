@@ -1,0 +1,20 @@
+openapi: 3.2.0
+info:
+  title: Fast List Flow Fields API
+  version: 0.1.0
+tags:
+- name: List Flow Fields
+paths:
+  /list-flow-fields:
+    get:
+      summary: ' Controller List Flow Fields'
+      operationId: _controller_list_flow_fields_list_flow_fields_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response  Controller List Flow Fields List Flow Fields Get
+      tags:
+      - List Flow Fields

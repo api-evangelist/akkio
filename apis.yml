@@ -54,7 +54,7 @@ tags:
 - Ai Apps
 - Machine-Learning
 - Predictive Analytics
-- No-Code
+- No Code
 - Data Science
 - Marketing
 - Media
@@ -127,6 +127,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Admin
+  tags_raw:
   - admin
   properties:
   - type: OpenAPI
@@ -157,6 +159,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Audience
+  tags_raw:
   - audience
   properties:
   - type: OpenAPI
@@ -187,6 +191,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Chart
+  tags_raw:
   - chart
   properties:
   - type: OpenAPI
@@ -310,6 +316,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Distribution
+  tags_raw:
   - distribution
   properties:
   - type: OpenAPI
@@ -474,6 +482,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -504,6 +514,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Insight
+  tags_raw:
   - insight
   properties:
   - type: OpenAPI
@@ -514,6 +526,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -524,6 +538,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Knowledge
+  tags_raw:
   - knowledge
   properties:
   - type: OpenAPI
@@ -564,7 +580,8 @@ apis:
   description: The llm_meltano_helper API from Akkio — 1 operation(s) for llm_meltano_helper.
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
-  tags:
+  tags: []
+  tags_raw:
   - llm_meltano_helper
   properties:
   - type: OpenAPI
@@ -595,6 +612,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Measurements
+  tags_raw:
   - measurement
   properties:
   - type: OpenAPI
@@ -625,6 +644,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Metrics
+  tags_raw:
   - metrics
   properties:
   - type: OpenAPI
@@ -635,6 +656,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Modeling
+  tags_raw:
   - modeling
   properties:
   - type: OpenAPI
@@ -655,6 +678,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
@@ -685,6 +710,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -746,6 +773,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Segment
+  tags_raw:
   - segment
   properties:
   - type: OpenAPI

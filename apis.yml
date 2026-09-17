@@ -674,18 +674,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/akkio-nonce-api-openapi.yml
-- aid: akkio:akkio-oauth-api
-  name: Akkio O Auth API
-  description: The OAuth API from Akkio — 3 operation(s) for oauth.
-  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
-  baseURL: https://api.akkio.com/v1
-  tags:
-  - Authentication
-  tags_raw:
-  - OAuth
-  properties:
-  - type: OpenAPI
-    url: openapi/akkio-oauth-api-openapi.yml
 - aid: akkio:akkio-parse-api
   name: Akkio Parse API
   description: The Parse API from Akkio — 1 operation(s) for parse.
@@ -911,6 +899,16 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/akkio-zapier-api-api-openapi.yml
+- aid: akkio:akkio-oauth-api
+  name: Akkio O Auth API
+  description: The OAuth API from Akkio — 3 operation(s) for oauth.
+  humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
+  baseURL: https://api.akkio.com/v1
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/akkio-oauth-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

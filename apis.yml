@@ -51,6 +51,9 @@ x-tier-reason: portfolio-lead
 specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-08-13'
+x-docs-platform: gitbook
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-17
 tags:
 - Company
 - Ai Apps
@@ -161,7 +164,7 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
-  - Audience
+  - Audiences
   tags_raw:
   - audience
   properties:
@@ -835,6 +838,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Trains
+  tags_raw:
   - Train
   properties:
   - type: OpenAPI
@@ -905,6 +910,8 @@ apis:
   humanURL: https://docs.akkio.com/akkio-docs/endpoints-and-schemas/endpoints/datasets
   baseURL: https://api.akkio.com/v1
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI

@@ -42,7 +42,17 @@ paths:
       tags:
       - OAuth
       summary: Auth
-      description: "OAuth2.0 callback endpoint. Service providers redirect users here after they authorize or deny the application.\nArgs:\n    request: FastAPI request instance.\n    error: Error message from the service provider if the user denied.\nReturns:\n    Redirects user to a designated part of the application or handles error scenarios."
+      description: 'OAuth2.0 callback endpoint. Service providers redirect users here after they authorize or deny the application.
+
+        Args:
+
+        request: FastAPI request instance.
+
+        error: Error message from the service provider if the user denied.
+
+        Returns:
+
+        Redirects user to a designated part of the application or handles error scenarios.'
       operationId: auth_oauth_auth_get
       parameters:
       - name: error

@@ -3,13 +3,13 @@ info:
   title: Fast Chart API
   version: 0.1.0
 tags:
-- name: chart
+- name: Chart
 paths:
   /edit_chart/chat/{chat_history_id}:
     post:
       tags:
-      - chart
-      summary: ' Controller Handle Edit Chart'
+      - Chart
+      summary: Controller Handle Edit Chart
       description: Edit a chart inline in a chat history
       operationId: _controller_handle_edit_chart_edit_chart_chat__chat_history_id__post
       parameters:
@@ -40,8 +40,8 @@ paths:
   /edit_chart/saved/{chart_id}:
     post:
       tags:
-      - chart
-      summary: ' Controller Handle Edit Chart2'
+      - Chart
+      summary: Controller Handle Edit Chart2
       description: Edit a chart that has been copied outside of a chat history
       operationId: _controller_handle_edit_chart2_edit_chart_saved__chart_id__post
       parameters:
@@ -72,8 +72,8 @@ paths:
   /chart/refresh:
     post:
       tags:
-      - chart
-      summary: ' Controller Chart Refresh'
+      - Chart
+      summary: Controller Chart Refresh
       operationId: _controller_chart_refresh_chart_refresh_post
       requestBody:
         content:
@@ -97,8 +97,8 @@ paths:
   /chart/jobs/enrich:
     post:
       tags:
-      - chart
-      summary: ' Controller Enrich Chart'
+      - Chart
+      summary: Controller Enrich Chart
       operationId: _controller_enrich_chart_chart_jobs_enrich_post
       requestBody:
         content:
@@ -120,17 +120,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ChartEditingPayloadStandalone:
-      properties:
-        updates:
-          $ref: '#/components/schemas/ChartEditingUpdates'
-          description: The updates to apply to the chart.
-      additionalProperties: true
-      type: object
-      required:
-      - updates
-      title: ChartEditingPayloadStandalone
-      description: Payload for editing a chart that has been copied outside of a chat history.
     ValidationError:
       properties:
         loc:
@@ -152,35 +141,6 @@ components:
       - msg
       - type
       title: ValidationError
-    ChartRefreshPayload:
-      properties:
-        chart_id:
-          type: integer
-          title: Chart Id
-      additionalProperties: true
-      type: object
-      required:
-      - chart_id
-      title: ChartRefreshPayload
-    ChartPayload:
-      properties:
-        chart_id:
-          type: integer
-          title: Chart Id
-      additionalProperties: true
-      type: object
-      required:
-      - chart_id
-      title: ChartPayload
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ChartRefreshResult:
       properties:
         chart_id:
@@ -199,22 +159,6 @@ components:
       - chart_metadata_id
       - chart_data_id
       title: ChartRefreshResult
-    ChartEditingPayload:
-      properties:
-        idx:
-          type: integer
-          title: Idx
-          description: The index of the chart to edit in the chat history.
-        updates:
-          $ref: '#/components/schemas/ChartEditingUpdates'
-          description: The updates to apply to the chart.
-      additionalProperties: true
-      type: object
-      required:
-      - idx
-      - updates
-      title: ChartEditingPayload
-      description: Payload for editing a chart inline in a Chat History.
     ChartEditingUpdates:
       properties:
         title:
@@ -259,3 +203,59 @@ components:
       additionalProperties: true
       type: object
       title: ChartEditingUpdates
+    ChartRefreshPayload:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      title: ChartRefreshPayload
+    ChartPayload:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      title: ChartPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ChartEditingPayload:
+      properties:
+        idx:
+          type: integer
+          title: Idx
+          description: The index of the chart to edit in the chat history.
+        updates:
+          $ref: '#/components/schemas/ChartEditingUpdates'
+          description: The updates to apply to the chart.
+      additionalProperties: true
+      type: object
+      required:
+      - idx
+      - updates
+      title: ChartEditingPayload
+      description: Payload for editing a chart inline in a Chat History.
+    ChartEditingPayloadStandalone:
+      properties:
+        updates:
+          $ref: '#/components/schemas/ChartEditingUpdates'
+          description: The updates to apply to the chart.
+      additionalProperties: true
+      type: object
+      required:
+      - updates
+      title: ChartEditingPayloadStandalone
+      description: Payload for editing a chart that has been copied outside of a chat history.

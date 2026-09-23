@@ -7,7 +7,7 @@ tags:
 paths:
   /images/generic:
     get:
-      summary: ' Get Image Url For Generic Prompt'
+      summary: Get Image Url For Generic Prompt
       description: 'Generic passthrough for image generation via custom model.
 
         Uses env-parameterized image model where relevant.'
@@ -49,7 +49,7 @@ paths:
       - Images
   /images/tv:
     get:
-      summary: ' Get Image Url For Tv Show Controller'
+      summary: Get Image Url For Tv Show Controller
       description: 'Gets the URL of an image corresponding to the provided TV Show.
 
         Internal implementation relies on TVMaze for a rule-based mechanism to retrieve images.'
@@ -79,7 +79,7 @@ paths:
       - Images
   /images/company:
     get:
-      summary: ' Get Image Url For Company Controller'
+      summary: Get Image Url For Company Controller
       description: 'Gets the URL of an image corresponding to the provided network. Looking at the data available to us, should be sufficient for all of the following use cases:
 
         - broadcast network / cable network (cbs, nfl, fox, espn, ...)
@@ -116,7 +116,7 @@ paths:
       - Images
   /images/genre:
     get:
-      summary: ' Get Image Url For Genre Controller'
+      summary: Get Image Url For Genre Controller
       description: 'Gets the URL of an image corresponding to the provided Device.
 
         This seems reasonably finitely bounded, so we simply use an LLM to coerce the input to one of our "known" genres, then have a predefined list of images corresponding to each.'

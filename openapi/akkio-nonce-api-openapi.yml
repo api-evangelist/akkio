@@ -7,7 +7,7 @@ tags:
 paths:
   /nonce:
     get:
-      summary: ' Handle Nonce'
+      summary: Handle Nonce
       operationId: _handle_nonce_nonce_get
       responses:
         '200':

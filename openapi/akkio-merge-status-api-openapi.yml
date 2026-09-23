@@ -7,7 +7,7 @@ tags:
 paths:
   /merge-status:
     post:
-      summary: ' Controller Merge Status'
+      summary: Controller Merge Status
       operationId: _controller_merge_status_merge_status_post
       responses:
         '200':

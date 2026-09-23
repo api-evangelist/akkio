@@ -7,7 +7,7 @@ tags:
 paths:
   /refresh-live-flow-dataset/async_job:
     post:
-      summary: ' Controller Refresh Live Flow Dataset'
+      summary: Controller Refresh Live Flow Dataset
       description: Initiate an ad-hoc, asynchronous refresh of a given dataset. Implements the Async Job protocol.
       operationId: _controller_refresh_live_flow_dataset_refresh_live_flow_dataset_async_job_post
       requestBody:
@@ -33,7 +33,7 @@ paths:
       - Refresh Live Flow Dataset
   /refresh-live-flow-dataset/new:
     post:
-      summary: ' Controller Refresh Live Flow Dataset Async New'
+      summary: Controller Refresh Live Flow Dataset Async New
       description: Initiate an ad-hoc, asynchronous refresh of a given dataset. A Task ID will be returned for the client to poll with at the adjacent /status endpoint.
       operationId: _controller_refresh_live_flow_dataset_async_new_refresh_live_flow_dataset_new_post
       requestBody:
@@ -59,7 +59,7 @@ paths:
       - Refresh Live Flow Dataset
   /refresh-live-flow-dataset/status/{task_id}:
     get:
-      summary: ' Controller Refresh Live Flow Dataset Async Status'
+      summary: Controller Refresh Live Flow Dataset Async Status
       description: Query the status of a currently running ad-hoc, asynchronous refresh of a given dataset. If complete, the location of a result will be provided -- query that location with a GET to receive the result. If failed, the error will be provided.
       operationId: _controller_refresh_live_flow_dataset_async_status_refresh_live_flow_dataset_status__task_id__get
       parameters:
@@ -86,7 +86,7 @@ paths:
       - Refresh Live Flow Dataset
   /refresh-live-flow-dataset/results/{task_id}:
     get:
-      summary: ' Controller Refresh Live Flow Dataset Async Result'
+      summary: Controller Refresh Live Flow Dataset Async Result
       description: Get the result of the transform performed under the given task_id.
       operationId: _controller_refresh_live_flow_dataset_async_result_refresh_live_flow_dataset_results__task_id__get
       parameters:
@@ -112,41 +112,6 @@ paths:
       - Refresh Live Flow Dataset
 components:
   schemas:
-    APIStatusMetadataSucceeded:
-      properties:
-        type:
-          type: string
-          enum:
-          - SUCCEEDED
-          const: SUCCEEDED
-          title: Type
-          default: SUCCEEDED
-        location:
-          type: string
-          title: Location
-          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
-      additionalProperties: true
-      type: object
-      required:
-      - location
-      title: APIStatusMetadataSucceeded
-    APIStatusMetadataFailed:
-      properties:
-        type:
-          type: string
-          enum:
-          - FAILED
-          const: FAILED
-          title: Type
-          default: FAILED
-        error:
-          type: string
-          title: Error
-          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
-          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataFailed
     APIStatusResponse:
       properties:
         status:
@@ -173,16 +138,45 @@ components:
       - status
       - metadata
       title: APIStatusResponse
-    TaskStatusEnum:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - SUCCEEDED
-      - FAILED
-      - UNKNOWN_TIMEOUT
-      title: TaskStatusEnum
-      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    APIStatusMetadataInProgress:
+      properties:
+        type:
+          type: string
+          enum:
+          - IN_PROGRESS
+          const: IN_PROGRESS
+          title: Type
+          default: IN_PROGRESS
+        estimate_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimate Seconds
+          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataInProgress
     APITaskStartedResponse:
       properties:
         task_id:
@@ -194,18 +188,33 @@ components:
       required:
       - task_id
       title: APITaskStartedResponse
-    APIStatusMetadataPending:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    APIStatusMetadataSucceeded:
       properties:
         type:
           type: string
           enum:
-          - PENDING
-          const: PENDING
+          - SUCCEEDED
+          const: SUCCEEDED
           title: Type
-          default: PENDING
+          default: SUCCEEDED
+        location:
+          type: string
+          title: Location
+          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
       additionalProperties: true
       type: object
-      title: APIStatusMetadataPending
+      required:
+      - location
+      title: APIStatusMetadataSucceeded
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__9:
       properties:
         id:
@@ -273,6 +282,45 @@ components:
           title: Response
       type: object
       title: ConcreteAsyncJobRecord
+    APIStatusMetadataFailed:
+      properties:
+        type:
+          type: string
+          enum:
+          - FAILED
+          const: FAILED
+          title: Type
+          default: FAILED
+        error:
+          type: string
+          title: Error
+          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
+          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataFailed
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
     RefreshLiveFlowDatasetParams:
       properties:
         uid:
@@ -302,51 +350,3 @@ components:
       - COMPLETED
       - FAILED
       title: TaskStatus
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    APIStatusMetadataInProgress:
-      properties:
-        type:
-          type: string
-          enum:
-          - IN_PROGRESS
-          const: IN_PROGRESS
-          title: Type
-          default: IN_PROGRESS
-        estimate_seconds:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Estimate Seconds
-          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataInProgress

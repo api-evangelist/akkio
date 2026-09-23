@@ -7,7 +7,7 @@ tags:
 paths:
   /list-zapier-flows:
     get:
-      summary: ' Controller List Zapier Flows'
+      summary: Controller List Zapier Flows
       operationId: _controller_list_zapier_flows_list_zapier_flows_get
       responses:
         '200':

@@ -7,7 +7,7 @@ tags:
 paths:
   /version:
     get:
-      summary: ' Controller Version'
+      summary: Controller Version
       operationId: _controller_version_version_get
       responses:
         '200':

@@ -7,7 +7,7 @@ tags:
 paths:
   /get-cleaning-ops:
     get:
-      summary: ' Controller Get Cleaning Ops'
+      summary: Controller Get Cleaning Ops
       operationId: _controller_get_cleaning_ops_get_cleaning_ops_get
       responses:
         '200':

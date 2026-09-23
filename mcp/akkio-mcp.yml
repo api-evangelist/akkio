@@ -2,30 +2,19 @@ generated: '2026-08-13'
 method: derived
 status: candidate
 source: openapi/_original/akkio-public-api-openapi.yaml
-note: >-
-  No official hosted or local MCP server exists for Akkio. Probed 2026-08-13:
-  POST tools/list against https://api.akkio.com/mcp returned 403 "Unauthorized."
-  (the API gateway's generic deny for unknown routes, not an OAuth challenge),
-  https://akkio.com/mcp returned 405, mcp.akkio.com and mcp.akk.io do not
-  resolve, and https://app.akkio.com/mcp returned the SPA catch-all HTML shell.
-  No MCP package is published by akkio-inc on npm or PyPI and Akkio does not
-  appear in the public MCP registries. The tool list below is a CANDIDATE derived
-  one-to-one from operations that genuinely exist in the two OpenAPI documents
-  Akkio serves live; it is a proposal, not a surface Akkio ships. No endpoint is
-  invented.
+note: 'No official hosted or local MCP server exists for Akkio. Probed 2026-08-13: POST tools/list against
+  https://api.akkio.com/mcp returned 403 "Unauthorized." (the API gateway''s generic deny for unknown
+  routes, not an OAuth challenge), https://akkio.com/mcp returned 405, mcp.akkio.com and mcp.akk.io do
+  not resolve, and https://app.akkio.com/mcp returned the SPA catch-all HTML shell. No MCP package is
+  published by akkio-inc on npm or PyPI and Akkio does not appear in the public MCP registries. The tool
+  list below is a CANDIDATE derived one-to-one from operations that genuinely exist in the two OpenAPI
+  documents Akkio serves live; it is a proposal, not a surface Akkio ships. No endpoint is invented.'
 deployment:
   mode: none
-  endpoint: null
-  install: null
-  package: null
-  auth: api-key
-  verified: probed
-  note: >-
-    mode is none because nobody ships a server. If Akkio were to build one, the
-    auth model is already fixed by the API: a single team-scoped X-API-Key with
-    no scopes, which means an MCP server fronting it would hand an agent the
-    full organization's data access with no way to narrow it.
-  checked: '2026-08-13'
+  verified: derived
+  tools: 6
+  checked: '2026-08-12'
+  source: catalog MCP census
 server:
   name: akkio
   transport: http
@@ -55,9 +44,7 @@ tools:
   source_operation: openapi/_original/akkio-api-openapi.yml#deleteModel
   api: legacy /v1
 - name: train_model
-  description: >-
-    Submit a training job for a dataset. Asynchronous — returns a task_id that must
-    be polled.
+  description: Submit a training job for a dataset. Asynchronous — returns a task_id that must be polled.
   source_operation: openapi/_original/akkio-public-api-openapi.yaml#_submit_controller_api_v1_models_train_new_post
   api: /api/v1
   async: true
@@ -70,9 +57,8 @@ tools:
   source_operation: openapi/_original/akkio-public-api-openapi.yaml#_get_result_controller_api_v1_models_train__task_id__result_get
   api: /api/v1
 - name: ask_chat_explore
-  description: >-
-    Ask a natural-language question about a project or dataset. Asynchronous —
-    returns a task_id. This is the tool an agent would actually want.
+  description: Ask a natural-language question about a project or dataset. Asynchronous — returns a task_id.
+    This is the tool an agent would actually want.
   source_operation: openapi/_original/akkio-public-api-openapi.yaml#_submit_chat_explore_query_api_v1_chat_explore_new_post
   api: /api/v1
   async: true
@@ -101,8 +87,6 @@ tools:
   source_operation: openapi/_original/akkio-public-api-openapi.yaml#_delete_project_api_v1_projects__project_id__delete
   api: /api/v1
 tool_count: 16
-agent_note: >-
-  Every /api/v1 tool above is asynchronous submit-poll-fetch, and a FAILED job
-  returns HTTP 200 with status FAILED in the body. Any MCP server built over this
-  API must surface the task lifecycle rather than pretending the call is
-  synchronous. See conventions/akkio-conventions.yml.
+agent_note: Every /api/v1 tool above is asynchronous submit-poll-fetch, and a FAILED job returns HTTP
+  200 with status FAILED in the body. Any MCP server built over this API must surface the task lifecycle
+  rather than pretending the call is synchronous. See conventions/akkio-conventions.yml.

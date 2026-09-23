@@ -7,7 +7,7 @@ tags:
 paths:
   /list-flow-fields:
     get:
-      summary: ' Controller List Flow Fields'
+      summary: Controller List Flow Fields
       operationId: _controller_list_flow_fields_list_flow_fields_get
       responses:
         '200':

@@ -9,7 +9,7 @@ paths:
     post:
       tags:
       - llm_meltano_helper
-      summary: ' Controller Parse Error'
+      summary: Controller Parse Error
       description: Parse a meltano error message via the LLM and see what we can tell the user
       operationId: _controller_parse_error_llm_meltano_helper_parse_error_post
       requestBody:

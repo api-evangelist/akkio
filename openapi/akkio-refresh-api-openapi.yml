@@ -7,7 +7,7 @@ tags:
 paths:
   /refresh:
     post:
-      summary: ' Refresh Route'
+      summary: Refresh Route
       operationId: _refresh_route_refresh_post
       requestBody:
         content:
@@ -31,36 +31,6 @@ paths:
       - Refresh
 components:
   schemas:
-    _ParseDatasetRequestPayload:
-      properties:
-        datasetId:
-          type: string
-          title: Datasetid
-        filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filename
-        path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Path
-        fileSize:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Filesize
-        flowId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Flowid
-      additionalProperties: true
-      type: object
-      required:
-      - datasetId
-      title: _ParseDatasetRequestPayload
     HTTPValidationError:
       properties:
         detail:
@@ -91,3 +61,33 @@ components:
       - msg
       - type
       title: ValidationError
+    _ParseDatasetRequestPayload:
+      properties:
+        datasetId:
+          type: string
+          title: Datasetid
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        fileSize:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Filesize
+        flowId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Flowid
+      additionalProperties: true
+      type: object
+      required:
+      - datasetId
+      title: _ParseDatasetRequestPayload

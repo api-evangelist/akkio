@@ -7,7 +7,7 @@ tags:
 paths:
   /inference-status:
     get:
-      summary: ' Controller Inference Status'
+      summary: Controller Inference Status
       operationId: _controller_inference_status_inference_status_get
       responses:
         '201':

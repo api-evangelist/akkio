@@ -3,12 +3,12 @@ info:
   title: Fast Knowledge API
   version: 0.1.0
 tags:
-- name: knowledge
+- name: Knowledge
 paths:
   /knowledge/parse/{document_id}:
     post:
       tags:
-      - knowledge
+      - Knowledge
       summary: Parse
       description: Parse uploaded documents
       operationId: parse_knowledge_parse__document_id__post
@@ -36,7 +36,7 @@ paths:
   /knowledge/chat-explore-suggestions:
     post:
       tags:
-      - knowledge
+      - Knowledge
       summary: Chat Explore Suggestions Route Async
       description: Generate suggestions
       operationId: chat_explore_suggestions_route_async_knowledge_chat_explore_suggestions_post
@@ -62,8 +62,8 @@ paths:
   /knowledge/chat-explore:
     post:
       tags:
-      - knowledge
-      summary: ' Controller Chat Explore'
+      - Knowledge
+      summary: Controller Chat Explore
       operationId: _controller_chat_explore_knowledge_chat_explore_post
       responses:
         '200':
@@ -73,40 +73,6 @@ paths:
               schema: {}
 components:
   schemas:
-    KnowledgeChatExploreSuggestionsRequestPayload:
-      properties:
-        knowledgeDocumentIds:
-          items:
-            type: string
-          type: array
-          title: Knowledgedocumentids
-          description: List of document ids
-        forceRefresh:
-          type: boolean
-          title: Forcerefresh
-          description: ignore cache and re-generate suggestions
-          default: false
-      additionalProperties: true
-      type: object
-      required:
-      - knowledgeDocumentIds
-      title: KnowledgeChatExploreSuggestionsRequestPayload
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -128,6 +94,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     KnowledgeChatExploreSuggestionsResponsePayload:
       properties:
         suggestions:
@@ -146,3 +121,28 @@ components:
       required:
       - status
       title: KnowledgeChatExploreSuggestionsResponsePayload
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    KnowledgeChatExploreSuggestionsRequestPayload:
+      properties:
+        knowledgeDocumentIds:
+          items:
+            type: string
+          type: array
+          title: Knowledgedocumentids
+          description: List of document ids
+        forceRefresh:
+          type: boolean
+          title: Forcerefresh
+          description: ignore cache and re-generate suggestions
+          default: false
+      additionalProperties: true
+      type: object
+      required:
+      - knowledgeDocumentIds
+      title: KnowledgeChatExploreSuggestionsRequestPayload

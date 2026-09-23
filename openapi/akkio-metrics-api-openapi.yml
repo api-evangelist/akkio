@@ -3,12 +3,12 @@ info:
   title: Fast Metrics API
   version: 0.1.0
 tags:
-- name: metrics
+- name: Metrics
 paths:
   /metrics/online-worker-count:
     get:
       tags:
-      - metrics
+      - Metrics
       summary: Get Online Worker Count
       description: Get online celery worker count
       operationId: get_online_worker_count_metrics_online_worker_count_get

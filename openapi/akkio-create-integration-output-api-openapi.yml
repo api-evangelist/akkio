@@ -7,7 +7,7 @@ tags:
 paths:
   /create-integration-output:
     post:
-      summary: ' Controller Create Integration Output'
+      summary: Controller Create Integration Output
       operationId: _controller_create_integration_output_create_integration_output_post
       requestBody:
         content:

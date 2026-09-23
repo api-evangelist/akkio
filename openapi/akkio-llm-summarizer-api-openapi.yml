@@ -7,7 +7,7 @@ tags:
 paths:
   /llm_summarizer/generate:
     post:
-      summary: ' Controller Generate Summary'
+      summary: Controller Generate Summary
       description: Generates a title for a given snippet
       operationId: _controller_generate_summary_llm_summarizer_generate_post
       requestBody:
@@ -34,6 +34,15 @@ paths:
       - Llm Summarizer
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     SummaryGenerationPayload:
       properties:
         snippet:
@@ -65,15 +74,6 @@ components:
       required:
       - snippet
       title: SummaryGenerationPayload
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:

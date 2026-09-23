@@ -7,7 +7,7 @@ tags:
 paths:
   /dashboard-name:
     post:
-      summary: ' Controller Dashboard Name'
+      summary: Controller Dashboard Name
       operationId: _controller_dashboard_name_dashboard_name_post
       requestBody:
         content:
@@ -32,16 +32,6 @@ paths:
       - Dashboard Name
 components:
   schemas:
-    DashboardNameResponsePayload:
-      properties:
-        name:
-          type: string
-          title: Name
-      additionalProperties: true
-      type: object
-      required:
-      - name
-      title: DashboardNameResponsePayload
     HTTPValidationError:
       properties:
         detail:
@@ -84,3 +74,13 @@ components:
       - msg
       - type
       title: ValidationError
+    DashboardNameResponsePayload:
+      properties:
+        name:
+          type: string
+          title: Name
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      title: DashboardNameResponsePayload

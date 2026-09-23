@@ -34,16 +34,6 @@ paths:
       - Chat Explore Chart Update
 components:
   schemas:
-    _ChartUpdateParams:
-      properties:
-        chart_id:
-          type: string
-          title: Chart Id
-      additionalProperties: true
-      type: object
-      required:
-      - chart_id
-      title: _ChartUpdateParams
     HTTPValidationError:
       properties:
         detail:
@@ -74,3 +64,13 @@ components:
       - msg
       - type
       title: ValidationError
+    _ChartUpdateParams:
+      properties:
+        chart_id:
+          type: string
+          title: Chart Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      title: _ChartUpdateParams

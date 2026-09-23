@@ -9,7 +9,7 @@ paths:
     post:
       tags:
       - platform-one
-      summary: ' Create Target'
+      summary: Create Target
       description: Create a new PlatformOne Target/Syndication Group
       operationId: _create_target_audience_distribution_platform_one_target_create_post
       requestBody:
@@ -78,7 +78,7 @@ paths:
     post:
       tags:
       - platform-one
-      summary: ' Delete Target'
+      summary: Delete Target
       description: Delete a new PlatformOne Target/Syndication Group
       operationId: _delete_target_audience_distribution_platform_one_target_delete__target_id__post
       parameters:
@@ -102,56 +102,30 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AudienceDistributionTargetType:
-      type: string
-      enum:
-      - dv360-p1
-      - trade-desk-p1
-      - meta-p1
-      - tiktok-p1
-      - amazon-p1
-      - snapchat-p1
-      - teads-p1
-      - pinterest-p1
-      - pandora-p1
-      - disney-plus-p1
-      - roku-p1
-      - comcast-p1
-      - spectrum-total-p1
-      - pubmatic-p1
-      - lg-ads-p1
-      - appnexus-xandr-invest-p1
-      - sling-tv-p1
-      - samsung-ads-p1
-      - linkedin-p1
-      - magnite-p1
-      - beeswax-p1
-      - dish-p1
-      - 4info-p1
-      - undertone-p1
-      - index-exchange-p1
-      - yahoo-verizon-media-dsp-p1
-      - openx-p1
-      - univision-p1
-      - directv-safehaven-p1
-      - criteo-p1
-      - sabio-p1
-      - groundtruth-p1
-      - taboola-p1
-      - kargo-p1
-      - inmobi-p1
-      - loopme-p1
-      - nativo-p1
-      - unity-p1
-      - adtheorent-p1
-      - lotame-usa-p1
-      - centro-p1
-      - triton-digital-p1
-      - dmp-p1
-      - dv360-direct
-      - trade-desk-direct
-      - meta-direct
-      title: AudienceDistributionTargetType
+    PubmaticPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        pubmaticDataProviderId:
+          type: integer
+          title: Pubmaticdataproviderid
+          description: Pubmatic Data Provider ID, contains numeric characters only.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - pubmaticDataProviderId
+      title: PubmaticPlatformOneTargetPayload
     UndertonePlatformOneTargetPayload:
       properties:
         type:
@@ -176,31 +150,7 @@ components:
       - teamId
       - undertoneAdvertiserName
       title: UndertonePlatformOneTargetPayload
-    LoopMePlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        loopMeAdvertiserName:
-          type: string
-          title: Loopmeadvertisername
-          description: Advertiser Name used in filenames for delivery of data to LoopMe. Consists of alpha-numeric characters and dash.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - loopMeAdvertiserName
-      title: LoopMePlatformOneTargetPayload
-    IndexExchangePlatformOneTargetPayload:
+    TaboolaPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -223,8 +173,8 @@ components:
       - platformOneConfigId
       - teamId
       - distributionName
-      title: IndexExchangePlatformOneTargetPayload
-    SamsungAdsPlatformOneTargetPayload:
+      title: TaboolaPlatformOneTargetPayload
+    UnityPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -236,35 +186,26 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        clientKey:
+        distributionName:
           type: string
-          title: Clientkey
-          description: Consists of alpha-numeric and underscore characters.
+          title: Distributionname
+          description: Identifier for the account configuration.
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - clientKey
-      title: SamsungAdsPlatformOneTargetPayload
-    PlatformOneAudienceDistributionTargetConfig:
-      properties:
-        platform_one_config_id:
-          type: string
-          title: Platform One Config Id
-          description: FK to PlatformOneAudienceDistributionTargetConfig record.
-        syndication_group_id:
-          type: integer
-          title: Syndication Group Id
-          description: Syndication Group ID, selects Destination for deploying audience
-      additionalProperties: true
-      type: object
-      required:
-      - platform_one_config_id
-      - syndication_group_id
-      title: PlatformOneAudienceDistributionTargetConfig
-      description: Useful base model for any distribution target that goes through Platform One.
+      - distributionName
+      title: UnityPlatformOneTargetPayload
+    ComcastSubscriberType:
+      type: string
+      enum:
+      - VOD
+      - X1
+      - UA
+      - LSA
+      title: ComcastSubscriberType
     RokuPlatformOneTargetPayload:
       properties:
         type:
@@ -289,7 +230,7 @@ components:
       - teamId
       - advertiserName
       title: RokuPlatformOneTargetPayload
-    AdTheorentPlatformOneTargetPayload:
+    LinkedInPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -301,95 +242,79 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        clientID:
-          type: string
-          title: Clientid
-          description: Client ID
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - clientID
-      title: AdTheorentPlatformOneTargetPayload
-    SabioPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        distributionName:
-          type: string
-          title: Distributionname
-          description: Identifier for the account configuration.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - distributionName
-      title: SabioPlatformOneTargetPayload
-    PinterestPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        advertiserId:
-          type: string
-          title: Advertiserid
-          description: Pinterest Account ID which is 10 to 18 digits
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - advertiserId
-      title: PinterestPlatformOneTargetPayload
-    BeeswaxPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        accountID:
+        accountId:
           type: string
           title: Accountid
-          description: Enter your Beeswax Account ID. If you do not know your Account ID, reach out to your Beeswax Account Representative.
-        buzzkey:
+          description: 'LinkedIn Account Id.  Do NOT include urn:li:sponsoredAccount: at the beginning. Consists of 9 to 19 digits.'
+        schema:
           type: string
-          title: Buzzkey
-          description: Enter your Beeswax Buzz Key. If you do not know your Buzz Key, reach out to your Beeswax Account Representative.
+          enum:
+          - SHA256_EMAIL
+          const: SHA256_EMAIL
+          title: Schema
+          description: Syndication Schema.
+          default: SHA256_EMAIL
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - accountID
-      - buzzkey
-      title: BeeswaxPlatformOneTargetPayload
+      - accountId
+      title: LinkedInPlatformOneTargetPayload
+    SnapchatPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        organizationId:
+          type: string
+          title: Organizationid
+          description: Snapchat Organization ID. Consists of alpha-numeric characters and - in the form xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+        adAccountId:
+          type: string
+          title: Adaccountid
+          description: The Ad Account Id is tied to a specific organisation, under which segments will be created. Consists of alpha-numeric characters and - in the form xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - organizationId
+      - adAccountId
+      title: SnapchatPlatformOneTargetPayload
+    NativoPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        nativoAdvertiserName:
+          type: string
+          title: Nativoadvertisername
+          description: Advertiser Name used in filenames for delivery of data to Nativo. Enter 'thirdparty' for AdAdvisor and 3rd-party Data Providers. Consists of alpha-numeric characters and dash.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - nativoAdvertiserName
+      title: NativoPlatformOneTargetPayload
     SpectrumTotalPlatformOneTargetPayload:
       properties:
         type:
@@ -423,7 +348,139 @@ components:
       - segmentPrioritization
       - subscriberSegmentId
       title: SpectrumTotalPlatformOneTargetPayload
-    TaboolaPlatformOneTargetPayload:
+    SamsungAdsPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        clientKey:
+          type: string
+          title: Clientkey
+          description: Consists of alpha-numeric and underscore characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - clientKey
+      title: SamsungAdsPlatformOneTargetPayload
+    TeadsPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        teadsDpId:
+          type: string
+          title: Teadsdpid
+          description: Teads DPID is a value that must be provided by Teads or the Advertiser. Consists of 5 or 6 alpha-numeric characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - teadsDpId
+      title: TeadsPlatformOneTargetPayload
+    FourInfoPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        fourInfoAdvertiserName:
+          type: string
+          title: Fourinfoadvertisername
+          description: FourInfo Advertiser Name.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - fourInfoAdvertiserName
+      title: FourInfoPlatformOneTargetPayload
+    LotamePlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        clientID:
+          type: string
+          title: Clientid
+          description: Client ID which is 3 to 6 digits
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - clientID
+      title: LotamePlatformOneTargetPayload
+    TikTokPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        businessAccount:
+          type: string
+          title: Businessaccount
+          description: Business Account for TikTok API. Business Account is used to select Access Token used with Advertiser ID.  If a new Business Account is needed, an engineer MUST get a new accessToken.
+        advertiserId:
+          type: string
+          title: Advertiserid
+          description: Advertiser ID for TikTok API.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - businessAccount
+      - advertiserId
+      title: TikTokPlatformOneTargetPayload
+    SpectrumTotalSubscriberSegment:
+      type: string
+      enum:
+      - '29825341'
+      - '46105647'
+      - '46501132'
+      title: SpectrumTotalSubscriberSegment
+    InMobiPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -446,7 +503,7 @@ components:
       - platformOneConfigId
       - teamId
       - distributionName
-      title: TaboolaPlatformOneTargetPayload
+      title: InMobiPlatformOneTargetPayload
     GroundTruthPlatformOneTargetPayload:
       properties:
         type:
@@ -471,7 +528,7 @@ components:
       - teamId
       - distributionName
       title: GroundTruthPlatformOneTargetPayload
-    TradeDeskPlatformOneTargetPayload:
+    PandoraPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -483,23 +540,152 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        firstPartyDataProviderId:
-          type: string
-          title: Firstpartydataproviderid
-          description: First Party Data Provider TradeDesk API.
-        secretKey:
-          type: string
-          title: Secretkey
-          description: Secret Key for TradeDesk API.
+        dmpTaxonomyId:
+          type: integer
+          title: Dmptaxonomyid
+          description: DMP Taxonomy Id
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - firstPartyDataProviderId
-      - secretKey
-      title: TradeDeskPlatformOneTargetPayload
+      - dmpTaxonomyId
+      title: PandoraPlatformOneTargetPayload
+    CriteoPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        advertiserId:
+          type: string
+          title: Advertiserid
+          description: Criteo Advertiser Id
+        clientId:
+          type: string
+          title: Clientid
+          description: Listed as client id in the document created when making a new key on criteos website
+        clientSecret:
+          type: string
+          title: Clientsecret
+          description: Listed as client secret in the document created when making a new key on criteos website
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - advertiserId
+      - clientId
+      - clientSecret
+      title: CriteoPlatformOneTargetPayload
+    AdTheorentPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        clientID:
+          type: string
+          title: Clientid
+          description: Client ID
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - clientID
+      title: AdTheorentPlatformOneTargetPayload
+    PinterestPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        advertiserId:
+          type: string
+          title: Advertiserid
+          description: Pinterest Account ID which is 10 to 18 digits
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - advertiserId
+      title: PinterestPlatformOneTargetPayload
+    MetaPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        accountId:
+          type: string
+          title: Accountid
+          description: Account ID for Meta Business API.
+        metaDatasource:
+          $ref: '#/components/schemas/MetaPlatformOneDataSourceEnum'
+          description: Data Source for Meta Business API.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - accountId
+      - metaDatasource
+      title: MetaPlatformOneTargetPayload
+    TritonDigitalPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        publisherName:
+          type: string
+          title: Publishername
+          description: Publisher Name of Triton's client, not the end Advertiser. Consists of alpha-numeric characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - publisherName
+      title: TritonDigitalPlatformOneTargetPayload
     PlatformOneAudienceDistributionTarget:
       properties:
         id:
@@ -550,6 +736,173 @@ components:
       - type
       - config
       title: PlatformOneAudienceDistributionTarget
+    UnivisionPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        univisionAdvertiserName:
+          type: string
+          title: Univisionadvertisername
+          description: Advertiser Name specific to Univision, not related to the chosen advertiser above. Used in filenames for delivery of data to Univision. Consists of alpha-numeric and underscore characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - univisionAdvertiserName
+      title: UnivisionPlatformOneTargetPayload
+    SabioPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        distributionName:
+          type: string
+          title: Distributionname
+          description: Identifier for the account configuration.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - distributionName
+      title: SabioPlatformOneTargetPayload
+    AudienceDistributionTargetType:
+      type: string
+      enum:
+      - dv360-p1
+      - trade-desk-p1
+      - meta-p1
+      - tiktok-p1
+      - amazon-p1
+      - snapchat-p1
+      - teads-p1
+      - pinterest-p1
+      - pandora-p1
+      - disney-plus-p1
+      - roku-p1
+      - comcast-p1
+      - spectrum-total-p1
+      - pubmatic-p1
+      - lg-ads-p1
+      - appnexus-xandr-invest-p1
+      - sling-tv-p1
+      - samsung-ads-p1
+      - linkedin-p1
+      - magnite-p1
+      - beeswax-p1
+      - dish-p1
+      - 4info-p1
+      - undertone-p1
+      - index-exchange-p1
+      - yahoo-verizon-media-dsp-p1
+      - openx-p1
+      - univision-p1
+      - directv-safehaven-p1
+      - criteo-p1
+      - sabio-p1
+      - groundtruth-p1
+      - taboola-p1
+      - kargo-p1
+      - inmobi-p1
+      - loopme-p1
+      - nativo-p1
+      - unity-p1
+      - adtheorent-p1
+      - lotame-usa-p1
+      - centro-p1
+      - triton-digital-p1
+      - dmp-p1
+      - dv360-direct
+      - trade-desk-direct
+      - meta-direct
+      title: AudienceDistributionTargetType
+    DirectTVSafeHavenPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        distributionName:
+          type: string
+          title: Distributionname
+          description: Identifier for the account configuration.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - distributionName
+      title: DirectTVSafeHavenPlatformOneTargetPayload
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AmazonPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        cfid:
+          type: string
+          title: Cfid
+          description: CFID for Amazon API. Amazon Advertiser ID.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - cfid
+      title: AmazonPlatformOneTargetPayload
     MagnitePlatformOneTargetPayload:
       properties:
         type:
@@ -579,7 +932,7 @@ components:
       - magniteSeatId
       - magnitePartnerId
       title: MagnitePlatformOneTargetPayload
-    InMobiPlatformOneTargetPayload:
+    IndexExchangePlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -602,7 +955,214 @@ components:
       - platformOneConfigId
       - teamId
       - distributionName
-      title: InMobiPlatformOneTargetPayload
+      title: IndexExchangePlatformOneTargetPayload
+    DishPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        dishAdvertiserName:
+          type: string
+          title: Dishadvertisername
+          description: Dish Network Advertiser Name.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - dishAdvertiserName
+      title: DishPlatformOneTargetPayload
+    AppNexusXandrInvestPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        memberIds:
+          type: string
+          title: Memberids
+          description: Enter multiple member billing IDs separated by a comma. Consists of digits, ",", and " ".
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - memberIds
+      title: AppNexusXandrInvestPlatformOneTargetPayload
+    OpenXPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        uuid:
+          type: string
+          title: Uuid
+          description: OpenX Advertiser Account ID
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - uuid
+      title: OpenXPlatformOneTargetPayload
+    DV360PlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        customerId:
+          type: string
+          title: Customerid
+          description: Customer ID for Google DV360 API.
+        dv360Product:
+          $ref: '#/components/schemas/DV360PlatformOneProductEnum'
+          description: Product for DV360 API.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - customerId
+      - dv360Product
+      title: DV360PlatformOneTargetPayload
+    LoopMePlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        loopMeAdvertiserName:
+          type: string
+          title: Loopmeadvertisername
+          description: Advertiser Name used in filenames for delivery of data to LoopMe. Consists of alpha-numeric characters and dash.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - loopMeAdvertiserName
+      title: LoopMePlatformOneTargetPayload
+    ComcastPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        subscriberType:
+          $ref: '#/components/schemas/ComcastSubscriberType'
+          description: Subscriber Type
+        segmentPrioritization:
+          type: boolean
+          title: Segmentprioritization
+          description: Segment Prioritization
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - subscriberType
+      - segmentPrioritization
+      title: ComcastPlatformOneTargetPayload
+    DisneyPlusPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        disneyClientName:
+          type: string
+          title: Disneyclientname
+          description: Disney Plus client name. Consists of alpha-numeric characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - disneyClientName
+      title: DisneyPlusPlatformOneTargetPayload
+    MetaPlatformOneDataSourceEnum:
+      type: string
+      enum:
+      - BOTH_USER_AND_PARTNER_PROVIDED
+      - USER_PROVIDED_ONLY
+      - PARTNER_PROVIDED_ONLY
+      title: MetaPlatformOneDataSourceEnum
+    LGAdsPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        lgAdsAdvertiserName:
+          type: string
+          title: Lgadsadvertisername
+          description: LG Ads Advertiser Name.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - lgAdsAdvertiserName
+      title: LGAdsPlatformOneTargetPayload
     SlingTvPlatformOneTargetPayload:
       properties:
         type:
@@ -627,30 +1187,15 @@ components:
       - teamId
       - slingTVAdvertiserName
       title: SlingTvPlatformOneTargetPayload
-    PandoraPlatformOneTargetPayload:
+    HTTPValidationError:
       properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        dmpTaxonomyId:
-          type: integer
-          title: Dmptaxonomyid
-          description: DMP Taxonomy Id
-      additionalProperties: true
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - dmpTaxonomyId
-      title: PandoraPlatformOneTargetPayload
+      title: HTTPValidationError
     KargoPlatformOneTargetPayload:
       properties:
         type:
@@ -675,7 +1220,7 @@ components:
       - teamId
       - kargoAdvertiserName
       title: KargoPlatformOneTargetPayload
-    TikTokPlatformOneTargetPayload:
+    CentroPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -687,47 +1232,18 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        businessAccount:
+        centroAdvertiserID:
           type: string
-          title: Businessaccount
-          description: Business Account for TikTok API. Business Account is used to select Access Token used with Advertiser ID.  If a new Business Account is needed, an engineer MUST get a new accessToken.
-        advertiserId:
-          type: string
-          title: Advertiserid
-          description: Advertiser ID for TikTok API.
+          title: Centroadvertiserid
+          description: Basis DSP (Centro) Advertiser ID. Consists of lower-case alpha-numeric characters and dash.
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - businessAccount
-      - advertiserId
-      title: TikTokPlatformOneTargetPayload
-    PubmaticPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        pubmaticDataProviderId:
-          type: integer
-          title: Pubmaticdataproviderid
-          description: Pubmatic Data Provider ID, contains numeric characters only.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - pubmaticDataProviderId
-      title: PubmaticPlatformOneTargetPayload
+      - centroAdvertiserID
+      title: CentroPlatformOneTargetPayload
     YahooVerizonDSPPlatformOneTargetPayload:
       properties:
         type:
@@ -763,365 +1279,23 @@ components:
       - distributionName
       - dataType
       title: YahooVerizonDSPPlatformOneTargetPayload
-    HTTPValidationError:
+    PlatformOneAudienceDistributionTargetConfig:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    DishPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
+        platform_one_config_id:
           type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        dishAdvertiserName:
-          type: string
-          title: Dishadvertisername
-          description: Dish Network Advertiser Name.
+          title: Platform One Config Id
+          description: FK to PlatformOneAudienceDistributionTargetConfig record.
+        syndication_group_id:
+          type: integer
+          title: Syndication Group Id
+          description: Syndication Group ID, selects Destination for deploying audience
       additionalProperties: true
       type: object
       required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - dishAdvertiserName
-      title: DishPlatformOneTargetPayload
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    UnityPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        distributionName:
-          type: string
-          title: Distributionname
-          description: Identifier for the account configuration.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - distributionName
-      title: UnityPlatformOneTargetPayload
-    AmazonPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        cfid:
-          type: string
-          title: Cfid
-          description: CFID for Amazon API. Amazon Advertiser ID.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - cfid
-      title: AmazonPlatformOneTargetPayload
-    FourInfoPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        fourInfoAdvertiserName:
-          type: string
-          title: Fourinfoadvertisername
-          description: FourInfo Advertiser Name.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - fourInfoAdvertiserName
-      title: FourInfoPlatformOneTargetPayload
-    DirectTVSafeHavenPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        distributionName:
-          type: string
-          title: Distributionname
-          description: Identifier for the account configuration.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - distributionName
-      title: DirectTVSafeHavenPlatformOneTargetPayload
-    CriteoPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        advertiserId:
-          type: string
-          title: Advertiserid
-          description: Criteo Advertiser Id
-        clientId:
-          type: string
-          title: Clientid
-          description: Listed as client id in the document created when making a new key on criteos website
-        clientSecret:
-          type: string
-          title: Clientsecret
-          description: Listed as client secret in the document created when making a new key on criteos website
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - advertiserId
-      - clientId
-      - clientSecret
-      title: CriteoPlatformOneTargetPayload
-    TeadsPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        teadsDpId:
-          type: string
-          title: Teadsdpid
-          description: Teads DPID is a value that must be provided by Teads or the Advertiser. Consists of 5 or 6 alpha-numeric characters.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - teadsDpId
-      title: TeadsPlatformOneTargetPayload
-    MetaPlatformOneDataSourceEnum:
-      type: string
-      enum:
-      - BOTH_USER_AND_PARTNER_PROVIDED
-      - USER_PROVIDED_ONLY
-      - PARTNER_PROVIDED_ONLY
-      title: MetaPlatformOneDataSourceEnum
-    NativoPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        nativoAdvertiserName:
-          type: string
-          title: Nativoadvertisername
-          description: Advertiser Name used in filenames for delivery of data to Nativo. Enter 'thirdparty' for AdAdvisor and 3rd-party Data Providers. Consists of alpha-numeric characters and dash.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - nativoAdvertiserName
-      title: NativoPlatformOneTargetPayload
-    SpectrumTotalSubscriberSegment:
-      type: string
-      enum:
-      - '29825341'
-      - '46105647'
-      - '46501132'
-      title: SpectrumTotalSubscriberSegment
-    MetaPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        accountId:
-          type: string
-          title: Accountid
-          description: Account ID for Meta Business API.
-        metaDatasource:
-          $ref: '#/components/schemas/MetaPlatformOneDataSourceEnum'
-          description: Data Source for Meta Business API.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - accountId
-      - metaDatasource
-      title: MetaPlatformOneTargetPayload
-    ComcastSubscriberType:
-      type: string
-      enum:
-      - VOD
-      - X1
-      - UA
-      - LSA
-      title: ComcastSubscriberType
-    SnapchatPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        organizationId:
-          type: string
-          title: Organizationid
-          description: Snapchat Organization ID. Consists of alpha-numeric characters and - in the form xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-        adAccountId:
-          type: string
-          title: Adaccountid
-          description: The Ad Account Id is tied to a specific organisation, under which segments will be created. Consists of alpha-numeric characters and - in the form xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - organizationId
-      - adAccountId
-      title: SnapchatPlatformOneTargetPayload
-    TritonDigitalPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        publisherName:
-          type: string
-          title: Publishername
-          description: Publisher Name of Triton's client, not the end Advertiser. Consists of alpha-numeric characters.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - publisherName
-      title: TritonDigitalPlatformOneTargetPayload
-    LotamePlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        clientID:
-          type: string
-          title: Clientid
-          description: Client ID which is 3 to 6 digits
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - clientID
-      title: LotamePlatformOneTargetPayload
+      - platform_one_config_id
+      - syndication_group_id
+      title: PlatformOneAudienceDistributionTargetConfig
+      description: Useful base model for any distribution target that goes through Platform One.
     DV360PlatformOneProductEnum:
       type: string
       enum:
@@ -1130,7 +1304,7 @@ components:
       - DISPLAY_VIDEO_ADVERTISER
       - GOOGLE_AD_MANAGER
       title: DV360PlatformOneProductEnum
-    DisneyPlusPlatformOneTargetPayload:
+    BeeswaxPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -1142,175 +1316,24 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        disneyClientName:
-          type: string
-          title: Disneyclientname
-          description: Disney Plus client name. Consists of alpha-numeric characters.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - disneyClientName
-      title: DisneyPlusPlatformOneTargetPayload
-    UnivisionPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        univisionAdvertiserName:
-          type: string
-          title: Univisionadvertisername
-          description: Advertiser Name specific to Univision, not related to the chosen advertiser above. Used in filenames for delivery of data to Univision. Consists of alpha-numeric and underscore characters.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - univisionAdvertiserName
-      title: UnivisionPlatformOneTargetPayload
-    LGAdsPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        lgAdsAdvertiserName:
-          type: string
-          title: Lgadsadvertisername
-          description: LG Ads Advertiser Name.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - lgAdsAdvertiserName
-      title: LGAdsPlatformOneTargetPayload
-    OpenXPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        uuid:
-          type: string
-          title: Uuid
-          description: OpenX Advertiser Account ID
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - uuid
-      title: OpenXPlatformOneTargetPayload
-    AppNexusXandrInvestPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        memberIds:
-          type: string
-          title: Memberids
-          description: Enter multiple member billing IDs separated by a comma. Consists of digits, ",", and " ".
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - memberIds
-      title: AppNexusXandrInvestPlatformOneTargetPayload
-    DV360PlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        customerId:
-          type: string
-          title: Customerid
-          description: Customer ID for Google DV360 API.
-        dv360Product:
-          $ref: '#/components/schemas/DV360PlatformOneProductEnum'
-          description: Product for DV360 API.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - customerId
-      - dv360Product
-      title: DV360PlatformOneTargetPayload
-    LinkedInPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        accountId:
+        accountID:
           type: string
           title: Accountid
-          description: 'LinkedIn Account Id.  Do NOT include urn:li:sponsoredAccount: at the beginning. Consists of 9 to 19 digits.'
-        schema:
+          description: Enter your Beeswax Account ID. If you do not know your Account ID, reach out to your Beeswax Account Representative.
+        buzzkey:
           type: string
-          enum:
-          - SHA256_EMAIL
-          const: SHA256_EMAIL
-          title: Schema
-          description: Syndication Schema.
-          default: SHA256_EMAIL
+          title: Buzzkey
+          description: Enter your Beeswax Buzz Key. If you do not know your Buzz Key, reach out to your Beeswax Account Representative.
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - accountId
-      title: LinkedInPlatformOneTargetPayload
-    CentroPlatformOneTargetPayload:
+      - accountID
+      - buzzkey
+      title: BeeswaxPlatformOneTargetPayload
+    TradeDeskPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -1322,43 +1345,20 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        centroAdvertiserID:
+        firstPartyDataProviderId:
           type: string
-          title: Centroadvertiserid
-          description: Basis DSP (Centro) Advertiser ID. Consists of lower-case alpha-numeric characters and dash.
+          title: Firstpartydataproviderid
+          description: First Party Data Provider TradeDesk API.
+        secretKey:
+          type: string
+          title: Secretkey
+          description: Secret Key for TradeDesk API.
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - centroAdvertiserID
-      title: CentroPlatformOneTargetPayload
-    ComcastPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        subscriberType:
-          $ref: '#/components/schemas/ComcastSubscriberType'
-          description: Subscriber Type
-        segmentPrioritization:
-          type: boolean
-          title: Segmentprioritization
-          description: Segment Prioritization
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - subscriberType
-      - segmentPrioritization
-      title: ComcastPlatformOneTargetPayload
+      - firstPartyDataProviderId
+      - secretKey
+      title: TradeDeskPlatformOneTargetPayload

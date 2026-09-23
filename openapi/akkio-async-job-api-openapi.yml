@@ -7,7 +7,7 @@ tags:
 paths:
   /async-job/{async_job_id}/status:
     get:
-      summary: ' Get Status For Job Id'
+      summary: Get Status For Job Id
       description: 'Returns the current record (containing a status field) for the given Job ID.
 
         This is the main means by which the frontend polls for a status.'
@@ -36,7 +36,7 @@ paths:
       - Async Job
   /async-job/{async_job_id}/stream:
     get:
-      summary: ' Get Stream For Job Id'
+      summary: Get Stream For Job Id
       description: Returns the current stream for the given Job ID.
       operationId: _get_stream_for_job_id_async_job__async_job_id__stream_get
       parameters:
@@ -66,79 +66,27 @@ paths:
       - Async Job
 components:
   schemas:
-    AsyncJobRecord:
+    ValidationError:
       properties:
-        id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Id
-          description: ID of this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-          description: datetime object representing when this object was deleted.
-        status:
-          $ref: '#/components/schemas/TaskStatus'
-          description: The status of the task.
-          default: RUNNING
-        endpoint:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Endpoint
-          description: Endpoint spawning async job
-          default: ''
-        request:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Request
-          description: request sent to endpoint
-        sync_response:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Sync Response
-          description: sync response
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-          description: error message
-        response:
-          title: Response
-          description: async response
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: AsyncJobRecord
-      description: Do NOT access this table directly.
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AsyncJobStreamRecord:
       properties:
         id:
@@ -205,24 +153,76 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ValidationError:
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    AsyncJobRecord:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          title: Response
+          description: async response
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: AsyncJobRecord
+      description: Do NOT access this table directly.

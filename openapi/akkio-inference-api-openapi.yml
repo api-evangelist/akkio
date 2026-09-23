@@ -7,7 +7,7 @@ tags:
 paths:
   /inference:
     get:
-      summary: ' Controller Inference Get'
+      summary: Controller Inference Get
       operationId: _controller_inference_get_inference_get
       responses:
         '201':
@@ -18,7 +18,7 @@ paths:
       tags:
       - Inference
     post:
-      summary: ' Controller Inference'
+      summary: Controller Inference
       operationId: _controller_inference_inference_post
       responses:
         '201':

@@ -7,7 +7,7 @@ tags:
 paths:
   /dataset-snapshot:
     post:
-      summary: ' Controller Dataset Snapshot'
+      summary: Controller Dataset Snapshot
       description: Dataset snapshot, used to get a preview of the data. Often used by the frontend as a proxy for whether a parse is through or not as well.
       operationId: _controller_dataset_snapshot_dataset_snapshot_post
       requestBody:
@@ -45,15 +45,6 @@ components:
       - sortField
       - sortDirection
       title: SortOrder
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     DatasetSnapshotRequest:
       properties:
         datasetId:
@@ -112,3 +103,12 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

@@ -7,7 +7,7 @@ tags:
 paths:
   /health-check:
     get:
-      summary: ' Health Check Get'
+      summary: Health Check Get
       operationId: _health_check_get_health_check_get
       responses:
         '200':
@@ -18,7 +18,7 @@ paths:
       tags:
       - Health Check
     head:
-      summary: ' Health Check Head'
+      summary: Health Check Head
       operationId: _health_check_head_health_check_head
       responses:
         '200':

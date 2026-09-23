@@ -3,13 +3,13 @@ info:
   title: Fast Segment API
   version: 0.1.0
 tags:
-- name: segment
+- name: Segment
 paths:
   /segment/{segment_id}:
     get:
       tags:
-      - segment
-      summary: ' Get Segment'
+      - Segment
+      summary: Get Segment
       description: Get segment
       operationId: _get_segment_segment__segment_id__get
       parameters:
@@ -35,8 +35,8 @@ paths:
   /segment/questions:
     post:
       tags:
-      - segment
-      summary: ' Get Questions'
+      - Segment
+      summary: Get Questions
       description: Get survey questions
       operationId: _get_questions_segment_questions_post
       requestBody:
@@ -64,8 +64,8 @@ paths:
   /segment/chat-explore:
     post:
       tags:
-      - segment
-      summary: ' Controller Chat Explore'
+      - Segment
+      summary: Controller Chat Explore
       operationId: _controller_chat_explore_segment_chat_explore_post
       responses:
         '200':
@@ -75,16 +75,44 @@ paths:
               schema: {}
 components:
   schemas:
-    TaskStatusEnum:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - SUCCEEDED
-      - FAILED
-      - UNKNOWN_TIMEOUT
-      title: TaskStatusEnum
-      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SurveyQuestions:
+      properties:
+        topic:
+          type: string
+          title: Topic
+        questions:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SurveyQuestion'
+            type: array
+          - type: 'null'
+          title: Questions
+      additionalProperties: true
+      type: object
+      required:
+      - topic
+      title: SurveyQuestions
     SegmentQuestionsPayload:
       properties:
         topic:
@@ -105,6 +133,25 @@ components:
       additionalProperties: true
       type: object
       title: SegmentQuestionsPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
     SurveyQuestion:
       properties:
         topic:
@@ -300,50 +347,3 @@ components:
       - saved_to_db
       - sources
       title: Segment
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    SurveyQuestions:
-      properties:
-        topic:
-          type: string
-          title: Topic
-        questions:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/SurveyQuestion'
-            type: array
-          - type: 'null'
-          title: Questions
-      additionalProperties: true
-      type: object
-      required:
-      - topic
-      title: SurveyQuestions

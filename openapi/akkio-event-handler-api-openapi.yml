@@ -9,7 +9,7 @@ paths:
     post:
       tags:
       - Event Handler
-      summary: ' Handle Slack Events'
+      summary: Handle Slack Events
       description: Slack Webhook Handler. Used to do things like respond to users that mention the app or use our `/akkio` command.
       operationId: _handle_slack_events_slack_events_post
       responses:

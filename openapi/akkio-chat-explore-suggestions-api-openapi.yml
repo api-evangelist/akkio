@@ -37,6 +37,15 @@ paths:
       - Chat Explore Suggestions
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     SourceType:
       type: string
       enum:
@@ -44,6 +53,27 @@ components:
       - datasource
       title: SourceType
       description: Keep in sync with the DatasourceDatasetInfo.type in the frontend project-v2/shared/chat-explore/shared-chat-explore.ts
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     ChatExploreSuggestionsRequestPayload:
       properties:
         source_type:
@@ -66,33 +96,3 @@ components:
       additionalProperties: true
       type: object
       title: ChatExploreSuggestionsRequestPayload
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

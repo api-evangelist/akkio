@@ -7,7 +7,7 @@ tags:
 paths:
   /auth-integration:
     post:
-      summary: ' Controller Auth Integration'
+      summary: Controller Auth Integration
       operationId: _controller_auth_integration_auth_integration_post
       responses:
         '201':

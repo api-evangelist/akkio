@@ -7,7 +7,7 @@ tags:
 paths:
   /health:
     get:
-      summary: ' Health Check Slash Health Controller'
+      summary: Health Check Slash Health Controller
       operationId: _health_check_slash_health_controller_health_get
       responses:
         '200':

@@ -7,7 +7,7 @@ tags:
 paths:
   /location-intelligence/chat-params:
     post:
-      summary: ' Controller Model Param Chat'
+      summary: Controller Model Param Chat
       description: chat define location intelligence parameters
       operationId: _controller_model_param_chat_location_intelligence_chat_params_post
       responses:
@@ -20,7 +20,7 @@ paths:
       - Location Intelligence
   /location-intelligence/generate:
     post:
-      summary: ' Controller Generate'
+      summary: Controller Generate
       description: Generate location intelligence data
       operationId: _controller_generate_location_intelligence_generate_post
       requestBody:
@@ -46,7 +46,7 @@ paths:
       - Location Intelligence
   /location-intelligence/categories-with-places:
     post:
-      summary: ' Controller Get Categories With Places'
+      summary: Controller Get Categories With Places
       description: Get the categories and places
       operationId: _controller_get_categories_with_places_location_intelligence_categories_with_places_post
       requestBody:
@@ -75,7 +75,7 @@ paths:
       - Location Intelligence
   /location-intelligence/categories-all-places:
     post:
-      summary: ' Controller Get Categories All Places'
+      summary: Controller Get Categories All Places
       description: Get all places under provided categories
       operationId: _controller_get_categories_all_places_location_intelligence_categories_all_places_post
       requestBody:
@@ -104,7 +104,7 @@ paths:
       - Location Intelligence
   /location-intelligence/chat-explore:
     post:
-      summary: ' Controller Chat Explore'
+      summary: Controller Chat Explore
       operationId: _controller_chat_explore_location_intelligence_chat_explore_post
       responses:
         '200':
@@ -137,6 +137,25 @@ components:
       - msg
       - type
       title: ValidationError
+    LocationIntelligenceSearchPlacesPayload:
+      properties:
+        search_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search String
+          description: search across categories and place names.
+        zip_codes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Zip Codes
+          description: limit search to zip_codes.
+      additionalProperties: true
+      type: object
+      title: LocationIntelligenceSearchPlacesPayload
     LocationIntelligenceGeneratePayload:
       properties:
         location_natural_language:
@@ -169,49 +188,27 @@ components:
       - timeframe
       - audience_id
       title: LocationIntelligenceGeneratePayload
-    src__ad_analytics__location_intelligence__model__Timeframe:
+    LocationIntelligenceCategoriesPlacesPayload:
       properties:
-        start_date:
-          type: string
-          format: date-time
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Date
-      additionalProperties: true
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: Timeframe
-    CategoryWithPlaces:
-      properties:
-        category:
-          type: string
-          title: Category
-          description: The category name
-        places:
+        categories:
           items:
             type: string
           type: array
-          title: Places
-          description: The places in the category
+          title: Categories
+          description: categories to search places for.
+        zip_codes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Zip Codes
+          description: limit search to zip_codes.
       additionalProperties: true
       type: object
       required:
-      - category
-      - places
-      title: CategoryWithPlaces
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
+      - categories
+      title: LocationIntelligenceCategoriesPlacesPayload
     HTTPValidationError:
       properties:
         detail:
@@ -288,43 +285,46 @@ components:
           title: Response
       type: object
       title: ConcreteAsyncJobRecord
-    LocationIntelligenceSearchPlacesPayload:
+    CategoryWithPlaces:
       properties:
-        search_string:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search String
-          description: search across categories and place names.
-        zip_codes:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Zip Codes
-          description: limit search to zip_codes.
-      additionalProperties: true
-      type: object
-      title: LocationIntelligenceSearchPlacesPayload
-    LocationIntelligenceCategoriesPlacesPayload:
-      properties:
-        categories:
+        category:
+          type: string
+          title: Category
+          description: The category name
+        places:
           items:
             type: string
           type: array
-          title: Categories
-          description: categories to search places for.
-        zip_codes:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Zip Codes
-          description: limit search to zip_codes.
+          title: Places
+          description: The places in the category
       additionalProperties: true
       type: object
       required:
-      - categories
-      title: LocationIntelligenceCategoriesPlacesPayload
+      - category
+      - places
+      title: CategoryWithPlaces
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    src__ad_analytics__location_intelligence__model__Timeframe:
+      properties:
+        start_date:
+          type: string
+          format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+      additionalProperties: true
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: Timeframe

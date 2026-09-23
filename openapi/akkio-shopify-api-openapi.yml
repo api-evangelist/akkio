@@ -7,7 +7,7 @@ tags:
 paths:
   /shopify/oauth/redirect/external:
     get:
-      summary: ' Handle Initiate From App Store'
+      summary: Handle Initiate From App Store
       description: When our app is installed through the Shopify App Store or an installation link, they will first get redirected to here. We're responsible for verifying the request came from Shopify and redirecting them to the Shopify OAuth grants page.
       operationId: _handle_initiate_from_app_store_shopify_oauth_redirect_external_get
       responses:
@@ -20,7 +20,7 @@ paths:
       - Shopify
   /shopify/oauth/redirect:
     get:
-      summary: ' Handle Redirect From Akkio'
+      summary: Handle Redirect From Akkio
       description: Handles a Shopify connection request initiated from our website.
       operationId: _handle_redirect_from_akkio_shopify_oauth_redirect_get
       parameters:
@@ -52,7 +52,7 @@ paths:
       - Shopify
   /shopify/oauth/callback:
     get:
-      summary: ' Handle Callback'
+      summary: Handle Callback
       description: After the user either accepts or declines our scopes, they will be redirected here. If they accepted, our job here is to make another call to Shopify to turn the provided temporary token into a permanent token.
       operationId: _handle_callback_shopify_oauth_callback_get
       parameters:

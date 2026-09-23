@@ -3,13 +3,13 @@ info:
   title: Fast Insight API
   version: 0.1.0
 tags:
-- name: insight
+- name: Insight
 paths:
   /insight/chat-explore:
     post:
       tags:
-      - insight
-      summary: ' Controller Chat Explore'
+      - Insight
+      summary: Controller Chat Explore
       operationId: _controller_chat_explore_insight_chat_explore_post
       responses:
         '200':

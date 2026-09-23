@@ -7,7 +7,7 @@ tags:
 paths:
   /rfm/build_lookup:
     post:
-      summary: ' Controller Build Rfm Lookup'
+      summary: Controller Build Rfm Lookup
       description: Builds the lookup table for an RFM model
       operationId: _controller_build_rfm_lookup_rfm_build_lookup_post
       requestBody:
@@ -33,7 +33,7 @@ paths:
       - Rfm
   /rfm/build_configuration:
     post:
-      summary: ' Controller Build Rfm Configuration'
+      summary: Controller Build Rfm Configuration
       description: Builds the configuration for an RFM model
       operationId: _controller_build_rfm_configuration_rfm_build_configuration_post
       requestBody:
@@ -59,7 +59,7 @@ paths:
       - Rfm
   /rfm/build_growth_framework:
     post:
-      summary: ' Controller Build Growth Framework'
+      summary: Controller Build Growth Framework
       description: Builds the growth framework for an RFM model
       operationId: _controller_build_growth_framework_rfm_build_growth_framework_post
       requestBody:
@@ -85,7 +85,7 @@ paths:
       - Rfm
   /rfm/build_audience_for_growth_framework:
     post:
-      summary: ' Controller Build Audience For Growth Framework'
+      summary: Controller Build Audience For Growth Framework
       description: Builds the audience for a growth framework
       operationId: _controller_build_audience_for_growth_framework_rfm_build_audience_for_growth_framework_post
       requestBody:
@@ -111,7 +111,7 @@ paths:
       - Rfm
   /rfm/build_audience_for_rfm:
     post:
-      summary: ' Controller Build Audience For Rfm'
+      summary: Controller Build Audience For Rfm
       description: Builds the audience for an RFM model
       operationId: _controller_build_audience_for_rfm_rfm_build_audience_for_rfm_post
       requestBody:
@@ -137,7 +137,7 @@ paths:
       - Rfm
   /rfm/chat-explore:
     post:
-      summary: ' Controller Chat Explore'
+      summary: Controller Chat Explore
       operationId: _controller_chat_explore_rfm_chat_explore_post
       responses:
         '200':
@@ -149,33 +149,231 @@ paths:
       - Rfm
 components:
   schemas:
-    RFMBuildPayload:
+    RFMBuildConfigurationPayload:
       properties:
-        product_selections:
-          $ref: '#/components/schemas/SelectionPayload'
-          description: The product selections for the RFM model
+        rfm_id:
+          type: integer
+          title: Rfm Id
+          description: The ID of the RFM model to build configuration for
+        num_segments:
+          type: integer
+          title: Num Segments
+          description: The number of segments to build for the RFM model
+      additionalProperties: true
+      type: object
+      required:
+      - rfm_id
+      - num_segments
+      title: RFMBuildConfigurationPayload
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__6:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/GrowthFramework'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord
+    RFMBuildAudienceForRfmPayload:
+      properties:
+        segment_ids:
+          items:
+            type: integer
+          type: array
+          title: Segment Ids
+          description: The IDs of the segments to build audience for
+        project_id:
+          type: string
+          title: Project Id
+          description: The ID of the project to build audience for
+        new_audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: New Audience Name
+          description: The name of the new audience to create
+        org_id:
+          type: string
+          title: Org Id
+          description: The ID of the organization to build audience for
+      additionalProperties: true
+      type: object
+      required:
+      - segment_ids
+      - project_id
+      - org_id
+      title: RFMBuildAudienceForRfmPayload
+    RFM:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        async_job_id:
+          type: integer
+          title: Async Job Id
+          description: ID of the async job used for this RFM analysis.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Optional name for this RFM analysis.
         audience_id:
           anyOf:
           - type: string
           - type: 'null'
           title: Audience Id
-          description: The ID of the audience to generate RFM segments for
-        timeframe:
+          description: ID of the audience used for this RFM analysis.
+        start_date:
           anyOf:
-          - $ref: '#/components/schemas/src__api__ad_analytics__model__Timeframe'
+          - type: string
+            format: date-time
           - type: 'null'
-          description: The timeframe for the RFM model
+          title: Start Date
+          description: Start date for the RFM analysis.
+        end_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+          description: End date for the RFM analysis.
         upc_batch_id:
           anyOf:
           - type: integer
           - type: 'null'
           title: Upc Batch Id
-          description: The ID of a UPC batch to use for product selections
+          description: ID of the UPC batch used for this analysis.
+        product_selections:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Product Selections
+          description: Structured selection of brands, sub-brands, products, and categories for analysis.
+      type: object
+      required:
+      - async_job_id
+      title: RFM
+      description: 'Main RFM model for RFM analysis with equal-width segmentation and UPC upload support.
+
+        Supports 1:N relationship with brands, sub-brands, products, and product categories.'
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    RFMBuildAudienceForGrowthFrameworkPayload:
+      properties:
+        cell_ids:
+          items:
+            type: integer
+          type: array
+          title: Cell Ids
+          description: The IDs of the cells to build audience for
+        project_id:
+          type: string
+          title: Project Id
+          description: The ID of the project to build audience for
+        new_audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: New Audience Name
+          description: The name of the new audience to create
+        org_id:
+          type: string
+          title: Org Id
+          description: The ID of the organization to build audience for
       additionalProperties: true
       type: object
       required:
-      - product_selections
-      title: RFMBuildPayload
+      - cell_ids
+      - project_id
+      - org_id
+      title: RFMBuildAudienceForGrowthFrameworkPayload
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__5:
       properties:
         id:
@@ -242,6 +440,24 @@ components:
           - type: 'null'
       type: object
       title: ConcreteAsyncJobRecord
+    Selection:
+      properties:
+        field:
+          type: string
+          title: Field
+        values:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Values
+      additionalProperties: true
+      type: object
+      required:
+      - field
+      - values
+      title: Selection
     RFMConfiguration:
       properties:
         id:
@@ -319,78 +535,6 @@ components:
       description: 'Configuration settings for RFM analysis, using equal-width boundaries
 
         for segmentation. Supports configurable number of segments (3, 5, or 7).'
-    RFMBuildAudienceForRfmPayload:
-      properties:
-        segment_ids:
-          items:
-            type: integer
-          type: array
-          title: Segment Ids
-          description: The IDs of the segments to build audience for
-        project_id:
-          type: string
-          title: Project Id
-          description: The ID of the project to build audience for
-        new_audience_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: New Audience Name
-          description: The name of the new audience to create
-        org_id:
-          type: string
-          title: Org Id
-          description: The ID of the organization to build audience for
-      additionalProperties: true
-      type: object
-      required:
-      - segment_ids
-      - project_id
-      - org_id
-      title: RFMBuildAudienceForRfmPayload
-    SelectionPayload:
-      properties:
-        selections:
-          items:
-            items:
-              $ref: '#/components/schemas/Selection'
-            type: array
-          type: array
-          title: Selections
-      additionalProperties: true
-      type: object
-      required:
-      - selections
-      title: SelectionPayload
-    RFMBuildAudienceForGrowthFrameworkPayload:
-      properties:
-        cell_ids:
-          items:
-            type: integer
-          type: array
-          title: Cell Ids
-          description: The IDs of the cells to build audience for
-        project_id:
-          type: string
-          title: Project Id
-          description: The ID of the project to build audience for
-        new_audience_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: New Audience Name
-          description: The name of the new audience to create
-        org_id:
-          type: string
-          title: Org Id
-          description: The ID of the organization to build audience for
-      additionalProperties: true
-      type: object
-      required:
-      - cell_ids
-      - project_id
-      - org_id
-      title: RFMBuildAudienceForGrowthFrameworkPayload
     RFMBuildGrowthFrameworkPayload:
       properties:
         rfm_id:
@@ -410,6 +554,27 @@ components:
       - brand_selections
       - category_selections
       title: RFMBuildGrowthFrameworkPayload
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__8:
       properties:
         id:
@@ -494,73 +659,27 @@ components:
       - start_date
       - end_date
       title: Timeframe
-    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__6:
+    BoundaryMethod:
+      type: string
+      enum:
+      - equal_width
+      const: equal_width
+      title: BoundaryMethod
+    SelectionPayload:
       properties:
-        id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Id
-          description: ID of this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-          description: datetime object representing when this object was deleted.
-        status:
-          $ref: '#/components/schemas/TaskStatus'
-          description: The status of the task.
-          default: RUNNING
-        endpoint:
-          type: string
-          title: Endpoint
-          description: Endpoint spawning async job
-          default: ''
-        request:
-          anyOf:
-          - type: object
-          - items: {}
+        selections:
+          items:
+            items:
+              $ref: '#/components/schemas/Selection'
             type: array
-          - type: 'null'
-          title: Request
-          description: request sent to endpoint
-        sync_response:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Sync Response
-          description: sync response
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-          description: error message
-        response:
-          anyOf:
-          - $ref: '#/components/schemas/GrowthFramework'
-          - type: 'null'
+          type: array
+          title: Selections
+      additionalProperties: true
       type: object
-      title: ConcreteAsyncJobRecord
-    RFM:
+      required:
+      - selections
+      title: SelectionPayload
+    GrowthFramework:
       properties:
         id:
           anyOf:
@@ -592,88 +711,39 @@ components:
         async_job_id:
           type: integer
           title: Async Job Id
-          description: ID of the async job used for this RFM analysis.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: Optional name for this RFM analysis.
-        audience_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Id
-          description: ID of the audience used for this RFM analysis.
-        start_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Date
-          description: Start date for the RFM analysis.
-        end_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Date
-          description: End date for the RFM analysis.
-        upc_batch_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Upc Batch Id
-          description: ID of the UPC batch used for this analysis.
-        product_selections:
+          description: ID of the async job used for this growth framework.
+        rfm_id:
+          type: integer
+          title: Rfm Id
+          description: The ID of the RFM analysis this framework belongs to.
+        category_selections:
+          type: object
+          title: Category Selections
+          description: Bounds for the category dimension.
+        brand_selections:
+          type: object
+          title: Brand Selections
+          description: Bounds for the brand dimension.
+        brand_thresholds:
           anyOf:
           - type: object
           - type: 'null'
-          title: Product Selections
-          description: Structured selection of brands, sub-brands, products, and categories for analysis.
+          title: Brand Thresholds
+          description: Thresholds for the brand terciles. If None, equal width terciles are used.
+        category_thresholds:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Category Thresholds
+          description: Thresholds for the category terciles. If None, equal width terciles are used.
       type: object
       required:
       - async_job_id
-      title: RFM
-      description: 'Main RFM model for RFM analysis with equal-width segmentation and UPC upload support.
-
-        Supports 1:N relationship with brands, sub-brands, products, and product categories.'
-    BoundaryMethod:
-      type: string
-      enum:
-      - equal_width
-      const: equal_width
-      title: BoundaryMethod
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - rfm_id
+      - category_selections
+      - brand_selections
+      title: GrowthFramework
+      description: Brand vs. category usage framework for analyzing customer behavior patterns.
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__4:
       properties:
         id:
@@ -740,24 +810,6 @@ components:
           - type: 'null'
       type: object
       title: ConcreteAsyncJobRecord
-    Selection:
-      properties:
-        field:
-          type: string
-          title: Field
-        values:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Values
-      additionalProperties: true
-      type: object
-      required:
-      - field
-      - values
-      title: Selection
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__7:
       properties:
         id:
@@ -824,91 +876,39 @@ components:
           - type: 'null'
       type: object
       title: ConcreteAsyncJobRecord
-    GrowthFramework:
+    HTTPValidationError:
       properties:
-        id:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RFMBuildPayload:
+      properties:
+        product_selections:
+          $ref: '#/components/schemas/SelectionPayload'
+          description: The product selections for the RFM model
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+          description: The ID of the audience to generate RFM segments for
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/src__api__ad_analytics__model__Timeframe'
+          - type: 'null'
+          description: The timeframe for the RFM model
+        upc_batch_id:
           anyOf:
           - type: integer
           - type: 'null'
-          title: Id
-          description: ID of this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-          description: datetime object representing when this object was deleted.
-        async_job_id:
-          type: integer
-          title: Async Job Id
-          description: ID of the async job used for this growth framework.
-        rfm_id:
-          type: integer
-          title: Rfm Id
-          description: The ID of the RFM analysis this framework belongs to.
-        category_selections:
-          type: object
-          title: Category Selections
-          description: Bounds for the category dimension.
-        brand_selections:
-          type: object
-          title: Brand Selections
-          description: Bounds for the brand dimension.
-        brand_thresholds:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Brand Thresholds
-          description: Thresholds for the brand terciles. If None, equal width terciles are used.
-        category_thresholds:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Category Thresholds
-          description: Thresholds for the category terciles. If None, equal width terciles are used.
-      type: object
-      required:
-      - async_job_id
-      - rfm_id
-      - category_selections
-      - brand_selections
-      title: GrowthFramework
-      description: Brand vs. category usage framework for analyzing customer behavior patterns.
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
-    RFMBuildConfigurationPayload:
-      properties:
-        rfm_id:
-          type: integer
-          title: Rfm Id
-          description: The ID of the RFM model to build configuration for
-        num_segments:
-          type: integer
-          title: Num Segments
-          description: The number of segments to build for the RFM model
+          title: Upc Batch Id
+          description: The ID of a UPC batch to use for product selections
       additionalProperties: true
       type: object
       required:
-      - rfm_id
-      - num_segments
-      title: RFMBuildConfigurationPayload
+      - product_selections
+      title: RFMBuildPayload

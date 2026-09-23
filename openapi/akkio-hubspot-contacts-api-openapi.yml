@@ -7,7 +7,7 @@ tags:
 paths:
   /hubspot-contacts:
     get:
-      summary: ' Controller Hubspot Contacts'
+      summary: Controller Hubspot Contacts
       operationId: _controller_hubspot_contacts_hubspot_contacts_get
       responses:
         '201':

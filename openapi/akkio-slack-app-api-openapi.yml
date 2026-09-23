@@ -51,7 +51,7 @@ paths:
     post:
       tags:
       - Slack App
-      summary: ' Handle Slack Events'
+      summary: Handle Slack Events
       description: Slack Webhook Handler. Used to do things like respond to users that mention the app or use our `/akkio` command.
       operationId: _handle_slack_events_slack_events_post
       responses:
@@ -65,7 +65,7 @@ paths:
     post:
       tags:
       - Slack App
-      summary: ' Create Channel For Dataset'
+      summary: Create Channel For Dataset
       description: Create new Slack channel corresponding to a given dataset_id and returns the mapping.
       operationId: _create_channel_for_dataset_slack_channels_datasets_post
       requestBody:
@@ -90,7 +90,7 @@ paths:
     get:
       tags:
       - Slack App
-      summary: ' Get By Dataset Id'
+      summary: Get By Dataset Id
       description: Returns a dataset mapping for the given dataset id.
       operationId: _get_by_dataset_id_slack_channels_datasets_get
       parameters:
@@ -123,7 +123,7 @@ paths:
     get:
       tags:
       - Slack App
-      summary: ' Exists Credentials By Owner Id Controller'
+      summary: Exists Credentials By Owner Id Controller
       description: Determine whether we have Slack credentials on record for a given owner_id.
       operationId: _exists_credentials_by_owner_id_controller_slack_credentials_exists_get
       parameters:
@@ -151,7 +151,7 @@ paths:
     get:
       tags:
       - Slack App
-      summary: ' Scopes Are Current Controller'
+      summary: Scopes Are Current Controller
       description: Determine whether the scopes we have on file for the given owner are valid. The frontend takes our return for this and changes the button to an "reauthentication required" button or similar. If no credentials are found at all, we return 4xx. If credentials are found, we return true/false based on whether they're current.
       operationId: _scopes_are_current_controller_slack_credentials_scopes_are_current__owner_id__get
       parameters:
@@ -177,26 +177,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    _SlackErrorCodes:
-      type: string
-      enum:
-      - access_denied
-      const: access_denied
-      title: _SlackErrorCodes
-    PayloadResponseGetDatasetMapping:
-      properties:
-        exists:
-          type: boolean
-          title: Exists
-        mapping:
-          anyOf:
-          - $ref: '#/components/schemas/SlackChannelMapping'
-          - type: 'null'
-      additionalProperties: true
-      type: object
-      required:
-      - exists
-      title: PayloadResponseGetDatasetMapping
     _CreateChannelPayload:
       properties:
         flow_id:
@@ -215,15 +195,6 @@ components:
       - dataset_id
       - owner_id
       title: _CreateChannelPayload
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -272,3 +243,32 @@ components:
       - slack_channel_id
       - slack_channel_name
       title: SlackChannelMapping
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PayloadResponseGetDatasetMapping:
+      properties:
+        exists:
+          type: boolean
+          title: Exists
+        mapping:
+          anyOf:
+          - $ref: '#/components/schemas/SlackChannelMapping'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - exists
+      title: PayloadResponseGetDatasetMapping
+    _SlackErrorCodes:
+      type: string
+      enum:
+      - access_denied
+      const: access_denied
+      title: _SlackErrorCodes

@@ -9,7 +9,7 @@ paths:
     get:
       tags:
       - Data Sources
-      summary: ' Get Datasource By Org'
+      summary: Get Datasource By Org
       description: Retrieve all datasource records for the user's organization.
       operationId: _get_datasource_by_org_datasources_get
       parameters:
@@ -40,7 +40,7 @@ paths:
     post:
       tags:
       - Data Sources
-      summary: ' Create New Datasource'
+      summary: Create New Datasource
       description: Creates a new datasource.
       operationId: _create_new_datasource_datasources_post
       requestBody:
@@ -66,7 +66,7 @@ paths:
     get:
       tags:
       - Data Sources
-      summary: ' Get Datasource'
+      summary: Get Datasource
       description: Retrieve the given datasource record.
       operationId: _get_datasource_datasources__datasource_id__get
       parameters:
@@ -92,7 +92,7 @@ paths:
     put:
       tags:
       - Data Sources
-      summary: ' Update Datasource'
+      summary: Update Datasource
       description: Update an existing datasource. Updates a datasource with any provided non-null fields and returns the resulting datasource object.
       operationId: _update_datasource_datasources__datasource_id__put
       parameters:
@@ -124,7 +124,7 @@ paths:
     delete:
       tags:
       - Data Sources
-      summary: ' Delete Datasource'
+      summary: Delete Datasource
       description: Deletes a datasource at the given ID.
       operationId: _delete_datasource_datasources__datasource_id__delete
       parameters:
@@ -150,7 +150,7 @@ paths:
     get:
       tags:
       - Data Sources
-      summary: ' Refresh Datasource'
+      summary: Refresh Datasource
       description: Generate supplemental info for a datasource at the given ID.
       operationId: _refresh_datasource_datasources_gen_supplemental_info__datasource_id__get
       parameters:
@@ -178,7 +178,7 @@ paths:
     post:
       tags:
       - Data Sources
-      summary: ' Refresh Datasource For Team'
+      summary: Refresh Datasource For Team
       description: Refresh a datasource's supplemental info and run watches
       operationId: _refresh_datasource_for_team_datasources_refresh_datasource_for_team__team_id__post
       parameters:
@@ -206,7 +206,7 @@ paths:
     get:
       tags:
       - Data Sources
-      summary: ' Get Datasource Partition Date'
+      summary: Get Datasource Partition Date
       description: Retrieve the latest partition date for the datasource.
       operationId: _get_datasource_partition_date_datasources_recency__datasource_id__get
       parameters:
@@ -232,22 +232,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    DataSourceType:
-      type: string
-      enum:
-      - bigquery
-      - s3
-      - duckdb
-      - snowflake
-      - databricks
-      - databricks_warehouse
-      - databricks_volume
-      title: DataSourceType
-    DataSourceCreds:
-      properties: {}
-      additionalProperties: true
-      type: object
-      title: DataSourceCreds
     DataSource:
       properties:
         _owner:
@@ -286,6 +270,52 @@ components:
       - creds
       - config
       title: DataSource
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DataSourceCreds:
+      properties: {}
+      additionalProperties: true
+      type: object
+      title: DataSourceCreds
+    DataSourceType:
+      type: string
+      enum:
+      - bigquery
+      - s3
+      - duckdb
+      - snowflake
+      - databricks
+      - databricks_warehouse
+      - databricks_volume
+      title: DataSourceType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     DataSourceConfig:
       properties:
         tables:
@@ -310,33 +340,3 @@ components:
       additionalProperties: true
       type: object
       title: DataSourceConfig
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

@@ -7,7 +7,7 @@ tags:
 paths:
   /parse:
     post:
-      summary: ' Parse Route'
+      summary: Parse Route
       operationId: _parse_route_parse_post
       requestBody:
         content:
@@ -33,36 +33,6 @@ paths:
       - Parse
 components:
   schemas:
-    _ParseDatasetRequestPayload:
-      properties:
-        datasetId:
-          type: string
-          title: Datasetid
-        filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filename
-        path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Path
-        fileSize:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Filesize
-        flowId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Flowid
-      additionalProperties: true
-      type: object
-      required:
-      - datasetId
-      title: _ParseDatasetRequestPayload
     HTTPValidationError:
       properties:
         detail:
@@ -93,3 +63,33 @@ components:
       - msg
       - type
       title: ValidationError
+    _ParseDatasetRequestPayload:
+      properties:
+        datasetId:
+          type: string
+          title: Datasetid
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        fileSize:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Filesize
+        flowId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Flowid
+      additionalProperties: true
+      type: object
+      required:
+      - datasetId
+      title: _ParseDatasetRequestPayload

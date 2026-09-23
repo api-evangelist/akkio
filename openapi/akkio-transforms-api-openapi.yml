@@ -9,7 +9,7 @@ paths:
     post:
       tags:
       - Transforms
-      summary: ' Handle New Transform'
+      summary: Handle New Transform
       description: Initialize a transform. We'll return a task_id that you can use to check the status of the transform. You can also retrieve a task_id for a currently running transform via the flow_id, which enables us to support people leaving and coming back to the transform.
       operationId: _handle_new_transform_transforms_new_post
       requestBody:
@@ -35,7 +35,7 @@ paths:
     get:
       tags:
       - Transforms
-      summary: ' Handle Get Most Recent Task Id By Flow Id'
+      summary: Handle Get Most Recent Task Id By Flow Id
       description: Get the most recent task_id of a transform run on this dataset. You can then use this to look up the status of it, and from there the result.
       operationId: _handle_get_most_recent_task_id_by_flow_id_transforms_get_most_recent_task_id_by_dataset_id_get
       responses:
@@ -52,7 +52,7 @@ paths:
     get:
       tags:
       - Transforms
-      summary: ' Handle Transform Status'
+      summary: Handle Transform Status
       description: Query the status of a currently running transform. If complete, the location of a result will be provided -- query that location with a GET to receive the result. If failed, the error will be provided.
       operationId: _handle_transform_status_transforms_status__task_id__get
       parameters:
@@ -79,7 +79,7 @@ paths:
     get:
       tags:
       - Transforms
-      summary: ' Handle Transform Result'
+      summary: Handle Transform Result
       description: Get the result of the transform performed under the given task_id.
       operationId: _handle_transform_result_transforms_results__task_id__get
       parameters:
@@ -103,41 +103,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    APIStatusMetadataSucceeded:
-      properties:
-        type:
-          type: string
-          enum:
-          - SUCCEEDED
-          const: SUCCEEDED
-          title: Type
-          default: SUCCEEDED
-        location:
-          type: string
-          title: Location
-          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
-      additionalProperties: true
-      type: object
-      required:
-      - location
-      title: APIStatusMetadataSucceeded
-    APIStatusMetadataFailed:
-      properties:
-        type:
-          type: string
-          enum:
-          - FAILED
-          const: FAILED
-          title: Type
-          default: FAILED
-        error:
-          type: string
-          title: Error
-          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
-          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataFailed
     APIStatusResponse:
       properties:
         status:
@@ -164,48 +129,6 @@ components:
       - status
       - metadata
       title: APIStatusResponse
-    TaskStatusEnum:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - SUCCEEDED
-      - FAILED
-      - UNKNOWN_TIMEOUT
-      title: TaskStatusEnum
-      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
-    APITaskStartedResponse:
-      properties:
-        task_id:
-          type: string
-          title: Task Id
-          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
-      additionalProperties: true
-      type: object
-      required:
-      - task_id
-      title: APITaskStartedResponse
-    APIStatusMetadataPending:
-      properties:
-        type:
-          type: string
-          enum:
-          - PENDING
-          const: PENDING
-          title: Type
-          default: PENDING
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataPending
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -245,3 +168,80 @@ components:
       additionalProperties: true
       type: object
       title: APIStatusMetadataInProgress
+    APITaskStartedResponse:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - task_id
+      title: APITaskStartedResponse
+    APIStatusMetadataSucceeded:
+      properties:
+        type:
+          type: string
+          enum:
+          - SUCCEEDED
+          const: SUCCEEDED
+          title: Type
+          default: SUCCEEDED
+        location:
+          type: string
+          title: Location
+          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
+      additionalProperties: true
+      type: object
+      required:
+      - location
+      title: APIStatusMetadataSucceeded
+    APIStatusMetadataFailed:
+      properties:
+        type:
+          type: string
+          enum:
+          - FAILED
+          const: FAILED
+          title: Type
+          default: FAILED
+        error:
+          type: string
+          title: Error
+          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
+          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataFailed
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.

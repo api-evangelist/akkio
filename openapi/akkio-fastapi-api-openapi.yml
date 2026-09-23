@@ -7,7 +7,7 @@ tags:
 paths:
   /:
     get:
-      summary: ' Request Route Get'
+      summary: Request Route Get
       operationId: _request_route_get__get
       requestBody:
         content:
@@ -31,7 +31,7 @@ paths:
       tags:
       - FastAPI
     post:
-      summary: ' Request Route Post'
+      summary: Request Route Post
       operationId: _request_route_post__post
       requestBody:
         content:

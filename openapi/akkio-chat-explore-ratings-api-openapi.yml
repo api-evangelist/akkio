@@ -32,64 +32,27 @@ paths:
       - Chat Explore Ratings
 components:
   schemas:
-    Render:
+    ValidationError:
       properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
         type:
           type: string
-          title: Type
-        chart_filter:
-          type: object
-          title: Chart Filter
-        sql_metadata:
-          type: object
-          title: Sql Metadata
-        title:
-          type: string
-          title: Title
-          default: ''
-        description:
-          type: string
-          title: Description
-          default: ''
-        data:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Data
-        download_path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Download Path
-        transformed_data:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Transformed Data
-        sources:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Sources
-        view:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: View
-        column_metadata:
-          anyOf:
-          - additionalProperties:
-              additionalProperties:
-                type: string
-              type: object
-            type: object
-          - type: 'null'
-          title: Column Metadata
-      additionalProperties: true
+          title: Error Type
       type: object
       required:
+      - loc
+      - msg
       - type
-      title: Render
+      title: ValidationError
     ChatMessage:
       properties:
         role:
@@ -183,27 +146,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     Rating:
       properties:
         id:
@@ -274,3 +216,61 @@ components:
       - message_index
       - rating
       title: Rating
+    Render:
+      properties:
+        type:
+          type: string
+          title: Type
+        chart_filter:
+          type: object
+          title: Chart Filter
+        sql_metadata:
+          type: object
+          title: Sql Metadata
+        title:
+          type: string
+          title: Title
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        download_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Download Path
+        transformed_data:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Transformed Data
+        sources:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Sources
+        view:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: View
+        column_metadata:
+          anyOf:
+          - additionalProperties:
+              additionalProperties:
+                type: string
+              type: object
+            type: object
+          - type: 'null'
+          title: Column Metadata
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      title: Render

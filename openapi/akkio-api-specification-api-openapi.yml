@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Akkio API Specification API
+  title: Fast API Specification API
   version: 0.1.0
-  description: 'Operations tagged API Specification across 2 of this provider''s published API definitions: akkio-platform-api-openapi.json, akkio-public-api-openapi.yaml. Each path carries the servers of the definition it was published in.'
 tags:
 - name: API Specification
 paths:
@@ -10,7 +9,7 @@ paths:
     get:
       tags:
       - API Specification
-      summary: ' Get Openapi Yaml Representation'
+      summary: Get Openapi Yaml Representation
       description: YAML OpenAPI specification for this API's public endpoints.
       operationId: _get_openapi_yaml_representation_api_v1_api_yaml_get
       responses:
@@ -23,7 +22,7 @@ paths:
     get:
       tags:
       - API Specification
-      summary: ' Openapi Ui'
+      summary: Openapi Ui
       description: Swagger UI for Akkio's API. See `/api.yaml` or `/api.json` for the raw file that you can do code generation on.
       operationId: _openapi_ui_api_v1_docs_get
       responses:
@@ -32,6 +31,3 @@ paths:
           content:
             application/json:
               schema: {}
-x-refined-from:
-- akkio-platform-api-openapi.json
-- akkio-public-api-openapi.yaml

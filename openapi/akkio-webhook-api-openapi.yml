@@ -7,7 +7,7 @@ tags:
 paths:
   /webhook/shopify/customer-data-request:
     post:
-      summary: ' Handle Customer Data'
+      summary: Handle Customer Data
       operationId: _handle_customer_data_webhook_shopify_customer_data_request_post
       requestBody:
         content:
@@ -30,7 +30,7 @@ paths:
       - Webhook
   /webhook/shopify/customer-deletion-request:
     post:
-      summary: ' Handle Customer Deletion'
+      summary: Handle Customer Deletion
       operationId: _handle_customer_deletion_webhook_shopify_customer_deletion_request_post
       requestBody:
         content:
@@ -53,7 +53,7 @@ paths:
       - Webhook
   /webhook/shopify/shop-deletion-request:
     post:
-      summary: ' Handle Shop Deletion'
+      summary: Handle Shop Deletion
       operationId: _handle_shop_deletion_webhook_shopify_shop_deletion_request_post
       requestBody:
         content:

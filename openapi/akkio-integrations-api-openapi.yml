@@ -369,7 +369,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Databases'
+      summary: Databases
       description: List all databases available to a given user
       operationId: _databases_integrations_introspect_mysql_databases_post
       requestBody:
@@ -398,7 +398,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Tables'
+      summary: Tables
       description: List all tables available to a given user/database/schema
       operationId: _tables_integrations_introspect_mysql_tables_post
       requestBody:
@@ -427,7 +427,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Schemas'
+      summary: Schemas
       description: List all schemas available to a given user/databse
       operationId: _schemas_integrations_introspect_postgres_schemas_post
       requestBody:
@@ -456,7 +456,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Tables'
+      summary: Tables
       description: List all tables available to a given user/databae/schema
       operationId: _tables_integrations_introspect_postgres_tables_post
       requestBody:
@@ -485,7 +485,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Databases'
+      summary: Databases
       description: List all databases available to a given user
       operationId: _databases_integrations_introspect_snowflake_databases_post
       requestBody:
@@ -514,7 +514,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Schemas'
+      summary: Schemas
       description: List all schemas available to a given user/databse
       operationId: _schemas_integrations_introspect_snowflake_schemas_post
       requestBody:
@@ -543,7 +543,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Tables'
+      summary: Tables
       description: List all tables available to a given user/databae/schema
       operationId: _tables_integrations_introspect_snowflake_tables_post
       requestBody:
@@ -758,7 +758,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Controller Introspect Properties'
+      summary: Controller Introspect Properties
       operationId: _controller_introspect_properties_integrations_introspect_hubspot__object_type__properties_post
       parameters:
       - name: object_type
@@ -793,7 +793,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Controller Handle Create Connection'
+      summary: Controller Handle Create Connection
       description: Create a new connection, with properly encrypted creds
       operationId: _controller_handle_create_connection_integrations_connections_create_post
       requestBody:
@@ -820,7 +820,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Controller Handle Introspect Connection'
+      summary: Controller Handle Introspect Connection
       description: Introspects a connection, returning a list of all tables present in that connection.
       operationId: _controller_handle_introspect_connection_integrations_introspect_connection_post
       requestBody:
@@ -849,7 +849,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Controller Handle Introspect Connection Id'
+      summary: Controller Handle Introspect Connection Id
       description: Introspects a preexisting connection (specified by id), returning a list of all tables present in that connection. This is useful for reusing connection information, which otherwise would need to retrieve full connection information in the frontend (not a pattern we want to encourage).
       operationId: _controller_handle_introspect_connection_id_integrations_introspect_connection_id__connection_id__post
       parameters:
@@ -879,7 +879,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Controller Handle Introspect Table'
+      summary: Controller Handle Introspect Table
       description: Introspects a table, provided the flow we're working in for necessary credentials context.
       operationId: _controller_handle_introspect_table_integrations_introspect_table_post
       requestBody:
@@ -905,7 +905,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Controller Handle Commit Import'
+      summary: Controller Handle Commit Import
       description: Performs an ad-hoc import and persists anything needed for dataset refreshes to trigger. We return the dataset_id, which the frontend uses to direct the user to the proper place.
       operationId: _controller_handle_commit_import_integrations_commit_import_post
       requestBody:
@@ -932,7 +932,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Controller Handle Preview Predict'
+      summary: Controller Handle Preview Predict
       description: Represents a user providing connection details and a table of interest, and us giving them a preview of what the data transform looks like. The user is expected to follow this up with a "Predict Commit" request representing a user asking for an ad-hoc import and persistent prediction schedule.
       operationId: _controller_handle_preview_predict_integrations_preview_predict_post
       requestBody:
@@ -958,7 +958,7 @@ paths:
     post:
       tags:
       - Integrations
-      summary: ' Controller Handle Commit Predict'
+      summary: Controller Handle Commit Predict
       description: Represents a user formally submitting an ad-hoc import and persistent prediction schedule.
       operationId: _controller_handle_commit_predict_integrations_commit_predict_post
       requestBody:
@@ -981,55 +981,65 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    src__integrations__mysql__models__Credentials:
+    src__integrations__mysql__models__IntrospectDatabasesPayload:
       properties:
-        host:
-          type: string
-          title: Host
-          description: Host URL
-        username:
-          type: string
-          title: Username
-          description: Username
-        password:
-          type: string
-          title: Password
-          description: Password
-        port:
+        credentials:
           anyOf:
-          - type: integer
+          - $ref: '#/components/schemas/src__integrations__mysql__models__Credentials'
           - type: 'null'
-          title: Port
-          description: Port
-          default: 3306
-        is_ssl:
-          type: boolean
-          title: Is Ssl
-          description: Whether to use SSL
+          description: Credentials to introspect/validate
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to introspect/validate
       additionalProperties: true
       type: object
-      required:
-      - host
-      - username
-      - password
-      - is_ssl
-      title: Credentials
-    MetaIntrospectionAccount:
+      title: IntrospectDatabasesPayload
+    ValidationError:
       properties:
-        id:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Id
-          description: The ID of the account.
-        name:
+          title: Message
+        type:
           type: string
-          title: Name
-          description: The name of the account.
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    src__integrations__mysql__models__IntrospectTablesPayload:
+      properties:
+        credentials:
+          anyOf:
+          - $ref: '#/components/schemas/src__integrations__mysql__models__Credentials'
+          - type: 'null'
+          description: Credentials to introspect/validate
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to introspect/validate
+        database:
+          type: string
+          title: Database
+          description: Database to introspect
       additionalProperties: true
       type: object
       required:
-      - id
-      - name
-      title: MetaIntrospectionAccount
+      - database
+      title: IntrospectTablesPayload
     src__integrations__snowflake__models__Credentials:
       properties:
         account:
@@ -1062,75 +1072,58 @@ components:
       - password
       - warehouse
       title: Credentials
-    src__integrations__postgres__models__Credentials:
+    LinkedInIntrospectionAccount:
       properties:
-        database:
+        id:
           type: string
-          title: Database
-          description: Database name
-        host:
+          title: Id
+          description: The ID of the account.
+        name:
           type: string
-          title: Host
-          description: Host
-        username:
-          type: string
-          title: Username
-          description: Username
-        password:
-          type: string
-          title: Password
-          description: Password
-        port:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Port
-          description: Port
+          title: Name
+          description: The name of the account.
       additionalProperties: true
       type: object
       required:
-      - database
-      - host
-      - username
-      - password
-      title: Credentials
-    src__integrations__postgres__models__IntrospectSchemasPayload:
+      - id
+      - name
+      title: LinkedInIntrospectionAccount
+    MetaIntrospectionAccount:
       properties:
-        credentials:
-          anyOf:
-          - $ref: '#/components/schemas/src__integrations__postgres__models__Credentials'
-          - type: 'null'
-          description: Credentials to introspect/validate
-        connection_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Connection Id
-          description: Connection ID to introspect/validate
+        id:
+          type: string
+          title: Id
+          description: The ID of the account.
+        name:
+          type: string
+          title: Name
+          description: The name of the account.
       additionalProperties: true
       type: object
-      title: IntrospectSchemasPayload
-    ValidationError:
+      required:
+      - id
+      - name
+      title: MetaIntrospectionAccount
+    ReportConfig:
       properties:
-        loc:
+        metrics:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            type: string
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Metrics
+          description: List of metrics to include in the report
+        dimensions:
+          items:
+            type: string
+          type: array
+          title: Dimensions
+          description: List of dimentions to include in the report
+      additionalProperties: true
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - metrics
+      - dimensions
+      title: ReportConfig
     src__integrations__postgres__models__IntrospectTablesPayload:
       properties:
         credentials:
@@ -1153,44 +1146,6 @@ components:
       required:
       - schema
       title: IntrospectTablesPayload
-    src__integrations__mysql__models__IntrospectTablesPayload:
-      properties:
-        credentials:
-          anyOf:
-          - $ref: '#/components/schemas/src__integrations__mysql__models__Credentials'
-          - type: 'null'
-          description: Credentials to introspect/validate
-        connection_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Connection Id
-          description: Connection ID to introspect/validate
-        database:
-          type: string
-          title: Database
-          description: Database to introspect
-      additionalProperties: true
-      type: object
-      required:
-      - database
-      title: IntrospectTablesPayload
-    LinkedInIntrospectionAccount:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: The ID of the account.
-        name:
-          type: string
-          title: Name
-          description: The name of the account.
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - name
-      title: LinkedInIntrospectionAccount
     GoogleAdsIntrospectionAccount:
       properties:
         id:
@@ -1233,7 +1188,7 @@ components:
       - name
       - is_manager
       title: GoogleAdsIntrospectionAccount
-    src__integrations__snowflake__models__IntrospectTablesPayload:
+    src__integrations__snowflake__models__IntrospectDatabasesPayload:
       properties:
         credentials:
           anyOf:
@@ -1246,40 +1201,58 @@ components:
           - type: 'null'
           title: Connection Id
           description: Connection ID to introspect/validate
-        database:
-          type: string
-          title: Database
-          description: Database to introspect
-        schema:
-          type: string
-          title: Schema
-          description: Schema to introspect
       additionalProperties: true
       type: object
-      required:
-      - database
-      - schema
-      title: IntrospectTablesPayload
-    ReportConfig:
+      title: IntrospectDatabasesPayload
+    src__integrations__mysql__models__Credentials:
       properties:
-        metrics:
-          items:
-            type: string
-          type: array
-          title: Metrics
-          description: List of metrics to include in the report
-        dimensions:
-          items:
-            type: string
-          type: array
-          title: Dimensions
-          description: List of dimentions to include in the report
+        host:
+          type: string
+          title: Host
+          description: Host URL
+        username:
+          type: string
+          title: Username
+          description: Username
+        password:
+          type: string
+          title: Password
+          description: Password
+        port:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Port
+          description: Port
+          default: 3306
+        is_ssl:
+          type: boolean
+          title: Is Ssl
+          description: Whether to use SSL
       additionalProperties: true
       type: object
       required:
-      - metrics
-      - dimensions
-      title: ReportConfig
+      - host
+      - username
+      - password
+      - is_ssl
+      title: Credentials
+    src__integrations__postgres__models__IntrospectSchemasPayload:
+      properties:
+        credentials:
+          anyOf:
+          - $ref: '#/components/schemas/src__integrations__postgres__models__Credentials'
+          - type: 'null'
+          description: Credentials to introspect/validate
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to introspect/validate
+      additionalProperties: true
+      type: object
+      title: IntrospectSchemasPayload
     HTTPValidationError:
       properties:
         detail:
@@ -1311,23 +1284,39 @@ components:
       required:
       - database
       title: IntrospectSchemasPayload
-    src__integrations__mysql__models__IntrospectDatabasesPayload:
+    src__integrations__postgres__models__Credentials:
       properties:
-        credentials:
+        database:
+          type: string
+          title: Database
+          description: Database name
+        host:
+          type: string
+          title: Host
+          description: Host
+        username:
+          type: string
+          title: Username
+          description: Username
+        password:
+          type: string
+          title: Password
+          description: Password
+        port:
           anyOf:
-          - $ref: '#/components/schemas/src__integrations__mysql__models__Credentials'
+          - type: integer
           - type: 'null'
-          description: Credentials to introspect/validate
-        connection_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Connection Id
-          description: Connection ID to introspect/validate
+          title: Port
+          description: Port
       additionalProperties: true
       type: object
-      title: IntrospectDatabasesPayload
-    src__integrations__snowflake__models__IntrospectDatabasesPayload:
+      required:
+      - database
+      - host
+      - username
+      - password
+      title: Credentials
+    src__integrations__snowflake__models__IntrospectTablesPayload:
       properties:
         credentials:
           anyOf:
@@ -1340,130 +1329,20 @@ components:
           - type: 'null'
           title: Connection Id
           description: Connection ID to introspect/validate
-      additionalProperties: true
-      type: object
-      title: IntrospectDatabasesPayload
-    HubSpotPropertyInfo:
-      properties:
-        name:
+        database:
           type: string
-          title: Name
-          description: Name of the property
-        label:
-          type: string
-          title: Label
-          description: Label of the property
-        hubspot_defined:
-          type: boolean
-          title: Hubspot Defined
-          description: Whether the property is defined by HubSpot
-        hidden:
-          type: boolean
-          title: Hidden
-          description: Whether the property is marked as 'hidden' in HubSpot
-      additionalProperties: true
-      type: object
-      required:
-      - name
-      - label
-      - hubspot_defined
-      - hidden
-      title: HubSpotPropertyInfo
-    PreviewPredictResponse:
-      properties:
-        dataset_id:
-          type: string
-          title: Dataset Id
-          description: Dataset created during the preview process.
-        input_table_specifier_id:
-          type: string
-          title: Input Table Specifier Id
-          description: The table specifier of where the source data for predictions is.
-        target_table_specifier_id:
-          type: string
-          title: Target Table Specifier Id
-          description: The table specifier of where we'll be placing predictions.
-      additionalProperties: true
-      type: object
-      required:
-      - dataset_id
-      - input_table_specifier_id
-      - target_table_specifier_id
-      title: PreviewPredictResponse
-    Table:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: Name of the table.
+          title: Database
+          description: Database to introspect
         schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Schema
-          description: Schema of the table. Only provided for sources that have some concept of a 'wrapper' schema.
-        columns:
-          items:
-            $ref: '#/components/schemas/Column'
-          type: array
-          title: Columns
-          description: List of columns in the table.
-      additionalProperties: true
-      type: object
-      required:
-      - name
-      - columns
-      title: Table
-    CommitPredictPayload:
-      properties:
-        flow_id:
           type: string
-          title: Flow Id
-          description: Flow ID these predictions will be run off of. Important to specify because this is how we track down the exact model we'll use for predictions.
-        connection_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Connection Id
-          description: Connection ID to use for credentials. If not provided, we use the connection attached to the flow (older meltano deployments)] = None.
-        specifier:
-          additionalProperties:
-            type: string
-          type: object
-          title: Specifier
-          description: The specifier specifying the table where we'll be importing data from. For now, we derive the output table name from this table rather than allowing user-specified output table names.
-        mappings:
-          additionalProperties:
-            type: string
-          type: object
-          title: Mappings
-          description: Field mappings, useful incase you are trying to run on a table with the same information but different column names. Keys of the object are keys on the table we'll be running predictions on, Values of the object are keys on our training table.
-          default: {}
-        blocking:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Blocking
-          description: Whether or not to block until full job is done. For backwards compatbility with old UI
-          default: false
-        step_title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Title
-          description: Which deployment user-friendly name (Snowflake, Postgres, etc) is running
-        step_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Step Key
-          description: Which deployment key (postgre-sql-output, etc) is running
+          title: Schema
+          description: Schema to introspect
       additionalProperties: true
       type: object
       required:
-      - flow_id
-      - specifier
-      title: CommitPredictPayload
+      - database
+      - schema
+      title: IntrospectTablesPayload
     ConnectionPayload:
       properties:
         _owner:
@@ -1533,6 +1412,158 @@ components:
       - flow_id
       - specifier
       title: PreviewPredictPayload
+    OAuthConnectionPayload:
+      properties:
+        _owner:
+          type: string
+          title: ' Owner'
+          description: ID of user that created this entry.
+        _org:
+          type: string
+          title: ' Org'
+          description: ID of user's active organization when creating this entry.
+        validated:
+          type: boolean
+          title: Validated
+          description: Whether we've tested and validated these credentials actually work. Relevant due to us persisting credentials *before* we attempt imports (rather than how we used to do it, after) to help with bug triage, particularly when errors occur during the initial `/commit/import` call and not during the followup task doing the actual import.
+          default: true
+        config:
+          type: object
+          title: Config
+          description: JSON object specifying config on the connection. This is a value whose format WE specify; it needs to have enough information that we can map it to either a Meltano extractor or loader, but is fully distinct from either of those concepts. Avoiding coupling both this and table specifiers to whether they are pulling data in or sending data out is very useful and gives us very powerful generalization capabilities.
+        oauth_connection_id:
+          type: string
+          title: Oauth Connection Id
+          description: The pre-existing oauth connection to use
+      additionalProperties: true
+      type: object
+      required:
+      - _owner
+      - _org
+      - config
+      - oauth_connection_id
+      title: OAuthConnectionPayload
+    Table:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name of the table.
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Schema
+          description: Schema of the table. Only provided for sources that have some concept of a 'wrapper' schema.
+        columns:
+          items:
+            $ref: '#/components/schemas/Column'
+          type: array
+          title: Columns
+          description: List of columns in the table.
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      - columns
+      title: Table
+    PreviewPredictResponse:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+          description: Dataset created during the preview process.
+        input_table_specifier_id:
+          type: string
+          title: Input Table Specifier Id
+          description: The table specifier of where the source data for predictions is.
+        target_table_specifier_id:
+          type: string
+          title: Target Table Specifier Id
+          description: The table specifier of where we'll be placing predictions.
+      additionalProperties: true
+      type: object
+      required:
+      - dataset_id
+      - input_table_specifier_id
+      - target_table_specifier_id
+      title: PreviewPredictResponse
+    HubSpotPropertyInfo:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name of the property
+        label:
+          type: string
+          title: Label
+          description: Label of the property
+        hubspot_defined:
+          type: boolean
+          title: Hubspot Defined
+          description: Whether the property is defined by HubSpot
+        hidden:
+          type: boolean
+          title: Hidden
+          description: Whether the property is marked as 'hidden' in HubSpot
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      - label
+      - hubspot_defined
+      - hidden
+      title: HubSpotPropertyInfo
+    CommitPredictPayload:
+      properties:
+        flow_id:
+          type: string
+          title: Flow Id
+          description: Flow ID these predictions will be run off of. Important to specify because this is how we track down the exact model we'll use for predictions.
+        connection_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connection Id
+          description: Connection ID to use for credentials. If not provided, we use the connection attached to the flow (older meltano deployments)] = None.
+        specifier:
+          additionalProperties:
+            type: string
+          type: object
+          title: Specifier
+          description: The specifier specifying the table where we'll be importing data from. For now, we derive the output table name from this table rather than allowing user-specified output table names.
+        mappings:
+          additionalProperties:
+            type: string
+          type: object
+          title: Mappings
+          description: Field mappings, useful incase you are trying to run on a table with the same information but different column names. Keys of the object are keys on the table we'll be running predictions on, Values of the object are keys on our training table.
+          default: {}
+        blocking:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Blocking
+          description: Whether or not to block until full job is done. For backwards compatbility with old UI
+          default: false
+        step_title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Title
+          description: Which deployment user-friendly name (Snowflake, Postgres, etc) is running
+        step_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Step Key
+          description: Which deployment key (postgre-sql-output, etc) is running
+      additionalProperties: true
+      type: object
+      required:
+      - flow_id
+      - specifier
+      title: CommitPredictPayload
     CommitImportPayload:
       properties:
         flow_id:
@@ -1571,27 +1602,6 @@ components:
       - connection
       - specifier
       title: CommitImportPayload
-    IntrospectConnectionPayload:
-      properties:
-        connection:
-          $ref: '#/components/schemas/ConnectionPayload'
-          description: Payload of the Connection object we'd like to introspect.
-      additionalProperties: true
-      type: object
-      required:
-      - connection
-      title: IntrospectConnectionPayload
-    IntrospectPropertiesPayload:
-      properties:
-        connection_id:
-          type: string
-          title: Connection Id
-          description: ID of the connection to introspect
-      additionalProperties: true
-      type: object
-      required:
-      - connection_id
-      title: IntrospectPropertiesPayload
     IntrospectTablePayload:
       properties:
         flow_id:
@@ -1622,37 +1632,6 @@ components:
       - flow_id
       - specifier
       title: IntrospectTablePayload
-    OAuthConnectionPayload:
-      properties:
-        _owner:
-          type: string
-          title: ' Owner'
-          description: ID of user that created this entry.
-        _org:
-          type: string
-          title: ' Org'
-          description: ID of user's active organization when creating this entry.
-        validated:
-          type: boolean
-          title: Validated
-          description: Whether we've tested and validated these credentials actually work. Relevant due to us persisting credentials *before* we attempt imports (rather than how we used to do it, after) to help with bug triage, particularly when errors occur during the initial `/commit/import` call and not during the followup task doing the actual import.
-          default: true
-        config:
-          type: object
-          title: Config
-          description: JSON object specifying config on the connection. This is a value whose format WE specify; it needs to have enough information that we can map it to either a Meltano extractor or loader, but is fully distinct from either of those concepts. Avoiding coupling both this and table specifiers to whether they are pulling data in or sending data out is very useful and gives us very powerful generalization capabilities.
-        oauth_connection_id:
-          type: string
-          title: Oauth Connection Id
-          description: The pre-existing oauth connection to use
-      additionalProperties: true
-      type: object
-      required:
-      - _owner
-      - _org
-      - config
-      - oauth_connection_id
-      title: OAuthConnectionPayload
     Column:
       properties:
         name:
@@ -1664,3 +1643,24 @@ components:
       required:
       - name
       title: Column
+    IntrospectConnectionPayload:
+      properties:
+        connection:
+          $ref: '#/components/schemas/ConnectionPayload'
+          description: Payload of the Connection object we'd like to introspect.
+      additionalProperties: true
+      type: object
+      required:
+      - connection
+      title: IntrospectConnectionPayload
+    IntrospectPropertiesPayload:
+      properties:
+        connection_id:
+          type: string
+          title: Connection Id
+          description: ID of the connection to introspect
+      additionalProperties: true
+      type: object
+      required:
+      - connection_id
+      title: IntrospectPropertiesPayload

@@ -3,12 +3,12 @@ info:
   title: Fast Admin API
   version: 0.1.0
 tags:
-- name: admin
+- name: Admin
 paths:
   /admin/llm/default_model:
     get:
       tags:
-      - admin
+      - Admin
       summary: Llm Default Model
       description: Get default LLM model
       operationId: llm_default_model_admin_llm_default_model_get
@@ -38,7 +38,7 @@ paths:
   /admin/llm/models:
     get:
       tags:
-      - admin
+      - Admin
       summary: Models
       description: Get all models config
       operationId: models_admin_llm_models_get

@@ -32,15 +32,24 @@ paths:
       - Cluster Suggestions
 components:
   schemas:
-    HTTPValidationError:
+    ClusterSuggestionsResponsePayload:
       properties:
-        detail:
+        categories:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            type: string
           type: array
-          title: Detail
+          title: Categories
+        on_columns:
+          items:
+            type: string
+          type: array
+          title: On Columns
+      additionalProperties: true
       type: object
-      title: HTTPValidationError
+      required:
+      - categories
+      - on_columns
+      title: ClusterSuggestionsResponsePayload
     ClusterSuggestionsRequestPayload:
       properties:
         datasetId:
@@ -66,24 +75,6 @@ components:
       required:
       - datasetId
       title: ClusterSuggestionsRequestPayload
-    ClusterSuggestionsResponsePayload:
-      properties:
-        categories:
-          items:
-            type: string
-          type: array
-          title: Categories
-        on_columns:
-          items:
-            type: string
-          type: array
-          title: On Columns
-      additionalProperties: true
-      type: object
-      required:
-      - categories
-      - on_columns
-      title: ClusterSuggestionsResponsePayload
     ValidationError:
       properties:
         loc:
@@ -105,3 +96,12 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

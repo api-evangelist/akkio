@@ -177,6 +177,21 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    _SlackErrorCodes:
+      type: string
+      enum:
+      - access_denied
+      const: access_denied
+      title: _SlackErrorCodes
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     _CreateChannelPayload:
       properties:
         flow_id:
@@ -195,27 +210,6 @@ components:
       - dataset_id
       - owner_id
       title: _CreateChannelPayload
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     SlackChannelMapping:
       properties:
         id:
@@ -243,15 +237,6 @@ components:
       - slack_channel_id
       - slack_channel_name
       title: SlackChannelMapping
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     PayloadResponseGetDatasetMapping:
       properties:
         exists:
@@ -266,9 +251,24 @@ components:
       required:
       - exists
       title: PayloadResponseGetDatasetMapping
-    _SlackErrorCodes:
-      type: string
-      enum:
-      - access_denied
-      const: access_denied
-      title: _SlackErrorCodes
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

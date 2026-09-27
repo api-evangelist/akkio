@@ -32,15 +32,16 @@ paths:
       - Dashboard Name
 components:
   schemas:
-    HTTPValidationError:
+    DashboardNameResponsePayload:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        name:
+          type: string
+          title: Name
+      additionalProperties: true
       type: object
-      title: HTTPValidationError
+      required:
+      - name
+      title: DashboardNameResponsePayload
     DashboardNameRequestPayload:
       properties:
         chart_names:
@@ -74,13 +75,12 @@ components:
       - msg
       - type
       title: ValidationError
-    DashboardNameResponsePayload:
+    HTTPValidationError:
       properties:
-        name:
-          type: string
-          title: Name
-      additionalProperties: true
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - name
-      title: DashboardNameResponsePayload
+      title: HTTPValidationError

@@ -84,9 +84,7 @@
     "akkio-platform-one-api-openapi.yml",
     "akkio-segment-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -288,8 +286,7 @@
     "akkio-platform-api-openapi.json: declared missing tag: modeling",
     "akkio-platform-api-openapi.json: declared missing tag: platform-one",
     "akkio-platform-api-openapi.json: declared missing tag: segment",
-    "superseded outputs removed: akkio-o-auth-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 78 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "_original/akkio-public-api-openapi.yaml: archived document superseded by a larger archived document",
@@ -348,7 +345,7 @@
     "akkio-modeling-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "akkio-models-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "akkio-nonce-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "akkio-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "akkio-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "akkio-parse-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "akkio-platform-one-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "akkio-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",

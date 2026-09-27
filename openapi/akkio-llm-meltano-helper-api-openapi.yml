@@ -34,26 +34,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ParseErrorPayload:
-      properties:
-        error_msg:
-          type: string
-          title: Error Msg
-          description: Meltano raw error message
-      additionalProperties: true
-      type: object
-      required:
-      - error_msg
-      title: ParseErrorPayload
     ValidationError:
       properties:
         loc:
@@ -75,3 +55,23 @@ components:
       - msg
       - type
       title: ValidationError
+    ParseErrorPayload:
+      properties:
+        error_msg:
+          type: string
+          title: Error Msg
+          description: Meltano raw error message
+      additionalProperties: true
+      type: object
+      required:
+      - error_msg
+      title: ParseErrorPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

@@ -96,36 +96,6 @@ paths:
                 type: object
 components:
   schemas:
-    PredictionResult:
-      type: object
-      additionalProperties: true
-    CreateModelRequest:
-      type: object
-      required:
-      - api_key
-      - dataset_id
-      - predict_fields
-      properties:
-        api_key:
-          type: string
-        dataset_id:
-          type: string
-        predict_fields:
-          type: array
-          items:
-            type: string
-          description: Column(s) the model should learn to predict.
-        ignore_fields:
-          type: array
-          items:
-            type: string
-        extra_attention:
-          type: boolean
-          default: false
-        duration:
-          type: integer
-          default: 10
-          description: Training budget in minutes.
     PredictionRequest:
       type: object
       required:
@@ -154,6 +124,36 @@ components:
           type: string
         dataset_id:
           type: string
+    CreateModelRequest:
+      type: object
+      required:
+      - api_key
+      - dataset_id
+      - predict_fields
+      properties:
+        api_key:
+          type: string
+        dataset_id:
+          type: string
+        predict_fields:
+          type: array
+          items:
+            type: string
+          description: Column(s) the model should learn to predict.
+        ignore_fields:
+          type: array
+          items:
+            type: string
+        extra_attention:
+          type: boolean
+          default: false
+        duration:
+          type: integer
+          default: 10
+          description: Training budget in minutes.
+    PredictionResult:
+      type: object
+      additionalProperties: true
   securitySchemes:
     apiKeyQuery:
       type: apiKey

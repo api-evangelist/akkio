@@ -123,27 +123,6 @@ paths:
       - Entertainment Suite
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     BuildTrendsPayload:
       properties:
         timeframe:
@@ -216,6 +195,25 @@ components:
       - audience_id
       - plot_type
       title: BuildAnalyticsPlotPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BuildTrendsReflectionPayload:
+      properties:
+        trend_id:
+          type: string
+          title: Trend Id
+      additionalProperties: true
+      type: object
+      required:
+      - trend_id
+      title: BuildTrendsReflectionPayload
     ESuiteTimeframe:
       properties:
         start_date:
@@ -232,34 +230,6 @@ components:
       - start_date
       - end_date
       title: ESuiteTimeframe
-    ESuiteAnalyticsPlotType:
-      type: string
-      enum:
-      - SOURCE_TO_DESTINATION
-      - COMBINATION
-      - PURCHASE_BEHAVIOR_CATEGORY
-      - PURCHASE_BEHAVIOR_BRAND
-      - MINUTE_BY_MINUTE
-      title: ESuiteAnalyticsPlotType
-    BuildTrendsReflectionPayload:
-      properties:
-        trend_id:
-          type: string
-          title: Trend Id
-      additionalProperties: true
-      type: object
-      required:
-      - trend_id
-      title: BuildTrendsReflectionPayload
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     BuildAnalyticsSummaryPayload:
       properties:
         trend_id:
@@ -277,3 +247,33 @@ components:
       - trend_id
       - analytics_ids
       title: BuildAnalyticsSummaryPayload
+    ESuiteAnalyticsPlotType:
+      type: string
+      enum:
+      - SOURCE_TO_DESTINATION
+      - COMBINATION
+      - PURCHASE_BEHAVIOR_CATEGORY
+      - PURCHASE_BEHAVIOR_BRAND
+      - MINUTE_BY_MINUTE
+      title: ESuiteAnalyticsPlotType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

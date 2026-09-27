@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Fast O Auth API
+  title: Fast OAuth API
   version: 0.1.0
 tags:
 - name: OAuth
@@ -119,15 +119,12 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+    _SlackErrorCodes:
+      type: string
+      enum:
+      - access_denied
+      const: access_denied
+      title: _SlackErrorCodes
     ValidationError:
       properties:
         loc:
@@ -149,9 +146,12 @@ components:
       - msg
       - type
       title: ValidationError
-    _SlackErrorCodes:
-      type: string
-      enum:
-      - access_denied
-      const: access_denied
-      title: _SlackErrorCodes
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

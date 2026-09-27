@@ -73,27 +73,31 @@ paths:
               schema: {}
 components:
   schemas:
-    ValidationError:
+    KnowledgeChatExploreSuggestionsRequestPayload:
       properties:
-        loc:
+        knowledgeDocumentIds:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            type: string
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Knowledgedocumentids
+          description: List of document ids
+        forceRefresh:
+          type: boolean
+          title: Forcerefresh
+          description: ignore cache and re-generate suggestions
+          default: false
+      additionalProperties: true
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - knowledgeDocumentIds
+      title: KnowledgeChatExploreSuggestionsRequestPayload
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
     HTTPValidationError:
       properties:
         detail:
@@ -121,28 +125,24 @@ components:
       required:
       - status
       title: KnowledgeChatExploreSuggestionsResponsePayload
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
-    KnowledgeChatExploreSuggestionsRequestPayload:
+    ValidationError:
       properties:
-        knowledgeDocumentIds:
+        loc:
           items:
-            type: string
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Knowledgedocumentids
-          description: List of document ids
-        forceRefresh:
-          type: boolean
-          title: Forcerefresh
-          description: ignore cache and re-generate suggestions
-          default: false
-      additionalProperties: true
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - knowledgeDocumentIds
-      title: KnowledgeChatExploreSuggestionsRequestPayload
+      - loc
+      - msg
+      - type
+      title: ValidationError

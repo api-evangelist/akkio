@@ -85,6 +85,22 @@ paths:
       - Stats
 components:
   schemas:
+    src__stats__insights__model__Timeframe:
+      properties:
+        timeframe_start:
+          type: string
+          format: date-time
+          title: Timeframe Start
+        timeframe_end:
+          type: string
+          format: date-time
+          title: Timeframe End
+      additionalProperties: true
+      type: object
+      required:
+      - timeframe_start
+      - timeframe_end
+      title: Timeframe
     InsightsPayload:
       properties:
         audience_id:
@@ -112,27 +128,34 @@ components:
       - insight_context
       - filters
       title: InsightsPayload
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TimeframeInsightsPayload:
+      properties:
+        audience_id:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Audience Id
+          description: Audience ID to generate insights for
+        timeframe:
+          $ref: '#/components/schemas/src__stats__insights__model__Timeframe'
+          description: Timeframe to generate insights for
+        insight_group:
+          $ref: '#/components/schemas/InsightGroup'
+          description: Page the request was sent for
+      additionalProperties: true
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - audience_id
+      - timeframe
+      - insight_group
+      title: TimeframeInsightsPayload
     InsightGroup:
       type: array
       enum:
@@ -216,15 +239,6 @@ components:
         - AGE_OF_CHILDREN_IN_HOUSEHOLD
         - HOUSEHOLD_MEDIAN_HOMEVALUE_BY_STATE
       title: InsightGroup
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     InsightContext:
       type: string
       enum:
@@ -268,38 +282,24 @@ components:
       - POI_CHAINS
       - COUNTS
       title: InsightContext
-    TimeframeInsightsPayload:
+    ValidationError:
       properties:
-        audience_id:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Audience Id
-          description: Audience ID to generate insights for
-        timeframe:
-          $ref: '#/components/schemas/src__stats__insights__model__Timeframe'
-          description: Timeframe to generate insights for
-        insight_group:
-          $ref: '#/components/schemas/InsightGroup'
-          description: Page the request was sent for
-      additionalProperties: true
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - audience_id
-      - timeframe
-      - insight_group
-      title: TimeframeInsightsPayload
-    src__stats__insights__model__Timeframe:
-      properties:
-        timeframe_start:
-          type: string
-          format: date-time
-          title: Timeframe Start
-        timeframe_end:
-          type: string
-          format: date-time
-          title: Timeframe End
-      additionalProperties: true
-      type: object
-      required:
-      - timeframe_start
-      - timeframe_end
-      title: Timeframe
+      - loc
+      - msg
+      - type
+      title: ValidationError

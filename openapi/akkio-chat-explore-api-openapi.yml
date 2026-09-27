@@ -680,53 +680,29 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    APIStatusResponse:
+    _ApiBaseChatRecord:
       properties:
-        status:
-          $ref: '#/components/schemas/TaskStatusEnum'
-          description: The current status of the task being queried.
-        metadata:
-          oneOf:
-          - $ref: '#/components/schemas/APIStatusMetadataPending'
-          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
-          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
-          - $ref: '#/components/schemas/APIStatusMetadataFailed'
-          title: Metadata
-          description: Metadata, contextually dependent on the status of the task being queried.
-          discriminator:
-            propertyName: type
-            mapping:
-              FAILED: '#/components/schemas/APIStatusMetadataFailed'
-              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
-              PENDING: '#/components/schemas/APIStatusMetadataPending'
-              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
+        _owner:
+          type: string
+          title: ' Owner'
+          description: Foreign key to the user this object belongs to.
+        _org:
+          type: string
+          title: ' Org'
+          description: Foreign key to the organization this object belongs to.
+        messages:
+          items:
+            $ref: '#/components/schemas/APIChatMessage'
+          type: array
+          title: Messages
+          description: List of messages in the chat.
       additionalProperties: true
       type: object
       required:
-      - status
-      - metadata
-      title: APIStatusResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - _owner
+      - _org
+      - messages
+      title: _ApiBaseChatRecord
     ChatExploreRequestPayload:
       properties:
         project_id:
@@ -761,24 +737,12 @@ components:
       required:
       - messages
       title: ChatExploreRequestPayload
-    APIStatusMetadataInProgress:
-      properties:
-        type:
-          type: string
-          enum:
-          - IN_PROGRESS
-          const: IN_PROGRESS
-          title: Type
-          default: IN_PROGRESS
-        estimate_seconds:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Estimate Seconds
-          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataInProgress
+    RolesEnum:
+      type: string
+      enum:
+      - user
+      - assistant
+      title: RolesEnum
     APITaskStartedResponse:
       properties:
         task_id:
@@ -790,44 +754,6 @@ components:
       required:
       - task_id
       title: APITaskStartedResponse
-    ChatExploreImageFormat:
-      type: string
-      enum:
-      - base64_png
-      - plotly_json
-      title: ChatExploreImageFormat
-    _ApiBaseChatRecord:
-      properties:
-        _owner:
-          type: string
-          title: ' Owner'
-          description: Foreign key to the user this object belongs to.
-        _org:
-          type: string
-          title: ' Org'
-          description: Foreign key to the organization this object belongs to.
-        messages:
-          items:
-            $ref: '#/components/schemas/APIChatMessage'
-          type: array
-          title: Messages
-          description: List of messages in the chat.
-      additionalProperties: true
-      type: object
-      required:
-      - _owner
-      - _org
-      - messages
-      title: _ApiBaseChatRecord
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     APIStatusMetadataSucceeded:
       properties:
         type:
@@ -846,35 +772,41 @@ components:
       required:
       - location
       title: APIStatusMetadataSucceeded
-    APIStatusMetadataFailed:
+    HTTPValidationError:
       properties:
-        type:
-          type: string
-          enum:
-          - FAILED
-          const: FAILED
-          title: Type
-          default: FAILED
-        error:
-          type: string
-          title: Error
-          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
-          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    APIStatusResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/TaskStatusEnum'
+          description: The current status of the task being queried.
+        metadata:
+          oneOf:
+          - $ref: '#/components/schemas/APIStatusMetadataPending'
+          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
+          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
+          - $ref: '#/components/schemas/APIStatusMetadataFailed'
+          title: Metadata
+          description: Metadata, contextually dependent on the status of the task being queried.
+          discriminator:
+            propertyName: type
+            mapping:
+              FAILED: '#/components/schemas/APIStatusMetadataFailed'
+              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
+              PENDING: '#/components/schemas/APIStatusMetadataPending'
+              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
       additionalProperties: true
       type: object
-      title: APIStatusMetadataFailed
-    APIStatusMetadataPending:
-      properties:
-        type:
-          type: string
-          enum:
-          - PENDING
-          const: PENDING
-          title: Type
-          default: PENDING
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataPending
+      required:
+      - status
+      - metadata
+      title: APIStatusResponse
     APIChatMessage:
       properties:
         role:
@@ -917,73 +849,112 @@ components:
       - UNKNOWN_TIMEOUT
       title: TaskStatusEnum
       description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
-    RolesEnum:
-      type: string
-      enum:
-      - user
-      - assistant
-      title: RolesEnum
-    MeasurementDashboardBannerPayload:
+    APIStatusMetadataInProgress:
       properties:
-        dashboard_id:
-          type: string
-          title: Dashboard Id
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      additionalProperties: true
-      type: object
-      required:
-      - dashboard_id
-      title: MeasurementDashboardBannerPayload
-    MultiTableChatExploreSuggestionsResponsePayload:
-      properties:
-        suggestions:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Suggestions
-          description: List of suggestions
-        status:
-          $ref: '#/components/schemas/TaskStatus'
-          description: The status of the task.
-      additionalProperties: true
-      type: object
-      required:
-      - status
-      title: MultiTableChatExploreSuggestionsResponsePayload
-    DrilldownTableData:
-      properties:
-        rows:
-          items:
-            $ref: '#/components/schemas/DrilldownTableRow'
-          type: array
-          title: Rows
-          description: Table rows with hierarchical structure
-        title:
-          type: string
-          title: Title
-          description: Table title (e.g., 'Campaign conversions, compared to...')
         type:
           type: string
+          enum:
+          - IN_PROGRESS
+          const: IN_PROGRESS
           title: Type
-          description: Type of chart data
+          default: IN_PROGRESS
+        estimate_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimate Seconds
+          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataInProgress
+    APIStatusMetadataFailed:
+      properties:
+        type:
+          type: string
+          enum:
+          - FAILED
+          const: FAILED
+          title: Type
+          default: FAILED
+        error:
+          type: string
+          title: Error
+          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
+          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataFailed
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
+    ChatExploreImageFormat:
+      type: string
+      enum:
+      - base64_png
+      - plotly_json
+      title: ChatExploreImageFormat
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    MeasurementChartResult:
+      properties:
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+        chart_id:
+          type: integer
+          title: Chart Id
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Render'
+          - $ref: '#/components/schemas/DrilldownTableData'
+          - type: 'null'
+          title: Data
       additionalProperties: true
       type: object
       required:
-      - rows
-      - title
-      - type
-      title: DrilldownTableData
+      - chart_metadata_id
+      - chart_data_id
+      - chart_id
+      - data
+      title: MeasurementChartResult
     OptimizePayload:
       properties:
         reach_curves:
@@ -1028,90 +999,6 @@ components:
       - reach_curves
       - media_scope
       title: OptimizePayload
-    MeasurementFilters:
-      properties:
-        timeframe:
-          anyOf:
-          - $ref: '#/components/schemas/MeasurementTimeframe'
-          - type: 'null'
-          description: Timeframe of the filter
-        comparison_timeframe:
-          anyOf:
-          - $ref: '#/components/schemas/MeasurementTimeframe'
-          - type: 'null'
-          description: Timeframe for comparison data
-        drilldown:
-          anyOf:
-          - $ref: '#/components/schemas/DrilldownConfig'
-          - type: 'null'
-          description: Drill-down configuration
-        raw_measurement_filter:
-          type: object
-          title: Raw Measurement Filter
-      additionalProperties: true
-      type: object
-      title: MeasurementFilters
-      description: Measurement filter with dynamic field support for hierarchy-based filtering
-    MeasurementChartRefreshPayload:
-      properties:
-        chart_id:
-          type: integer
-          title: Chart Id
-        measurementFilter:
-          $ref: '#/components/schemas/MeasurementFilters'
-      additionalProperties: true
-      type: object
-      required:
-      - chart_id
-      - measurementFilter
-      title: MeasurementChartRefreshPayload
-    CombinationMethod:
-      type: string
-      enum:
-      - sainsbury
-      - prod
-      - sum
-      title: CombinationMethod
-    EditReachCurvePayload:
-      properties:
-        selectedCurve:
-          $ref: '#/components/schemas/ReachCurve-Input'
-          description: Selected reach curve
-        response_unit:
-          $ref: '#/components/schemas/ResponseUnits'
-          description: Response unit
-        allocation_unit:
-          $ref: '#/components/schemas/AllocationUnits'
-          description: Allocation unit
-        newCpm:
-          anyOf:
-          - type: number
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Newcpm
-          description: New CPM
-        newReach:
-          anyOf:
-          - type: number
-            maximum: 1.0
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Newreach
-          description: New Reach
-        newGrps:
-          anyOf:
-          - type: number
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Newgrps
-          description: New GRP
-      additionalProperties: true
-      type: object
-      required:
-      - selectedCurve
-      - response_unit
-      - allocation_unit
-      title: EditReachCurvePayload
     BuildChartPayload:
       properties:
         filters:
@@ -1124,13 +1011,38 @@ components:
       - filters
       - chart_type
       title: BuildChartPayload
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
+    MeasurementDashboardBannerResult:
+      properties:
+        presigned_url:
+          type: string
+          title: Presigned Url
+        storage_path:
+          type: string
+          title: Storage Path
+      additionalProperties: true
+      type: object
+      required:
+      - presigned_url
+      - storage_path
+      title: MeasurementDashboardBannerResult
+    MultiTableChatExploreSuggestionsResponsePayload:
+      properties:
+        suggestions:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Suggestions
+          description: List of suggestions
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - status
+      title: MultiTableChatExploreSuggestionsResponsePayload
     MeasurementDashboardChartPayload:
       properties:
         chart_metadata_id:
@@ -1145,6 +1057,269 @@ components:
       - chart_metadata_id
       - chart_data_id
       title: MeasurementDashboardChartPayload
+    Render:
+      properties:
+        type:
+          type: string
+          title: Type
+        chart_filter:
+          type: object
+          title: Chart Filter
+        sql_metadata:
+          type: object
+          title: Sql Metadata
+        title:
+          type: string
+          title: Title
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        download_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Download Path
+        transformed_data:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Transformed Data
+        sources:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Sources
+        view:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: View
+        column_metadata:
+          anyOf:
+          - additionalProperties:
+              additionalProperties:
+                type: string
+              type: object
+            type: object
+          - type: 'null'
+          title: Column Metadata
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      title: Render
+    DrilldownTableData:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/DrilldownTableRow'
+          type: array
+          title: Rows
+          description: Table rows with hierarchical structure
+        title:
+          type: string
+          title: Title
+          description: Table title (e.g., 'Campaign conversions, compared to...')
+        type:
+          type: string
+          title: Type
+          description: Type of chart data
+      additionalProperties: true
+      type: object
+      required:
+      - rows
+      - title
+      - type
+      title: DrilldownTableData
+    MeasurementChartSummaryPayload:
+      properties:
+        filters:
+          $ref: '#/components/schemas/MeasurementFilters'
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - filters
+      - chart_metadata_id
+      - chart_data_id
+      title: MeasurementChartSummaryPayload
+    MeasurementDashboardSummaryResult:
+      properties:
+        summary:
+          type: string
+          title: Summary
+      additionalProperties: true
+      type: object
+      required:
+      - summary
+      title: MeasurementDashboardSummaryResult
+    ChartRefreshResult:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      - chart_metadata_id
+      - chart_data_id
+      title: ChartRefreshResult
+    MediaPlanScope:
+      properties:
+        optimization_type:
+          $ref: '#/components/schemas/OptimizationType'
+          description: Optimization type
+        curve_units:
+          $ref: '#/components/schemas/CurveUnits'
+          description: Curve units
+        region:
+          type: string
+          title: Region
+          description: Region to target for the media plan.
+        combination_method:
+          $ref: '#/components/schemas/CombinationMethod'
+          description: Combination method
+          default: sainsbury
+        target_size:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Target Size
+          description: Target size of the media plan.
+        target_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Audience
+          description: Target audience.
+        total_budget:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Total Budget
+          description: Total budget for the media plan
+        response_target:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Response Target
+          description: Response target for the media plan
+        media_plan_title:
+          type: string
+          title: Media Plan Title
+          description: A one line title for the media plan scope.
+        media_plan_description:
+          type: string
+          title: Media Plan Description
+          description: A short explanation of the media plan scope.
+      additionalProperties: true
+      type: object
+      required:
+      - optimization_type
+      - curve_units
+      - region
+      - media_plan_title
+      - media_plan_description
+      title: MediaPlanScope
+      description: Media Plan Scope
+    DrilldownConfig:
+      properties:
+        current_level:
+          type: string
+          title: Current Level
+          description: Current drill-down level
+          default: CAMPAIGN
+        next_level:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Level
+          description: Next drill-down level to navigate to
+        drill_context:
+          additionalProperties:
+            type: string
+          type: object
+          title: Drill Context
+          description: Context for drill-down (parent selections)
+      additionalProperties: true
+      type: object
+      title: DrilldownConfig
+      description: Configuration for drill-down navigation in charts
+    CPMCurve:
+      properties:
+        a:
+          type: number
+          exclusiveMinimum: 0.0
+          title: A
+          description: The baseline cost level.
+        b:
+          type: number
+          minimum: 0.0
+          title: B
+          description: The slope of the cost curve.
+        c:
+          type: number
+          minimum: 0.0
+          title: C
+          description: The knee point of the cost curve.
+        d:
+          type: number
+          minimum: 0.0
+          title: D
+          description: The curvature of the cost curve.
+      additionalProperties: true
+      type: object
+      required:
+      - a
+      - b
+      - c
+      - d
+      title: CPMCurve
+      description: 'An Inverse exponential decay Reach Curve defined by a, b, and c parameters as follows:
+
+        f(x) = a + b * (x - c) ^ d'
+    MeasurementDashboardBannerPayload:
+      properties:
+        dashboard_id:
+          type: string
+          title: Dashboard Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      additionalProperties: true
+      type: object
+      required:
+      - dashboard_id
+      title: MeasurementDashboardBannerPayload
     MeasurementChartEnum:
       type: string
       enum:
@@ -1168,6 +1343,97 @@ components:
       - weekly_performance_by_partner
       - weekly_performance_rankings_by_partner
       title: MeasurementChartEnum
+    ReachCurve-Input:
+      properties:
+        a:
+          type: number
+          exclusiveMinimum: 0.0
+          title: A
+          description: The a parameter of the reach curve
+        k:
+          type: number
+          exclusiveMinimum: 0.0
+          title: K
+          description: The k parameter of the reach curve
+        n:
+          type: number
+          exclusiveMinimum: 0.0
+          title: N
+          description: The n parameter of the reach curve
+        c:
+          type: number
+          minimum: 0.0
+          title: C
+          description: The c parameter of the reach curve
+        x_min:
+          type: number
+          minimum: 0.0
+          title: X Min
+          description: The minimum x value of the curve
+        x_max:
+          type: number
+          minimum: 0.0
+          title: X Max
+          description: The maximum x value of the curve
+        target_size:
+          type: integer
+          minimum: 0.0
+          title: Target Size
+          description: The target size of the curve
+          default: 0
+        min_cpm:
+          type: number
+          minimum: 0.0
+          title: Min Cpm
+          description: The minimum CPM of the curve
+          default: 0.0
+        cpm_curve:
+          anyOf:
+          - $ref: '#/components/schemas/CPMCurve'
+          - type: 'null'
+          description: The CPM Curve
+      additionalProperties: true
+      type: object
+      required:
+      - a
+      - k
+      - n
+      - c
+      - x_min
+      - x_max
+      title: ReachCurve
+      description: 'TODO: NOTE: THIS PURELY TO HANDLE FE, AS A SHIM. REMOVE AT THE EARLIEST
+
+        A Hill function Reach Curve defined by a, k, n, and c parameters as follows:
+
+        f(x) = a * (x**n / (k**n + x**n)) + c'
+    CombinationMethod:
+      type: string
+      enum:
+      - sainsbury
+      - prod
+      - sum
+      title: CombinationMethod
+    OptimizationType:
+      type: string
+      enum:
+      - response
+      - allocation
+      title: OptimizationType
+    CurveUnits:
+      properties:
+        allocation:
+          $ref: '#/components/schemas/AllocationUnits'
+          description: Units of the allocation
+        response:
+          $ref: '#/components/schemas/ResponseUnits'
+          description: Units of the response
+      additionalProperties: true
+      type: object
+      required:
+      - allocation
+      - response
+      title: CurveUnits
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__2:
       properties:
         id:
@@ -1234,6 +1500,142 @@ components:
           - type: 'null'
       type: object
       title: ConcreteAsyncJobRecord
+    MeasurementFilters:
+      properties:
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/MeasurementTimeframe'
+          - type: 'null'
+          description: Timeframe of the filter
+        comparison_timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/MeasurementTimeframe'
+          - type: 'null'
+          description: Timeframe for comparison data
+        drilldown:
+          anyOf:
+          - $ref: '#/components/schemas/DrilldownConfig'
+          - type: 'null'
+          description: Drill-down configuration
+        raw_measurement_filter:
+          type: object
+          title: Raw Measurement Filter
+      additionalProperties: true
+      type: object
+      title: MeasurementFilters
+      description: Measurement filter with dynamic field support for hierarchy-based filtering
+    MultiTableChatExploreSuggestionsRequestPayload:
+      properties:
+        useCache:
+          type: boolean
+          title: Usecache
+          description: ignore cache and re-generate suggestions
+          default: false
+      additionalProperties: true
+      type: object
+      title: MultiTableChatExploreSuggestionsRequestPayload
+    MeasurementChartRefreshPayload:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+        measurementFilter:
+          $ref: '#/components/schemas/MeasurementFilters'
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      - measurementFilter
+      title: MeasurementChartRefreshPayload
+    AllocationUnits:
+      type: string
+      enum:
+      - GRP
+      - COST
+      - IMPRESSIONS
+      title: AllocationUnits
+    DrilldownTableRow:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier for the row
+        columns:
+          additionalProperties:
+            anyOf:
+            - type: string
+            - type: number
+            - type: 'null'
+          type: object
+          title: Columns
+          description: Dynamic column values
+        drill_options:
+          items:
+            type: string
+          type: array
+          title: Drill Options
+          description: Available drill-down options (empty list if no options available)
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - columns
+      - drill_options
+      title: DrilldownTableRow
+    OptimizedOverBudgetPayload:
+      properties:
+        reach_curves:
+          additionalProperties:
+            $ref: '#/components/schemas/ReachCurve-Input'
+          type: object
+          title: Reach Curves
+          description: Reach curves
+        media_scope:
+          $ref: '#/components/schemas/MediaPlanScope'
+        bounds:
+          anyOf:
+          - additionalProperties:
+              prefixItems:
+              - anyOf:
+                - type: number
+                - type: 'null'
+              - anyOf:
+                - type: number
+                - type: 'null'
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: object
+          - type: 'null'
+          title: Bounds
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+          description: User ID
+        org_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Id
+          description: Organization ID
+        budget_diff_pct:
+          type: integer
+          title: Budget Diff Pct
+          description: Percentage difference between budget values
+        num_iterations:
+          type: integer
+          title: Num Iterations
+          description: Number of iterations per direction
+      additionalProperties: true
+      type: object
+      required:
+      - reach_curves
+      - media_scope
+      - budget_diff_pct
+      - num_iterations
+      title: OptimizedOverBudgetPayload
     ReachCurve-Output:
       properties:
         a:
@@ -1332,67 +1734,6 @@ components:
       required:
       - summary
       title: MeasurementChartSummaryResult
-    OptimizedOverBudgetPayload:
-      properties:
-        reach_curves:
-          additionalProperties:
-            $ref: '#/components/schemas/ReachCurve-Input'
-          type: object
-          title: Reach Curves
-          description: Reach curves
-        media_scope:
-          $ref: '#/components/schemas/MediaPlanScope'
-        bounds:
-          anyOf:
-          - additionalProperties:
-              prefixItems:
-              - anyOf:
-                - type: number
-                - type: 'null'
-              - anyOf:
-                - type: number
-                - type: 'null'
-              type: array
-              maxItems: 2
-              minItems: 2
-            type: object
-          - type: 'null'
-          title: Bounds
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-          description: User ID
-        org_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Org Id
-          description: Organization ID
-        budget_diff_pct:
-          type: integer
-          title: Budget Diff Pct
-          description: Percentage difference between budget values
-        num_iterations:
-          type: integer
-          title: Num Iterations
-          description: Number of iterations per direction
-      additionalProperties: true
-      type: object
-      required:
-      - reach_curves
-      - media_scope
-      - budget_diff_pct
-      - num_iterations
-      title: OptimizedOverBudgetPayload
-    AllocationUnits:
-      type: string
-      enum:
-      - GRP
-      - COST
-      - IMPRESSIONS
-      title: AllocationUnits
     MeasurementDashboardSummaryPayload:
       properties:
         filters:
@@ -1413,359 +1754,55 @@ components:
       - filters
       - charts
       title: MeasurementDashboardSummaryPayload
-    MeasurementChartResult:
-      properties:
-        chart_metadata_id:
-          type: integer
-          title: Chart Metadata Id
-        chart_data_id:
-          type: integer
-          title: Chart Data Id
-        chart_id:
-          type: integer
-          title: Chart Id
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Render'
-          - $ref: '#/components/schemas/DrilldownTableData'
-          - type: 'null'
-          title: Data
-      additionalProperties: true
-      type: object
-      required:
-      - chart_metadata_id
-      - chart_data_id
-      - chart_id
-      - data
-      title: MeasurementChartResult
-    Render:
-      properties:
-        type:
-          type: string
-          title: Type
-        chart_filter:
-          type: object
-          title: Chart Filter
-        sql_metadata:
-          type: object
-          title: Sql Metadata
-        title:
-          type: string
-          title: Title
-          default: ''
-        description:
-          type: string
-          title: Description
-          default: ''
-        data:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Data
-        download_path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Download Path
-        transformed_data:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Transformed Data
-        sources:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Sources
-        view:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: View
-        column_metadata:
-          anyOf:
-          - additionalProperties:
-              additionalProperties:
-                type: string
-              type: object
-            type: object
-          - type: 'null'
-          title: Column Metadata
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      title: Render
-    DrilldownConfig:
-      properties:
-        current_level:
-          type: string
-          title: Current Level
-          description: Current drill-down level
-          default: CAMPAIGN
-        next_level:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Level
-          description: Next drill-down level to navigate to
-        drill_context:
-          additionalProperties:
-            type: string
-          type: object
-          title: Drill Context
-          description: Context for drill-down (parent selections)
-      additionalProperties: true
-      type: object
-      title: DrilldownConfig
-      description: Configuration for drill-down navigation in charts
-    ReachCurve-Input:
-      properties:
-        a:
-          type: number
-          exclusiveMinimum: 0.0
-          title: A
-          description: The a parameter of the reach curve
-        k:
-          type: number
-          exclusiveMinimum: 0.0
-          title: K
-          description: The k parameter of the reach curve
-        n:
-          type: number
-          exclusiveMinimum: 0.0
-          title: N
-          description: The n parameter of the reach curve
-        c:
-          type: number
-          minimum: 0.0
-          title: C
-          description: The c parameter of the reach curve
-        x_min:
-          type: number
-          minimum: 0.0
-          title: X Min
-          description: The minimum x value of the curve
-        x_max:
-          type: number
-          minimum: 0.0
-          title: X Max
-          description: The maximum x value of the curve
-        target_size:
-          type: integer
-          minimum: 0.0
-          title: Target Size
-          description: The target size of the curve
-          default: 0
-        min_cpm:
-          type: number
-          minimum: 0.0
-          title: Min Cpm
-          description: The minimum CPM of the curve
-          default: 0.0
-        cpm_curve:
-          anyOf:
-          - $ref: '#/components/schemas/CPMCurve'
-          - type: 'null'
-          description: The CPM Curve
-      additionalProperties: true
-      type: object
-      required:
-      - a
-      - k
-      - n
-      - c
-      - x_min
-      - x_max
-      title: ReachCurve
-      description: 'TODO: NOTE: THIS PURELY TO HANDLE FE, AS A SHIM. REMOVE AT THE EARLIEST
-
-        A Hill function Reach Curve defined by a, k, n, and c parameters as follows:
-
-        f(x) = a * (x**n / (k**n + x**n)) + c'
-    CPMCurve:
-      properties:
-        a:
-          type: number
-          exclusiveMinimum: 0.0
-          title: A
-          description: The baseline cost level.
-        b:
-          type: number
-          minimum: 0.0
-          title: B
-          description: The slope of the cost curve.
-        c:
-          type: number
-          minimum: 0.0
-          title: C
-          description: The knee point of the cost curve.
-        d:
-          type: number
-          minimum: 0.0
-          title: D
-          description: The curvature of the cost curve.
-      additionalProperties: true
-      type: object
-      required:
-      - a
-      - b
-      - c
-      - d
-      title: CPMCurve
-      description: 'An Inverse exponential decay Reach Curve defined by a, b, and c parameters as follows:
-
-        f(x) = a + b * (x - c) ^ d'
-    OptimizeErrorPayload:
-      properties:
-        error:
-          type: string
-          title: Error
-      additionalProperties: true
-      type: object
-      required:
-      - error
-      title: OptimizeErrorPayload
-    MediaPlanScope:
-      properties:
-        optimization_type:
-          $ref: '#/components/schemas/OptimizationType'
-          description: Optimization type
-        curve_units:
-          $ref: '#/components/schemas/CurveUnits'
-          description: Curve units
-        region:
-          type: string
-          title: Region
-          description: Region to target for the media plan.
-        combination_method:
-          $ref: '#/components/schemas/CombinationMethod'
-          description: Combination method
-          default: sainsbury
-        target_size:
-          anyOf:
-          - type: integer
-            minimum: 0.0
-          - type: 'null'
-          title: Target Size
-          description: Target size of the media plan.
-        target_audience:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Target Audience
-          description: Target audience.
-        total_budget:
-          anyOf:
-          - type: number
-            minimum: 0.0
-          - type: 'null'
-          title: Total Budget
-          description: Total budget for the media plan
-        response_target:
-          anyOf:
-          - type: number
-            minimum: 0.0
-          - type: 'null'
-          title: Response Target
-          description: Response target for the media plan
-        media_plan_title:
-          type: string
-          title: Media Plan Title
-          description: A one line title for the media plan scope.
-        media_plan_description:
-          type: string
-          title: Media Plan Description
-          description: A short explanation of the media plan scope.
-      additionalProperties: true
-      type: object
-      required:
-      - optimization_type
-      - curve_units
-      - region
-      - media_plan_title
-      - media_plan_description
-      title: MediaPlanScope
-      description: Media Plan Scope
-    MeasurementDashboardBannerResult:
-      properties:
-        presigned_url:
-          type: string
-          title: Presigned Url
-        storage_path:
-          type: string
-          title: Storage Path
-      additionalProperties: true
-      type: object
-      required:
-      - presigned_url
-      - storage_path
-      title: MeasurementDashboardBannerResult
-    CurveUnits:
-      properties:
-        allocation:
-          $ref: '#/components/schemas/AllocationUnits'
-          description: Units of the allocation
-        response:
-          $ref: '#/components/schemas/ResponseUnits'
-          description: Units of the response
-      additionalProperties: true
-      type: object
-      required:
-      - allocation
-      - response
-      title: CurveUnits
-    MultiTableChatExploreSuggestionsRequestPayload:
-      properties:
-        useCache:
-          type: boolean
-          title: Usecache
-          description: ignore cache and re-generate suggestions
-          default: false
-      additionalProperties: true
-      type: object
-      title: MultiTableChatExploreSuggestionsRequestPayload
-    MeasurementChartSummaryPayload:
-      properties:
-        filters:
-          $ref: '#/components/schemas/MeasurementFilters'
-        chart_metadata_id:
-          type: integer
-          title: Chart Metadata Id
-        chart_data_id:
-          type: integer
-          title: Chart Data Id
-      additionalProperties: true
-      type: object
-      required:
-      - filters
-      - chart_metadata_id
-      - chart_data_id
-      title: MeasurementChartSummaryPayload
-    OptimizationType:
+    ResponseUnits:
       type: string
       enum:
-      - response
-      - allocation
-      title: OptimizationType
-    ChartRefreshResult:
+      - REACH
+      - REACH_PCT
+      - IMPRESSIONS
+      - IMPRESSIONS_PCT
+      - VISITS
+      title: ResponseUnits
+    EditReachCurvePayload:
       properties:
-        chart_id:
-          type: integer
-          title: Chart Id
-        chart_metadata_id:
-          type: integer
-          title: Chart Metadata Id
-        chart_data_id:
-          type: integer
-          title: Chart Data Id
+        selectedCurve:
+          $ref: '#/components/schemas/ReachCurve-Input'
+          description: Selected reach curve
+        response_unit:
+          $ref: '#/components/schemas/ResponseUnits'
+          description: Response unit
+        allocation_unit:
+          $ref: '#/components/schemas/AllocationUnits'
+          description: Allocation unit
+        newCpm:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newcpm
+          description: New CPM
+        newReach:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newreach
+          description: New Reach
+        newGrps:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newgrps
+          description: New GRP
       additionalProperties: true
       type: object
       required:
-      - chart_id
-      - chart_metadata_id
-      - chart_data_id
-      title: ChartRefreshResult
+      - selectedCurve
+      - response_unit
+      - allocation_unit
+      title: EditReachCurvePayload
     MeasurementTimeframe:
       properties:
         start_date:
@@ -1783,50 +1820,13 @@ components:
       additionalProperties: true
       type: object
       title: MeasurementTimeframe
-    ResponseUnits:
-      type: string
-      enum:
-      - REACH
-      - REACH_PCT
-      - IMPRESSIONS
-      - IMPRESSIONS_PCT
-      - VISITS
-      title: ResponseUnits
-    MeasurementDashboardSummaryResult:
+    OptimizeErrorPayload:
       properties:
-        summary:
+        error:
           type: string
-          title: Summary
+          title: Error
       additionalProperties: true
       type: object
       required:
-      - summary
-      title: MeasurementDashboardSummaryResult
-    DrilldownTableRow:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Unique identifier for the row
-        columns:
-          additionalProperties:
-            anyOf:
-            - type: string
-            - type: number
-            - type: 'null'
-          type: object
-          title: Columns
-          description: Dynamic column values
-        drill_options:
-          items:
-            type: string
-          type: array
-          title: Drill Options
-          description: Available drill-down options (empty list if no options available)
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - columns
-      - drill_options
-      title: DrilldownTableRow
+      - error
+      title: OptimizeErrorPayload

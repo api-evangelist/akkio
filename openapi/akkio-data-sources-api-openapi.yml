@@ -232,6 +232,55 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    DataSourceType:
+      type: string
+      enum:
+      - bigquery
+      - s3
+      - duckdb
+      - snowflake
+      - databricks
+      - databricks_warehouse
+      - databricks_volume
+      title: DataSourceType
+    DataSourceConfig:
+      properties:
+        tables:
+          items:
+            type: string
+          type: array
+          title: Tables
+        skipSupplementalInfoRefresh:
+          type: boolean
+          title: Skipsupplementalinforefresh
+          default: false
+        chatOnlyTables:
+          items:
+            type: string
+          type: array
+          title: Chatonlytables
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+          title: Tags
+      additionalProperties: true
+      type: object
+      title: DataSourceConfig
+    DataSourceCreds:
+      properties: {}
+      additionalProperties: true
+      type: object
+      title: DataSourceCreds
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     DataSource:
       properties:
         _owner:
@@ -291,52 +340,3 @@ components:
       - msg
       - type
       title: ValidationError
-    DataSourceCreds:
-      properties: {}
-      additionalProperties: true
-      type: object
-      title: DataSourceCreds
-    DataSourceType:
-      type: string
-      enum:
-      - bigquery
-      - s3
-      - duckdb
-      - snowflake
-      - databricks
-      - databricks_warehouse
-      - databricks_volume
-      title: DataSourceType
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    DataSourceConfig:
-      properties:
-        tables:
-          items:
-            type: string
-          type: array
-          title: Tables
-        skipSupplementalInfoRefresh:
-          type: boolean
-          title: Skipsupplementalinforefresh
-          default: false
-        chatOnlyTables:
-          items:
-            type: string
-          type: array
-          title: Chatonlytables
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-          title: Tags
-      additionalProperties: true
-      type: object
-      title: DataSourceConfig

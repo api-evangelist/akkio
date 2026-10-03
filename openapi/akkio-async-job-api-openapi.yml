@@ -66,13 +66,6 @@ paths:
       - Async Job
 components:
   schemas:
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
     HTTPValidationError:
       properties:
         detail:
@@ -82,72 +75,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    AsyncJobRecord:
-      properties:
-        id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Id
-          description: ID of this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-          description: datetime object representing when this object was deleted.
-        status:
-          $ref: '#/components/schemas/TaskStatus'
-          description: The status of the task.
-          default: RUNNING
-        endpoint:
-          type: string
-          title: Endpoint
-          description: Endpoint spawning async job
-          default: ''
-        request:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Request
-          description: request sent to endpoint
-        sync_response:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Sync Response
-          description: sync response
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-          description: error message
-        response:
-          title: Response
-          description: async response
-      type: object
-      title: AsyncJobRecord
-      description: Do NOT access this table directly.
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
     AsyncJobStreamRecord:
       properties:
         id:
@@ -226,3 +160,69 @@ components:
       - msg
       - type
       title: ValidationError
+    AsyncJobRecord:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          title: Response
+          description: async response
+      type: object
+      title: AsyncJobRecord
+      description: Do NOT access this table directly.

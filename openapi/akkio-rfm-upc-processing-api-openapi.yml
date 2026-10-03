@@ -127,35 +127,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
-    GenerateUploadUrlResponse:
-      properties:
-        signed_url:
-          type: string
-          title: Signed Url
-          description: The signed URL to use for direct upload to S3
-        s3_key:
-          type: string
-          title: S3 Key
-          description: The S3 key where the file will be uploaded
-        expires_in_seconds:
-          type: integer
-          title: Expires In Seconds
-          description: The number of seconds until the signed URL expires
-      additionalProperties: true
-      type: object
-      required:
-      - signed_url
-      - s3_key
-      - expires_in_seconds
-      title: GenerateUploadUrlResponse
-      description: Response model for the generate_upload_url endpoint.
     HTTPValidationError:
       properties:
         detail:
@@ -165,23 +136,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ProcessUPCFileRequest:
-      properties:
-        s3_key:
-          type: string
-          title: S3 Key
-          description: The S3 key where the file was uploaded (provided by generate-upload-url)
-        file_name:
-          type: string
-          title: File Name
-          description: The original name of the uploaded file
-      additionalProperties: true
-      type: object
-      required:
-      - s3_key
-      - file_name
-      title: ProcessUPCFileRequest
-      description: Request model for processing a UPC file from S3.
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__3:
       properties:
         id:
@@ -249,6 +203,69 @@ components:
           title: Response
       type: object
       title: ConcreteAsyncJobRecord
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    ProcessUPCFileRequest:
+      properties:
+        s3_key:
+          type: string
+          title: S3 Key
+          description: The S3 key where the file was uploaded (provided by generate-upload-url)
+        file_name:
+          type: string
+          title: File Name
+          description: The original name of the uploaded file
+      additionalProperties: true
+      type: object
+      required:
+      - s3_key
+      - file_name
+      title: ProcessUPCFileRequest
+      description: Request model for processing a UPC file from S3.
+    GenerateUploadUrlRequest:
+      properties:
+        file_name:
+          type: string
+          title: File Name
+          description: The name of the file to upload (including extension)
+        content_type:
+          type: string
+          title: Content Type
+          description: The MIME type of the file (e.g., text/csv for CSV files)
+      additionalProperties: true
+      type: object
+      required:
+      - file_name
+      - content_type
+      title: GenerateUploadUrlRequest
+      description: Request model for generating a signed URL for direct uploads to S3.
+    GenerateUploadUrlResponse:
+      properties:
+        signed_url:
+          type: string
+          title: Signed Url
+          description: The signed URL to use for direct upload to S3
+        s3_key:
+          type: string
+          title: S3 Key
+          description: The S3 key where the file will be uploaded
+        expires_in_seconds:
+          type: integer
+          title: Expires In Seconds
+          description: The number of seconds until the signed URL expires
+      additionalProperties: true
+      type: object
+      required:
+      - signed_url
+      - s3_key
+      - expires_in_seconds
+      title: GenerateUploadUrlResponse
+      description: Response model for the generate_upload_url endpoint.
     ValidationError:
       properties:
         loc:
@@ -270,20 +287,3 @@ components:
       - msg
       - type
       title: ValidationError
-    GenerateUploadUrlRequest:
-      properties:
-        file_name:
-          type: string
-          title: File Name
-          description: The name of the file to upload (including extension)
-        content_type:
-          type: string
-          title: Content Type
-          description: The MIME type of the file (e.g., text/csv for CSV files)
-      additionalProperties: true
-      type: object
-      required:
-      - file_name
-      - content_type
-      title: GenerateUploadUrlRequest
-      description: Request model for generating a signed URL for direct uploads to S3.

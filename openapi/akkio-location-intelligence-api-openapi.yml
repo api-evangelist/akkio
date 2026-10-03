@@ -116,6 +116,41 @@ paths:
       - Location Intelligence
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    LocationIntelligenceSearchPlacesPayload:
+      properties:
+        search_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search String
+          description: search across categories and place names.
+        zip_codes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Zip Codes
+          description: limit search to zip_codes.
+      additionalProperties: true
+      type: object
+      title: LocationIntelligenceSearchPlacesPayload
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__1:
       properties:
         id:
@@ -183,94 +218,6 @@ components:
           title: Response
       type: object
       title: ConcreteAsyncJobRecord
-    LocationIntelligenceSearchPlacesPayload:
-      properties:
-        search_string:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search String
-          description: search across categories and place names.
-        zip_codes:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Zip Codes
-          description: limit search to zip_codes.
-      additionalProperties: true
-      type: object
-      title: LocationIntelligenceSearchPlacesPayload
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    LocationIntelligenceCategoriesPlacesPayload:
-      properties:
-        categories:
-          items:
-            type: string
-          type: array
-          title: Categories
-          description: categories to search places for.
-        zip_codes:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Zip Codes
-          description: limit search to zip_codes.
-      additionalProperties: true
-      type: object
-      required:
-      - categories
-      title: LocationIntelligenceCategoriesPlacesPayload
-    LocationIntelligenceGeneratePayload:
-      properties:
-        location_natural_language:
-          type: string
-          title: Location Natural Language
-        zip_codes:
-          items:
-            type: string
-          type: array
-          title: Zip Codes
-        places:
-          items:
-            type: string
-          type: array
-          title: Places
-        timeframe:
-          anyOf:
-          - $ref: '#/components/schemas/src__ad_analytics__location_intelligence__model__Timeframe'
-          - type: 'null'
-        audience_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Id
-      type: object
-      required:
-      - location_natural_language
-      - zip_codes
-      - places
-      - timeframe
-      - audience_id
-      title: LocationIntelligenceGeneratePayload
     CategoryWithPlaces:
       properties:
         category:
@@ -307,6 +254,38 @@ components:
       - start_date
       - end_date
       title: Timeframe
+    LocationIntelligenceGeneratePayload:
+      properties:
+        location_natural_language:
+          type: string
+          title: Location Natural Language
+        zip_codes:
+          items:
+            type: string
+          type: array
+          title: Zip Codes
+        places:
+          items:
+            type: string
+          type: array
+          title: Places
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/src__ad_analytics__location_intelligence__model__Timeframe'
+          - type: 'null'
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+      type: object
+      required:
+      - location_natural_language
+      - zip_codes
+      - places
+      - timeframe
+      - audience_id
+      title: LocationIntelligenceGeneratePayload
     ValidationError:
       properties:
         loc:
@@ -328,3 +307,24 @@ components:
       - msg
       - type
       title: ValidationError
+    LocationIntelligenceCategoriesPlacesPayload:
+      properties:
+        categories:
+          items:
+            type: string
+          type: array
+          title: Categories
+          description: categories to search places for.
+        zip_codes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Zip Codes
+          description: limit search to zip_codes.
+      additionalProperties: true
+      type: object
+      required:
+      - categories
+      title: LocationIntelligenceCategoriesPlacesPayload

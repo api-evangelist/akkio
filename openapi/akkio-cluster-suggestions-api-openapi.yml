@@ -50,31 +50,6 @@ components:
       - categories
       - on_columns
       title: ClusterSuggestionsResponsePayload
-    ClusterSuggestionsRequestPayload:
-      properties:
-        datasetId:
-          type: string
-          title: Datasetid
-          description: ID of the dataset to get clustering suggestions for
-        guidance:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Guidance
-          description: Optionally provided guidance as to what clusters the user wants to create.
-          default: Group in the way you think most usefully clusters the data.
-        suggestions:
-          items:
-            type: string
-          type: array
-          title: Suggestions
-          description: Existing suggestions we should use as additional context in order to generate the rest.
-          default: []
-      additionalProperties: true
-      type: object
-      required:
-      - datasetId
-      title: ClusterSuggestionsRequestPayload
     ValidationError:
       properties:
         loc:
@@ -105,3 +80,28 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ClusterSuggestionsRequestPayload:
+      properties:
+        datasetId:
+          type: string
+          title: Datasetid
+          description: ID of the dataset to get clustering suggestions for
+        guidance:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Guidance
+          description: Optionally provided guidance as to what clusters the user wants to create.
+          default: Group in the way you think most usefully clusters the data.
+        suggestions:
+          items:
+            type: string
+          type: array
+          title: Suggestions
+          description: Existing suggestions we should use as additional context in order to generate the rest.
+          default: []
+      additionalProperties: true
+      type: object
+      required:
+      - datasetId
+      title: ClusterSuggestionsRequestPayload

@@ -119,12 +119,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    _SlackErrorCodes:
-      type: string
-      enum:
-      - access_denied
-      const: access_denied
-      title: _SlackErrorCodes
     ValidationError:
       properties:
         loc:
@@ -155,3 +149,9 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    _SlackErrorCodes:
+      type: string
+      enum:
+      - access_denied
+      const: access_denied
+      title: _SlackErrorCodes

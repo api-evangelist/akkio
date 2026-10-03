@@ -232,17 +232,20 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    DataSourceType:
-      type: string
-      enum:
-      - bigquery
-      - s3
-      - duckdb
-      - snowflake
-      - databricks
-      - databricks_warehouse
-      - databricks_volume
-      title: DataSourceType
+    DataSourceCreds:
+      properties: {}
+      additionalProperties: true
+      type: object
+      title: DataSourceCreds
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     DataSourceConfig:
       properties:
         tables:
@@ -267,20 +270,17 @@ components:
       additionalProperties: true
       type: object
       title: DataSourceConfig
-    DataSourceCreds:
-      properties: {}
-      additionalProperties: true
-      type: object
-      title: DataSourceCreds
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+    DataSourceType:
+      type: string
+      enum:
+      - bigquery
+      - s3
+      - duckdb
+      - snowflake
+      - databricks
+      - databricks_warehouse
+      - databricks_volume
+      title: DataSourceType
     DataSource:
       properties:
         _owner:

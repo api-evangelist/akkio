@@ -294,140 +294,140 @@ paths:
               schema: {}
 components:
   schemas:
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
-    CreateAudienceFromBacktestPayload:
+    HTTPValidationError:
       properties:
-        model_id:
-          type: integer
-          title: Model Id
-          description: The ID of the model to use for backtest
-        audience_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Name
-          description: The name of the audience to create
-        project_id:
-          type: string
-          title: Project Id
-          description: The ID of the project to create the audience in
-        loyals:
-          type: boolean
-          title: Loyals
-          description: Whether to create a loyal audience
-      additionalProperties: true
-      type: object
-      required:
-      - model_id
-      - project_id
-      - loyals
-      title: CreateAudienceFromBacktestPayload
-    src__api__ad_analytics__model__Timeframe:
-      properties:
-        start_date:
-          type: string
-          format: date-time
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Date
-      additionalProperties: true
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: Timeframe
-    GeneratePreviewPayload:
-      properties:
-        lapse_args:
-          anyOf:
-          - $ref: '#/components/schemas/GenerateLapsePreviewPayload'
-          - type: 'null'
-          description: The arguments for a lapse preview
-        churn_args:
-          anyOf:
-          - $ref: '#/components/schemas/GenerateChurnPreviewPayload'
-          - type: 'null'
-          description: The arguments for a churn preview
-      additionalProperties: true
-      type: object
-      title: GeneratePreviewPayload
-    Pagination:
-      properties:
-        start:
-          type: integer
-          title: Start
-          description: The start index
-        limit:
-          type: integer
-          title: Limit
-          description: The limit
-      additionalProperties: true
-      type: object
-      required:
-      - start
-      - limit
-      title: Pagination
-    SelectionPayload:
-      properties:
-        selections:
+        detail:
           items:
-            items:
-              $ref: '#/components/schemas/Selection'
-            type: array
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Selections
-      additionalProperties: true
+          title: Detail
       type: object
-      required:
-      - selections
-      title: SelectionPayload
-    CreateAudienceFromPredictionsPayload:
+      title: HTTPValidationError
+    CompareDecisionThresholdsPayload:
       properties:
         model_id:
           type: integer
           title: Model Id
-          description: The ID of the model to use for prediction
+          description: The ID of the model to use for comparison
         prediction_id:
           type: integer
           title: Prediction Id
-          description: The ID of the prediction to use for audience creation
-        min_probability:
+          description: The ID of the prediction to use for comparison
+        lower_threshold:
           type: number
-          title: Min Probability
-          description: The minimum probability to include in the audience
-          default: 0.0
-        max_probability:
+          title: Lower Threshold
+          description: The lower threshold to use for comparison
+        upper_threshold:
           type: number
-          title: Max Probability
-          description: The maximum probability to include in the audience
-          default: 1.0
-        audience_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Name
-          description: The name of the audience to create
-        project_id:
-          type: string
-          title: Project Id
-          description: The ID of the project to create the audience in
+          title: Upper Threshold
+          description: The upper threshold to use for comparison
       additionalProperties: true
       type: object
       required:
       - model_id
       - prediction_id
-      - project_id
-      title: CreateAudienceFromPredictionsPayload
+      - lower_threshold
+      - upper_threshold
+      title: CompareDecisionThresholdsPayload
+    GetShapValuesPayload:
+      properties:
+        model_id:
+          type: integer
+          title: Model Id
+          description: The ID of the model to use for getting shap values
+        prediction_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Prediction Id
+          description: The ID of the prediction to use for getting shap values
+        feature_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feature Name
+          description: The name of the feature to get shap values for
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+          description: The pagination to use for getting shap values
+      additionalProperties: true
+      type: object
+      required:
+      - model_id
+      - pagination
+      title: GetShapValuesPayload
+    GenerateChurnPreviewPayload:
+      properties:
+        table_name:
+          type: string
+          title: Table Name
+          description: The name of the table to use for the preview
+        date_column:
+          type: string
+          title: Date Column
+          description: The name of the date column
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/src__api__ad_analytics__model__Timeframe'
+          - type: 'null'
+          description: The timeframe to use for the preview. Defaults to 1 year from the maximum date in the data
+        loyalty_criteria:
+          $ref: '#/components/schemas/EventCriteria'
+          description: Criteria for defining customer loyalty
+        churn_criteria:
+          $ref: '#/components/schemas/EventCriteria'
+          description: Criteria for defining customer churn
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+          description: The ID of the audience to use for the preview
+        provider_column:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider Column
+          description: Column that identifies the provider/service
+        provider_selections:
+          anyOf:
+          - $ref: '#/components/schemas/ProviderSelection'
+          - type: 'null'
+          description: Provider selection criteria for churn tracking
+        churn_to_other_criteria:
+          anyOf:
+          - $ref: '#/components/schemas/EventCriteria'
+          - type: 'null'
+          description: Criteria for loyalty to other providers after churn. Timeframe must match churn_criteria
+      additionalProperties: true
+      type: object
+      required:
+      - table_name
+      - date_column
+      - loyalty_criteria
+      - churn_criteria
+      title: GenerateChurnPreviewPayload
+    GetProviderFieldsPayload:
+      properties:
+        table_name:
+          type: string
+          title: Table Name
+          description: The name of the table
+        column_name:
+          type: string
+          title: Column Name
+          description: The name of the column
+        pagination:
+          anyOf:
+          - $ref: '#/components/schemas/Pagination'
+          - type: 'null'
+          description: The pagination to use for getting provider fields
+      additionalProperties: true
+      type: object
+      required:
+      - table_name
+      - column_name
+      title: GetProviderFieldsPayload
     PropensityPredictionMetadataRecord:
       properties:
         id:
@@ -518,355 +518,72 @@ components:
       - prediction_sql
       - prediction_set_name
       title: PropensityPredictionMetadataRecord
-    CompareDecisionThresholdsPayload:
+    GeneratePreviewPayload:
       properties:
-        model_id:
-          type: integer
-          title: Model Id
-          description: The ID of the model to use for comparison
-        prediction_id:
-          type: integer
-          title: Prediction Id
-          description: The ID of the prediction to use for comparison
-        lower_threshold:
-          type: number
-          title: Lower Threshold
-          description: The lower threshold to use for comparison
-        upper_threshold:
-          type: number
-          title: Upper Threshold
-          description: The upper threshold to use for comparison
+        lapse_args:
+          anyOf:
+          - $ref: '#/components/schemas/GenerateLapsePreviewPayload'
+          - type: 'null'
+          description: The arguments for a lapse preview
+        churn_args:
+          anyOf:
+          - $ref: '#/components/schemas/GenerateChurnPreviewPayload'
+          - type: 'null'
+          description: The arguments for a churn preview
+      additionalProperties: true
+      type: object
+      title: GeneratePreviewPayload
+    SelectionPayload:
+      properties:
+        selections:
+          items:
+            items:
+              $ref: '#/components/schemas/Selection'
+            type: array
+          type: array
+          title: Selections
       additionalProperties: true
       type: object
       required:
-      - model_id
-      - prediction_id
-      - lower_threshold
-      - upper_threshold
-      title: CompareDecisionThresholdsPayload
-    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__12:
+      - selections
+      title: SelectionPayload
+    src__api__ad_analytics__model__Timeframe:
       properties:
-        id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Id
-          description: ID of this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-          description: datetime object representing when this object was deleted.
-        status:
-          $ref: '#/components/schemas/TaskStatus'
-          description: The status of the task.
-          default: RUNNING
-        endpoint:
+        start_date:
           type: string
-          title: Endpoint
-          description: Endpoint spawning async job
-          default: ''
-        request:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Request
-          description: request sent to endpoint
-        sync_response:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Sync Response
-          description: sync response
-        error:
+          format: date-time
+          title: Start Date
+        end_date:
           anyOf:
           - type: string
+            format: date-time
           - type: 'null'
-          title: Error
-          description: error message
-        response:
-          anyOf:
-          - $ref: '#/components/schemas/PropensityModelMetadataRecord'
-          - type: 'null'
+          title: End Date
+      additionalProperties: true
       type: object
-      title: ConcreteAsyncJobRecord
-    GenerateFIPayload:
+      required:
+      - start_date
+      - end_date
+      title: Timeframe
+    TrainModelPayload:
       properties:
         model_id:
           type: integer
           title: Model Id
           description: The ID of the model to use for training
         ignore_columns:
-          items:
-            type: string
-          type: array
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
           title: Ignore Columns
           description: The columns to ignore
       additionalProperties: true
       type: object
       required:
       - model_id
-      - ignore_columns
-      title: GenerateFIPayload
-    GetProviderFieldsPayload:
-      properties:
-        table_name:
-          type: string
-          title: Table Name
-          description: The name of the table
-        column_name:
-          type: string
-          title: Column Name
-          description: The name of the column
-        pagination:
-          anyOf:
-          - $ref: '#/components/schemas/Pagination'
-          - type: 'null'
-          description: The pagination to use for getting provider fields
-      additionalProperties: true
-      type: object
-      required:
-      - table_name
-      - column_name
-      title: GetProviderFieldsPayload
-    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__13:
-      properties:
-        id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Id
-          description: ID of this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-          description: datetime object representing when this object was deleted.
-        status:
-          $ref: '#/components/schemas/TaskStatus'
-          description: The status of the task.
-          default: RUNNING
-        endpoint:
-          type: string
-          title: Endpoint
-          description: Endpoint spawning async job
-          default: ''
-        request:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Request
-          description: request sent to endpoint
-        sync_response:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Sync Response
-          description: sync response
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-          description: error message
-        response:
-          anyOf:
-          - $ref: '#/components/schemas/PropensityPredictionMetadataRecord'
-          - type: 'null'
-      type: object
-      title: ConcreteAsyncJobRecord
-    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__11:
-      properties:
-        id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Id
-          description: ID of this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-          description: datetime object representing when this object was deleted.
-        status:
-          $ref: '#/components/schemas/TaskStatus'
-          description: The status of the task.
-          default: RUNNING
-        endpoint:
-          type: string
-          title: Endpoint
-          description: Endpoint spawning async job
-          default: ''
-        request:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Request
-          description: request sent to endpoint
-        sync_response:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Sync Response
-          description: sync response
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-          description: error message
-        response:
-          anyOf:
-          - $ref: '#/components/schemas/PropensityModelMetadataRecord'
-          - type: 'null'
-      type: object
-      title: ConcreteAsyncJobRecord
-    GenerateShapValuesDownloadUrlPayload:
-      properties:
-        model_id:
-          type: integer
-          title: Model Id
-          description: The ID of the model to use for getting shap values
-        prediction_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Prediction Id
-          description: The ID of the prediction to use for getting shap values
-      additionalProperties: true
-      type: object
-      required:
-      - model_id
-      title: GenerateShapValuesDownloadUrlPayload
-    Selection:
-      properties:
-        field:
-          type: string
-          title: Field
-        values:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Values
-      additionalProperties: true
-      type: object
-      required:
-      - field
-      - values
-      title: Selection
-    GenerateChurnPreviewPayload:
-      properties:
-        table_name:
-          type: string
-          title: Table Name
-          description: The name of the table to use for the preview
-        date_column:
-          type: string
-          title: Date Column
-          description: The name of the date column
-        timeframe:
-          anyOf:
-          - $ref: '#/components/schemas/src__api__ad_analytics__model__Timeframe'
-          - type: 'null'
-          description: The timeframe to use for the preview. Defaults to 1 year from the maximum date in the data
-        loyalty_criteria:
-          $ref: '#/components/schemas/EventCriteria'
-          description: Criteria for defining customer loyalty
-        churn_criteria:
-          $ref: '#/components/schemas/EventCriteria'
-          description: Criteria for defining customer churn
-        audience_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Id
-          description: The ID of the audience to use for the preview
-        provider_column:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Provider Column
-          description: Column that identifies the provider/service
-        provider_selections:
-          anyOf:
-          - $ref: '#/components/schemas/ProviderSelection'
-          - type: 'null'
-          description: Provider selection criteria for churn tracking
-        churn_to_other_criteria:
-          anyOf:
-          - $ref: '#/components/schemas/EventCriteria'
-          - type: 'null'
-          description: Criteria for loyalty to other providers after churn. Timeframe must match churn_criteria
-      additionalProperties: true
-      type: object
-      required:
-      - table_name
-      - date_column
-      - loyalty_criteria
-      - churn_criteria
-      title: GenerateChurnPreviewPayload
+      title: TrainModelPayload
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__10:
       properties:
         id:
@@ -933,123 +650,6 @@ components:
           - type: 'null'
       type: object
       title: ConcreteAsyncJobRecord
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__14:
-      properties:
-        id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Id
-          description: ID of this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-          description: datetime object representing when this object was deleted.
-        status:
-          $ref: '#/components/schemas/TaskStatus'
-          description: The status of the task.
-          default: RUNNING
-        endpoint:
-          type: string
-          title: Endpoint
-          description: Endpoint spawning async job
-          default: ''
-        request:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Request
-          description: request sent to endpoint
-        sync_response:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Sync Response
-          description: sync response
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-          description: error message
-        response:
-          anyOf:
-          - $ref: '#/components/schemas/PropensityPredictionMetadataRecord'
-          - type: 'null'
-      type: object
-      title: ConcreteAsyncJobRecord
-    ChurnableTable:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the table
-        id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Id
-          description: The ID of the table
-        num_cols:
-          type: integer
-          title: Num Cols
-          description: The number of columns in the table
-        num_rows:
-          type: integer
-          title: Num Rows
-          description: The number of rows in the table
-        possible_date_columns:
-          items:
-            type: string
-          type: array
-          title: Possible Date Columns
-          description: The possible date columns in the table
-        possible_provider_columns:
-          items:
-            type: string
-          type: array
-          title: Possible Provider Columns
-          description: The possible provider columns in the table
-      additionalProperties: true
-      type: object
-      required:
-      - name
-      - id
-      - num_cols
-      - num_rows
-      - possible_date_columns
-      - possible_provider_columns
-      title: ChurnableTable
     PropensityModelMetadataRecord:
       properties:
         id:
@@ -1210,6 +810,116 @@ components:
       - datasource_id
       - preview_async_id
       title: PropensityModelMetadataRecord
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__12:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/PropensityModelMetadataRecord'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord
+    GenerateLapsePreviewPayload:
+      properties:
+        product_selections:
+          $ref: '#/components/schemas/SelectionPayload'
+          description: The product selections to use for the preview
+        timeframe:
+          $ref: '#/components/schemas/src__api__ad_analytics__model__Timeframe'
+          description: The timeframe to use for the preview
+        lapse_criteria:
+          $ref: '#/components/schemas/EventCriteria'
+          description: The criteria for a lapse event
+        loyalty_criteria:
+          $ref: '#/components/schemas/EventCriteria'
+          description: The criteria for a loyalty event
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+          description: The ID of the audience to use for the preview
+        returning_is_loyal:
+          type: boolean
+          title: Returning Is Loyal
+          description: Whether the returning customer is loyal
+        lapse_to_other_criteria:
+          anyOf:
+          - $ref: '#/components/schemas/EventCriteria'
+          - type: 'null'
+          description: The criteria for tracking lapses to other products. Must match loyalty_criteria timeframe
+        lapse_to_product_selections:
+          anyOf:
+          - $ref: '#/components/schemas/SelectionPayload'
+          - type: 'null'
+          description: The product selections to track lapses TO. If not provided, tracks within same categories
+      additionalProperties: true
+      type: object
+      required:
+      - product_selections
+      - timeframe
+      - lapse_criteria
+      - loyalty_criteria
+      - audience_id
+      - returning_is_loyal
+      title: GenerateLapsePreviewPayload
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__15:
       properties:
         id:
@@ -1276,38 +986,72 @@ components:
           - type: 'null'
       type: object
       title: ConcreteAsyncJobRecord
-    DecisionThresholdStats:
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__14:
       properties:
-        mean:
-          type: number
-          title: Mean
-        count:
-          type: integer
-          title: Count
-      additionalProperties: true
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/PropensityPredictionMetadataRecord'
+          - type: 'null'
       type: object
-      required:
-      - mean
-      - count
-      title: DecisionThresholdStats
-    DecisionThresholdResults:
-      properties:
-        overall:
-          $ref: '#/components/schemas/DecisionThresholdStats'
-        likely:
-          $ref: '#/components/schemas/DecisionThresholdStats'
-        uncertain:
-          $ref: '#/components/schemas/DecisionThresholdStats'
-        unlikely:
-          $ref: '#/components/schemas/DecisionThresholdStats'
-      additionalProperties: true
-      type: object
-      required:
-      - overall
-      - likely
-      - uncertain
-      - unlikely
-      title: DecisionThresholdResults
+      title: ConcreteAsyncJobRecord
     PredictPayload:
       properties:
         model_id:
@@ -1336,70 +1080,149 @@ components:
       - model_id
       - time_in_days
       title: PredictPayload
-    TrainModelPayload:
+    DecisionThresholdResults:
       properties:
-        model_id:
+        overall:
+          $ref: '#/components/schemas/DecisionThresholdStats'
+        likely:
+          $ref: '#/components/schemas/DecisionThresholdStats'
+        uncertain:
+          $ref: '#/components/schemas/DecisionThresholdStats'
+        unlikely:
+          $ref: '#/components/schemas/DecisionThresholdStats'
+      additionalProperties: true
+      type: object
+      required:
+      - overall
+      - likely
+      - uncertain
+      - unlikely
+      title: DecisionThresholdResults
+    ChurnableTable:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the table
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: The ID of the table
+        num_cols:
           type: integer
-          title: Model Id
-          description: The ID of the model to use for training
-        ignore_columns:
+          title: Num Cols
+          description: The number of columns in the table
+        num_rows:
+          type: integer
+          title: Num Rows
+          description: The number of rows in the table
+        possible_date_columns:
+          items:
+            type: string
+          type: array
+          title: Possible Date Columns
+          description: The possible date columns in the table
+        possible_provider_columns:
+          items:
+            type: string
+          type: array
+          title: Possible Provider Columns
+          description: The possible provider columns in the table
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      - id
+      - num_cols
+      - num_rows
+      - possible_date_columns
+      - possible_provider_columns
+      title: ChurnableTable
+    Selection:
+      properties:
+        field:
+          type: string
+          title: Field
+        values:
           anyOf:
           - items:
               type: string
             type: array
           - type: 'null'
-          title: Ignore Columns
-          description: The columns to ignore
+          title: Values
+      additionalProperties: true
+      type: object
+      required:
+      - field
+      - values
+      title: Selection
+    CreateAudienceFromBacktestPayload:
+      properties:
+        model_id:
+          type: integer
+          title: Model Id
+          description: The ID of the model to use for backtest
+        audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Name
+          description: The name of the audience to create
+        project_id:
+          type: string
+          title: Project Id
+          description: The ID of the project to create the audience in
+        loyals:
+          type: boolean
+          title: Loyals
+          description: Whether to create a loyal audience
       additionalProperties: true
       type: object
       required:
       - model_id
-      title: TrainModelPayload
-    GenerateLapsePreviewPayload:
+      - project_id
+      - loyals
+      title: CreateAudienceFromBacktestPayload
+    CreateAudienceFromPredictionsPayload:
       properties:
-        product_selections:
-          $ref: '#/components/schemas/SelectionPayload'
-          description: The product selections to use for the preview
-        timeframe:
-          $ref: '#/components/schemas/src__api__ad_analytics__model__Timeframe'
-          description: The timeframe to use for the preview
-        lapse_criteria:
-          $ref: '#/components/schemas/EventCriteria'
-          description: The criteria for a lapse event
-        loyalty_criteria:
-          $ref: '#/components/schemas/EventCriteria'
-          description: The criteria for a loyalty event
-        audience_id:
+        model_id:
+          type: integer
+          title: Model Id
+          description: The ID of the model to use for prediction
+        prediction_id:
+          type: integer
+          title: Prediction Id
+          description: The ID of the prediction to use for audience creation
+        min_probability:
+          type: number
+          title: Min Probability
+          description: The minimum probability to include in the audience
+          default: 0.0
+        max_probability:
+          type: number
+          title: Max Probability
+          description: The maximum probability to include in the audience
+          default: 1.0
+        audience_name:
           anyOf:
           - type: string
           - type: 'null'
-          title: Audience Id
-          description: The ID of the audience to use for the preview
-        returning_is_loyal:
-          type: boolean
-          title: Returning Is Loyal
-          description: Whether the returning customer is loyal
-        lapse_to_other_criteria:
-          anyOf:
-          - $ref: '#/components/schemas/EventCriteria'
-          - type: 'null'
-          description: The criteria for tracking lapses to other products. Must match loyalty_criteria timeframe
-        lapse_to_product_selections:
-          anyOf:
-          - $ref: '#/components/schemas/SelectionPayload'
-          - type: 'null'
-          description: The product selections to track lapses TO. If not provided, tracks within same categories
+          title: Audience Name
+          description: The name of the audience to create
+        project_id:
+          type: string
+          title: Project Id
+          description: The ID of the project to create the audience in
       additionalProperties: true
       type: object
       required:
-      - product_selections
-      - timeframe
-      - lapse_criteria
-      - loyalty_criteria
-      - audience_id
-      - returning_is_loyal
-      title: GenerateLapsePreviewPayload
-    GetShapValuesPayload:
+      - model_id
+      - prediction_id
+      - project_id
+      title: CreateAudienceFromPredictionsPayload
+    GenerateShapValuesDownloadUrlPayload:
       properties:
         model_id:
           type: integer
@@ -1411,21 +1234,25 @@ components:
           - type: 'null'
           title: Prediction Id
           description: The ID of the prediction to use for getting shap values
-        feature_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Feature Name
-          description: The name of the feature to get shap values for
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-          description: The pagination to use for getting shap values
       additionalProperties: true
       type: object
       required:
       - model_id
-      - pagination
-      title: GetShapValuesPayload
+      title: GenerateShapValuesDownloadUrlPayload
+    DecisionThresholdStats:
+      properties:
+        mean:
+          type: number
+          title: Mean
+        count:
+          type: integer
+          title: Count
+      additionalProperties: true
+      type: object
+      required:
+      - mean
+      - count
+      title: DecisionThresholdStats
     EventCriteria:
       properties:
         event_count:
@@ -1452,6 +1279,79 @@ components:
       - interval_type
       - interval_count
       title: EventCriteria
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__11:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/PropensityModelMetadataRecord'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord
     ProviderSelection:
       properties:
         from_provider:
@@ -1476,6 +1376,106 @@ components:
       - from_provider
       title: ProviderSelection
       description: Defines provider selection criteria for churn tracking
+    Pagination:
+      properties:
+        start:
+          type: integer
+          title: Start
+          description: The start index
+        limit:
+          type: integer
+          title: Limit
+          description: The limit
+      additionalProperties: true
+      type: object
+      required:
+      - start
+      - limit
+      title: Pagination
+    src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__13:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+          default: RUNNING
+        endpoint:
+          type: string
+          title: Endpoint
+          description: Endpoint spawning async job
+          default: ''
+        request:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Request
+          description: request sent to endpoint
+        sync_response:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Sync Response
+          description: sync response
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/PropensityPredictionMetadataRecord'
+          - type: 'null'
+      type: object
+      title: ConcreteAsyncJobRecord
+    GenerateFIPayload:
+      properties:
+        model_id:
+          type: integer
+          title: Model Id
+          description: The ID of the model to use for training
+        ignore_columns:
+          items:
+            type: string
+          type: array
+          title: Ignore Columns
+          description: The columns to ignore
+      additionalProperties: true
+      type: object
+      required:
+      - model_id
+      - ignore_columns
+      title: GenerateFIPayload
     ValidationError:
       properties:
         loc:

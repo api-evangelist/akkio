@@ -32,143 +32,6 @@ paths:
       - Chat Explore Ratings
 components:
   schemas:
-    Render:
-      properties:
-        type:
-          type: string
-          title: Type
-        chart_filter:
-          type: object
-          title: Chart Filter
-        sql_metadata:
-          type: object
-          title: Sql Metadata
-        title:
-          type: string
-          title: Title
-          default: ''
-        description:
-          type: string
-          title: Description
-          default: ''
-        data:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Data
-        download_path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Download Path
-        transformed_data:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Transformed Data
-        sources:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Sources
-        view:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: View
-        column_metadata:
-          anyOf:
-          - additionalProperties:
-              additionalProperties:
-                type: string
-              type: object
-            type: object
-          - type: 'null'
-          title: Column Metadata
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      title: Render
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Rating:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: ID of this object.
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-        dataset_id:
-          type: string
-          title: Dataset Id
-        messages:
-          items:
-            $ref: '#/components/schemas/ChatMessage'
-          type: array
-          title: Messages
-        message_index:
-          type: integer
-          title: Message Index
-        rating:
-          type: string
-          enum:
-          - good
-          - bad
-          title: Rating
-        rating_source:
-          type: string
-          title: Rating Source
-          default: ''
-        chart_data:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chart Data
-        feedback:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Feedback
-        audience_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Id
-        datasource_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Datasource Id
-        team_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Id
-        chat_error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chat Error
-      additionalProperties: true
-      type: object
-      required:
-      - dataset_id
-      - messages
-      - message_index
-      - rating
-      title: Rating
     ChatMessage:
       properties:
         role:
@@ -253,6 +116,143 @@ components:
       - role
       - content
       title: ChatMessage
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Rating:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of this object.
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        dataset_id:
+          type: string
+          title: Dataset Id
+        messages:
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+          type: array
+          title: Messages
+        message_index:
+          type: integer
+          title: Message Index
+        rating:
+          type: string
+          enum:
+          - good
+          - bad
+          title: Rating
+        rating_source:
+          type: string
+          title: Rating Source
+          default: ''
+        chart_data:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chart Data
+        feedback:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+        datasource_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Datasource Id
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+        chat_error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chat Error
+      additionalProperties: true
+      type: object
+      required:
+      - dataset_id
+      - messages
+      - message_index
+      - rating
+      title: Rating
+    Render:
+      properties:
+        type:
+          type: string
+          title: Type
+        chart_filter:
+          type: object
+          title: Chart Filter
+        sql_metadata:
+          type: object
+          title: Sql Metadata
+        title:
+          type: string
+          title: Title
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        download_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Download Path
+        transformed_data:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Transformed Data
+        sources:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Sources
+        view:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: View
+        column_metadata:
+          anyOf:
+          - additionalProperties:
+              additionalProperties:
+                type: string
+              type: object
+            type: object
+          - type: 'null'
+          title: Column Metadata
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      title: Render
     ValidationError:
       properties:
         loc:

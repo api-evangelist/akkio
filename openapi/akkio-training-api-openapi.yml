@@ -88,35 +88,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    APITaskStartedResponse:
-      properties:
-        task_id:
-          type: string
-          title: Task Id
-          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
-      additionalProperties: true
-      type: object
-      required:
-      - task_id
-      title: APITaskStartedResponse
-    APIStatusMetadataSucceeded:
-      properties:
-        type:
-          type: string
-          enum:
-          - SUCCEEDED
-          const: SUCCEEDED
-          title: Type
-          default: SUCCEEDED
-        location:
-          type: string
-          title: Location
-          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
-      additionalProperties: true
-      type: object
-      required:
-      - location
-      title: APIStatusMetadataSucceeded
     HTTPValidationError:
       properties:
         detail:
@@ -126,32 +97,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    APIStatusResponse:
-      properties:
-        status:
-          $ref: '#/components/schemas/TaskStatusEnum'
-          description: The current status of the task being queried.
-        metadata:
-          oneOf:
-          - $ref: '#/components/schemas/APIStatusMetadataPending'
-          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
-          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
-          - $ref: '#/components/schemas/APIStatusMetadataFailed'
-          title: Metadata
-          description: Metadata, contextually dependent on the status of the task being queried.
-          discriminator:
-            propertyName: type
-            mapping:
-              FAILED: '#/components/schemas/APIStatusMetadataFailed'
-              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
-              PENDING: '#/components/schemas/APIStatusMetadataPending'
-              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
-      additionalProperties: true
-      type: object
-      required:
-      - status
-      - metadata
-      title: APIStatusResponse
     TrainRequestPayload:
       properties:
         dataset_id:
@@ -192,6 +137,47 @@ components:
       - predict_fields
       - duration
       title: TrainRequestPayload
+    APIStatusMetadataSucceeded:
+      properties:
+        type:
+          type: string
+          enum:
+          - SUCCEEDED
+          const: SUCCEEDED
+          title: Type
+          default: SUCCEEDED
+        location:
+          type: string
+          title: Location
+          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
+      additionalProperties: true
+      type: object
+      required:
+      - location
+      title: APIStatusMetadataSucceeded
+    APITaskStartedResponse:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - task_id
+      title: APITaskStartedResponse
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
     TaskStatusEnum:
       type: string
       enum:
@@ -202,6 +188,53 @@ components:
       - UNKNOWN_TIMEOUT
       title: TaskStatusEnum
       description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    APIStatusResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/TaskStatusEnum'
+          description: The current status of the task being queried.
+        metadata:
+          oneOf:
+          - $ref: '#/components/schemas/APIStatusMetadataPending'
+          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
+          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
+          - $ref: '#/components/schemas/APIStatusMetadataFailed'
+          title: Metadata
+          description: Metadata, contextually dependent on the status of the task being queried.
+          discriminator:
+            propertyName: type
+            mapping:
+              FAILED: '#/components/schemas/APIStatusMetadataFailed'
+              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
+              PENDING: '#/components/schemas/APIStatusMetadataPending'
+              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
+      additionalProperties: true
+      type: object
+      required:
+      - status
+      - metadata
+      title: APIStatusResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     APIStatusMetadataInProgress:
       properties:
         type:
@@ -237,36 +270,3 @@ components:
       additionalProperties: true
       type: object
       title: APIStatusMetadataFailed
-    APIStatusMetadataPending:
-      properties:
-        type:
-          type: string
-          enum:
-          - PENDING
-          const: PENDING
-          title: Type
-          default: PENDING
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataPending
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

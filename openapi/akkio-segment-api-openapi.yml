@@ -124,54 +124,6 @@ components:
       - values
       - selection_type
       title: SurveyQuestion
-    TaskStatusEnum:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - SUCCEEDED
-      - FAILED
-      - UNKNOWN_TIMEOUT
-      title: TaskStatusEnum
-      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    SurveyQuestions:
-      properties:
-        topic:
-          type: string
-          title: Topic
-        questions:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/SurveyQuestion'
-            type: array
-          - type: 'null'
-          title: Questions
-      additionalProperties: true
-      type: object
-      required:
-      - topic
-      title: SurveyQuestions
     Segment:
       properties:
         id:
@@ -327,6 +279,54 @@ components:
       - saved_to_db
       - sources
       title: Segment
+    SurveyQuestions:
+      properties:
+        topic:
+          type: string
+          title: Topic
+        questions:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SurveyQuestion'
+            type: array
+          - type: 'null'
+          title: Questions
+      additionalProperties: true
+      type: object
+      required:
+      - topic
+      title: SurveyQuestions
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     SegmentQuestionsPayload:
       properties:
         topic:

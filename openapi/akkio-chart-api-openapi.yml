@@ -120,36 +120,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ChartEditingPayloadStandalone:
-      properties:
-        updates:
-          $ref: '#/components/schemas/ChartEditingUpdates'
-          description: The updates to apply to the chart.
-      additionalProperties: true
-      type: object
-      required:
-      - updates
-      title: ChartEditingPayloadStandalone
-      description: Payload for editing a chart that has been copied outside of a chat history.
-    ChartRefreshPayload:
-      properties:
-        chart_id:
-          type: integer
-          title: Chart Id
-      additionalProperties: true
-      type: object
-      required:
-      - chart_id
-      title: ChartRefreshPayload
     ChartRefreshResult:
       properties:
         chart_id:
@@ -168,6 +138,36 @@ components:
       - chart_metadata_id
       - chart_data_id
       title: ChartRefreshResult
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ChartPayload:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      title: ChartPayload
+    ChartEditingPayloadStandalone:
+      properties:
+        updates:
+          $ref: '#/components/schemas/ChartEditingUpdates'
+          description: The updates to apply to the chart.
+      additionalProperties: true
+      type: object
+      required:
+      - updates
+      title: ChartEditingPayloadStandalone
+      description: Payload for editing a chart that has been copied outside of a chat history.
     ChartEditingPayload:
       properties:
         idx:
@@ -184,7 +184,7 @@ components:
       - updates
       title: ChartEditingPayload
       description: Payload for editing a chart inline in a Chat History.
-    ChartPayload:
+    ChartRefreshPayload:
       properties:
         chart_id:
           type: integer
@@ -193,7 +193,7 @@ components:
       type: object
       required:
       - chart_id
-      title: ChartPayload
+      title: ChartRefreshPayload
     ChartEditingUpdates:
       properties:
         title:

@@ -59,6 +59,33 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SQLTransformCommitRequest:
+      properties:
+        flow_id:
+          type: string
+          title: Flow Id
+          description: The ID of the flow for this transform.
+        transform_plan_ids:
+          items:
+            type: integer
+          type: array
+          title: Transform Plan Ids
+          description: A list of transform plans ids to formally commit. This performs these transform plans in sequence and hard-bakes the result, pointing the flow to the result instead.
+          default: []
+      additionalProperties: true
+      type: object
+      required:
+      - flow_id
+      title: SQLTransformCommitRequest
     TaskStatus:
       type: string
       enum:
@@ -89,33 +116,27 @@ components:
       - flow_id
       - description
       title: SQLTransformPreviewRequest
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SQLTransformCommitRequest:
-      properties:
-        flow_id:
+          title: Location
+        msg:
           type: string
-          title: Flow Id
-          description: The ID of the flow for this transform.
-        transform_plan_ids:
-          items:
-            type: integer
-          type: array
-          title: Transform Plan Ids
-          description: A list of transform plans ids to formally commit. This performs these transform plans in sequence and hard-bakes the result, pointing the flow to the result instead.
-          default: []
-      additionalProperties: true
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - flow_id
-      title: SQLTransformCommitRequest
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AsyncJobRecord:
       properties:
         id:
@@ -182,24 +203,3 @@ components:
       type: object
       title: AsyncJobRecord
       description: Do NOT access this table directly.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

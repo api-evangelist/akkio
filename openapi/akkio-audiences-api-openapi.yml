@@ -88,17 +88,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    APITaskStartedResponse:
+    HTTPValidationError:
       properties:
-        task_id:
-          type: string
-          title: Task Id
-          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
-      additionalProperties: true
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - task_id
-      title: APITaskStartedResponse
+      title: HTTPValidationError
     APIStatusMetadataSucceeded:
       properties:
         type:
@@ -117,15 +115,39 @@ components:
       required:
       - location
       title: APIStatusMetadataSucceeded
-    HTTPValidationError:
+    APITaskStartedResponse:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        task_id:
+          type: string
+          title: Task Id
+          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
+      additionalProperties: true
       type: object
-      title: HTTPValidationError
+      required:
+      - task_id
+      title: APITaskStartedResponse
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
     APIStatusResponse:
       properties:
         status:
@@ -152,16 +174,6 @@ components:
       - status
       - metadata
       title: APIStatusResponse
-    TaskStatusEnum:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - SUCCEEDED
-      - FAILED
-      - UNKNOWN_TIMEOUT
-      title: TaskStatusEnum
-      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
     FromParsedJsonRequestPayload:
       properties:
         audience_name:
@@ -185,6 +197,27 @@ components:
       required:
       - parsed_json
       title: FromParsedJsonRequestPayload
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     APIStatusMetadataInProgress:
       properties:
         type:
@@ -220,36 +253,3 @@ components:
       additionalProperties: true
       type: object
       title: APIStatusMetadataFailed
-    APIStatusMetadataPending:
-      properties:
-        type:
-          type: string
-          enum:
-          - PENDING
-          const: PENDING
-          title: Type
-          default: PENDING
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataPending
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

@@ -177,6 +177,45 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    _CreateChannelPayload:
+      properties:
+        flow_id:
+          type: string
+          title: Flow Id
+        dataset_id:
+          type: string
+          title: Dataset Id
+        owner_id:
+          type: string
+          title: Owner Id
+      additionalProperties: true
+      type: object
+      required:
+      - flow_id
+      - dataset_id
+      - owner_id
+      title: _CreateChannelPayload
     HTTPValidationError:
       properties:
         detail:
@@ -186,6 +225,26 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    _SlackErrorCodes:
+      type: string
+      enum:
+      - access_denied
+      const: access_denied
+      title: _SlackErrorCodes
+    PayloadResponseGetDatasetMapping:
+      properties:
+        exists:
+          type: boolean
+          title: Exists
+        mapping:
+          anyOf:
+          - $ref: '#/components/schemas/SlackChannelMapping'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - exists
+      title: PayloadResponseGetDatasetMapping
     SlackChannelMapping:
       properties:
         id:
@@ -213,62 +272,3 @@ components:
       - slack_channel_id
       - slack_channel_name
       title: SlackChannelMapping
-    _CreateChannelPayload:
-      properties:
-        flow_id:
-          type: string
-          title: Flow Id
-        dataset_id:
-          type: string
-          title: Dataset Id
-        owner_id:
-          type: string
-          title: Owner Id
-      additionalProperties: true
-      type: object
-      required:
-      - flow_id
-      - dataset_id
-      - owner_id
-      title: _CreateChannelPayload
-    PayloadResponseGetDatasetMapping:
-      properties:
-        exists:
-          type: boolean
-          title: Exists
-        mapping:
-          anyOf:
-          - $ref: '#/components/schemas/SlackChannelMapping'
-          - type: 'null'
-      additionalProperties: true
-      type: object
-      required:
-      - exists
-      title: PayloadResponseGetDatasetMapping
-    _SlackErrorCodes:
-      type: string
-      enum:
-      - access_denied
-      const: access_denied
-      title: _SlackErrorCodes
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

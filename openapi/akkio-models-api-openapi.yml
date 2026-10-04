@@ -117,13 +117,6 @@ components:
           type: boolean
           default: false
           description: Return per-feature attribution for each prediction.
-    Model:
-      type: object
-      properties:
-        model_id:
-          type: string
-        dataset_id:
-          type: string
     CreateModelRequest:
       type: object
       required:
@@ -154,6 +147,13 @@ components:
     PredictionResult:
       type: object
       additionalProperties: true
+    Model:
+      type: object
+      properties:
+        model_id:
+          type: string
+        dataset_id:
+          type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey

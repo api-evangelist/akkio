@@ -88,56 +88,47 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    APIStatusMetadataSucceeded:
+    APIStatusMetadataInProgress:
       properties:
         type:
           type: string
           enum:
-          - SUCCEEDED
-          const: SUCCEEDED
+          - IN_PROGRESS
+          const: IN_PROGRESS
           title: Type
-          default: SUCCEEDED
-        location:
-          type: string
-          title: Location
-          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
+          default: IN_PROGRESS
+        estimate_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimate Seconds
+          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataInProgress
+    FromParsedJsonRequestPayload:
+      properties:
+        audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Name
+          description: If provided, used as the name of the audience. If missing, we infer an accurate name via LLM call.
+        audience_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Description
+          description: If provided, used as the description of the audience. If missing, we infer an accurate description via LLM call.
+        parsed_json:
+          type: object
+          title: Parsed Json
+          description: The parsed JSON object (corresponding to something created through the query builder) to create an `Audience` from.
       additionalProperties: true
       type: object
       required:
-      - location
-      title: APIStatusMetadataSucceeded
-    APITaskStartedResponse:
-      properties:
-        task_id:
-          type: string
-          title: Task Id
-          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
-      additionalProperties: true
-      type: object
-      required:
-      - task_id
-      title: APITaskStartedResponse
-    APIStatusMetadataPending:
-      properties:
-        type:
-          type: string
-          enum:
-          - PENDING
-          const: PENDING
-          title: Type
-          default: PENDING
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataPending
+      - parsed_json
+      title: FromParsedJsonRequestPayload
     TaskStatusEnum:
       type: string
       enum:
@@ -174,29 +165,55 @@ components:
       - status
       - metadata
       title: APIStatusResponse
-    FromParsedJsonRequestPayload:
+    HTTPValidationError:
       properties:
-        audience_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Name
-          description: If provided, used as the name of the audience. If missing, we infer an accurate name via LLM call.
-        audience_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Description
-          description: If provided, used as the description of the audience. If missing, we infer an accurate description via LLM call.
-        parsed_json:
-          type: object
-          title: Parsed Json
-          description: The parsed JSON object (corresponding to something created through the query builder) to create an `Audience` from.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
+    APITaskStartedResponse:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
       additionalProperties: true
       type: object
       required:
-      - parsed_json
-      title: FromParsedJsonRequestPayload
+      - task_id
+      title: APITaskStartedResponse
+    APIStatusMetadataFailed:
+      properties:
+        type:
+          type: string
+          enum:
+          - FAILED
+          const: FAILED
+          title: Type
+          default: FAILED
+        error:
+          type: string
+          title: Error
+          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
+          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataFailed
     ValidationError:
       properties:
         loc:
@@ -218,38 +235,21 @@ components:
       - msg
       - type
       title: ValidationError
-    APIStatusMetadataInProgress:
+    APIStatusMetadataSucceeded:
       properties:
         type:
           type: string
           enum:
-          - IN_PROGRESS
-          const: IN_PROGRESS
+          - SUCCEEDED
+          const: SUCCEEDED
           title: Type
-          default: IN_PROGRESS
-        estimate_seconds:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Estimate Seconds
-          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+          default: SUCCEEDED
+        location:
+          type: string
+          title: Location
+          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
       additionalProperties: true
       type: object
-      title: APIStatusMetadataInProgress
-    APIStatusMetadataFailed:
-      properties:
-        type:
-          type: string
-          enum:
-          - FAILED
-          const: FAILED
-          title: Type
-          default: FAILED
-        error:
-          type: string
-          title: Error
-          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
-          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataFailed
+      required:
+      - location
+      title: APIStatusMetadataSucceeded

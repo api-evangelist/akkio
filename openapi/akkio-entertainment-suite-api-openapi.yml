@@ -123,104 +123,6 @@ paths:
       - Entertainment Suite
 components:
   schemas:
-    ESuiteTimeframe:
-      properties:
-        start_date:
-          type: string
-          format: date
-          title: Start Date
-        end_date:
-          type: string
-          format: date
-          title: End Date
-      additionalProperties: true
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: ESuiteTimeframe
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    BuildTrendsPayload:
-      properties:
-        timeframe:
-          $ref: '#/components/schemas/ESuiteTimeframe'
-        audience_id:
-          type: string
-          title: Audience Id
-        genres:
-          items:
-            type: string
-          type: array
-          title: Genres
-        networks:
-          items:
-            type: string
-          type: array
-          title: Networks
-        titles:
-          items:
-            type: string
-          type: array
-          title: Titles
-        dma_codes:
-          items:
-            type: integer
-          type: array
-          title: Dma Codes
-      additionalProperties: true
-      type: object
-      required:
-      - timeframe
-      - audience_id
-      title: BuildTrendsPayload
-    ESuiteAnalyticsPlotType:
-      type: string
-      enum:
-      - SOURCE_TO_DESTINATION
-      - COMBINATION
-      - PURCHASE_BEHAVIOR_CATEGORY
-      - PURCHASE_BEHAVIOR_BRAND
-      - MINUTE_BY_MINUTE
-      title: ESuiteAnalyticsPlotType
-    BuildTrendsReflectionPayload:
-      properties:
-        trend_id:
-          type: string
-          title: Trend Id
-      additionalProperties: true
-      type: object
-      required:
-      - trend_id
-      title: BuildTrendsReflectionPayload
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     BuildAnalyticsSummaryPayload:
       properties:
         trend_id:
@@ -277,3 +179,101 @@ components:
       - audience_id
       - plot_type
       title: BuildAnalyticsPlotPayload
+    ESuiteAnalyticsPlotType:
+      type: string
+      enum:
+      - SOURCE_TO_DESTINATION
+      - COMBINATION
+      - PURCHASE_BEHAVIOR_CATEGORY
+      - PURCHASE_BEHAVIOR_BRAND
+      - MINUTE_BY_MINUTE
+      title: ESuiteAnalyticsPlotType
+    BuildTrendsPayload:
+      properties:
+        timeframe:
+          $ref: '#/components/schemas/ESuiteTimeframe'
+        audience_id:
+          type: string
+          title: Audience Id
+        genres:
+          items:
+            type: string
+          type: array
+          title: Genres
+        networks:
+          items:
+            type: string
+          type: array
+          title: Networks
+        titles:
+          items:
+            type: string
+          type: array
+          title: Titles
+        dma_codes:
+          items:
+            type: integer
+          type: array
+          title: Dma Codes
+      additionalProperties: true
+      type: object
+      required:
+      - timeframe
+      - audience_id
+      title: BuildTrendsPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ESuiteTimeframe:
+      properties:
+        start_date:
+          type: string
+          format: date
+          title: Start Date
+        end_date:
+          type: string
+          format: date
+          title: End Date
+      additionalProperties: true
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: ESuiteTimeframe
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BuildTrendsReflectionPayload:
+      properties:
+        trend_id:
+          type: string
+          title: Trend Id
+      additionalProperties: true
+      type: object
+      required:
+      - trend_id
+      title: BuildTrendsReflectionPayload

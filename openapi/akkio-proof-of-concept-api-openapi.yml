@@ -354,63 +354,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CombinationMethod:
-      type: string
-      enum:
-      - sainsbury
-      - prod
-      - sum
-      title: CombinationMethod
-    EditReachCurvePayload:
-      properties:
-        selectedCurve:
-          $ref: '#/components/schemas/ReachCurve-Input'
-          description: Selected reach curve
-        response_unit:
-          $ref: '#/components/schemas/ResponseUnits'
-          description: Response unit
-        allocation_unit:
-          $ref: '#/components/schemas/AllocationUnits'
-          description: Allocation unit
-        newCpm:
-          anyOf:
-          - type: number
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Newcpm
-          description: New CPM
-        newReach:
-          anyOf:
-          - type: number
-            maximum: 1.0
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Newreach
-          description: New Reach
-        newGrps:
-          anyOf:
-          - type: number
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Newgrps
-          description: New GRP
-      additionalProperties: true
-      type: object
-      required:
-      - selectedCurve
-      - response_unit
-      - allocation_unit
-      title: EditReachCurvePayload
-    OptimizePayload:
+    OptimizedOverBudgetPayload:
       properties:
         reach_curves:
           additionalProperties:
@@ -448,18 +392,22 @@ components:
           - type: 'null'
           title: Org Id
           description: Organization ID
+        budget_diff_pct:
+          type: integer
+          title: Budget Diff Pct
+          description: Percentage difference between budget values
+        num_iterations:
+          type: integer
+          title: Num Iterations
+          description: Number of iterations per direction
       additionalProperties: true
       type: object
       required:
       - reach_curves
       - media_scope
-      title: OptimizePayload
-    OptimizationType:
-      type: string
-      enum:
-      - response
-      - allocation
-      title: OptimizationType
+      - budget_diff_pct
+      - num_iterations
+      title: OptimizedOverBudgetPayload
     ForecastLineChartPayload:
       properties:
         chatId:
@@ -507,6 +455,15 @@ components:
       required:
       - scenario
       title: ForecastLineChartPayload
+    ResponseUnits:
+      type: string
+      enum:
+      - REACH
+      - REACH_PCT
+      - IMPRESSIONS
+      - IMPRESSIONS_PCT
+      - VISITS
+      title: ResponseUnits
     MediaPlanScope:
       properties:
         optimization_type:
@@ -568,147 +525,6 @@ components:
       - media_plan_description
       title: MediaPlanScope
       description: Media Plan Scope
-    ForecastSuggestionsPayload:
-      properties:
-        chatId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chatid
-        chart:
-          anyOf:
-          - $ref: '#/components/schemas/Chart'
-          - type: 'null'
-      additionalProperties: true
-      type: object
-      title: ForecastSuggestionsPayload
-    ForecastSuggestionsResult:
-      properties:
-        suggestions:
-          items:
-            type: string
-          type: array
-          title: Suggestions
-      additionalProperties: true
-      type: object
-      required:
-      - suggestions
-      title: ForecastSuggestionsResult
-    ForecastLineChartResult:
-      properties:
-        chatId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chatid
-        chart:
-          anyOf:
-          - $ref: '#/components/schemas/Chart'
-          - type: 'null'
-        chartJsonStr:
-          type: string
-          title: Chartjsonstr
-        summary:
-          $ref: '#/components/schemas/ForecastSummary'
-        cutoffs:
-          items:
-            type: string
-          type: array
-          title: Cutoffs
-        confidenceCones:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ConfidenceConeData'
-            type: array
-          - type: 'null'
-          title: Confidencecones
-      additionalProperties: true
-      type: object
-      required:
-      - chatId
-      - chart
-      - chartJsonStr
-      - summary
-      - cutoffs
-      title: ForecastLineChartResult
-    OptimizeErrorPayload:
-      properties:
-        error:
-          type: string
-          title: Error
-      additionalProperties: true
-      type: object
-      required:
-      - error
-      title: OptimizeErrorPayload
-    Chart:
-      properties:
-        chartMetadataId:
-          type: integer
-          title: Chartmetadataid
-        chartDataId:
-          type: integer
-          title: Chartdataid
-      additionalProperties: true
-      type: object
-      required:
-      - chartMetadataId
-      - chartDataId
-      title: Chart
-    OptimizedOverBudgetPayload:
-      properties:
-        reach_curves:
-          additionalProperties:
-            $ref: '#/components/schemas/ReachCurve-Input'
-          type: object
-          title: Reach Curves
-          description: Reach curves
-        media_scope:
-          $ref: '#/components/schemas/MediaPlanScope'
-        bounds:
-          anyOf:
-          - additionalProperties:
-              prefixItems:
-              - anyOf:
-                - type: number
-                - type: 'null'
-              - anyOf:
-                - type: number
-                - type: 'null'
-              type: array
-              maxItems: 2
-              minItems: 2
-            type: object
-          - type: 'null'
-          title: Bounds
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-          description: User ID
-        org_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Org Id
-          description: Organization ID
-        budget_diff_pct:
-          type: integer
-          title: Budget Diff Pct
-          description: Percentage difference between budget values
-        num_iterations:
-          type: integer
-          title: Num Iterations
-          description: Number of iterations per direction
-      additionalProperties: true
-      type: object
-      required:
-      - reach_curves
-      - media_scope
-      - budget_diff_pct
-      - num_iterations
-      title: OptimizedOverBudgetPayload
     ForecastSummary:
       properties:
         scenarioDescription:
@@ -735,6 +551,27 @@ components:
       - backtestResults
       - backtestContext
       title: ForecastSummary
+    CurveUnits:
+      properties:
+        allocation:
+          $ref: '#/components/schemas/AllocationUnits'
+          description: Units of the allocation
+        response:
+          $ref: '#/components/schemas/ResponseUnits'
+          description: Units of the response
+      additionalProperties: true
+      type: object
+      required:
+      - allocation
+      - response
+      title: CurveUnits
+    CombinationMethod:
+      type: string
+      enum:
+      - sainsbury
+      - prod
+      - sum
+      title: CombinationMethod
     ReachCurve-Input:
       properties:
         a:
@@ -799,15 +636,253 @@ components:
         A Hill function Reach Curve defined by a, k, n, and c parameters as follows:
 
         f(x) = a * (x**n / (k**n + x**n)) + c'
-    ResponseUnits:
+    OptimizePayload:
+      properties:
+        reach_curves:
+          additionalProperties:
+            $ref: '#/components/schemas/ReachCurve-Input'
+          type: object
+          title: Reach Curves
+          description: Reach curves
+        media_scope:
+          $ref: '#/components/schemas/MediaPlanScope'
+        bounds:
+          anyOf:
+          - additionalProperties:
+              prefixItems:
+              - anyOf:
+                - type: number
+                - type: 'null'
+              - anyOf:
+                - type: number
+                - type: 'null'
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: object
+          - type: 'null'
+          title: Bounds
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+          description: User ID
+        org_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Id
+          description: Organization ID
+      additionalProperties: true
+      type: object
+      required:
+      - reach_curves
+      - media_scope
+      title: OptimizePayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ForecastLineChartResult:
+      properties:
+        chatId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatid
+        chart:
+          anyOf:
+          - $ref: '#/components/schemas/Chart'
+          - type: 'null'
+        chartJsonStr:
+          type: string
+          title: Chartjsonstr
+        summary:
+          $ref: '#/components/schemas/ForecastSummary'
+        cutoffs:
+          items:
+            type: string
+          type: array
+          title: Cutoffs
+        confidenceCones:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ConfidenceConeData'
+            type: array
+          - type: 'null'
+          title: Confidencecones
+      additionalProperties: true
+      type: object
+      required:
+      - chatId
+      - chart
+      - chartJsonStr
+      - summary
+      - cutoffs
+      title: ForecastLineChartResult
+    ForecastSuggestionsPayload:
+      properties:
+        chatId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatid
+        chart:
+          anyOf:
+          - $ref: '#/components/schemas/Chart'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      title: ForecastSuggestionsPayload
+    EditReachCurvePayload:
+      properties:
+        selectedCurve:
+          $ref: '#/components/schemas/ReachCurve-Input'
+          description: Selected reach curve
+        response_unit:
+          $ref: '#/components/schemas/ResponseUnits'
+          description: Response unit
+        allocation_unit:
+          $ref: '#/components/schemas/AllocationUnits'
+          description: Allocation unit
+        newCpm:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newcpm
+          description: New CPM
+        newReach:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newreach
+          description: New Reach
+        newGrps:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newgrps
+          description: New GRP
+      additionalProperties: true
+      type: object
+      required:
+      - selectedCurve
+      - response_unit
+      - allocation_unit
+      title: EditReachCurvePayload
+    OptimizationType:
       type: string
       enum:
-      - REACH
-      - REACH_PCT
+      - response
+      - allocation
+      title: OptimizationType
+    OptimizeErrorPayload:
+      properties:
+        error:
+          type: string
+          title: Error
+      additionalProperties: true
+      type: object
+      required:
+      - error
+      title: OptimizeErrorPayload
+    ForecastSuggestionsResult:
+      properties:
+        suggestions:
+          items:
+            type: string
+          type: array
+          title: Suggestions
+      additionalProperties: true
+      type: object
+      required:
+      - suggestions
+      title: ForecastSuggestionsResult
+    CPMCurve:
+      properties:
+        a:
+          type: number
+          exclusiveMinimum: 0.0
+          title: A
+          description: The baseline cost level.
+        b:
+          type: number
+          minimum: 0.0
+          title: B
+          description: The slope of the cost curve.
+        c:
+          type: number
+          minimum: 0.0
+          title: C
+          description: The knee point of the cost curve.
+        d:
+          type: number
+          minimum: 0.0
+          title: D
+          description: The curvature of the cost curve.
+      additionalProperties: true
+      type: object
+      required:
+      - a
+      - b
+      - c
+      - d
+      title: CPMCurve
+      description: 'An Inverse exponential decay Reach Curve defined by a, b, and c parameters as follows:
+
+        f(x) = a + b * (x - c) ^ d'
+    Chart:
+      properties:
+        chartMetadataId:
+          type: integer
+          title: Chartmetadataid
+        chartDataId:
+          type: integer
+          title: Chartdataid
+      additionalProperties: true
+      type: object
+      required:
+      - chartMetadataId
+      - chartDataId
+      title: Chart
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AllocationUnits:
+      type: string
+      enum:
+      - GRP
+      - COST
       - IMPRESSIONS
-      - IMPRESSIONS_PCT
-      - VISITS
-      title: ResponseUnits
+      title: AllocationUnits
     ReachCurve-Output:
       properties:
         a:
@@ -896,20 +971,6 @@ components:
         A Hill function Reach Curve defined by a, k, n, and c parameters as follows:
 
         f(x) = a * (x**n / (k**n + x**n)) + c'
-    CurveUnits:
-      properties:
-        allocation:
-          $ref: '#/components/schemas/AllocationUnits'
-          description: Units of the allocation
-        response:
-          $ref: '#/components/schemas/ResponseUnits'
-          description: Units of the response
-      additionalProperties: true
-      type: object
-      required:
-      - allocation
-      - response
-      title: CurveUnits
     ConfidenceConeData:
       properties:
         initialErrorStdv:
@@ -944,64 +1005,3 @@ components:
       - upperBounds
       - lowerBounds
       title: ConfidenceConeData
-    AllocationUnits:
-      type: string
-      enum:
-      - GRP
-      - COST
-      - IMPRESSIONS
-      title: AllocationUnits
-    CPMCurve:
-      properties:
-        a:
-          type: number
-          exclusiveMinimum: 0.0
-          title: A
-          description: The baseline cost level.
-        b:
-          type: number
-          minimum: 0.0
-          title: B
-          description: The slope of the cost curve.
-        c:
-          type: number
-          minimum: 0.0
-          title: C
-          description: The knee point of the cost curve.
-        d:
-          type: number
-          minimum: 0.0
-          title: D
-          description: The curvature of the cost curve.
-      additionalProperties: true
-      type: object
-      required:
-      - a
-      - b
-      - c
-      - d
-      title: CPMCurve
-      description: 'An Inverse exponential decay Reach Curve defined by a, b, and c parameters as follows:
-
-        f(x) = a + b * (x - c) ^ d'
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

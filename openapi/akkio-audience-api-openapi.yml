@@ -795,7 +795,7 @@ paths:
               schema: {}
 components:
   schemas:
-    TradeDeskPlatformOneTargetPayload:
+    PandoraPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -807,74 +807,18 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        firstPartyDataProviderId:
-          type: string
-          title: Firstpartydataproviderid
-          description: First Party Data Provider TradeDesk API.
-        secretKey:
-          type: string
-          title: Secretkey
-          description: Secret Key for TradeDesk API.
+        dmpTaxonomyId:
+          type: integer
+          title: Dmptaxonomyid
+          description: DMP Taxonomy Id
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - firstPartyDataProviderId
-      - secretKey
-      title: TradeDeskPlatformOneTargetPayload
-    UpdateAudiencePayload:
-      properties:
-        parsed_json:
-          type: object
-          title: Parsed Json
-          description: The JSON SQL to update the audience with
-        audience:
-          $ref: '#/components/schemas/Audience'
-          description: The audience to update
-      additionalProperties: true
-      type: object
-      required:
-      - parsed_json
-      - audience
-      title: UpdateAudiencePayload
-    APIStatusMetadataPending:
-      properties:
-        type:
-          type: string
-          enum:
-          - PENDING
-          const: PENDING
-          title: Type
-          default: PENDING
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataPending
-    LGAdsPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        lgAdsAdvertiserName:
-          type: string
-          title: Lgadsadvertisername
-          description: LG Ads Advertiser Name.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - lgAdsAdvertiserName
-      title: LGAdsPlatformOneTargetPayload
+      - dmpTaxonomyId
+      title: PandoraPlatformOneTargetPayload
     AudienceSegmentationRecord:
       properties:
         id:
@@ -925,470 +869,6 @@ components:
       - status
       - data
       title: AudienceSegmentationRecord
-    UnityPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        distributionName:
-          type: string
-          title: Distributionname
-          description: Identifier for the account configuration.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - distributionName
-      title: UnityPlatformOneTargetPayload
-    APITaskStartedResponse:
-      properties:
-        task_id:
-          type: string
-          title: Task Id
-          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
-      additionalProperties: true
-      type: object
-      required:
-      - task_id
-      title: APITaskStartedResponse
-    DV360PlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        customerId:
-          type: string
-          title: Customerid
-          description: Customer ID for Google DV360 API.
-        dv360Product:
-          $ref: '#/components/schemas/DV360PlatformOneProductEnum'
-          description: Product for DV360 API.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - customerId
-      - dv360Product
-      title: DV360PlatformOneTargetPayload
-    ImportAudiencePayload:
-      properties:
-        audience_name:
-          type: string
-          title: Audience Name
-          description: Name of the audience to import
-        table_name:
-          type: string
-          title: Table Name
-          description: Name of the table to import from
-      additionalProperties: true
-      type: object
-      required:
-      - audience_name
-      - table_name
-      title: ImportAudiencePayload
-    ComcastPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        subscriberType:
-          $ref: '#/components/schemas/ComcastSubscriberType'
-          description: Subscriber Type
-        segmentPrioritization:
-          type: boolean
-          title: Segmentprioritization
-          description: Segment Prioritization
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - subscriberType
-      - segmentPrioritization
-      title: ComcastPlatformOneTargetPayload
-    TrainLALPayload:
-      properties:
-        lal_id:
-          type: string
-          title: Lal Id
-          description: The ID of the lookalike model to train
-        audience_id:
-          type: string
-          title: Audience Id
-          description: The ID of the audience to train the lookalike model on
-        options:
-          $ref: '#/components/schemas/TrainLALOptions'
-          description: The options to use when training the lookalike model
-      additionalProperties: true
-      type: object
-      required:
-      - lal_id
-      - audience_id
-      - options
-      title: TrainLALPayload
-    KargoPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        kargoAdvertiserName:
-          type: string
-          title: Kargoadvertisername
-          description: Advertiser Name specific to Kargo, not related to the chosen advertiser above. Consists of alpha-numeric and underscore characters.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - kargoAdvertiserName
-      title: KargoPlatformOneTargetPayload
-    TritonDigitalPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        publisherName:
-          type: string
-          title: Publishername
-          description: Publisher Name of Triton's client, not the end Advertiser. Consists of alpha-numeric characters.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - publisherName
-      title: TritonDigitalPlatformOneTargetPayload
-    AmazonPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        cfid:
-          type: string
-          title: Cfid
-          description: CFID for Amazon API. Amazon Advertiser ID.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - cfid
-      title: AmazonPlatformOneTargetPayload
-    TikTokPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        businessAccount:
-          type: string
-          title: Businessaccount
-          description: Business Account for TikTok API. Business Account is used to select Access Token used with Advertiser ID.  If a new Business Account is needed, an engineer MUST get a new accessToken.
-        advertiserId:
-          type: string
-          title: Advertiserid
-          description: Advertiser ID for TikTok API.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - businessAccount
-      - advertiserId
-      title: TikTokPlatformOneTargetPayload
-    DV360PlatformOneProductEnum:
-      type: string
-      enum:
-      - GOOGLE_ADS
-      - DISPLAY_VIDEO_PARTNER
-      - DISPLAY_VIDEO_ADVERTISER
-      - GOOGLE_AD_MANAGER
-      title: DV360PlatformOneProductEnum
-    AISummary:
-      properties:
-        summary:
-          type: string
-          title: Summary
-        keyDifference:
-          type: object
-          title: Keydifference
-      additionalProperties: true
-      type: object
-      required:
-      - summary
-      - keyDifference
-      title: AISummary
-    ModelStatus:
-      type: string
-      enum:
-      - PRESTART
-      - FINDING_FEATURES
-      - COLLECTING_IDS
-      - STAGING_DATA
-      - COMPLETED
-      - FAILED
-      - FITTING_SUPERVISED_MODEL
-      - BACKTESTING_SUPERVISED_MODEL
-      - CLUSTERING_RESULTS
-      - TRAINING_STACK
-      - PREDICTING_SUPERVISED_MODEL
-      - PREDICTING_STACK_MODEL
-      - RESCALING_RESULTS
-      - WRITING
-      - LOGGING_PROBABILITIES
-      - LOGGING_INFERENCE_SET_SIZE
-      - FINDING_OPTIMAL_K
-      - FINDING_CENTERS
-      - FINDING_SEGMENT_DIFFS
-      - FINDING_SEGMENT_DIFFERENCES
-      - REMOVING_REDUNDANT_FEATURES_VIA_SQL
-      title: ModelStatus
-    SqlParsePayload:
-      properties:
-        json_sql:
-          type: object
-          title: Json Sql
-          description: The JSON containing the SQL to parse
-      additionalProperties: true
-      type: object
-      required:
-      - json_sql
-      title: SqlParsePayload
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    DishPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        dishAdvertiserName:
-          type: string
-          title: Dishadvertisername
-          description: Dish Network Advertiser Name.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - dishAdvertiserName
-      title: DishPlatformOneTargetPayload
-    LocalityType:
-      type: string
-      enum:
-      - zip
-      - dma
-      title: LocalityType
-    TrainLALOptions:
-      properties:
-        household:
-          type: boolean
-          title: Household
-          description: Whether to train at the household level
-        locality_type:
-          anyOf:
-          - $ref: '#/components/schemas/LocalityType'
-          - type: 'null'
-          description: If set will target people within the specified geographical delineation.
-      additionalProperties: true
-      type: object
-      required:
-      - household
-      title: TrainLALOptions
-    APIStatusMetadataSucceeded:
-      properties:
-        type:
-          type: string
-          enum:
-          - SUCCEEDED
-          const: SUCCEEDED
-          title: Type
-          default: SUCCEEDED
-        location:
-          type: string
-          title: Location
-          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
-      additionalProperties: true
-      type: object
-      required:
-      - location
-      title: APIStatusMetadataSucceeded
-    PandoraPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        dmpTaxonomyId:
-          type: integer
-          title: Dmptaxonomyid
-          description: DMP Taxonomy Id
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - dmpTaxonomyId
-      title: PandoraPlatformOneTargetPayload
-    TaboolaPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        distributionName:
-          type: string
-          title: Distributionname
-          description: Identifier for the account configuration.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - distributionName
-      title: TaboolaPlatformOneTargetPayload
-    SnapchatPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        organizationId:
-          type: string
-          title: Organizationid
-          description: Snapchat Organization ID. Consists of alpha-numeric characters and - in the form xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-        adAccountId:
-          type: string
-          title: Adaccountid
-          description: The Ad Account Id is tied to a specific organisation, under which segments will be created. Consists of alpha-numeric characters and - in the form xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - organizationId
-      - adAccountId
-      title: SnapchatPlatformOneTargetPayload
-    AudienceChartUpdatePayload:
-      properties:
-        audience_id:
-          type: string
-          title: Audience Id
-          description: Audience ID's to update chart with
-        chat_id:
-          type: string
-          title: Chat Id
-          description: Chat record to update
-      additionalProperties: true
-      type: object
-      required:
-      - audience_id
-      - chat_id
-      title: AudienceChartUpdatePayload
     LoopMePlatformOneTargetPayload:
       properties:
         type:
@@ -1413,640 +893,6 @@ components:
       - teamId
       - loopMeAdvertiserName
       title: LoopMePlatformOneTargetPayload
-    src__ad_analytics__location_intelligence__model__Timeframe:
-      properties:
-        start_date:
-          type: string
-          format: date-time
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Date
-      additionalProperties: true
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: Timeframe
-    RefreshTargetEnum:
-      type: string
-      enum:
-      - audience
-      - overview
-      - insights
-      - lookalike
-      title: RefreshTargetEnum
-    SabioPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        distributionName:
-          type: string
-          title: Distributionname
-          description: Identifier for the account configuration.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - distributionName
-      title: SabioPlatformOneTargetPayload
-    APIStatusMetadataFailed:
-      properties:
-        type:
-          type: string
-          enum:
-          - FAILED
-          const: FAILED
-          title: Type
-          default: FAILED
-        error:
-          type: string
-          title: Error
-          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
-          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataFailed
-    LocationIntelligenceGenerateAudiencePayload:
-      properties:
-        teamId:
-          type: string
-          title: Teamid
-          description: team id
-        new_audience_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: New Audience Name
-          description: Audience Name
-        zip_codes:
-          items:
-            type: string
-          type: array
-          title: Zip Codes
-          description: Zip codes of places visited
-        places:
-          items:
-            type: string
-          type: array
-          title: Places
-          description: places visited
-        timeframe:
-          $ref: '#/components/schemas/src__ad_analytics__location_intelligence__model__Timeframe'
-          description: timeframe
-        audience_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Id
-          description: source audience id
-      additionalProperties: true
-      type: object
-      required:
-      - teamId
-      - new_audience_name
-      - zip_codes
-      - places
-      - timeframe
-      title: LocationIntelligenceGenerateAudiencePayload
-    BuildSegAudiencePayload:
-      properties:
-        seg_id:
-          type: string
-          title: Seg Id
-          description: The ID of the segmentation model
-        cluster_ids:
-          items:
-            type: integer
-          type: array
-          title: Cluster Ids
-          description: The cluster IDs to generate the audience for
-        new_audience_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: New Audience Name
-          description: The name of the new audience
-        team_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Id
-          description: The ID of the team to create the audience in
-        owner:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Owner
-          description: The owner of the audience
-      additionalProperties: true
-      type: object
-      required:
-      - seg_id
-      - cluster_ids
-      title: BuildSegAudiencePayload
-    TrainSegPayload:
-      properties:
-        seg_id:
-          type: string
-          title: Seg Id
-          description: The ID of the segmentation model to train
-        audience_id:
-          type: string
-          title: Audience Id
-          description: The ID of the audience to train the segmentation model on
-        options:
-          $ref: '#/components/schemas/TrainSegOptions'
-          description: The options to use when training the segmentation model
-      additionalProperties: true
-      type: object
-      required:
-      - seg_id
-      - audience_id
-      - options
-      title: TrainSegPayload
-    UndertonePlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        undertoneAdvertiserName:
-          type: string
-          title: Undertoneadvertisername
-          description: Undertone Advertiser Name.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - undertoneAdvertiserName
-      title: UndertonePlatformOneTargetPayload
-    AdTheorentPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        clientID:
-          type: string
-          title: Clientid
-          description: Client ID
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - clientID
-      title: AdTheorentPlatformOneTargetPayload
-    AudienceSegment:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the segment.
-        cluster_id:
-          type: integer
-          title: Cluster Id
-          description: The cluster ID of the segment.
-        overview:
-          type: object
-          title: Overview
-          description: The overview statistics of the segment.
-          default: {}
-        description:
-          type: string
-          title: Description
-          description: The description of the segment.
-          default: ''
-        topFactors:
-          items:
-            $ref: '#/components/schemas/TopFactor'
-          type: array
-          title: Topfactors
-          description: The top factors of the segment.
-          default: []
-        bannerImagePath:
-          type: string
-          title: Bannerimagepath
-          description: The banner image path of the segment.
-          default: ''
-        aiSummary:
-          items:
-            $ref: '#/components/schemas/AISummary'
-          type: array
-          title: Aisummary
-          description: The AI summary of the segment.
-          default: []
-      additionalProperties: true
-      type: object
-      required:
-      - name
-      - cluster_id
-      title: AudienceSegment
-    UnivisionPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        univisionAdvertiserName:
-          type: string
-          title: Univisionadvertisername
-          description: Advertiser Name specific to Univision, not related to the chosen advertiser above. Used in filenames for delivery of data to Univision. Consists of alpha-numeric and underscore characters.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - univisionAdvertiserName
-      title: UnivisionPlatformOneTargetPayload
-    LinkedInPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        accountId:
-          type: string
-          title: Accountid
-          description: 'LinkedIn Account Id.  Do NOT include urn:li:sponsoredAccount: at the beginning. Consists of 9 to 19 digits.'
-        schema:
-          type: string
-          enum:
-          - SHA256_EMAIL
-          const: SHA256_EMAIL
-          title: Schema
-          description: Syndication Schema.
-          default: SHA256_EMAIL
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - accountId
-      title: LinkedInPlatformOneTargetPayload
-    DirectTVSafeHavenPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        distributionName:
-          type: string
-          title: Distributionname
-          description: Identifier for the account configuration.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - distributionName
-      title: DirectTVSafeHavenPlatformOneTargetPayload
-    AudienceSegmentation:
-      properties:
-        segId:
-          type: string
-          title: Segid
-          description: The ID of the lookalike audience.
-        audience_id_fs:
-          type: string
-          title: Audience Id Fs
-          description: The ID of the audience.
-        status:
-          $ref: '#/components/schemas/ModelStatus'
-          description: The status of the lookalike audience.
-        options:
-          type: object
-          title: Options
-          description: The options for the lookalike audience.
-          default: {}
-        featureImportance:
-          items:
-            type: object
-          type: array
-          title: Featureimportance
-          description: The feature importance of the segmentation.
-          default: []
-        ignoreColumns:
-          items:
-            type: string
-          type: array
-          title: Ignorecolumns
-          description: The passthrough columns of the lookalike model.
-        numSegments:
-          type: integer
-          title: Numsegments
-          description: The number of segments.
-          default: 0
-        segments:
-          items:
-            $ref: '#/components/schemas/AudienceSegment'
-          type: array
-          title: Segments
-          description: The segments of the audience.
-        execution_duration:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Execution Duration
-          description: The execution duration of the segmentation.
-      additionalProperties: true
-      type: object
-      required:
-      - segId
-      - audience_id_fs
-      - status
-      - ignoreColumns
-      - segments
-      title: AudienceSegmentation
-    CriteoPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        advertiserId:
-          type: string
-          title: Advertiserid
-          description: Criteo Advertiser Id
-        clientId:
-          type: string
-          title: Clientid
-          description: Listed as client id in the document created when making a new key on criteos website
-        clientSecret:
-          type: string
-          title: Clientsecret
-          description: Listed as client secret in the document created when making a new key on criteos website
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - advertiserId
-      - clientId
-      - clientSecret
-      title: CriteoPlatformOneTargetPayload
-    PlatformOneAudienceDistributionTargetConfig:
-      properties:
-        platform_one_config_id:
-          type: string
-          title: Platform One Config Id
-          description: FK to PlatformOneAudienceDistributionTargetConfig record.
-        syndication_group_id:
-          type: integer
-          title: Syndication Group Id
-          description: Syndication Group ID, selects Destination for deploying audience
-      additionalProperties: true
-      type: object
-      required:
-      - platform_one_config_id
-      - syndication_group_id
-      title: PlatformOneAudienceDistributionTargetConfig
-      description: Useful base model for any distribution target that goes through Platform One.
-    IndexExchangePlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        distributionName:
-          type: string
-          title: Distributionname
-          description: Identifier for the account configuration.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - distributionName
-      title: IndexExchangePlatformOneTargetPayload
-    TaskStatusEnum:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - SUCCEEDED
-      - FAILED
-      - UNKNOWN_TIMEOUT
-      title: TaskStatusEnum
-      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
-    AudienceDistributionPayload:
-      properties:
-        audience_distribution_group_id:
-          type: string
-          title: Audience Distribution Group Id
-          description: ID of the Audience Distribution Group
-      additionalProperties: true
-      type: object
-      required:
-      - audience_distribution_group_id
-      title: AudienceDistributionPayload
-    TopFactor:
-      properties:
-        name:
-          type: string
-          title: Name
-        importance:
-          type: number
-          title: Importance
-        keyDifferences:
-          items:
-            type: object
-          type: array
-          title: Keydifferences
-      additionalProperties: true
-      type: object
-      required:
-      - name
-      - importance
-      - keyDifferences
-      title: TopFactor
-    AudienceRefreshPayload:
-      properties:
-        targets:
-          items:
-            $ref: '#/components/schemas/RefreshTargetEnum'
-          type: array
-          title: Targets
-          description: 'List of entities to refresh: ''audience'', ''overview'', ''insights'', ''lookalike''. This list can not be empty'
-          default: []
-        insight_context_list:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/InsightContext'
-            type: array
-          - type: 'null'
-          title: Insight Context List
-          description: Limit insight refresh to specific insights. This parameter is ignored if insights are not being refresed in this call.
-      additionalProperties: false
-      type: object
-      title: AudienceRefreshPayload
-    MetaPlatformOneDataSourceEnum:
-      type: string
-      enum:
-      - BOTH_USER_AND_PARTNER_PROVIDED
-      - USER_PROVIDED_ONLY
-      - PARTNER_PROVIDED_ONLY
-      title: MetaPlatformOneDataSourceEnum
-    AudienceOverlapPayload:
-      properties:
-        audiences:
-          items:
-            type: string
-          type: array
-          title: Audiences
-          description: Audience ID's to compare
-      additionalProperties: true
-      type: object
-      required:
-      - audiences
-      title: AudienceOverlapPayload
-    OpenXPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        uuid:
-          type: string
-          title: Uuid
-          description: OpenX Advertiser Account ID
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - uuid
-      title: OpenXPlatformOneTargetPayload
-    YahooVerizonDSPPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        distributionName:
-          type: string
-          title: Distributionname
-          description: Identifier for the account configuration.
-        dataType:
-          type: string
-          enum:
-          - 3rd Party Data
-          - AdAdvisor Data
-          - Custom Data
-          - Private Data
-          - AdAdvisor by TransUnion Custom Data
-          title: Datatype
-          description: For 1st Party Data, Select "Private Data". For 3rd Party Data to a specific seat, Select "Custom Data". For 3rd Party Data to Yahoo’s MarketPlace, Select "3rd Party Data".
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - distributionName
-      - dataType
-      title: YahooVerizonDSPPlatformOneTargetPayload
-    CentroPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        centroAdvertiserID:
-          type: string
-          title: Centroadvertiserid
-          description: Basis DSP (Centro) Advertiser ID. Consists of lower-case alpha-numeric characters and dash.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - centroAdvertiserID
-      title: CentroPlatformOneTargetPayload
     TaskStatus:
       type: string
       enum:
@@ -2054,164 +900,6 @@ components:
       - COMPLETED
       - FAILED
       title: TaskStatus
-    AudienceLAL:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: ID of this object.
-        _markedForDeletion:
-          type: boolean
-          title: ' Markedfordeletion'
-          description: marked if record has been soft-deleted.
-          default: false
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - additionalProperties:
-              type: integer
-            type: object
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - additionalProperties:
-              type: integer
-            type: object
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        lalId:
-          type: string
-          title: Lalid
-          description: The ID of the lookalike audience.
-        audienceId:
-          type: string
-          title: Audienceid
-          description: The ID of the audience.
-        options:
-          type: object
-          title: Options
-          description: The options for the lookalike audience.
-        status:
-          type: string
-          title: Status
-          description: The status of the lookalike audience.
-        inference_set_size:
-          type: integer
-          title: Inference Set Size
-          description: The size of the inference set.
-          default: -1
-        ignore_columns:
-          items:
-            type: string
-          type: array
-          title: Ignore Columns
-          description: The passthrough columns of the lookalike model.
-          default: []
-        probabilities:
-          anyOf:
-          - items:
-              type: number
-            type: array
-          - type: 'null'
-          title: Probabilities
-          description: The sorted probabilities of the lookalike audience.
-        defaultStatsConfidence:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Defaultstatsconfidence
-          description: The default stats confidence of the lookalike audience.
-        defaultStats:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Defaultstats
-          description: The default stats of the lookalike audience.
-        featureImportance:
-          anyOf:
-          - items:
-              type: object
-            type: array
-          - type: 'null'
-          title: Featureimportance
-          description: The feature importance of the lookalike audience.
-        top_factors:
-          items:
-            $ref: '#/components/schemas/TopFactor'
-          type: array
-          title: Top Factors
-          description: The top factors of the lookalike audience.
-          default: []
-        executionDuration:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Executionduration
-          description: The execution duration of the lookalike audience.
-      additionalProperties: true
-      type: object
-      required:
-      - lalId
-      - audienceId
-      - options
-      - status
-      title: AudienceLAL
-    PlatformOneAudienceDistributionTarget:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: ID of this object.
-        _markedForDeletion:
-          type: boolean
-          title: ' Markedfordeletion'
-          description: marked if record has been soft-deleted.
-          default: false
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - additionalProperties:
-              type: integer
-            type: object
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - additionalProperties:
-              type: integer
-            type: object
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        teamId:
-          type: string
-          title: Teamid
-          description: The team ID associated with the target.
-        name:
-          type: string
-          title: Name
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        config:
-          $ref: '#/components/schemas/PlatformOneAudienceDistributionTargetConfig'
-      additionalProperties: true
-      type: object
-      required:
-      - teamId
-      - name
-      - type
-      - config
-      title: PlatformOneAudienceDistributionTarget
     Audience:
       properties:
         id:
@@ -2378,7 +1066,25 @@ components:
       - audienceSql
       - saved_to_db
       title: Audience
-    SamsungAdsPlatformOneTargetPayload:
+    src__ad_analytics__location_intelligence__model__Timeframe:
+      properties:
+        start_date:
+          type: string
+          format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+      additionalProperties: true
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: Timeframe
+    RokuPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -2390,28 +1096,76 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        clientKey:
+        advertiserName:
           type: string
-          title: Clientkey
-          description: Consists of alpha-numeric and underscore characters.
+          title: Advertisername
+          description: Advertiser Name
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - clientKey
-      title: SamsungAdsPlatformOneTargetPayload
-    HTTPValidationError:
+      - advertiserName
+      title: RokuPlatformOneTargetPayload
+    ImportAudiencePayload:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        audience_name:
+          type: string
+          title: Audience Name
+          description: Name of the audience to import
+        table_name:
+          type: string
+          title: Table Name
+          description: Name of the table to import from
+      additionalProperties: true
       type: object
-      title: HTTPValidationError
-    InMobiPlatformOneTargetPayload:
+      required:
+      - audience_name
+      - table_name
+      title: ImportAudiencePayload
+    APIStatusMetadataInProgress:
+      properties:
+        type:
+          type: string
+          enum:
+          - IN_PROGRESS
+          const: IN_PROGRESS
+          title: Type
+          default: IN_PROGRESS
+        estimate_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimate Seconds
+          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataInProgress
+    FromParsedJsonRequestPayload:
+      properties:
+        audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Name
+          description: If provided, used as the name of the audience. If missing, we infer an accurate name via LLM call.
+        audience_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Description
+          description: If provided, used as the description of the audience. If missing, we infer an accurate description via LLM call.
+        parsed_json:
+          type: object
+          title: Parsed Json
+          description: The parsed JSON object (corresponding to something created through the query builder) to create an `Audience` from.
+      additionalProperties: true
+      type: object
+      required:
+      - parsed_json
+      title: FromParsedJsonRequestPayload
+    OpenXPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -2423,19 +1177,19 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        distributionName:
+        uuid:
           type: string
-          title: Distributionname
-          description: Identifier for the account configuration.
+          title: Uuid
+          description: OpenX Advertiser Account ID
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - distributionName
-      title: InMobiPlatformOneTargetPayload
-    PinterestPlatformOneTargetPayload:
+      - uuid
+      title: OpenXPlatformOneTargetPayload
+    CriteoPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -2450,7 +1204,15 @@ components:
         advertiserId:
           type: string
           title: Advertiserid
-          description: Pinterest Account ID which is 10 to 18 digits
+          description: Criteo Advertiser Id
+        clientId:
+          type: string
+          title: Clientid
+          description: Listed as client id in the document created when making a new key on criteos website
+        clientSecret:
+          type: string
+          title: Clientsecret
+          description: Listed as client secret in the document created when making a new key on criteos website
       additionalProperties: true
       type: object
       required:
@@ -2458,83 +1220,25 @@ components:
       - platformOneConfigId
       - teamId
       - advertiserId
-      title: PinterestPlatformOneTargetPayload
-    TrainSegOptions:
+      - clientId
+      - clientSecret
+      title: CriteoPlatformOneTargetPayload
+    AudienceChartUpdatePayload:
       properties:
-        k:
-          anyOf:
-          - type: integer
-            enum:
-            - 3
-            - 4
-            - 5
-          - type: string
-            enum:
-            - dynamic
-            const: dynamic
-          title: K
-          description: 'The number of segments to create (allowed: 3, 4, 5, or ''dynamic'')'
-          default: 3
-        household:
-          type: boolean
-          title: Household
-          description: Whether to train at the household level
-          default: false
-      additionalProperties: true
-      type: object
-      title: TrainSegOptions
-    DisneyPlusPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
+        audience_id:
           type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
+          title: Audience Id
+          description: Audience ID's to update chart with
+        chat_id:
           type: string
-          title: Teamid
-          description: ID of Team
-        disneyClientName:
-          type: string
-          title: Disneyclientname
-          description: Disney Plus client name. Consists of alpha-numeric characters.
+          title: Chat Id
+          description: Chat record to update
       additionalProperties: true
       type: object
       required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - disneyClientName
-      title: DisneyPlusPlatformOneTargetPayload
-    MetaPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        accountId:
-          type: string
-          title: Accountid
-          description: Account ID for Meta Business API.
-        metaDatasource:
-          $ref: '#/components/schemas/MetaPlatformOneDataSourceEnum'
-          description: Data Source for Meta Business API.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - accountId
-      - metaDatasource
-      title: MetaPlatformOneTargetPayload
+      - audience_id
+      - chat_id
+      title: AudienceChartUpdatePayload
     APIStatusResponse:
       properties:
         status:
@@ -2561,7 +1265,7 @@ components:
       - status
       - metadata
       title: APIStatusResponse
-    RokuPlatformOneTargetPayload:
+    PubmaticPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -2573,18 +1277,750 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        advertiserName:
-          type: string
-          title: Advertisername
-          description: Advertiser Name
+        pubmaticDataProviderId:
+          type: integer
+          title: Pubmaticdataproviderid
+          description: Pubmatic Data Provider ID, contains numeric characters only.
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - advertiserName
-      title: RokuPlatformOneTargetPayload
+      - pubmaticDataProviderId
+      title: PubmaticPlatformOneTargetPayload
+    APITaskStartedResponse:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+          description: The ID of the task that was started. This is generally queryable at a nearby `/status` endpoint to get the current status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - task_id
+      title: APITaskStartedResponse
+    LinkedInPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        accountId:
+          type: string
+          title: Accountid
+          description: 'LinkedIn Account Id.  Do NOT include urn:li:sponsoredAccount: at the beginning. Consists of 9 to 19 digits.'
+        schema:
+          type: string
+          enum:
+          - SHA256_EMAIL
+          const: SHA256_EMAIL
+          title: Schema
+          description: Syndication Schema.
+          default: SHA256_EMAIL
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - accountId
+      title: LinkedInPlatformOneTargetPayload
+    AudienceNameUpdatePayload:
+      properties:
+        new_audience_name:
+          type: string
+          title: New Audience Name
+          description: New audience name
+      additionalProperties: true
+      type: object
+      required:
+      - new_audience_name
+      title: AudienceNameUpdatePayload
+    InMobiPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        distributionName:
+          type: string
+          title: Distributionname
+          description: Identifier for the account configuration.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - distributionName
+      title: InMobiPlatformOneTargetPayload
+    TaboolaPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        distributionName:
+          type: string
+          title: Distributionname
+          description: Identifier for the account configuration.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - distributionName
+      title: TaboolaPlatformOneTargetPayload
+    UpdateAudiencePayload:
+      properties:
+        parsed_json:
+          type: object
+          title: Parsed Json
+          description: The JSON SQL to update the audience with
+        audience:
+          $ref: '#/components/schemas/Audience'
+          description: The audience to update
+      additionalProperties: true
+      type: object
+      required:
+      - parsed_json
+      - audience
+      title: UpdateAudiencePayload
+    BeeswaxPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        accountID:
+          type: string
+          title: Accountid
+          description: Enter your Beeswax Account ID. If you do not know your Account ID, reach out to your Beeswax Account Representative.
+        buzzkey:
+          type: string
+          title: Buzzkey
+          description: Enter your Beeswax Buzz Key. If you do not know your Buzz Key, reach out to your Beeswax Account Representative.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - accountID
+      - buzzkey
+      title: BeeswaxPlatformOneTargetPayload
+    LocationIntelligenceGenerateAudiencePayload:
+      properties:
+        teamId:
+          type: string
+          title: Teamid
+          description: team id
+        new_audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: New Audience Name
+          description: Audience Name
+        zip_codes:
+          items:
+            type: string
+          type: array
+          title: Zip Codes
+          description: Zip codes of places visited
+        places:
+          items:
+            type: string
+          type: array
+          title: Places
+          description: places visited
+        timeframe:
+          $ref: '#/components/schemas/src__ad_analytics__location_intelligence__model__Timeframe'
+          description: timeframe
+        audience_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience Id
+          description: source audience id
+      additionalProperties: true
+      type: object
+      required:
+      - teamId
+      - new_audience_name
+      - zip_codes
+      - places
+      - timeframe
+      title: LocationIntelligenceGenerateAudiencePayload
+    PlatformOneAudienceDistributionTargetConfig:
+      properties:
+        platform_one_config_id:
+          type: string
+          title: Platform One Config Id
+          description: FK to PlatformOneAudienceDistributionTargetConfig record.
+        syndication_group_id:
+          type: integer
+          title: Syndication Group Id
+          description: Syndication Group ID, selects Destination for deploying audience
+      additionalProperties: true
+      type: object
+      required:
+      - platform_one_config_id
+      - syndication_group_id
+      title: PlatformOneAudienceDistributionTargetConfig
+      description: Useful base model for any distribution target that goes through Platform One.
+    SqlParsePayload:
+      properties:
+        json_sql:
+          type: object
+          title: Json Sql
+          description: The JSON containing the SQL to parse
+      additionalProperties: true
+      type: object
+      required:
+      - json_sql
+      title: SqlParsePayload
+    AmazonPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        cfid:
+          type: string
+          title: Cfid
+          description: CFID for Amazon API. Amazon Advertiser ID.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - cfid
+      title: AmazonPlatformOneTargetPayload
+    UnivisionPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        univisionAdvertiserName:
+          type: string
+          title: Univisionadvertisername
+          description: Advertiser Name specific to Univision, not related to the chosen advertiser above. Used in filenames for delivery of data to Univision. Consists of alpha-numeric and underscore characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - univisionAdvertiserName
+      title: UnivisionPlatformOneTargetPayload
+    TradeDeskPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        firstPartyDataProviderId:
+          type: string
+          title: Firstpartydataproviderid
+          description: First Party Data Provider TradeDesk API.
+        secretKey:
+          type: string
+          title: Secretkey
+          description: Secret Key for TradeDesk API.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - firstPartyDataProviderId
+      - secretKey
+      title: TradeDeskPlatformOneTargetPayload
+    TikTokPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        businessAccount:
+          type: string
+          title: Businessaccount
+          description: Business Account for TikTok API. Business Account is used to select Access Token used with Advertiser ID.  If a new Business Account is needed, an engineer MUST get a new accessToken.
+        advertiserId:
+          type: string
+          title: Advertiserid
+          description: Advertiser ID for TikTok API.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - businessAccount
+      - advertiserId
+      title: TikTokPlatformOneTargetPayload
+    SamsungAdsPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        clientKey:
+          type: string
+          title: Clientkey
+          description: Consists of alpha-numeric and underscore characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - clientKey
+      title: SamsungAdsPlatformOneTargetPayload
+    AudienceSegmentation:
+      properties:
+        segId:
+          type: string
+          title: Segid
+          description: The ID of the lookalike audience.
+        audience_id_fs:
+          type: string
+          title: Audience Id Fs
+          description: The ID of the audience.
+        status:
+          $ref: '#/components/schemas/ModelStatus'
+          description: The status of the lookalike audience.
+        options:
+          type: object
+          title: Options
+          description: The options for the lookalike audience.
+          default: {}
+        featureImportance:
+          items:
+            type: object
+          type: array
+          title: Featureimportance
+          description: The feature importance of the segmentation.
+          default: []
+        ignoreColumns:
+          items:
+            type: string
+          type: array
+          title: Ignorecolumns
+          description: The passthrough columns of the lookalike model.
+        numSegments:
+          type: integer
+          title: Numsegments
+          description: The number of segments.
+          default: 0
+        segments:
+          items:
+            $ref: '#/components/schemas/AudienceSegment'
+          type: array
+          title: Segments
+          description: The segments of the audience.
+        execution_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Execution Duration
+          description: The execution duration of the segmentation.
+      additionalProperties: true
+      type: object
+      required:
+      - segId
+      - audience_id_fs
+      - status
+      - ignoreColumns
+      - segments
+      title: AudienceSegmentation
+    YahooVerizonDSPPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        distributionName:
+          type: string
+          title: Distributionname
+          description: Identifier for the account configuration.
+        dataType:
+          type: string
+          enum:
+          - 3rd Party Data
+          - AdAdvisor Data
+          - Custom Data
+          - Private Data
+          - AdAdvisor by TransUnion Custom Data
+          title: Datatype
+          description: For 1st Party Data, Select "Private Data". For 3rd Party Data to a specific seat, Select "Custom Data". For 3rd Party Data to Yahoo’s MarketPlace, Select "3rd Party Data".
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - distributionName
+      - dataType
+      title: YahooVerizonDSPPlatformOneTargetPayload
+    DishPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        dishAdvertiserName:
+          type: string
+          title: Dishadvertisername
+          description: Dish Network Advertiser Name.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - dishAdvertiserName
+      title: DishPlatformOneTargetPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ComcastSubscriberType:
+      type: string
+      enum:
+      - VOD
+      - X1
+      - UA
+      - LSA
+      title: ComcastSubscriberType
+    AudienceDistributionPayload:
+      properties:
+        audience_distribution_group_id:
+          type: string
+          title: Audience Distribution Group Id
+          description: ID of the Audience Distribution Group
+      additionalProperties: true
+      type: object
+      required:
+      - audience_distribution_group_id
+      title: AudienceDistributionPayload
+    GroundTruthPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        distributionName:
+          type: string
+          title: Distributionname
+          description: Identifier for the account configuration.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - distributionName
+      title: GroundTruthPlatformOneTargetPayload
+    AISummary:
+      properties:
+        summary:
+          type: string
+          title: Summary
+        keyDifference:
+          type: object
+          title: Keydifference
+      additionalProperties: true
+      type: object
+      required:
+      - summary
+      - keyDifference
+      title: AISummary
+    APIStatusMetadataFailed:
+      properties:
+        type:
+          type: string
+          enum:
+          - FAILED
+          const: FAILED
+          title: Type
+          default: FAILED
+        error:
+          type: string
+          title: Error
+          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
+          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataFailed
+    TopFactor:
+      properties:
+        name:
+          type: string
+          title: Name
+        importance:
+          type: number
+          title: Importance
+        keyDifferences:
+          items:
+            type: object
+          type: array
+          title: Keydifferences
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      - importance
+      - keyDifferences
+      title: TopFactor
+    TeadsPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        teadsDpId:
+          type: string
+          title: Teadsdpid
+          description: Teads DPID is a value that must be provided by Teads or the Advertiser. Consists of 5 or 6 alpha-numeric characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - teadsDpId
+      title: TeadsPlatformOneTargetPayload
+    DirectTVSafeHavenPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        distributionName:
+          type: string
+          title: Distributionname
+          description: Identifier for the account configuration.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - distributionName
+      title: DirectTVSafeHavenPlatformOneTargetPayload
+    NativoPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        nativoAdvertiserName:
+          type: string
+          title: Nativoadvertisername
+          description: Advertiser Name used in filenames for delivery of data to Nativo. Enter 'thirdparty' for AdAdvisor and 3rd-party Data Providers. Consists of alpha-numeric characters and dash.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - nativoAdvertiserName
+      title: NativoPlatformOneTargetPayload
+    AudienceRefreshPayload:
+      properties:
+        targets:
+          items:
+            $ref: '#/components/schemas/RefreshTargetEnum'
+          type: array
+          title: Targets
+          description: 'List of entities to refresh: ''audience'', ''overview'', ''insights'', ''lookalike''. This list can not be empty'
+          default: []
+        insight_context_list:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/InsightContext'
+            type: array
+          - type: 'null'
+          title: Insight Context List
+          description: Limit insight refresh to specific insights. This parameter is ignored if insights are not being refresed in this call.
+      additionalProperties: false
+      type: object
+      title: AudienceRefreshPayload
+    RefreshTargetEnum:
+      type: string
+      enum:
+      - audience
+      - overview
+      - insights
+      - lookalike
+      title: RefreshTargetEnum
+    MetaPlatformOneDataSourceEnum:
+      type: string
+      enum:
+      - BOTH_USER_AND_PARTNER_PROVIDED
+      - USER_PROVIDED_ONLY
+      - PARTNER_PROVIDED_ONLY
+      title: MetaPlatformOneDataSourceEnum
+    SnapchatPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        organizationId:
+          type: string
+          title: Organizationid
+          description: Snapchat Organization ID. Consists of alpha-numeric characters and - in the form xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+        adAccountId:
+          type: string
+          title: Adaccountid
+          description: The Ad Account Id is tied to a specific organisation, under which segments will be created. Consists of alpha-numeric characters and - in the form xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - organizationId
+      - adAccountId
+      title: SnapchatPlatformOneTargetPayload
+    SpectrumTotalSubscriberSegment:
+      type: string
+      enum:
+      - '29825341'
+      - '46105647'
+      - '46501132'
+      title: SpectrumTotalSubscriberSegment
+    UndertonePlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        undertoneAdvertiserName:
+          type: string
+          title: Undertoneadvertisername
+          description: Undertone Advertiser Name.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - undertoneAdvertiserName
+      title: UndertonePlatformOneTargetPayload
     AsyncJobRecord:
       properties:
         id:
@@ -2651,41 +2087,49 @@ components:
       type: object
       title: AsyncJobRecord
       description: Do NOT access this table directly.
-    BuildLALPayload:
+    APIStatusMetadataSucceeded:
       properties:
-        lal_id:
+        type:
           type: string
-          title: Lal Id
-          description: The ID of the lal model
-        new_audience_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: New Audience Name
-          description: The name of the new audience
-        confidence:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Confidence
-          description: The confidence threshold for the lookalike model
-        size:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Size
-          description: The number of audience members to return
-        include_seed:
-          type: boolean
-          title: Include Seed
-          description: Whether to include the seed audience in the lookalike audience
-          default: false
+          enum:
+          - SUCCEEDED
+          const: SUCCEEDED
+          title: Type
+          default: SUCCEEDED
+        location:
+          type: string
+          title: Location
+          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
       additionalProperties: true
       type: object
       required:
-      - lal_id
-      title: BuildLALPayload
-    SlingTvPlatformOneTargetPayload:
+      - location
+      title: APIStatusMetadataSucceeded
+    DV360PlatformOneProductEnum:
+      type: string
+      enum:
+      - GOOGLE_ADS
+      - DISPLAY_VIDEO_PARTNER
+      - DISPLAY_VIDEO_ADVERTISER
+      - GOOGLE_AD_MANAGER
+      title: DV360PlatformOneProductEnum
+    TrainLALOptions:
+      properties:
+        household:
+          type: boolean
+          title: Household
+          description: Whether to train at the household level
+        locality_type:
+          anyOf:
+          - $ref: '#/components/schemas/LocalityType'
+          - type: 'null'
+          description: If set will target people within the specified geographical delineation.
+      additionalProperties: true
+      type: object
+      required:
+      - household
+      title: TrainLALOptions
+    DV360PlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -2697,19 +2141,48 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        slingTVAdvertiserName:
+        customerId:
           type: string
-          title: Slingtvadvertisername
-          description: slingTVAdvertiserName.This will be stored in seat.Input should consists of alphanumeric characters,underscores and hyphens.
+          title: Customerid
+          description: Customer ID for Google DV360 API.
+        dv360Product:
+          $ref: '#/components/schemas/DV360PlatformOneProductEnum'
+          description: Product for DV360 API.
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - slingTVAdvertiserName
-      title: SlingTvPlatformOneTargetPayload
-    LotamePlatformOneTargetPayload:
+      - customerId
+      - dv360Product
+      title: DV360PlatformOneTargetPayload
+    ModelStatus:
+      type: string
+      enum:
+      - PRESTART
+      - FINDING_FEATURES
+      - COLLECTING_IDS
+      - STAGING_DATA
+      - COMPLETED
+      - FAILED
+      - FITTING_SUPERVISED_MODEL
+      - BACKTESTING_SUPERVISED_MODEL
+      - CLUSTERING_RESULTS
+      - TRAINING_STACK
+      - PREDICTING_SUPERVISED_MODEL
+      - PREDICTING_STACK_MODEL
+      - RESCALING_RESULTS
+      - WRITING
+      - LOGGING_PROBABILITIES
+      - LOGGING_INFERENCE_SET_SIZE
+      - FINDING_OPTIMAL_K
+      - FINDING_CENTERS
+      - FINDING_SEGMENT_DIFFS
+      - FINDING_SEGMENT_DIFFERENCES
+      - REMOVING_REDUNDANT_FEATURES_VIA_SQL
+      title: ModelStatus
+    AdTheorentPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -2724,7 +2197,7 @@ components:
         clientID:
           type: string
           title: Clientid
-          description: Client ID which is 3 to 6 digits
+          description: Client ID
       additionalProperties: true
       type: object
       required:
@@ -2732,8 +2205,8 @@ components:
       - platformOneConfigId
       - teamId
       - clientID
-      title: LotamePlatformOneTargetPayload
-    BeeswaxPlatformOneTargetPayload:
+      title: AdTheorentPlatformOneTargetPayload
+    IndexExchangePlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -2745,64 +2218,18 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        accountID:
+        distributionName:
           type: string
-          title: Accountid
-          description: Enter your Beeswax Account ID. If you do not know your Account ID, reach out to your Beeswax Account Representative.
-        buzzkey:
-          type: string
-          title: Buzzkey
-          description: Enter your Beeswax Buzz Key. If you do not know your Buzz Key, reach out to your Beeswax Account Representative.
+          title: Distributionname
+          description: Identifier for the account configuration.
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - accountID
-      - buzzkey
-      title: BeeswaxPlatformOneTargetPayload
-    AudienceNameUpdatePayload:
-      properties:
-        new_audience_name:
-          type: string
-          title: New Audience Name
-          description: New audience name
-      additionalProperties: true
-      type: object
-      required:
-      - new_audience_name
-      title: AudienceNameUpdatePayload
-    SpectrumTotalSubscriberSegment:
-      type: string
-      enum:
-      - '29825341'
-      - '46105647'
-      - '46501132'
-      title: SpectrumTotalSubscriberSegment
-    FromParsedJsonRequestPayload:
-      properties:
-        audience_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Name
-          description: If provided, used as the name of the audience. If missing, we infer an accurate name via LLM call.
-        audience_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience Description
-          description: If provided, used as the description of the audience. If missing, we infer an accurate description via LLM call.
-        parsed_json:
-          type: object
-          title: Parsed Json
-          description: The parsed JSON object (corresponding to something created through the query builder) to create an `Audience` from.
-      additionalProperties: true
-      type: object
-      required:
-      - parsed_json
-      title: FromParsedJsonRequestPayload
+      - distributionName
+      title: IndexExchangePlatformOneTargetPayload
     AppNexusXandrInvestPlatformOneTargetPayload:
       properties:
         type:
@@ -2827,7 +2254,56 @@ components:
       - teamId
       - memberIds
       title: AppNexusXandrInvestPlatformOneTargetPayload
-    GroundTruthPlatformOneTargetPayload:
+    TrainLALPayload:
+      properties:
+        lal_id:
+          type: string
+          title: Lal Id
+          description: The ID of the lookalike model to train
+        audience_id:
+          type: string
+          title: Audience Id
+          description: The ID of the audience to train the lookalike model on
+        options:
+          $ref: '#/components/schemas/TrainLALOptions'
+          description: The options to use when training the lookalike model
+      additionalProperties: true
+      type: object
+      required:
+      - lal_id
+      - audience_id
+      - options
+      title: TrainLALPayload
+    MagnitePlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        magniteSeatId:
+          type: string
+          title: Magniteseatid
+          description: Magnite Seat Id, Not the MetaData Seat Id. Consists of digits.
+        magnitePartnerId:
+          type: string
+          title: Magnitepartnerid
+          description: Magnite provided DMP Partner ID representing the owner of the segment. Consists of digits.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - magniteSeatId
+      - magnitePartnerId
+      title: MagnitePlatformOneTargetPayload
+    UnityPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -2850,25 +2326,437 @@ components:
       - platformOneConfigId
       - teamId
       - distributionName
-      title: GroundTruthPlatformOneTargetPayload
-    APIStatusMetadataInProgress:
+      title: UnityPlatformOneTargetPayload
+    StatsLALPayload:
       properties:
-        type:
+        lal_id:
           type: string
-          enum:
-          - IN_PROGRESS
-          const: IN_PROGRESS
-          title: Type
-          default: IN_PROGRESS
-        estimate_seconds:
+          title: Lal Id
+          description: The ID of the lal model
+        confidence:
           anyOf:
           - type: number
           - type: 'null'
-          title: Estimate Seconds
-          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+          title: Confidence
+          description: The confidence threshold for the lookalike model
+        size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Size
+          description: The number of audience members to return
       additionalProperties: true
       type: object
-      title: APIStatusMetadataInProgress
+      required:
+      - lal_id
+      title: StatsLALPayload
+    KargoPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        kargoAdvertiserName:
+          type: string
+          title: Kargoadvertisername
+          description: Advertiser Name specific to Kargo, not related to the chosen advertiser above. Consists of alpha-numeric and underscore characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - kargoAdvertiserName
+      title: KargoPlatformOneTargetPayload
+    SlingTvPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        slingTVAdvertiserName:
+          type: string
+          title: Slingtvadvertisername
+          description: slingTVAdvertiserName.This will be stored in seat.Input should consists of alphanumeric characters,underscores and hyphens.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - slingTVAdvertiserName
+      title: SlingTvPlatformOneTargetPayload
+    ComcastPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        subscriberType:
+          $ref: '#/components/schemas/ComcastSubscriberType'
+          description: Subscriber Type
+        segmentPrioritization:
+          type: boolean
+          title: Segmentprioritization
+          description: Segment Prioritization
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - subscriberType
+      - segmentPrioritization
+      title: ComcastPlatformOneTargetPayload
+    PlatformOneAudienceDistributionTarget:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of this object.
+        _markedForDeletion:
+          type: boolean
+          title: ' Markedfordeletion'
+          description: marked if record has been soft-deleted.
+          default: false
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - additionalProperties:
+              type: integer
+            type: object
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - additionalProperties:
+              type: integer
+            type: object
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        teamId:
+          type: string
+          title: Teamid
+          description: The team ID associated with the target.
+        name:
+          type: string
+          title: Name
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        config:
+          $ref: '#/components/schemas/PlatformOneAudienceDistributionTargetConfig'
+      additionalProperties: true
+      type: object
+      required:
+      - teamId
+      - name
+      - type
+      - config
+      title: PlatformOneAudienceDistributionTarget
+    LocalityType:
+      type: string
+      enum:
+      - zip
+      - dma
+      title: LocalityType
+    TrainSegOptions:
+      properties:
+        k:
+          anyOf:
+          - type: integer
+            enum:
+            - 3
+            - 4
+            - 5
+          - type: string
+            enum:
+            - dynamic
+            const: dynamic
+          title: K
+          description: 'The number of segments to create (allowed: 3, 4, 5, or ''dynamic'')'
+          default: 3
+        household:
+          type: boolean
+          title: Household
+          description: Whether to train at the household level
+          default: false
+      additionalProperties: true
+      type: object
+      title: TrainSegOptions
+    AudienceOverlapPayload:
+      properties:
+        audiences:
+          items:
+            type: string
+          type: array
+          title: Audiences
+          description: Audience ID's to compare
+      additionalProperties: true
+      type: object
+      required:
+      - audiences
+      title: AudienceOverlapPayload
+    BuildSegAudiencePayload:
+      properties:
+        seg_id:
+          type: string
+          title: Seg Id
+          description: The ID of the segmentation model
+        cluster_ids:
+          items:
+            type: integer
+          type: array
+          title: Cluster Ids
+          description: The cluster IDs to generate the audience for
+        new_audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: New Audience Name
+          description: The name of the new audience
+        team_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Id
+          description: The ID of the team to create the audience in
+        owner:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Owner
+          description: The owner of the audience
+      additionalProperties: true
+      type: object
+      required:
+      - seg_id
+      - cluster_ids
+      title: BuildSegAudiencePayload
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    TrainSegPayload:
+      properties:
+        seg_id:
+          type: string
+          title: Seg Id
+          description: The ID of the segmentation model to train
+        audience_id:
+          type: string
+          title: Audience Id
+          description: The ID of the audience to train the segmentation model on
+        options:
+          $ref: '#/components/schemas/TrainSegOptions'
+          description: The options to use when training the segmentation model
+      additionalProperties: true
+      type: object
+      required:
+      - seg_id
+      - audience_id
+      - options
+      title: TrainSegPayload
+    DisneyPlusPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        disneyClientName:
+          type: string
+          title: Disneyclientname
+          description: Disney Plus client name. Consists of alpha-numeric characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - disneyClientName
+      title: DisneyPlusPlatformOneTargetPayload
+    InsightContext:
+      type: string
+      enum:
+      - AGE
+      - GENDER
+      - ETHNICITY_PREDICTION
+      - EDUCATION
+      - MARITAL_STATUS
+      - LOCATION
+      - STATE
+      - OCCUPATION
+      - HOUSEHOLD_MEDIAN_HOMEVALUE_BY_STATE
+      - PRESENCE_OF_CHILDREN_IN_HOUSEHOLD
+      - NUM_PEOPLE_IN_HOUSEHOLD
+      - HOUSEHOLD_OWNS_HOME
+      - AGE_OF_CHILDREN_IN_HOUSEHOLD
+      - NUMBER_OF_CHILDREN_IN_HOUSEHOLD
+      - INCOME
+      - GENERAL_INTERESTS
+      - SPORTS_INTERESTS
+      - READING_INTERESTS
+      - TRAVEL_INTERESTS
+      - CAR_BRANDS
+      - CAR_TYPES
+      - CAR_MAKE_MODEL
+      - CAR_FUEL_TYPES
+      - CAR_SIZE
+      - FINANCIAL_HEALTH
+      - NET_WORTH
+      - CREDIT_CARDS
+      - INVESTMENTS
+      - MEDIA_APPS
+      - MEDIA_NETWORKS
+      - MEDIA_TOP_TITLES
+      - MEDIA_TOP_GENRES
+      - MEDIA_INPUT_DEVICES
+      - PURCHASE_CATEGORY
+      - PURCHASE_AVERAGE_SPEND
+      - ONLINE_CONTENT_CONSUMPTION
+      - POI_CATEGORIES
+      - POI_CHAINS
+      - COUNTS
+      title: InsightContext
+    SpectrumTotalPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        customerName:
+          type: string
+          title: Customername
+          description: Customer Name
+        segmentPrioritization:
+          type: boolean
+          title: Segmentprioritization
+          description: Segment Prioritization
+        subscriberSegmentId:
+          $ref: '#/components/schemas/SpectrumTotalSubscriberSegment'
+          description: Subscriber Segment ID
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - customerName
+      - segmentPrioritization
+      - subscriberSegmentId
+      title: SpectrumTotalPlatformOneTargetPayload
+    TritonDigitalPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        publisherName:
+          type: string
+          title: Publishername
+          description: Publisher Name of Triton's client, not the end Advertiser. Consists of alpha-numeric characters.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - publisherName
+      title: TritonDigitalPlatformOneTargetPayload
+    LotamePlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        clientID:
+          type: string
+          title: Clientid
+          description: Client ID which is 3 to 6 digits
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - clientID
+      title: LotamePlatformOneTargetPayload
+    LGAdsPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        lgAdsAdvertiserName:
+          type: string
+          title: Lgadsadvertisername
+          description: LG Ads Advertiser Name.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - lgAdsAdvertiserName
+      title: LGAdsPlatformOneTargetPayload
     FourInfoPlatformOneTargetPayload:
       properties:
         type:
@@ -2893,7 +2781,7 @@ components:
       - teamId
       - fourInfoAdvertiserName
       title: FourInfoPlatformOneTargetPayload
-    NativoPlatformOneTargetPayload:
+    MetaPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -2905,27 +2793,23 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        nativoAdvertiserName:
+        accountId:
           type: string
-          title: Nativoadvertisername
-          description: Advertiser Name used in filenames for delivery of data to Nativo. Enter 'thirdparty' for AdAdvisor and 3rd-party Data Providers. Consists of alpha-numeric characters and dash.
+          title: Accountid
+          description: Account ID for Meta Business API.
+        metaDatasource:
+          $ref: '#/components/schemas/MetaPlatformOneDataSourceEnum'
+          description: Data Source for Meta Business API.
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - nativoAdvertiserName
-      title: NativoPlatformOneTargetPayload
-    ComcastSubscriberType:
-      type: string
-      enum:
-      - VOD
-      - X1
-      - UA
-      - LSA
-      title: ComcastSubscriberType
-    TeadsPlatformOneTargetPayload:
+      - accountId
+      - metaDatasource
+      title: MetaPlatformOneTargetPayload
+    CentroPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -2937,18 +2821,87 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        teadsDpId:
+        centroAdvertiserID:
           type: string
-          title: Teadsdpid
-          description: Teads DPID is a value that must be provided by Teads or the Advertiser. Consists of 5 or 6 alpha-numeric characters.
+          title: Centroadvertiserid
+          description: Basis DSP (Centro) Advertiser ID. Consists of lower-case alpha-numeric characters and dash.
       additionalProperties: true
       type: object
       required:
       - type
       - platformOneConfigId
       - teamId
-      - teadsDpId
-      title: TeadsPlatformOneTargetPayload
+      - centroAdvertiserID
+      title: CentroPlatformOneTargetPayload
+    SabioPlatformOneTargetPayload:
+      properties:
+        type:
+          $ref: '#/components/schemas/AudienceDistributionTargetType'
+        platformOneConfigId:
+          type: string
+          title: Platformoneconfigid
+          description: ID of PlatformOne Config
+        teamId:
+          type: string
+          title: Teamid
+          description: ID of Team
+        distributionName:
+          type: string
+          title: Distributionname
+          description: Identifier for the account configuration.
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - distributionName
+      title: SabioPlatformOneTargetPayload
+    AudienceSegment:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the segment.
+        cluster_id:
+          type: integer
+          title: Cluster Id
+          description: The cluster ID of the segment.
+        overview:
+          type: object
+          title: Overview
+          description: The overview statistics of the segment.
+          default: {}
+        description:
+          type: string
+          title: Description
+          description: The description of the segment.
+          default: ''
+        topFactors:
+          items:
+            $ref: '#/components/schemas/TopFactor'
+          type: array
+          title: Topfactors
+          description: The top factors of the segment.
+          default: []
+        bannerImagePath:
+          type: string
+          title: Bannerimagepath
+          description: The banner image path of the segment.
+          default: ''
+        aiSummary:
+          items:
+            $ref: '#/components/schemas/AISummary'
+          type: array
+          title: Aisummary
+          description: The AI summary of the segment.
+          default: []
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      - cluster_id
+      title: AudienceSegment
     AudienceDistributionTargetType:
       type: string
       enum:
@@ -2999,12 +2952,18 @@ components:
       - trade-desk-direct
       - meta-direct
       title: AudienceDistributionTargetType
-    StatsLALPayload:
+    BuildLALPayload:
       properties:
         lal_id:
           type: string
           title: Lal Id
           description: The ID of the lal model
+        new_audience_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: New Audience Name
+          description: The name of the new audience
         confidence:
           anyOf:
           - type: number
@@ -3017,12 +2976,29 @@ components:
           - type: 'null'
           title: Size
           description: The number of audience members to return
+        include_seed:
+          type: boolean
+          title: Include Seed
+          description: Whether to include the seed audience in the lookalike audience
+          default: false
       additionalProperties: true
       type: object
       required:
       - lal_id
-      title: StatsLALPayload
-    SpectrumTotalPlatformOneTargetPayload:
+      title: BuildLALPayload
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
+    PinterestPlatformOneTargetPayload:
       properties:
         type:
           $ref: '#/components/schemas/AudienceDistributionTargetType'
@@ -3034,120 +3010,144 @@ components:
           type: string
           title: Teamid
           description: ID of Team
-        customerName:
+        advertiserId:
           type: string
-          title: Customername
-          description: Customer Name
-        segmentPrioritization:
+          title: Advertiserid
+          description: Pinterest Account ID which is 10 to 18 digits
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      - platformOneConfigId
+      - teamId
+      - advertiserId
+      title: PinterestPlatformOneTargetPayload
+    AudienceLAL:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of this object.
+        _markedForDeletion:
           type: boolean
-          title: Segmentprioritization
-          description: Segment Prioritization
-        subscriberSegmentId:
-          $ref: '#/components/schemas/SpectrumTotalSubscriberSegment'
-          description: Subscriber Segment ID
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - customerName
-      - segmentPrioritization
-      - subscriberSegmentId
-      title: SpectrumTotalPlatformOneTargetPayload
-    MagnitePlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
+          title: ' Markedfordeletion'
+          description: marked if record has been soft-deleted.
+          default: false
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - additionalProperties:
+              type: integer
+            type: object
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - additionalProperties:
+              type: integer
+            type: object
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        lalId:
           type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
+          title: Lalid
+          description: The ID of the lookalike audience.
+        audienceId:
           type: string
-          title: Teamid
-          description: ID of Team
-        magniteSeatId:
+          title: Audienceid
+          description: The ID of the audience.
+        options:
+          type: object
+          title: Options
+          description: The options for the lookalike audience.
+        status:
           type: string
-          title: Magniteseatid
-          description: Magnite Seat Id, Not the MetaData Seat Id. Consists of digits.
-        magnitePartnerId:
-          type: string
-          title: Magnitepartnerid
-          description: Magnite provided DMP Partner ID representing the owner of the segment. Consists of digits.
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      - platformOneConfigId
-      - teamId
-      - magniteSeatId
-      - magnitePartnerId
-      title: MagnitePlatformOneTargetPayload
-    InsightContext:
-      type: string
-      enum:
-      - AGE
-      - GENDER
-      - ETHNICITY_PREDICTION
-      - EDUCATION
-      - MARITAL_STATUS
-      - LOCATION
-      - STATE
-      - OCCUPATION
-      - HOUSEHOLD_MEDIAN_HOMEVALUE_BY_STATE
-      - PRESENCE_OF_CHILDREN_IN_HOUSEHOLD
-      - NUM_PEOPLE_IN_HOUSEHOLD
-      - HOUSEHOLD_OWNS_HOME
-      - AGE_OF_CHILDREN_IN_HOUSEHOLD
-      - NUMBER_OF_CHILDREN_IN_HOUSEHOLD
-      - INCOME
-      - GENERAL_INTERESTS
-      - SPORTS_INTERESTS
-      - READING_INTERESTS
-      - TRAVEL_INTERESTS
-      - CAR_BRANDS
-      - CAR_TYPES
-      - CAR_MAKE_MODEL
-      - CAR_FUEL_TYPES
-      - CAR_SIZE
-      - FINANCIAL_HEALTH
-      - NET_WORTH
-      - CREDIT_CARDS
-      - INVESTMENTS
-      - MEDIA_APPS
-      - MEDIA_NETWORKS
-      - MEDIA_TOP_TITLES
-      - MEDIA_TOP_GENRES
-      - MEDIA_INPUT_DEVICES
-      - PURCHASE_CATEGORY
-      - PURCHASE_AVERAGE_SPEND
-      - ONLINE_CONTENT_CONSUMPTION
-      - POI_CATEGORIES
-      - POI_CHAINS
-      - COUNTS
-      title: InsightContext
-    PubmaticPlatformOneTargetPayload:
-      properties:
-        type:
-          $ref: '#/components/schemas/AudienceDistributionTargetType'
-        platformOneConfigId:
-          type: string
-          title: Platformoneconfigid
-          description: ID of PlatformOne Config
-        teamId:
-          type: string
-          title: Teamid
-          description: ID of Team
-        pubmaticDataProviderId:
+          title: Status
+          description: The status of the lookalike audience.
+        inference_set_size:
           type: integer
-          title: Pubmaticdataproviderid
-          description: Pubmatic Data Provider ID, contains numeric characters only.
+          title: Inference Set Size
+          description: The size of the inference set.
+          default: -1
+        ignore_columns:
+          items:
+            type: string
+          type: array
+          title: Ignore Columns
+          description: The passthrough columns of the lookalike model.
+          default: []
+        probabilities:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: 'null'
+          title: Probabilities
+          description: The sorted probabilities of the lookalike audience.
+        defaultStatsConfidence:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Defaultstatsconfidence
+          description: The default stats confidence of the lookalike audience.
+        defaultStats:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Defaultstats
+          description: The default stats of the lookalike audience.
+        featureImportance:
+          anyOf:
+          - items:
+              type: object
+            type: array
+          - type: 'null'
+          title: Featureimportance
+          description: The feature importance of the lookalike audience.
+        top_factors:
+          items:
+            $ref: '#/components/schemas/TopFactor'
+          type: array
+          title: Top Factors
+          description: The top factors of the lookalike audience.
+          default: []
+        executionDuration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Executionduration
+          description: The execution duration of the lookalike audience.
       additionalProperties: true
       type: object
       required:
+      - lalId
+      - audienceId
+      - options
+      - status
+      title: AudienceLAL
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
       - type
-      - platformOneConfigId
-      - teamId
-      - pubmaticDataProviderId
-      title: PubmaticPlatformOneTargetPayload
+      title: ValidationError

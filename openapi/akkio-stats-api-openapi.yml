@@ -85,6 +85,33 @@ paths:
       - Stats
 components:
   schemas:
+    InsightsPayload:
+      properties:
+        audience_id:
+          type: string
+          title: Audience Id
+          description: Audience ID to generate insights for
+        insight_context:
+          $ref: '#/components/schemas/InsightContext'
+          description: Insight context to generate
+        filters:
+          additionalProperties:
+            type: string
+          type: object
+          title: Filters
+          description: Filters to generate insights for
+        timeframe:
+          anyOf:
+          - $ref: '#/components/schemas/src__stats__insights__model__Timeframe'
+          - type: 'null'
+          description: Timeframe to generate insights for
+      additionalProperties: true
+      type: object
+      required:
+      - audience_id
+      - insight_context
+      - filters
+      title: InsightsPayload
     HTTPValidationError:
       properties:
         detail:
@@ -94,6 +121,22 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    src__stats__insights__model__Timeframe:
+      properties:
+        timeframe_start:
+          type: string
+          format: date-time
+          title: Timeframe Start
+        timeframe_end:
+          type: string
+          format: date-time
+          title: Timeframe End
+      additionalProperties: true
+      type: object
+      required:
+      - timeframe_start
+      - timeframe_end
+      title: Timeframe
     TimeframeInsightsPayload:
       properties:
         audience_id:
@@ -113,49 +156,27 @@ components:
       - timeframe
       - insight_group
       title: TimeframeInsightsPayload
-    InsightContext:
-      type: string
-      enum:
-      - AGE
-      - GENDER
-      - ETHNICITY_PREDICTION
-      - EDUCATION
-      - MARITAL_STATUS
-      - LOCATION
-      - STATE
-      - OCCUPATION
-      - HOUSEHOLD_MEDIAN_HOMEVALUE_BY_STATE
-      - PRESENCE_OF_CHILDREN_IN_HOUSEHOLD
-      - NUM_PEOPLE_IN_HOUSEHOLD
-      - HOUSEHOLD_OWNS_HOME
-      - AGE_OF_CHILDREN_IN_HOUSEHOLD
-      - NUMBER_OF_CHILDREN_IN_HOUSEHOLD
-      - INCOME
-      - GENERAL_INTERESTS
-      - SPORTS_INTERESTS
-      - READING_INTERESTS
-      - TRAVEL_INTERESTS
-      - CAR_BRANDS
-      - CAR_TYPES
-      - CAR_MAKE_MODEL
-      - CAR_FUEL_TYPES
-      - CAR_SIZE
-      - FINANCIAL_HEALTH
-      - NET_WORTH
-      - CREDIT_CARDS
-      - INVESTMENTS
-      - MEDIA_APPS
-      - MEDIA_NETWORKS
-      - MEDIA_TOP_TITLES
-      - MEDIA_TOP_GENRES
-      - MEDIA_INPUT_DEVICES
-      - PURCHASE_CATEGORY
-      - PURCHASE_AVERAGE_SPEND
-      - ONLINE_CONTENT_CONSUMPTION
-      - POI_CATEGORIES
-      - POI_CHAINS
-      - COUNTS
-      title: InsightContext
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     InsightGroup:
       type: array
       enum:
@@ -239,67 +260,46 @@ components:
         - AGE_OF_CHILDREN_IN_HOUSEHOLD
         - HOUSEHOLD_MEDIAN_HOMEVALUE_BY_STATE
       title: InsightGroup
-    InsightsPayload:
-      properties:
-        audience_id:
-          type: string
-          title: Audience Id
-          description: Audience ID to generate insights for
-        insight_context:
-          $ref: '#/components/schemas/InsightContext'
-          description: Insight context to generate
-        filters:
-          additionalProperties:
-            type: string
-          type: object
-          title: Filters
-          description: Filters to generate insights for
-        timeframe:
-          anyOf:
-          - $ref: '#/components/schemas/src__stats__insights__model__Timeframe'
-          - type: 'null'
-          description: Timeframe to generate insights for
-      additionalProperties: true
-      type: object
-      required:
-      - audience_id
-      - insight_context
-      - filters
-      title: InsightsPayload
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    src__stats__insights__model__Timeframe:
-      properties:
-        timeframe_start:
-          type: string
-          format: date-time
-          title: Timeframe Start
-        timeframe_end:
-          type: string
-          format: date-time
-          title: Timeframe End
-      additionalProperties: true
-      type: object
-      required:
-      - timeframe_start
-      - timeframe_end
-      title: Timeframe
+    InsightContext:
+      type: string
+      enum:
+      - AGE
+      - GENDER
+      - ETHNICITY_PREDICTION
+      - EDUCATION
+      - MARITAL_STATUS
+      - LOCATION
+      - STATE
+      - OCCUPATION
+      - HOUSEHOLD_MEDIAN_HOMEVALUE_BY_STATE
+      - PRESENCE_OF_CHILDREN_IN_HOUSEHOLD
+      - NUM_PEOPLE_IN_HOUSEHOLD
+      - HOUSEHOLD_OWNS_HOME
+      - AGE_OF_CHILDREN_IN_HOUSEHOLD
+      - NUMBER_OF_CHILDREN_IN_HOUSEHOLD
+      - INCOME
+      - GENERAL_INTERESTS
+      - SPORTS_INTERESTS
+      - READING_INTERESTS
+      - TRAVEL_INTERESTS
+      - CAR_BRANDS
+      - CAR_TYPES
+      - CAR_MAKE_MODEL
+      - CAR_FUEL_TYPES
+      - CAR_SIZE
+      - FINANCIAL_HEALTH
+      - NET_WORTH
+      - CREDIT_CARDS
+      - INVESTMENTS
+      - MEDIA_APPS
+      - MEDIA_NETWORKS
+      - MEDIA_TOP_TITLES
+      - MEDIA_TOP_GENRES
+      - MEDIA_INPUT_DEVICES
+      - PURCHASE_CATEGORY
+      - PURCHASE_AVERAGE_SPEND
+      - ONLINE_CONTENT_CONSUMPTION
+      - POI_CATEGORIES
+      - POI_CHAINS
+      - COUNTS
+      title: InsightContext

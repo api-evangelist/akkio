@@ -73,22 +73,24 @@ paths:
               schema: {}
 components:
   schemas:
-    HTTPValidationError:
+    KnowledgeChatExploreSuggestionsResponsePayload:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        suggestions:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Suggestions
+          description: List of suggestions
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+      additionalProperties: true
       type: object
-      title: HTTPValidationError
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
+      required:
+      - status
+      title: KnowledgeChatExploreSuggestionsResponsePayload
     KnowledgeChatExploreSuggestionsRequestPayload:
       properties:
         knowledgeDocumentIds:
@@ -107,6 +109,15 @@ components:
       required:
       - knowledgeDocumentIds
       title: KnowledgeChatExploreSuggestionsRequestPayload
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -128,21 +139,10 @@ components:
       - msg
       - type
       title: ValidationError
-    KnowledgeChatExploreSuggestionsResponsePayload:
-      properties:
-        suggestions:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Suggestions
-          description: List of suggestions
-        status:
-          $ref: '#/components/schemas/TaskStatus'
-          description: The status of the task.
-      additionalProperties: true
-      type: object
-      required:
-      - status
-      title: KnowledgeChatExploreSuggestionsResponsePayload
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus

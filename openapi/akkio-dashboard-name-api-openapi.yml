@@ -32,28 +32,6 @@ paths:
       - Dashboard Name
 components:
   schemas:
-    DashboardNameResponsePayload:
-      properties:
-        name:
-          type: string
-          title: Name
-      additionalProperties: true
-      type: object
-      required:
-      - name
-      title: DashboardNameResponsePayload
-    DashboardNameRequestPayload:
-      properties:
-        chart_names:
-          items:
-            type: string
-          type: array
-          title: Chart Names
-      additionalProperties: true
-      type: object
-      required:
-      - chart_names
-      title: DashboardNameRequestPayload
     ValidationError:
       properties:
         loc:
@@ -84,3 +62,25 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    DashboardNameResponsePayload:
+      properties:
+        name:
+          type: string
+          title: Name
+      additionalProperties: true
+      type: object
+      required:
+      - name
+      title: DashboardNameResponsePayload
+    DashboardNameRequestPayload:
+      properties:
+        chart_names:
+          items:
+            type: string
+          type: array
+          title: Chart Names
+      additionalProperties: true
+      type: object
+      required:
+      - chart_names
+      title: DashboardNameRequestPayload

@@ -116,22 +116,6 @@ paths:
       - Location Intelligence
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
     LocationIntelligenceSearchPlacesPayload:
       properties:
         search_string:
@@ -218,42 +202,6 @@ components:
           title: Response
       type: object
       title: ConcreteAsyncJobRecord
-    CategoryWithPlaces:
-      properties:
-        category:
-          type: string
-          title: Category
-          description: The category name
-        places:
-          items:
-            type: string
-          type: array
-          title: Places
-          description: The places in the category
-      additionalProperties: true
-      type: object
-      required:
-      - category
-      - places
-      title: CategoryWithPlaces
-    src__ad_analytics__location_intelligence__model__Timeframe:
-      properties:
-        start_date:
-          type: string
-          format: date-time
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Date
-      additionalProperties: true
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: Timeframe
     LocationIntelligenceGeneratePayload:
       properties:
         location_natural_language:
@@ -286,6 +234,33 @@ components:
       - timeframe
       - audience_id
       title: LocationIntelligenceGeneratePayload
+    CategoryWithPlaces:
+      properties:
+        category:
+          type: string
+          title: Category
+          description: The category name
+        places:
+          items:
+            type: string
+          type: array
+          title: Places
+          description: The places in the category
+      additionalProperties: true
+      type: object
+      required:
+      - category
+      - places
+      title: CategoryWithPlaces
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -307,6 +282,31 @@ components:
       - msg
       - type
       title: ValidationError
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
+    src__ad_analytics__location_intelligence__model__Timeframe:
+      properties:
+        start_date:
+          type: string
+          format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+      additionalProperties: true
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: Timeframe
     LocationIntelligenceCategoriesPlacesPayload:
       properties:
         categories:

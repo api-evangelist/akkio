@@ -244,44 +244,16 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    MeasurementDashboardSummaryResult:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    BuildChartPayload:
-      properties:
-        filters:
-          $ref: '#/components/schemas/MeasurementFilters'
-        chart_type:
-          $ref: '#/components/schemas/MeasurementChartEnum'
+        summary:
+          type: string
+          title: Summary
       additionalProperties: true
       type: object
       required:
-      - filters
-      - chart_type
-      title: BuildChartPayload
-    MeasurementChartSummaryPayload:
-      properties:
-        filters:
-          $ref: '#/components/schemas/MeasurementFilters'
-        chart_metadata_id:
-          type: integer
-          title: Chart Metadata Id
-        chart_data_id:
-          type: integer
-          title: Chart Data Id
-      additionalProperties: true
-      type: object
-      required:
-      - filters
-      - chart_metadata_id
-      - chart_data_id
-      title: MeasurementChartSummaryPayload
+      - summary
+      title: MeasurementDashboardSummaryResult
     Render:
       properties:
         type:
@@ -340,6 +312,86 @@ components:
       required:
       - type
       title: Render
+    MeasurementChartEnum:
+      type: string
+      enum:
+      - creative_performance
+      - pacing_campaign
+      - pacing_channel
+      - pacing_partner
+      - kpi_timeline
+      - kpi_scorecard
+      - pacing_topline
+      - campaign_drilldown
+      - impressions_vs_spend
+      - clicks_vs_spend
+      - total_contribution_to_impressions
+      - clicks_per_impression
+      - total_cost_per_thousand_impressions
+      - campaign_impressions_comparison
+      - campaign_spend_comparison
+      - channel_impression_metrics
+      - partner_performance_comparison
+      - weekly_performance_by_partner
+      - weekly_performance_rankings_by_partner
+      title: MeasurementChartEnum
+    MeasurementDashboardBannerPayload:
+      properties:
+        dashboard_id:
+          type: string
+          title: Dashboard Id
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      additionalProperties: true
+      type: object
+      required:
+      - dashboard_id
+      title: MeasurementDashboardBannerPayload
+    ChartRefreshResult:
+      properties:
+        chart_id:
+          type: integer
+          title: Chart Id
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_id
+      - chart_metadata_id
+      - chart_data_id
+      title: ChartRefreshResult
+    BuildChartPayload:
+      properties:
+        filters:
+          $ref: '#/components/schemas/MeasurementFilters'
+        chart_type:
+          $ref: '#/components/schemas/MeasurementChartEnum'
+      additionalProperties: true
+      type: object
+      required:
+      - filters
+      - chart_type
+      title: BuildChartPayload
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
     MeasurementChartSummaryResult:
       properties:
         summary:
@@ -350,78 +402,6 @@ components:
       required:
       - summary
       title: MeasurementChartSummaryResult
-    MeasurementTimeframe:
-      properties:
-        start_date:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Start Date
-          description: start date of the query in unix epoch milliseconds
-        end_date:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: End Date
-          description: end date of the query in unix epoch milliseconds
-      additionalProperties: true
-      type: object
-      title: MeasurementTimeframe
-    MeasurementDashboardSummaryPayload:
-      properties:
-        filters:
-          $ref: '#/components/schemas/MeasurementFilters'
-        charts:
-          items:
-            $ref: '#/components/schemas/MeasurementDashboardChartPayload'
-          type: array
-          title: Charts
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      additionalProperties: true
-      type: object
-      required:
-      - filters
-      - charts
-      title: MeasurementDashboardSummaryPayload
-    MeasurementDashboardSummaryResult:
-      properties:
-        summary:
-          type: string
-          title: Summary
-      additionalProperties: true
-      type: object
-      required:
-      - summary
-      title: MeasurementDashboardSummaryResult
-    MeasurementChartResult:
-      properties:
-        chart_metadata_id:
-          type: integer
-          title: Chart Metadata Id
-        chart_data_id:
-          type: integer
-          title: Chart Data Id
-        chart_id:
-          type: integer
-          title: Chart Id
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Render'
-          - $ref: '#/components/schemas/DrilldownTableData'
-          - type: 'null'
-          title: Data
-      additionalProperties: true
-      type: object
-      required:
-      - chart_metadata_id
-      - chart_data_id
-      - chart_id
-      - data
-      title: MeasurementChartResult
     MeasurementFilters:
       properties:
         timeframe:
@@ -446,6 +426,15 @@ components:
       type: object
       title: MeasurementFilters
       description: Measurement filter with dynamic field support for hierarchy-based filtering
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     DrilldownTableData:
       properties:
         rows:
@@ -469,8 +458,10 @@ components:
       - title
       - type
       title: DrilldownTableData
-    MeasurementDashboardChartPayload:
+    MeasurementChartSummaryPayload:
       properties:
+        filters:
+          $ref: '#/components/schemas/MeasurementFilters'
         chart_metadata_id:
           type: integer
           title: Chart Metadata Id
@@ -480,50 +471,10 @@ components:
       additionalProperties: true
       type: object
       required:
+      - filters
       - chart_metadata_id
       - chart_data_id
-      title: MeasurementDashboardChartPayload
-    MeasurementChartEnum:
-      type: string
-      enum:
-      - creative_performance
-      - pacing_campaign
-      - pacing_channel
-      - pacing_partner
-      - kpi_timeline
-      - kpi_scorecard
-      - pacing_topline
-      - campaign_drilldown
-      - impressions_vs_spend
-      - clicks_vs_spend
-      - total_contribution_to_impressions
-      - clicks_per_impression
-      - total_cost_per_thousand_impressions
-      - campaign_impressions_comparison
-      - campaign_spend_comparison
-      - channel_impression_metrics
-      - partner_performance_comparison
-      - weekly_performance_by_partner
-      - weekly_performance_rankings_by_partner
-      title: MeasurementChartEnum
-    ChartRefreshResult:
-      properties:
-        chart_id:
-          type: integer
-          title: Chart Id
-        chart_metadata_id:
-          type: integer
-          title: Chart Metadata Id
-        chart_data_id:
-          type: integer
-          title: Chart Data Id
-      additionalProperties: true
-      type: object
-      required:
-      - chart_id
-      - chart_metadata_id
-      - chart_data_id
-      title: ChartRefreshResult
+      title: MeasurementChartSummaryPayload
     DrilldownTableRow:
       properties:
         id:
@@ -552,13 +503,20 @@ components:
       - columns
       - drill_options
       title: DrilldownTableRow
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
+    MeasurementDashboardChartPayload:
+      properties:
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+      additionalProperties: true
+      type: object
+      required:
+      - chart_metadata_id
+      - chart_data_id
+      title: MeasurementDashboardChartPayload
     MeasurementChartRefreshPayload:
       properties:
         chart_id:
@@ -572,26 +530,60 @@ components:
       - chart_id
       - measurementFilter
       title: MeasurementChartRefreshPayload
-    MeasurementDashboardBannerPayload:
+    DrilldownConfig:
       properties:
-        dashboard_id:
+        current_level:
           type: string
-          title: Dashboard Id
-        title:
+          title: Current Level
+          description: Current drill-down level
+          default: CAMPAIGN
+        next_level:
           anyOf:
           - type: string
           - type: 'null'
-          title: Title
-        description:
+          title: Next Level
+          description: Next drill-down level to navigate to
+        drill_context:
+          additionalProperties:
+            type: string
+          type: object
+          title: Drill Context
+          description: Context for drill-down (parent selections)
+      additionalProperties: true
+      type: object
+      title: DrilldownConfig
+      description: Configuration for drill-down navigation in charts
+    MeasurementTimeframe:
+      properties:
+        start_date:
           anyOf:
-          - type: string
+          - type: integer
           - type: 'null'
-          title: Description
+          title: Start Date
+          description: start date of the query in unix epoch milliseconds
+        end_date:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: End Date
+          description: end date of the query in unix epoch milliseconds
+      additionalProperties: true
+      type: object
+      title: MeasurementTimeframe
+    MeasurementDashboardBannerResult:
+      properties:
+        presigned_url:
+          type: string
+          title: Presigned Url
+        storage_path:
+          type: string
+          title: Storage Path
       additionalProperties: true
       type: object
       required:
-      - dashboard_id
-      title: MeasurementDashboardBannerPayload
+      - presigned_url
+      - storage_path
+      title: MeasurementDashboardBannerResult
     src__async_job__service__build_concrete_async_job_record_class___locals___ConcreteAsyncJobRecord__2:
       properties:
         id:
@@ -658,29 +650,31 @@ components:
           - type: 'null'
       type: object
       title: ConcreteAsyncJobRecord
-    DrilldownConfig:
+    MeasurementChartResult:
       properties:
-        current_level:
-          type: string
-          title: Current Level
-          description: Current drill-down level
-          default: CAMPAIGN
-        next_level:
+        chart_metadata_id:
+          type: integer
+          title: Chart Metadata Id
+        chart_data_id:
+          type: integer
+          title: Chart Data Id
+        chart_id:
+          type: integer
+          title: Chart Id
+        data:
           anyOf:
-          - type: string
+          - $ref: '#/components/schemas/Render'
+          - $ref: '#/components/schemas/DrilldownTableData'
           - type: 'null'
-          title: Next Level
-          description: Next drill-down level to navigate to
-        drill_context:
-          additionalProperties:
-            type: string
-          type: object
-          title: Drill Context
-          description: Context for drill-down (parent selections)
+          title: Data
       additionalProperties: true
       type: object
-      title: DrilldownConfig
-      description: Configuration for drill-down navigation in charts
+      required:
+      - chart_metadata_id
+      - chart_data_id
+      - chart_id
+      - data
+      title: MeasurementChartResult
     ValidationError:
       properties:
         loc:
@@ -702,17 +696,23 @@ components:
       - msg
       - type
       title: ValidationError
-    MeasurementDashboardBannerResult:
+    MeasurementDashboardSummaryPayload:
       properties:
-        presigned_url:
-          type: string
-          title: Presigned Url
-        storage_path:
-          type: string
-          title: Storage Path
+        filters:
+          $ref: '#/components/schemas/MeasurementFilters'
+        charts:
+          items:
+            $ref: '#/components/schemas/MeasurementDashboardChartPayload'
+          type: array
+          title: Charts
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
       additionalProperties: true
       type: object
       required:
-      - presigned_url
-      - storage_path
-      title: MeasurementDashboardBannerResult
+      - filters
+      - charts
+      title: MeasurementDashboardSummaryPayload

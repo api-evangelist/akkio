@@ -88,6 +88,60 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    APIStatusMetadataInProgress:
+      properties:
+        type:
+          type: string
+          enum:
+          - IN_PROGRESS
+          const: IN_PROGRESS
+          title: Type
+          default: IN_PROGRESS
+        estimate_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimate Seconds
+          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataInProgress
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    APIStatusResponse:
+      properties:
+        status:
+          $ref: '#/components/schemas/TaskStatusEnum'
+          description: The current status of the task being queried.
+        metadata:
+          oneOf:
+          - $ref: '#/components/schemas/APIStatusMetadataPending'
+          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
+          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
+          - $ref: '#/components/schemas/APIStatusMetadataFailed'
+          title: Metadata
+          description: Metadata, contextually dependent on the status of the task being queried.
+          discriminator:
+            propertyName: type
+            mapping:
+              FAILED: '#/components/schemas/APIStatusMetadataFailed'
+              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
+              PENDING: '#/components/schemas/APIStatusMetadataPending'
+              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
+      additionalProperties: true
+      type: object
+      required:
+      - status
+      - metadata
+      title: APIStatusResponse
     HTTPValidationError:
       properties:
         detail:
@@ -97,6 +151,18 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    APIStatusMetadataPending:
+      properties:
+        type:
+          type: string
+          enum:
+          - PENDING
+          const: PENDING
+          title: Type
+          default: PENDING
+      additionalProperties: true
+      type: object
+      title: APIStatusMetadataPending
     TrainRequestPayload:
       properties:
         dataset_id:
@@ -137,24 +203,6 @@ components:
       - predict_fields
       - duration
       title: TrainRequestPayload
-    APIStatusMetadataSucceeded:
-      properties:
-        type:
-          type: string
-          enum:
-          - SUCCEEDED
-          const: SUCCEEDED
-          title: Type
-          default: SUCCEEDED
-        location:
-          type: string
-          title: Location
-          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
-      additionalProperties: true
-      type: object
-      required:
-      - location
-      title: APIStatusMetadataSucceeded
     APITaskStartedResponse:
       properties:
         task_id:
@@ -166,54 +214,23 @@ components:
       required:
       - task_id
       title: APITaskStartedResponse
-    APIStatusMetadataPending:
+    APIStatusMetadataFailed:
       properties:
         type:
           type: string
           enum:
-          - PENDING
-          const: PENDING
+          - FAILED
+          const: FAILED
           title: Type
-          default: PENDING
+          default: FAILED
+        error:
+          type: string
+          title: Error
+          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
+          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
       additionalProperties: true
       type: object
-      title: APIStatusMetadataPending
-    TaskStatusEnum:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - SUCCEEDED
-      - FAILED
-      - UNKNOWN_TIMEOUT
-      title: TaskStatusEnum
-      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
-    APIStatusResponse:
-      properties:
-        status:
-          $ref: '#/components/schemas/TaskStatusEnum'
-          description: The current status of the task being queried.
-        metadata:
-          oneOf:
-          - $ref: '#/components/schemas/APIStatusMetadataPending'
-          - $ref: '#/components/schemas/APIStatusMetadataInProgress'
-          - $ref: '#/components/schemas/APIStatusMetadataSucceeded'
-          - $ref: '#/components/schemas/APIStatusMetadataFailed'
-          title: Metadata
-          description: Metadata, contextually dependent on the status of the task being queried.
-          discriminator:
-            propertyName: type
-            mapping:
-              FAILED: '#/components/schemas/APIStatusMetadataFailed'
-              IN_PROGRESS: '#/components/schemas/APIStatusMetadataInProgress'
-              PENDING: '#/components/schemas/APIStatusMetadataPending'
-              SUCCEEDED: '#/components/schemas/APIStatusMetadataSucceeded'
-      additionalProperties: true
-      type: object
-      required:
-      - status
-      - metadata
-      title: APIStatusResponse
+      title: APIStatusMetadataFailed
     ValidationError:
       properties:
         loc:
@@ -235,38 +252,21 @@ components:
       - msg
       - type
       title: ValidationError
-    APIStatusMetadataInProgress:
+    APIStatusMetadataSucceeded:
       properties:
         type:
           type: string
           enum:
-          - IN_PROGRESS
-          const: IN_PROGRESS
+          - SUCCEEDED
+          const: SUCCEEDED
           title: Type
-          default: IN_PROGRESS
-        estimate_seconds:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Estimate Seconds
-          description: If provided, an estimate of how many seconds we expect this task to take. This value should be treated as a rough estimate on a best-effort basis, not a guarantee.
+          default: SUCCEEDED
+        location:
+          type: string
+          title: Location
+          description: The path at which you can submit a GET request to retrieve the result of the successful job. May require proper authentication or authorization to access.
       additionalProperties: true
       type: object
-      title: APIStatusMetadataInProgress
-    APIStatusMetadataFailed:
-      properties:
-        type:
-          type: string
-          enum:
-          - FAILED
-          const: FAILED
-          title: Type
-          default: FAILED
-        error:
-          type: string
-          title: Error
-          description: If provided, a text representation of what went wrong with the task, including if any action on your part may rectify the issue.
-          default: Unable to complete request. Please verify your inputs, try again later, or get in touch at support@akkio.com.
-      additionalProperties: true
-      type: object
-      title: APIStatusMetadataFailed
+      required:
+      - location
+      title: APIStatusMetadataSucceeded

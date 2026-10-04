@@ -140,6 +140,12 @@ components:
       - msg
       - type
       title: ValidationError
+    _SlackErrorCodes:
+      type: string
+      enum:
+      - access_denied
+      const: access_denied
+      title: _SlackErrorCodes
     HTTPValidationError:
       properties:
         detail:
@@ -149,9 +155,3 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    _SlackErrorCodes:
-      type: string
-      enum:
-      - access_denied
-      const: access_denied
-      title: _SlackErrorCodes

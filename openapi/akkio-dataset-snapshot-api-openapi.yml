@@ -32,19 +32,6 @@ paths:
       - Dataset Snapshot
 components:
   schemas:
-    SortOrder:
-      properties:
-        sortField:
-          type: string
-          title: Sortfield
-        sortDirection:
-          type: string
-          title: Sortdirection
-      type: object
-      required:
-      - sortField
-      - sortDirection
-      title: SortOrder
     ValidationError:
       properties:
         loc:
@@ -66,15 +53,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     DatasetSnapshotRequest:
       properties:
         datasetId:
@@ -112,3 +90,25 @@ components:
       additionalProperties: true
       type: object
       title: DatasetSnapshotRequest
+    SortOrder:
+      properties:
+        sortField:
+          type: string
+          title: Sortfield
+        sortDirection:
+          type: string
+          title: Sortdirection
+      type: object
+      required:
+      - sortField
+      - sortDirection
+      title: SortOrder
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

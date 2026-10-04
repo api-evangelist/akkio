@@ -75,55 +75,6 @@ paths:
               schema: {}
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SurveyQuestion:
-      properties:
-        topic:
-          type: string
-          title: Topic
-        name:
-          type: string
-          title: Name
-        question:
-          type: string
-          title: Question
-        base:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Base
-        values:
-          additionalProperties:
-            type: string
-          type: object
-          title: Values
-        selection_type:
-          type: string
-          title: Selection Type
-        sub_questions:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/SurveyQuestion'
-            type: array
-          - type: 'null'
-          title: Sub Questions
-      additionalProperties: true
-      type: object
-      required:
-      - topic
-      - name
-      - question
-      - values
-      - selection_type
-      title: SurveyQuestion
     Segment:
       properties:
         id:
@@ -279,6 +230,45 @@ components:
       - saved_to_db
       - sources
       title: Segment
+    SegmentQuestionsPayload:
+      properties:
+        topic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic
+        question_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Question Name
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      additionalProperties: true
+      type: object
+      title: SegmentQuestionsPayload
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     SurveyQuestions:
       properties:
         topic:
@@ -296,16 +286,6 @@ components:
       required:
       - topic
       title: SurveyQuestions
-    TaskStatusEnum:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - SUCCEEDED
-      - FAILED
-      - UNKNOWN_TIMEOUT
-      title: TaskStatusEnum
-      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
     ValidationError:
       properties:
         loc:
@@ -327,23 +307,43 @@ components:
       - msg
       - type
       title: ValidationError
-    SegmentQuestionsPayload:
+    SurveyQuestion:
       properties:
         topic:
-          anyOf:
-          - type: string
-          - type: 'null'
+          type: string
           title: Topic
-        question_name:
+        name:
+          type: string
+          title: Name
+        question:
+          type: string
+          title: Question
+        base:
           anyOf:
           - type: string
           - type: 'null'
-          title: Question Name
-        search:
+          title: Base
+        values:
+          additionalProperties:
+            type: string
+          type: object
+          title: Values
+        selection_type:
+          type: string
+          title: Selection Type
+        sub_questions:
           anyOf:
-          - type: string
+          - items:
+              $ref: '#/components/schemas/SurveyQuestion'
+            type: array
           - type: 'null'
-          title: Search
+          title: Sub Questions
       additionalProperties: true
       type: object
-      title: SegmentQuestionsPayload
+      required:
+      - topic
+      - name
+      - question
+      - values
+      - selection_type
+      title: SurveyQuestion

@@ -121,15 +121,24 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    SyntheticsInstanceDataSourceSuppInfoStatusResponse:
       properties:
-        detail:
+        updated_within_range:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoTimeResponse'
           type: array
-          title: Detail
+          title: Updated Within Range
+        not_updated_within_range:
+          items:
+            $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoTimeResponse'
+          type: array
+          title: Not Updated Within Range
+      additionalProperties: true
       type: object
-      title: HTTPValidationError
+      required:
+      - updated_within_range
+      - not_updated_within_range
+      title: SyntheticsInstanceDataSourceSuppInfoStatusResponse
     SyntheticsInstanceStaleDatasourceTablesResponse:
       properties:
         datasource_id:
@@ -154,6 +163,50 @@ components:
       - latest_partition_date
       - max_drift
       title: SyntheticsInstanceStaleDatasourceTablesResponse
+    SyntheticsInstanceDataSourceSuppInfoTimeResponse:
+      properties:
+        datasource_id:
+          type: string
+          title: Datasource Id
+        name:
+          type: string
+          title: Name
+        last_updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Updated At
+      additionalProperties: true
+      type: object
+      required:
+      - datasource_id
+      - name
+      - last_updated_at
+      title: SyntheticsInstanceDataSourceSuppInfoTimeResponse
+    SyntheticsDatasourcesSummaryResponse:
+      properties:
+        org_id:
+          type: string
+          title: Org Id
+        total_datasources:
+          type: integer
+          title: Total Datasources
+      additionalProperties: true
+      type: object
+      required:
+      - org_id
+      - total_datasources
+      title: SyntheticsDatasourcesSummaryResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -206,56 +259,3 @@ components:
       required:
       - total_datasources
       title: SyntheticsInstanceDatasourcesResponse
-    SyntheticsDatasourcesSummaryResponse:
-      properties:
-        org_id:
-          type: string
-          title: Org Id
-        total_datasources:
-          type: integer
-          title: Total Datasources
-      additionalProperties: true
-      type: object
-      required:
-      - org_id
-      - total_datasources
-      title: SyntheticsDatasourcesSummaryResponse
-    SyntheticsInstanceDataSourceSuppInfoTimeResponse:
-      properties:
-        datasource_id:
-          type: string
-          title: Datasource Id
-        name:
-          type: string
-          title: Name
-        last_updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Updated At
-      additionalProperties: true
-      type: object
-      required:
-      - datasource_id
-      - name
-      - last_updated_at
-      title: SyntheticsInstanceDataSourceSuppInfoTimeResponse
-    SyntheticsInstanceDataSourceSuppInfoStatusResponse:
-      properties:
-        updated_within_range:
-          items:
-            $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoTimeResponse'
-          type: array
-          title: Updated Within Range
-        not_updated_within_range:
-          items:
-            $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoTimeResponse'
-          type: array
-          title: Not Updated Within Range
-      additionalProperties: true
-      type: object
-      required:
-      - updated_within_range
-      - not_updated_within_range
-      title: SyntheticsInstanceDataSourceSuppInfoStatusResponse

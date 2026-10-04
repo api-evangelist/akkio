@@ -75,70 +75,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
-    AsyncJobStreamRecord:
-      properties:
-        id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Id
-          description: ID of this object.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-          description: datetime object representing when this object was created.
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-          description: datetime object representing when this object was updated.
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-          description: datetime object representing when this object was deleted.
-        async_jobs_id:
-          type: integer
-          title: Async Jobs Id
-          description: Async Job ID
-        message:
-          type: string
-          title: Message
-          description: stream message
-        payload:
-          anyOf:
-          - type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Payload
-          description: stream payload
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-          description: error message
-      type: object
-      required:
-      - async_jobs_id
-      - message
-      title: AsyncJobStreamRecord
-      description: Do NOT access this table directly.
     ValidationError:
       properties:
         loc:
@@ -160,6 +96,13 @@ components:
       - msg
       - type
       title: ValidationError
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus
     AsyncJobRecord:
       properties:
         id:
@@ -225,4 +168,61 @@ components:
           description: async response
       type: object
       title: AsyncJobRecord
+      description: Do NOT access this table directly.
+    AsyncJobStreamRecord:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+          description: ID of this object.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+          description: datetime object representing when this object was created.
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: datetime object representing when this object was updated.
+        deleted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Deleted At
+          description: datetime object representing when this object was deleted.
+        async_jobs_id:
+          type: integer
+          title: Async Jobs Id
+          description: Async Job ID
+        message:
+          type: string
+          title: Message
+          description: stream message
+        payload:
+          anyOf:
+          - type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Payload
+          description: stream payload
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: error message
+      type: object
+      required:
+      - async_jobs_id
+      - message
+      title: AsyncJobStreamRecord
       description: Do NOT access this table directly.

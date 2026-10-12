@@ -1,0 +1,134 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/akkio/integrations
+checked:
+- https://composio.dev/toolkits/akkio
+- https://monid.ai/tools/akkio
+- https://n8n.io/integrations/akkio/
+- https://zapier.com/apps/akkio/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: akkio
+  url: https://zapier.com/apps/akkio/integrations
+  external_url: https://akkio.com/
+  partner_tier: BRONZE
+  triggers: []
+  actions:
+  - key: make_prediction
+    label: Make Prediction
+  searches: []
+edges:
+- partner_name: Google Calendar
+  partner: google-calendar
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/akkio/integrations/google-calendar
+  direction: third-party
+  category: Calendar
+  partner_url: https://calendar.google.com/
+- partner_name: ChatGPT (OpenAI)
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/akkio/integrations/chatgpt
+  direction: third-party
+  category: AI Assistants
+  partner_url: https://chat.openai.com/chat
+- partner_name: Facebook Messenger
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/akkio/integrations/facebook-messenger
+  direction: third-party
+  category: Facebook
+  partner_url: https://www.messenger.com/
+- partner_name: PostgreSQL
+  partner: postgresql
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/akkio/integrations/postgresql
+  direction: third-party
+  category: Databases
+  partner_url: http://www.postgresql.org/
+- partner_name: Magento
+  partner: magento
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/akkio/integrations/magento
+  direction: third-party
+  category: eCommerce
+  partner_url: https://magento.com/
+templates:
+- title: Get Slack notifications for new negative items identified by Akkio in RSS feeds
+  url: https://zapier.com/apps/rss/integrations/slack/568261/get-slack-notifications-for-new-negative-items-identified-by-akkio-in-rss-feeds
+  apps:
+  - rss
+  - akkio
+  - filter
+  - slack
+- title: Post Slack notifications for new negative posts identified by Akkio on Facebook
+  url: https://zapier.com/apps/facebook-pages/integrations/slack/569177/post-slack-notifications-for-new-negative-posts-identified-by-akkio-on-facebook
+  apps:
+  - facebook-pages
+  - akkio
+  - filter
+  - slack
+- title: Score new or updated HubSpot contacts with Akkio
+  url: https://zapier.com/apps/hubspot/integrations/hubspot/569184/score-new-or-updated-hubspot-contacts-with-akkio
+  apps:
+  - hubspot
+  - akkio
+- title: Send emails via Gmail for new likely no-show appointments in Google Calendar identified by Akkio
+  url: https://zapier.com/apps/gmail/integrations/google-calendar/569206/send-emails-via-gmail-for-new-likely-no-show-appointments-in-google-calendar-identified-by-akkio
+  apps:
+  - google-calendar
+  - akkio
+  - filter
+  - gmail
+- title: Tag new Google Forms responses as positive or negative with Akkio
+  url: https://zapier.com/apps/google-forms/integrations/google-sheets/569284/tag-new-google-forms-responses-as-positive-or-negative-with-akkio
+  apps:
+  - google-forms
+  - akkio
+  - google-sheets
+- title: Update new Google Sheets rows as positive or negative with Akkio
+  url: https://zapier.com/apps/google-sheets/integrations/google-sheets/569418/update-new-google-sheets-rows-as-positive-or-negative-with-akkio
+  apps:
+  - google-sheets
+  - akkio
+- title: Send Slack messages about new "hot" contacts in HubSpot identified by Akkio
+  url: https://zapier.com/apps/hubspot/integrations/slack/569434/send-slack-messages-about-new-hot-contacts-in-hubspot-identified-by-akkio
+  apps:
+  - hubspot
+  - akkio
+  - filter
+  - slack
+- title: Create predictions in Akkio when new forms are submitted in Wix
+  url: https://zapier.com/apps/akkio/integrations/wix/1783498/create-predictions-in-akkio-when-new-forms-are-submitted-in-wix
+  apps:
+  - wix
+  - akkio
+- title: Create predictions in Akkio when new or updated rows are detected in Google Sheets
+  url: https://zapier.com/apps/akkio/integrations/google-sheets/1808701/create-predictions-in-akkio-when-new-or-updated-rows-are-detected-in-google-sheets
+  apps:
+  - google-sheets
+  - akkio
+template_total: 9

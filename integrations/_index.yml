@@ -86,7 +86,7 @@
     app_slug: akkio
     beta: false
     builder: unknown (not in the directory record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: akkio-pipedream
   label: Pipedream
@@ -112,5 +112,5 @@
     actions: true
     sources: false
     builder: Pipedream repo (component)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null

@@ -32,64 +32,6 @@ paths:
       - Chat Explore Ratings
 components:
   schemas:
-    Render:
-      properties:
-        type:
-          type: string
-          title: Type
-        chart_filter:
-          type: object
-          title: Chart Filter
-        sql_metadata:
-          type: object
-          title: Sql Metadata
-        title:
-          type: string
-          title: Title
-          default: ''
-        description:
-          type: string
-          title: Description
-          default: ''
-        data:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Data
-        download_path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Download Path
-        transformed_data:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Transformed Data
-        sources:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Sources
-        view:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: View
-        column_metadata:
-          anyOf:
-          - additionalProperties:
-              additionalProperties:
-                type: string
-              type: object
-            type: object
-          - type: 'null'
-          title: Column Metadata
-      additionalProperties: true
-      type: object
-      required:
-      - type
-      title: Render
     HTTPValidationError:
       properties:
         detail:
@@ -99,90 +41,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ChatMessage:
-      properties:
-        role:
-          type: string
-          title: Role
-        content:
-          type: string
-          title: Content
-        timestamp:
-          type: integer
-          title: Timestamp
-        render:
-          anyOf:
-          - $ref: '#/components/schemas/Render'
-          - items:
-              $ref: '#/components/schemas/Render'
-            type: array
-          - type: 'null'
-          title: Render
-        render_storage_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Render Storage Key
-        userPython:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Userpython
-        extra:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Extra
-        chart:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Chart
-        sources:
-          type: object
-          title: Sources
-        data_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data Url
-        data_url_description:
-          type: string
-          title: Data Url Description
-          default: ''
-        diagnostic:
-          type: object
-          title: Diagnostic
-        message_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message Id
-        chart_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Chart Id
-        chart_metadata_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Chart Metadata Id
-        chart_data_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Chart Data Id
-        reduce_render_size:
-          type: boolean
-          title: Reduce Render Size
-          default: false
-      additionalProperties: true
-      type: object
-      required:
-      - role
-      - content
-      title: ChatMessage
     ValidationError:
       properties:
         loc:
@@ -274,3 +132,145 @@ components:
       - message_index
       - rating
       title: Rating
+    ChatMessage:
+      properties:
+        role:
+          type: string
+          title: Role
+        content:
+          type: string
+          title: Content
+        timestamp:
+          type: integer
+          title: Timestamp
+        render:
+          anyOf:
+          - $ref: '#/components/schemas/Render'
+          - items:
+              $ref: '#/components/schemas/Render'
+            type: array
+          - type: 'null'
+          title: Render
+        render_storage_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Render Storage Key
+        userPython:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Userpython
+        extra:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Extra
+        chart:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Chart
+        sources:
+          type: object
+          title: Sources
+        data_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Url
+        data_url_description:
+          type: string
+          title: Data Url Description
+          default: ''
+        diagnostic:
+          type: object
+          title: Diagnostic
+        message_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message Id
+        chart_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chart Id
+        chart_metadata_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chart Metadata Id
+        chart_data_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chart Data Id
+        reduce_render_size:
+          type: boolean
+          title: Reduce Render Size
+          default: false
+      additionalProperties: true
+      type: object
+      required:
+      - role
+      - content
+      title: ChatMessage
+    Render:
+      properties:
+        type:
+          type: string
+          title: Type
+        chart_filter:
+          type: object
+          title: Chart Filter
+        sql_metadata:
+          type: object
+          title: Sql Metadata
+        title:
+          type: string
+          title: Title
+          default: ''
+        description:
+          type: string
+          title: Description
+          default: ''
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        download_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Download Path
+        transformed_data:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Transformed Data
+        sources:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Sources
+        view:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: View
+        column_metadata:
+          anyOf:
+          - additionalProperties:
+              additionalProperties:
+                type: string
+              type: object
+            type: object
+          - type: 'null'
+          title: Column Metadata
+      additionalProperties: true
+      type: object
+      required:
+      - type
+      title: Render

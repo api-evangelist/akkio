@@ -177,6 +177,29 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PayloadResponseGetDatasetMapping:
+      properties:
+        exists:
+          type: boolean
+          title: Exists
+        mapping:
+          anyOf:
+          - $ref: '#/components/schemas/SlackChannelMapping'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      required:
+      - exists
+      title: PayloadResponseGetDatasetMapping
     ValidationError:
       properties:
         loc:
@@ -216,35 +239,12 @@ components:
       - dataset_id
       - owner_id
       title: _CreateChannelPayload
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     _SlackErrorCodes:
       type: string
       enum:
       - access_denied
       const: access_denied
       title: _SlackErrorCodes
-    PayloadResponseGetDatasetMapping:
-      properties:
-        exists:
-          type: boolean
-          title: Exists
-        mapping:
-          anyOf:
-          - $ref: '#/components/schemas/SlackChannelMapping'
-          - type: 'null'
-      additionalProperties: true
-      type: object
-      required:
-      - exists
-      title: PayloadResponseGetDatasetMapping
     SlackChannelMapping:
       properties:
         id:

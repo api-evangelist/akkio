@@ -96,27 +96,6 @@ paths:
                 type: object
 components:
   schemas:
-    PredictionRequest:
-      type: object
-      required:
-      - api_key
-      - id
-      - data
-      properties:
-        api_key:
-          type: string
-        id:
-          type: string
-          description: Model id to predict with.
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        explain:
-          type: boolean
-          default: false
-          description: Return per-feature attribution for each prediction.
     CreateModelRequest:
       type: object
       required:
@@ -144,9 +123,6 @@ components:
           type: integer
           default: 10
           description: Training budget in minutes.
-    PredictionResult:
-      type: object
-      additionalProperties: true
     Model:
       type: object
       properties:
@@ -154,6 +130,30 @@ components:
           type: string
         dataset_id:
           type: string
+    PredictionResult:
+      type: object
+      additionalProperties: true
+    PredictionRequest:
+      type: object
+      required:
+      - api_key
+      - id
+      - data
+      properties:
+        api_key:
+          type: string
+        id:
+          type: string
+          description: Model id to predict with.
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        explain:
+          type: boolean
+          default: false
+          description: Return per-feature attribution for each prediction.
   securitySchemes:
     apiKeyQuery:
       type: apiKey

@@ -354,6 +354,165 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    AllocationUnits:
+      type: string
+      enum:
+      - GRP
+      - COST
+      - IMPRESSIONS
+      title: AllocationUnits
+    CPMCurve:
+      properties:
+        a:
+          type: number
+          exclusiveMinimum: 0.0
+          title: A
+          description: The baseline cost level.
+        b:
+          type: number
+          minimum: 0.0
+          title: B
+          description: The slope of the cost curve.
+        c:
+          type: number
+          minimum: 0.0
+          title: C
+          description: The knee point of the cost curve.
+        d:
+          type: number
+          minimum: 0.0
+          title: D
+          description: The curvature of the cost curve.
+      additionalProperties: true
+      type: object
+      required:
+      - a
+      - b
+      - c
+      - d
+      title: CPMCurve
+      description: 'An Inverse exponential decay Reach Curve defined by a, b, and c parameters as follows:
+
+        f(x) = a + b * (x - c) ^ d'
+    ForecastLineChartPayload:
+      properties:
+        chatId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatid
+        chart:
+          anyOf:
+          - $ref: '#/components/schemas/Chart'
+          - type: 'null'
+        scenario:
+          type: string
+          title: Scenario
+        forecastDatapointsRatio:
+          type: number
+          title: Forecastdatapointsratio
+          default: 0.3
+        maxForecastDatapoints:
+          type: integer
+          title: Maxforecastdatapoints
+          default: 64
+        minForecastDatapoints:
+          type: integer
+          title: Minforecastdatapoints
+          default: 5
+        previewMode:
+          type: boolean
+          title: Previewmode
+          default: true
+        backtestDatapointsRatio:
+          type: number
+          title: Backtestdatapointsratio
+          default: 0.1
+        maxBacktestDatapoints:
+          type: integer
+          title: Maxbacktestdatapoints
+          default: 32
+        minBacktestDatapoints:
+          type: integer
+          title: Minbacktestdatapoints
+          default: 1
+      additionalProperties: true
+      type: object
+      required:
+      - scenario
+      title: ForecastLineChartPayload
+    ForecastLineChartResult:
+      properties:
+        chatId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatid
+        chart:
+          anyOf:
+          - $ref: '#/components/schemas/Chart'
+          - type: 'null'
+        chartJsonStr:
+          type: string
+          title: Chartjsonstr
+        summary:
+          $ref: '#/components/schemas/ForecastSummary'
+        cutoffs:
+          items:
+            type: string
+          type: array
+          title: Cutoffs
+        confidenceCones:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ConfidenceConeData'
+            type: array
+          - type: 'null'
+          title: Confidencecones
+      additionalProperties: true
+      type: object
+      required:
+      - chatId
+      - chart
+      - chartJsonStr
+      - summary
+      - cutoffs
+      title: ForecastLineChartResult
+    CombinationMethod:
+      type: string
+      enum:
+      - sainsbury
+      - prod
+      - sum
+      title: CombinationMethod
+    ForecastSuggestionsPayload:
+      properties:
+        chatId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatid
+        chart:
+          anyOf:
+          - $ref: '#/components/schemas/Chart'
+          - type: 'null'
+      additionalProperties: true
+      type: object
+      title: ForecastSuggestionsPayload
+    Chart:
+      properties:
+        chartMetadataId:
+          type: integer
+          title: Chartmetadataid
+        chartDataId:
+          type: integer
+          title: Chartdataid
+      additionalProperties: true
+      type: object
+      required:
+      - chartMetadataId
+      - chartDataId
+      title: Chart
     OptimizedOverBudgetPayload:
       properties:
         reach_curves:
@@ -408,170 +567,77 @@ components:
       - budget_diff_pct
       - num_iterations
       title: OptimizedOverBudgetPayload
-    ForecastLineChartPayload:
+    HTTPValidationError:
       properties:
-        chatId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chatid
-        chart:
-          anyOf:
-          - $ref: '#/components/schemas/Chart'
-          - type: 'null'
-        scenario:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    OptimizeErrorPayload:
+      properties:
+        error:
           type: string
-          title: Scenario
-        forecastDatapointsRatio:
-          type: number
-          title: Forecastdatapointsratio
-          default: 0.3
-        maxForecastDatapoints:
-          type: integer
-          title: Maxforecastdatapoints
-          default: 64
-        minForecastDatapoints:
-          type: integer
-          title: Minforecastdatapoints
-          default: 5
-        previewMode:
-          type: boolean
-          title: Previewmode
-          default: true
-        backtestDatapointsRatio:
-          type: number
-          title: Backtestdatapointsratio
-          default: 0.1
-        maxBacktestDatapoints:
-          type: integer
-          title: Maxbacktestdatapoints
-          default: 32
-        minBacktestDatapoints:
-          type: integer
-          title: Minbacktestdatapoints
-          default: 1
+          title: Error
       additionalProperties: true
       type: object
       required:
-      - scenario
-      title: ForecastLineChartPayload
-    ResponseUnits:
-      type: string
-      enum:
-      - REACH
-      - REACH_PCT
-      - IMPRESSIONS
-      - IMPRESSIONS_PCT
-      - VISITS
-      title: ResponseUnits
-    MediaPlanScope:
+      - error
+      title: OptimizeErrorPayload
+    ForecastSuggestionsResult:
       properties:
-        optimization_type:
-          $ref: '#/components/schemas/OptimizationType'
-          description: Optimization type
-        curve_units:
-          $ref: '#/components/schemas/CurveUnits'
-          description: Curve units
-        region:
-          type: string
-          title: Region
-          description: Region to target for the media plan.
-        combination_method:
-          $ref: '#/components/schemas/CombinationMethod'
-          description: Combination method
-          default: sainsbury
-        target_size:
-          anyOf:
-          - type: integer
-            minimum: 0.0
-          - type: 'null'
-          title: Target Size
-          description: Target size of the media plan.
-        target_audience:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Target Audience
-          description: Target audience.
-        total_budget:
-          anyOf:
-          - type: number
-            minimum: 0.0
-          - type: 'null'
-          title: Total Budget
-          description: Total budget for the media plan
-        response_target:
-          anyOf:
-          - type: number
-            minimum: 0.0
-          - type: 'null'
-          title: Response Target
-          description: Response target for the media plan
-        media_plan_title:
-          type: string
-          title: Media Plan Title
-          description: A one line title for the media plan scope.
-        media_plan_description:
-          type: string
-          title: Media Plan Description
-          description: A short explanation of the media plan scope.
+        suggestions:
+          items:
+            type: string
+          type: array
+          title: Suggestions
       additionalProperties: true
       type: object
       required:
-      - optimization_type
-      - curve_units
-      - region
-      - media_plan_title
-      - media_plan_description
-      title: MediaPlanScope
-      description: Media Plan Scope
-    ForecastSummary:
+      - suggestions
+      title: ForecastSuggestionsResult
+    EditReachCurvePayload:
       properties:
-        scenarioDescription:
-          type: string
-          title: Scenariodescription
-        analysis:
-          type: string
-          title: Analysis
-        backtestDescription:
-          type: string
-          title: Backtestdescription
-        backtestResults:
-          type: string
-          title: Backtestresults
-        backtestContext:
-          type: string
-          title: Backtestcontext
-      additionalProperties: true
-      type: object
-      required:
-      - scenarioDescription
-      - analysis
-      - backtestDescription
-      - backtestResults
-      - backtestContext
-      title: ForecastSummary
-    CurveUnits:
-      properties:
-        allocation:
-          $ref: '#/components/schemas/AllocationUnits'
-          description: Units of the allocation
-        response:
+        selectedCurve:
+          $ref: '#/components/schemas/ReachCurve-Input'
+          description: Selected reach curve
+        response_unit:
           $ref: '#/components/schemas/ResponseUnits'
-          description: Units of the response
+          description: Response unit
+        allocation_unit:
+          $ref: '#/components/schemas/AllocationUnits'
+          description: Allocation unit
+        newCpm:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newcpm
+          description: New CPM
+        newReach:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newreach
+          description: New Reach
+        newGrps:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Newgrps
+          description: New GRP
       additionalProperties: true
       type: object
       required:
-      - allocation
-      - response
-      title: CurveUnits
-    CombinationMethod:
-      type: string
-      enum:
-      - sainsbury
-      - prod
-      - sum
-      title: CombinationMethod
+      - selectedCurve
+      - response_unit
+      - allocation_unit
+      title: EditReachCurvePayload
     ReachCurve-Input:
       properties:
         a:
@@ -636,253 +702,41 @@ components:
         A Hill function Reach Curve defined by a, k, n, and c parameters as follows:
 
         f(x) = a * (x**n / (k**n + x**n)) + c'
-    OptimizePayload:
-      properties:
-        reach_curves:
-          additionalProperties:
-            $ref: '#/components/schemas/ReachCurve-Input'
-          type: object
-          title: Reach Curves
-          description: Reach curves
-        media_scope:
-          $ref: '#/components/schemas/MediaPlanScope'
-        bounds:
-          anyOf:
-          - additionalProperties:
-              prefixItems:
-              - anyOf:
-                - type: number
-                - type: 'null'
-              - anyOf:
-                - type: number
-                - type: 'null'
-              type: array
-              maxItems: 2
-              minItems: 2
-            type: object
-          - type: 'null'
-          title: Bounds
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-          description: User ID
-        org_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Org Id
-          description: Organization ID
-      additionalProperties: true
-      type: object
-      required:
-      - reach_curves
-      - media_scope
-      title: OptimizePayload
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ForecastLineChartResult:
-      properties:
-        chatId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chatid
-        chart:
-          anyOf:
-          - $ref: '#/components/schemas/Chart'
-          - type: 'null'
-        chartJsonStr:
-          type: string
-          title: Chartjsonstr
-        summary:
-          $ref: '#/components/schemas/ForecastSummary'
-        cutoffs:
-          items:
-            type: string
-          type: array
-          title: Cutoffs
-        confidenceCones:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ConfidenceConeData'
-            type: array
-          - type: 'null'
-          title: Confidencecones
-      additionalProperties: true
-      type: object
-      required:
-      - chatId
-      - chart
-      - chartJsonStr
-      - summary
-      - cutoffs
-      title: ForecastLineChartResult
-    ForecastSuggestionsPayload:
-      properties:
-        chatId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chatid
-        chart:
-          anyOf:
-          - $ref: '#/components/schemas/Chart'
-          - type: 'null'
-      additionalProperties: true
-      type: object
-      title: ForecastSuggestionsPayload
-    EditReachCurvePayload:
-      properties:
-        selectedCurve:
-          $ref: '#/components/schemas/ReachCurve-Input'
-          description: Selected reach curve
-        response_unit:
-          $ref: '#/components/schemas/ResponseUnits'
-          description: Response unit
-        allocation_unit:
-          $ref: '#/components/schemas/AllocationUnits'
-          description: Allocation unit
-        newCpm:
-          anyOf:
-          - type: number
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Newcpm
-          description: New CPM
-        newReach:
-          anyOf:
-          - type: number
-            maximum: 1.0
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Newreach
-          description: New Reach
-        newGrps:
-          anyOf:
-          - type: number
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Newgrps
-          description: New GRP
-      additionalProperties: true
-      type: object
-      required:
-      - selectedCurve
-      - response_unit
-      - allocation_unit
-      title: EditReachCurvePayload
-    OptimizationType:
+    ResponseUnits:
       type: string
       enum:
-      - response
-      - allocation
-      title: OptimizationType
-    OptimizeErrorPayload:
-      properties:
-        error:
-          type: string
-          title: Error
-      additionalProperties: true
-      type: object
-      required:
-      - error
-      title: OptimizeErrorPayload
-    ForecastSuggestionsResult:
-      properties:
-        suggestions:
-          items:
-            type: string
-          type: array
-          title: Suggestions
-      additionalProperties: true
-      type: object
-      required:
-      - suggestions
-      title: ForecastSuggestionsResult
-    CPMCurve:
-      properties:
-        a:
-          type: number
-          exclusiveMinimum: 0.0
-          title: A
-          description: The baseline cost level.
-        b:
-          type: number
-          minimum: 0.0
-          title: B
-          description: The slope of the cost curve.
-        c:
-          type: number
-          minimum: 0.0
-          title: C
-          description: The knee point of the cost curve.
-        d:
-          type: number
-          minimum: 0.0
-          title: D
-          description: The curvature of the cost curve.
-      additionalProperties: true
-      type: object
-      required:
-      - a
-      - b
-      - c
-      - d
-      title: CPMCurve
-      description: 'An Inverse exponential decay Reach Curve defined by a, b, and c parameters as follows:
-
-        f(x) = a + b * (x - c) ^ d'
-    Chart:
-      properties:
-        chartMetadataId:
-          type: integer
-          title: Chartmetadataid
-        chartDataId:
-          type: integer
-          title: Chartdataid
-      additionalProperties: true
-      type: object
-      required:
-      - chartMetadataId
-      - chartDataId
-      title: Chart
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AllocationUnits:
-      type: string
-      enum:
-      - GRP
-      - COST
+      - REACH
+      - REACH_PCT
       - IMPRESSIONS
-      title: AllocationUnits
+      - IMPRESSIONS_PCT
+      - VISITS
+      title: ResponseUnits
+    ForecastSummary:
+      properties:
+        scenarioDescription:
+          type: string
+          title: Scenariodescription
+        analysis:
+          type: string
+          title: Analysis
+        backtestDescription:
+          type: string
+          title: Backtestdescription
+        backtestResults:
+          type: string
+          title: Backtestresults
+        backtestContext:
+          type: string
+          title: Backtestcontext
+      additionalProperties: true
+      type: object
+      required:
+      - scenarioDescription
+      - analysis
+      - backtestDescription
+      - backtestResults
+      - backtestContext
+      title: ForecastSummary
     ReachCurve-Output:
       properties:
         a:
@@ -1005,3 +859,149 @@ components:
       - upperBounds
       - lowerBounds
       title: ConfidenceConeData
+    OptimizePayload:
+      properties:
+        reach_curves:
+          additionalProperties:
+            $ref: '#/components/schemas/ReachCurve-Input'
+          type: object
+          title: Reach Curves
+          description: Reach curves
+        media_scope:
+          $ref: '#/components/schemas/MediaPlanScope'
+        bounds:
+          anyOf:
+          - additionalProperties:
+              prefixItems:
+              - anyOf:
+                - type: number
+                - type: 'null'
+              - anyOf:
+                - type: number
+                - type: 'null'
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: object
+          - type: 'null'
+          title: Bounds
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+          description: User ID
+        org_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Id
+          description: Organization ID
+      additionalProperties: true
+      type: object
+      required:
+      - reach_curves
+      - media_scope
+      title: OptimizePayload
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CurveUnits:
+      properties:
+        allocation:
+          $ref: '#/components/schemas/AllocationUnits'
+          description: Units of the allocation
+        response:
+          $ref: '#/components/schemas/ResponseUnits'
+          description: Units of the response
+      additionalProperties: true
+      type: object
+      required:
+      - allocation
+      - response
+      title: CurveUnits
+    MediaPlanScope:
+      properties:
+        optimization_type:
+          $ref: '#/components/schemas/OptimizationType'
+          description: Optimization type
+        curve_units:
+          $ref: '#/components/schemas/CurveUnits'
+          description: Curve units
+        region:
+          type: string
+          title: Region
+          description: Region to target for the media plan.
+        combination_method:
+          $ref: '#/components/schemas/CombinationMethod'
+          description: Combination method
+          default: sainsbury
+        target_size:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Target Size
+          description: Target size of the media plan.
+        target_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Audience
+          description: Target audience.
+        total_budget:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Total Budget
+          description: Total budget for the media plan
+        response_target:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Response Target
+          description: Response target for the media plan
+        media_plan_title:
+          type: string
+          title: Media Plan Title
+          description: A one line title for the media plan scope.
+        media_plan_description:
+          type: string
+          title: Media Plan Description
+          description: A short explanation of the media plan scope.
+      additionalProperties: true
+      type: object
+      required:
+      - optimization_type
+      - curve_units
+      - region
+      - media_plan_title
+      - media_plan_description
+      title: MediaPlanScope
+      description: Media Plan Scope
+    OptimizationType:
+      type: string
+      enum:
+      - response
+      - allocation
+      title: OptimizationType

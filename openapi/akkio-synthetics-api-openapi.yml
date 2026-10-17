@@ -121,48 +121,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SyntheticsInstanceDataSourceSuppInfoStatusResponse:
-      properties:
-        updated_within_range:
-          items:
-            $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoTimeResponse'
-          type: array
-          title: Updated Within Range
-        not_updated_within_range:
-          items:
-            $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoTimeResponse'
-          type: array
-          title: Not Updated Within Range
-      additionalProperties: true
-      type: object
-      required:
-      - updated_within_range
-      - not_updated_within_range
-      title: SyntheticsInstanceDataSourceSuppInfoStatusResponse
-    SyntheticsInstanceStaleDatasourceTablesResponse:
-      properties:
-        datasource_id:
-          type: string
-          title: Datasource Id
-        table_name:
-          type: string
-          title: Table Name
-        latest_partition_date:
-          type: string
-          format: date
-          title: Latest Partition Date
-        max_drift:
-          type: string
-          format: duration
-          title: Max Drift
-      additionalProperties: true
-      type: object
-      required:
-      - datasource_id
-      - table_name
-      - latest_partition_date
-      - max_drift
-      title: SyntheticsInstanceStaleDatasourceTablesResponse
     SyntheticsInstanceDataSourceSuppInfoTimeResponse:
       properties:
         datasource_id:
@@ -207,6 +165,68 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    SyntheticsInstanceDataSourceSuppInfoStatusResponse:
+      properties:
+        updated_within_range:
+          items:
+            $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoTimeResponse'
+          type: array
+          title: Updated Within Range
+        not_updated_within_range:
+          items:
+            $ref: '#/components/schemas/SyntheticsInstanceDataSourceSuppInfoTimeResponse'
+          type: array
+          title: Not Updated Within Range
+      additionalProperties: true
+      type: object
+      required:
+      - updated_within_range
+      - not_updated_within_range
+      title: SyntheticsInstanceDataSourceSuppInfoStatusResponse
+    SyntheticsInstanceStaleDatasourceTablesResponse:
+      properties:
+        datasource_id:
+          type: string
+          title: Datasource Id
+        table_name:
+          type: string
+          title: Table Name
+        latest_partition_date:
+          type: string
+          format: date
+          title: Latest Partition Date
+        max_drift:
+          type: string
+          format: duration
+          title: Max Drift
+      additionalProperties: true
+      type: object
+      required:
+      - datasource_id
+      - table_name
+      - latest_partition_date
+      - max_drift
+      title: SyntheticsInstanceStaleDatasourceTablesResponse
+    SyntheticsInstanceOrganizationsResponse:
+      properties:
+        total_organizations:
+          type: integer
+          title: Total Organizations
+      additionalProperties: true
+      type: object
+      required:
+      - total_organizations
+      title: SyntheticsInstanceOrganizationsResponse
+    SyntheticsInstanceDatasourcesResponse:
+      properties:
+        total_datasources:
+          type: integer
+          title: Total Datasources
+      additionalProperties: true
+      type: object
+      required:
+      - total_datasources
+      title: SyntheticsInstanceDatasourcesResponse
     ValidationError:
       properties:
         loc:
@@ -239,23 +259,3 @@ components:
       - databricks_warehouse
       - databricks_volume
       title: DataSourceType
-    SyntheticsInstanceOrganizationsResponse:
-      properties:
-        total_organizations:
-          type: integer
-          title: Total Organizations
-      additionalProperties: true
-      type: object
-      required:
-      - total_organizations
-      title: SyntheticsInstanceOrganizationsResponse
-    SyntheticsInstanceDatasourcesResponse:
-      properties:
-        total_datasources:
-          type: integer
-          title: Total Datasources
-      additionalProperties: true
-      type: object
-      required:
-      - total_datasources
-      title: SyntheticsInstanceDatasourcesResponse

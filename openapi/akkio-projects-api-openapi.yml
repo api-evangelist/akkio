@@ -117,6 +117,61 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    UpdateProjectPayload:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the flow.
+        chatInstructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatinstructions
+          description: '
+
+            How would you like Chat Explore to respond? For example:
+
+            - Respond only in spanish
+
+            - Provide short and concise answers only
+
+            - Make sure to always include a chart'
+        chatContext:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatcontext
+          description: '
+
+            What would you like Chat Explore to know about this application to provide better responses? For example:
+
+            - This dataset is customer engagement data
+
+            - The units of the sales column are in millions
+
+            - The data is messy and contains typos
+
+            '
+        chatSuggestions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chatsuggestions
+          description: '
+
+            Customize the default chat suggestions by writing a list of suggestions separated by newlines. For example:
+
+            - What is the average net media cost by campaign ID?
+
+            - Make sure to always include a chart
+
+            '
+      additionalProperties: true
+      type: object
+      title: UpdateProjectPayload
     HTTPValidationError:
       properties:
         detail:
@@ -126,6 +181,27 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     GetProjectResponse:
       properties:
         id:
@@ -245,79 +321,3 @@ components:
       - _org
       - name
       title: CreateProjectPayload
-    UpdateProjectPayload:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name of the flow.
-        chatInstructions:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chatinstructions
-          description: '
-
-            How would you like Chat Explore to respond? For example:
-
-            - Respond only in spanish
-
-            - Provide short and concise answers only
-
-            - Make sure to always include a chart'
-        chatContext:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chatcontext
-          description: '
-
-            What would you like Chat Explore to know about this application to provide better responses? For example:
-
-            - This dataset is customer engagement data
-
-            - The units of the sales column are in millions
-
-            - The data is messy and contains typos
-
-            '
-        chatSuggestions:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Chatsuggestions
-          description: '
-
-            Customize the default chat suggestions by writing a list of suggestions separated by newlines. For example:
-
-            - What is the average net media cost by campaign ID?
-
-            - Make sure to always include a chart
-
-            '
-      additionalProperties: true
-      type: object
-      title: UpdateProjectPayload
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

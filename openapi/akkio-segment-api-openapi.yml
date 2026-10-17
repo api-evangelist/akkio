@@ -75,6 +75,15 @@ paths:
               schema: {}
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     Segment:
       properties:
         id:
@@ -230,62 +239,6 @@ components:
       - saved_to_db
       - sources
       title: Segment
-    SegmentQuestionsPayload:
-      properties:
-        topic:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Topic
-        question_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Question Name
-        search:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search
-      additionalProperties: true
-      type: object
-      title: SegmentQuestionsPayload
-    TaskStatusEnum:
-      type: string
-      enum:
-      - PENDING
-      - IN_PROGRESS
-      - SUCCEEDED
-      - FAILED
-      - UNKNOWN_TIMEOUT
-      title: TaskStatusEnum
-      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SurveyQuestions:
-      properties:
-        topic:
-          type: string
-          title: Topic
-        questions:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/SurveyQuestion'
-            type: array
-          - type: 'null'
-          title: Questions
-      additionalProperties: true
-      type: object
-      required:
-      - topic
-      title: SurveyQuestions
     ValidationError:
       properties:
         loc:
@@ -347,3 +300,50 @@ components:
       - values
       - selection_type
       title: SurveyQuestion
+    SurveyQuestions:
+      properties:
+        topic:
+          type: string
+          title: Topic
+        questions:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SurveyQuestion'
+            type: array
+          - type: 'null'
+          title: Questions
+      additionalProperties: true
+      type: object
+      required:
+      - topic
+      title: SurveyQuestions
+    TaskStatusEnum:
+      type: string
+      enum:
+      - PENDING
+      - IN_PROGRESS
+      - SUCCEEDED
+      - FAILED
+      - UNKNOWN_TIMEOUT
+      title: TaskStatusEnum
+      description: Celery task status enum. Update apps/web-backend-api/src/types/TaskStatusEnum.ts if you update this enum.
+    SegmentQuestionsPayload:
+      properties:
+        topic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Topic
+        question_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Question Name
+        search:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      additionalProperties: true
+      type: object
+      title: SegmentQuestionsPayload

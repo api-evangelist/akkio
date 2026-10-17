@@ -303,11 +303,6 @@ components:
       - creds
       - config
       title: DataSource
-    DataSourceCreds:
-      properties: {}
-      additionalProperties: true
-      type: object
-      title: DataSourceCreds
     ValidationError:
       properties:
         loc:
@@ -329,6 +324,11 @@ components:
       - msg
       - type
       title: ValidationError
+    DataSourceCreds:
+      properties: {}
+      additionalProperties: true
+      type: object
+      title: DataSourceCreds
     DataSourceType:
       type: string
       enum:

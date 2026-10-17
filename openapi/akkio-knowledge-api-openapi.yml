@@ -73,24 +73,15 @@ paths:
               schema: {}
 components:
   schemas:
-    KnowledgeChatExploreSuggestionsResponsePayload:
+    HTTPValidationError:
       properties:
-        suggestions:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Suggestions
-          description: List of suggestions
-        status:
-          $ref: '#/components/schemas/TaskStatus'
-          description: The status of the task.
-      additionalProperties: true
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - status
-      title: KnowledgeChatExploreSuggestionsResponsePayload
+      title: HTTPValidationError
     KnowledgeChatExploreSuggestionsRequestPayload:
       properties:
         knowledgeDocumentIds:
@@ -109,15 +100,6 @@ components:
       required:
       - knowledgeDocumentIds
       title: KnowledgeChatExploreSuggestionsRequestPayload
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -146,3 +128,21 @@ components:
       - COMPLETED
       - FAILED
       title: TaskStatus
+    KnowledgeChatExploreSuggestionsResponsePayload:
+      properties:
+        suggestions:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Suggestions
+          description: List of suggestions
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          description: The status of the task.
+      additionalProperties: true
+      type: object
+      required:
+      - status
+      title: KnowledgeChatExploreSuggestionsResponsePayload

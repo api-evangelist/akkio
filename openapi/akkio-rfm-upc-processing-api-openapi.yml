@@ -211,6 +211,15 @@ components:
           title: Response
       type: object
       title: ConcreteAsyncJobRecord
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     GenerateUploadUrlResponse:
       properties:
         signed_url:
@@ -233,15 +242,6 @@ components:
       - expires_in_seconds
       title: GenerateUploadUrlResponse
       description: Response model for the generate_upload_url endpoint.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -263,13 +263,6 @@ components:
       - msg
       - type
       title: ValidationError
-    TaskStatus:
-      type: string
-      enum:
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      title: TaskStatus
     ProcessUPCFileRequest:
       properties:
         s3_key:
@@ -287,3 +280,10 @@ components:
       - file_name
       title: ProcessUPCFileRequest
       description: Request model for processing a UPC file from S3.
+    TaskStatus:
+      type: string
+      enum:
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      title: TaskStatus

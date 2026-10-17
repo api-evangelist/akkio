@@ -96,13 +96,38 @@ paths:
                 type: object
 components:
   schemas:
-    Dataset:
+    AddRowsRequest:
       type: object
+      required:
+      - api_key
+      - id
+      - rows
       properties:
-        dataset_id:
+        api_key:
           type: string
-        name:
+        id:
           type: string
+          description: Dataset id.
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    ParseDatasetRequest:
+      type: object
+      required:
+      - api_key
+      - id
+      - parse_fields
+      properties:
+        api_key:
+          type: string
+        id:
+          type: string
+        parse_fields:
+          type: boolean
+          enum:
+          - true
     SetFieldsRequest:
       type: object
       required:
@@ -128,38 +153,13 @@ components:
         name:
           type: string
           description: Name for the new dataset.
-    ParseDatasetRequest:
+    Dataset:
       type: object
-      required:
-      - api_key
-      - id
-      - parse_fields
       properties:
-        api_key:
+        dataset_id:
           type: string
-        id:
+        name:
           type: string
-        parse_fields:
-          type: boolean
-          enum:
-          - true
-    AddRowsRequest:
-      type: object
-      required:
-      - api_key
-      - id
-      - rows
-      properties:
-        api_key:
-          type: string
-        id:
-          type: string
-          description: Dataset id.
-        rows:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
   securitySchemes:
     apiKeyQuery:
       type: apiKey

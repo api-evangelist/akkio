@@ -42,43 +42,7 @@ artifacts:
   integrations/akkio-integration-edges.yml:
     method: searched
     evidence: declared in the artifact
-  kin/checks-2026-10-11T110117.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-12T062655.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-12T080032.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-12T204651.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-12T221936.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-13T214537.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-14T064754.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-14T210656.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-14T225847.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-15T211329.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-15T230249.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-16T210549.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-16T225339.yml:
+  kin/checks-2026-10-17T182844.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-17T211151.yml:
@@ -138,7 +102,25 @@ artifacts:
   kin/score-2026-10-03T024842.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-04T202412.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-04T225258.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-09T213714.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-17T145100.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-17T153854.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-17T182844.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/akkio-lifecycle.yml:
@@ -165,11 +147,11 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-admin-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-api-specification-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-async-job-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -180,8 +162,8 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-auth-integration-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-chart-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -189,35 +171,35 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-chat-explore-chart-update-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-chat-explore-ratings-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-chat-explore-suggestions-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-clone-lifecycle-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-cluster-suggestions-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-create-integration-output-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-dashboard-name-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-data-sources-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-dataset-snapshot-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-dataset-updates-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-datasets-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -228,59 +210,59 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-event-handler-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-fastapi-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-forecast-preview-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-generate-document-upload-url-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-generate-download-url-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-generate-download-url-with-dataset-id-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-generate-upload-dataset-url-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-generate-upload-url-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-generative-dashboard-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-get-cleaning-ops-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-group-forecast-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-health-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-health-check-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-hubspot-contacts-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-images-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-inference-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-inference-status-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-insight-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-integrations-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -288,20 +270,20 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-list-categorical-field-values-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-list-flow-fields-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-list-zapier-flows-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-llm-meltano-helper-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-llm-summarizer-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-location-intelligence-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -309,14 +291,14 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-merge-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-merge-status-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-metrics-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-modeling-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -324,14 +306,14 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-nonce-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-oauth-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-parse-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-platform-one-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -342,8 +324,8 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-refresh-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-refresh-live-flow-dataset-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -357,26 +339,26 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-shopify-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-slack-app-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-snapshot-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-stats-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-status-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-synthetics-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-train-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-training-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
@@ -387,14 +369,14 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/akkio-version-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-webhook-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   openapi/akkio-zapier-api-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: harvested
+    evidence: declared in the artifact
   overlays/akkio-legacy-v1-overlay.yaml:
     method: derived
     evidence: an API Evangelist overlay (title) over the provider's contract
